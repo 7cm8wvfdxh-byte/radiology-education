@@ -579,21 +579,48 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 2px;
-  padding: 4px 8px;
-  min-width: 52px;
-  flex-shrink: 0;
+  padding: 6px 0;
+  flex: 1;
   color: var(--text-muted);
   font-size: 9px;
   font-weight: 600;
   cursor: pointer;
-  transition: color 0.2s;
+  transition: all 0.2s;
   background: none;
   border: none;
   font-family: 'DM Sans', sans-serif;
+  position: relative;
 }
-
 .bottom-nav-item.active { color: var(--accent-blue); }
+.bottom-nav-item.active::after { content:''; position:absolute; top:0; left:25%; right:25%; height:2px; background:var(--accent-blue); border-radius:1px; }
 .bottom-nav-item span { font-size: 20px; }
+
+.grid-overlay { display:none; position:fixed; top:0; left:0; right:0; bottom:0; z-index:999; background:rgba(0,0,0,0.6); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); }
+.grid-overlay.show { display:flex; align-items:flex-end; }
+.grid-menu { width:100%; max-width:500px; margin:0 auto; background:var(--bg-card); border-radius:20px 20px 0 0; padding:20px 16px 30px; max-height:70vh; overflow-y:auto; animation:slideUp 0.25s ease; }
+@keyframes slideUp { from{transform:translateY(100%);opacity:0} to{transform:translateY(0);opacity:1} }
+.grid-menu-title { font-family:'Playfair Display',serif; font-size:18px; color:var(--text-primary); margin-bottom:14px; text-align:center; }
+.grid-menu-items { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+.grid-menu-btn { display:flex; flex-direction:column; align-items:center; gap:6px; padding:14px 8px; background:var(--bg-accent); border:1px solid var(--border); border-radius:14px; cursor:pointer; transition:all 0.2s; font-family:'DM Sans',sans-serif; color:var(--text-secondary); font-size:11px; font-weight:600; text-align:center; }
+.grid-menu-btn:hover,.grid-menu-btn:active { background:var(--bg-card-hover); border-color:var(--accent-blue); transform:scale(0.97); }
+.grid-menu-btn span { font-size:24px; }
+
+.light-mode { --bg-primary:#f8fafc; --bg-secondary:#f1f5f9; --bg-card:#ffffff; --bg-card-hover:#f8fafc; --bg-accent:#f1f5f9; --text-primary:#0f172a; --text-secondary:#334155; --text-muted:#64748b; --border:#e2e8f0; }
+.light-mode .bottom-nav { background:rgba(255,255,255,0.92); border-top-color:#e2e8f0; }
+.light-mode .grid-overlay { background:rgba(0,0,0,0.3); }
+.light-mode .nav-tabs { background:rgba(255,255,255,0.9); }
+.light-mode .header { background:rgba(248,250,252,0.9); }
+
+.fav-btn { background:none; border:none; cursor:pointer; font-size:16px; padding:2px 4px; transition:transform 0.2s; }
+.fav-btn:active { transform:scale(1.3); }
+@keyframes favPop { 0%{transform:scale(1)} 50%{transform:scale(1.4)} 100%{transform:scale(1)} }
+
+.dash-card { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:16px; margin-bottom:10px; }
+.dash-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:10px; }
+.dash-quick { display:flex; flex-direction:column; align-items:center; gap:4px; padding:12px 8px; background:var(--bg-accent); border:1px solid var(--border); border-radius:12px; cursor:pointer; transition:all 0.2s; }
+.dash-quick:active { transform:scale(0.96); }
+.dash-quick span { font-size:22px; }
+.dash-quick div { font-size:10px; color:var(--text-secondary); font-weight:600; }
 
 /* ===== STUDY MODE OVERLAY ===== */
 .overlay {
@@ -736,82 +763,60 @@ body {
 <!-- BOTTOM NAV -->
 <nav class="bottom-nav">
   <button class="bottom-nav-item active" data-page="home">
-    <span>📖</span>
-    Konular
-  </button>
-  <button class="bottom-nav-item" data-page="signal">
-    <span>🧲</span>
-    Sinyal
-  </button>
-  <button class="bottom-nav-item" data-page="duel">
-    <span>⚔️</span>
-    Düello
-  </button>
-  <button class="bottom-nav-item" data-page="finder">
-    <span>🔍</span>
-    Bulgu Ara
+    <span>🏠</span>
+    Ana Sayfa
   </button>
   <button class="bottom-nav-item" data-page="quiz">
     <span>🧠</span>
     Quiz
   </button>
-  <button class="bottom-nav-item" data-page="stats">
-    <span>📊</span>
-    İlerleme
+  <button class="bottom-nav-item" data-menu="tools">
+    <span>🔧</span>
+    Araçlar
   </button>
-  <button class="bottom-nav-item" data-page="anatomy">
-    <span>🧠</span>
-    Harita
+  <button class="bottom-nav-item" data-menu="atlas">
+    <span>📚</span>
+    Atlas
   </button>
-  <button class="bottom-nav-item" data-page="report">
-    <span>📝</span>
-    Rapor
-  </button>
-  <button class="bottom-nav-item" data-page="advanced">
-    <span>🔬</span>
-    İleri MR
-  </button>
-  <button class="bottom-nav-item" data-page="learn">
-    <span>🗺️</span>
-    Yol
-  </button>
-  <button class="bottom-nav-item" data-page="concepts">
-    <span>🧩</span>
-    Konsept
-  </button>
-  <button class="bottom-nav-item" data-page="variant">
-    <span>🔀</span>
-    Varyant
-  </button>
-  <button class="bottom-nav-item" data-page="calc">
-    <span>🧮</span>
-    Hesapla
-  </button>
-  <button class="bottom-nav-item" data-page="emergency">
-    <span>🚨</span>
-    Acil
-  </button>
-  <button class="bottom-nav-item" data-page="staging">
-    <span>📋</span>
-    Evreleme
-  </button>
-  <button class="bottom-nav-item" data-page="physics">
-    <span>⚛️</span>
-    MR Fizik
-  </button>
-  <button class="bottom-nav-item" data-page="artifact">
-    <span>👻</span>
-    Artefakt
-  </button>
-  <button class="bottom-nav-item" data-page="measurements">
-    <span>📏</span>
-    Ölçüm
-  </button>
-  <button class="bottom-nav-item" data-page="enhance">
-    <span>💉</span>
-    Kontrast
+  <button class="bottom-nav-item" data-page="profile">
+    <span>👤</span>
+    Profil
   </button>
 </nav>
+
+<!-- TOOLS GRID MENU -->
+<div class="grid-overlay" id="toolsMenu">
+  <div class="grid-menu">
+    <div class="grid-menu-title">🔧 Araçlar</div>
+    <div class="grid-menu-items">
+      <div class="grid-menu-btn" data-page="duel"><span>⚔️</span>Düello</div>
+      <div class="grid-menu-btn" data-page="finder"><span>🔍</span>Bulgu Ara</div>
+      <div class="grid-menu-btn" data-page="signal"><span>🧲</span>Sinyal Quiz</div>
+      <div class="grid-menu-btn" data-page="emergency"><span>🚨</span>Acil</div>
+      <div class="grid-menu-btn" data-page="staging"><span>📋</span>Evreleme</div>
+      <div class="grid-menu-btn" data-page="calc"><span>🧮</span>Hesapla</div>
+      <div class="grid-menu-btn" data-page="report"><span>📝</span>Rapor</div>
+      <div class="grid-menu-btn" data-page="concepts"><span>🧬</span>Bağlantılar</div>
+      <div class="grid-menu-btn" data-page="variant"><span>🔀</span>Varyant</div>
+      <div class="grid-menu-btn" data-page="learn"><span>🗺️</span>Öğrenme Yolu</div>
+    </div>
+  </div>
+</div>
+
+<!-- ATLAS GRID MENU -->
+<div class="grid-overlay" id="atlasMenu">
+  <div class="grid-menu">
+    <div class="grid-menu-title">📚 Atlas & Referans</div>
+    <div class="grid-menu-items">
+      <div class="grid-menu-btn" data-page="anatomy"><span>🧠</span>Anatomi</div>
+      <div class="grid-menu-btn" data-page="enhance"><span>💉</span>Kontrast</div>
+      <div class="grid-menu-btn" data-page="advanced"><span>🔬</span>İleri MR</div>
+      <div class="grid-menu-btn" data-page="physics"><span>⚛️</span>MR Fizik</div>
+      <div class="grid-menu-btn" data-page="artifact"><span>👻</span>Artefakt</div>
+      <div class="grid-menu-btn" data-page="measurements"><span>📏</span>Ölçümler</div>
+    </div>
+  </div>
+</div>
 
 <!-- QUIZ OVERLAY -->
 <div class="overlay" id="quizOverlay">
@@ -5049,6 +5054,7 @@ function render() {
   if (currentPage === "artifact") { renderArtifactPage(main); return; }
   if (currentPage === "measurements") { renderMeasurements(main); return; }
   if (currentPage === "enhance") { renderNeuroEnhancePage(main); return; }
+  if (currentPage === "profile") { renderProfilePage(main); return; }
 
   const searchEl = document.getElementById('searchInput');
   const searchTerm = searchEl ? searchEl.value.toLowerCase().trim() : '';
@@ -5079,6 +5085,34 @@ function render() {
   });
 
   let html = '';
+
+  // Dashboard section (only on home with no search)
+  if (!searchTerm && currentTab === 'all') {
+    var pct = diseases.length > 0 ? Math.round(studied.length / diseases.length * 100) : 0;
+    var dailyD = getDailyDisease();
+    var favs = getFavorites();
+    html += '<div style="padding:0 0 8px;">';
+    html += '<div class="dash-card" style="padding:12px 16px;"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;"><span style="font-size:13px; font-weight:700; color:var(--text-primary);">İlerleme</span><span style="font-size:12px; font-weight:700; color:var(--accent-cyan);">%'+pct+' · '+studied.length+'/'+diseases.length+'</span></div><div style="background:var(--bg-accent); height:8px; border-radius:4px; overflow:hidden;"><div style="background:linear-gradient(90deg,var(--accent-cyan),var(--accent-blue)); height:100%; width:'+pct+'%; border-radius:4px; transition:width 0.5s;"></div></div></div>';
+    if (dailyD) {
+      var dc = categories[dailyD.category] || {};
+      html += '<div class="dash-card" style="cursor:pointer; padding:12px 16px;" onclick="currentPage=\'home\'; window._showDiseaseId=\''+dailyD.id+'\'; render();"><div style="display:flex; justify-content:space-between; align-items:center;"><div><div style="font-size:9px; text-transform:uppercase; letter-spacing:1px; color:#f59e0b; font-weight:700; margin-bottom:4px;">🎲 Günün Hastalığı</div><div style="font-size:14px; font-weight:700; color:var(--text-primary);">'+dailyD.name+'</div><div style="font-size:11px; color:var(--text-muted); margin-top:2px;">'+(dc.icon||'')+' '+(dc.title||dailyD.category)+'</div></div><span style="font-size:28px;">'+(dc.icon||'📌')+'</span></div></div>';
+    }
+    html += '<div class="dash-grid" style="grid-template-columns:repeat(4,1fr);">';
+    html += '<div class="dash-quick" onclick="currentPage=\'quiz\'; updateBottomNav(); render(); window.scrollTo({top:0});"><span>🧠</span><div>Quiz</div></div>';
+    html += '<div class="dash-quick" onclick="currentPage=\'duel\'; updateBottomNav(); render(); window.scrollTo({top:0});"><span>⚔️</span><div>Düello</div></div>';
+    html += '<div class="dash-quick" onclick="currentPage=\'anatomy\'; updateBottomNav(); render(); window.scrollTo({top:0});"><span>🧠</span><div>Anatomi</div></div>';
+    html += '<div class="dash-quick" onclick="currentPage=\'emergency\'; updateBottomNav(); render(); window.scrollTo({top:0});"><span>🚨</span><div>Acil</div></div>';
+    html += '</div>';
+    if (favs.length > 0) {
+      html += '<div class="dash-card" style="padding:12px 16px;"><div style="font-size:9px; text-transform:uppercase; letter-spacing:1px; color:#ec4899; font-weight:700; margin-bottom:8px;">⭐ Favoriler ('+favs.length+')</div><div style="display:flex; flex-wrap:wrap; gap:4px;">';
+      favs.slice(0,8).forEach(function(fid) {
+        var fd = diseases.find(function(d){return d.id===fid;});
+        if (fd) html += '<span class="concept-disease-link" data-id="'+fd.id+'" style="padding:4px 8px; border-radius:12px; font-size:10px; cursor:pointer; background:rgba(236,72,153,0.08); border:1px solid rgba(236,72,153,0.15); color:#ec4899;">'+fd.name.replace(/ \(.*\)/,'').substring(0,22)+'</span>';
+      });
+      html += '</div></div>';
+    }
+    html += '</div>';
+  }
   for (const [cat, items] of Object.entries(grouped)) {
     const c = categories[cat] || { icon: '📌', color: '#888', title: cat, bg: 'rgba(136,136,136,0.1)' };
     html += `
@@ -5097,6 +5131,11 @@ function render() {
 
   main.innerHTML = html;
   updateStats();
+  if (window._showDiseaseId) {
+    var card = document.getElementById('card-' + window._showDiseaseId);
+    if (card) { card.classList.add('open'); card.scrollIntoView({behavior:'smooth', block:'center'}); }
+    window._showDiseaseId = null;
+  }
   } catch(e) {
     main.innerHTML = '<div style="padding:20px;color:#f43f5e;font-size:12px;"><b>Render Hatası:</b> ' + e.message + '<br><pre style="font-size:10px;margin-top:8px;color:#999;overflow:auto;">' + (e.stack||'').substring(0,300) + '</pre></div>';
   }
@@ -5649,6 +5688,7 @@ function renderDiseaseCard(d) {
     </div>
   ` : '';
   const extraHtml = badge && badge.extra ? `<div style="font-size:9px; color:var(--text-muted); margin-top:1px; opacity:0.7;">${badge.extra}</div>` : '';
+  const isFav = getFavorites().indexOf(d.id) !== -1;
   return `
     <div class="disease-card" id="card-${d.id}">
       <div class="disease-header" >
@@ -5658,6 +5698,7 @@ function renderDiseaseCard(d) {
           ${extraHtml}
         </div>
         <span class="disease-tag tag-${d.tag || 'common'}">${d.tagText || ''}</span>
+        <button class="fav-btn${isFav?' active':''}" data-fav="${d.id}" onclick="event.stopPropagation(); toggleFavorite('${d.id}');">${isFav?'⭐':'☆'}</button>
         <span class="chevron">▾</span>
       </div>
       <div class="disease-content">
@@ -8558,15 +8599,134 @@ function renderNeuroEnhancePage(main) {
   main.innerHTML = html;
 }
 
+// ===== FAVORITES SYSTEM =====
+function getFavorites() {
+  try { return JSON.parse(localStorage.getItem('neurorad_favorites') || '[]'); } catch(e) { return []; }
+}
+function toggleFavorite(id) {
+  var favs = getFavorites();
+  var idx = favs.indexOf(id);
+  if (idx === -1) favs.push(id); else favs.splice(idx, 1);
+  localStorage.setItem('neurorad_favorites', JSON.stringify(favs));
+  render();
+}
+
+// ===== DAILY DISEASE =====
+function getDailyDisease() {
+  var today = new Date().toISOString().slice(0,10);
+  var seed = 7;
+  for (var i = 0; i < today.length; i++) seed += today.charCodeAt(i);
+  return diseases[seed % diseases.length];
+}
+
+// ===== THEME TOGGLE =====
+function toggleTheme() {
+  document.documentElement.classList.toggle('light-mode');
+  var isLight = document.documentElement.classList.contains('light-mode');
+  localStorage.setItem('neurorad_theme', isLight ? 'light' : 'dark');
+}
+(function() {
+  if (localStorage.getItem('neurorad_theme') === 'light') document.documentElement.classList.add('light-mode');
+})();
+
+// ===== PROFILE PAGE =====
+function renderProfilePage(main) {
+  var total = diseases.length;
+  var studiedN = studied.length;
+  var pct = total > 0 ? Math.round(studiedN / total * 100) : 0;
+  var favs = getFavorites();
+  var isLight = document.documentElement.classList.contains('light-mode');
+  var mastered = diseases.filter(function(d){return getQuizBox(d.id)>=3;}).length;
+  var learning = diseases.filter(function(d){var b=getQuizBox(d.id); return b>0&&b<3;}).length;
+  var notStarted = diseases.filter(function(d){return getQuizBox(d.id)===0;}).length;
+
+  var catStats = {};
+  diseases.forEach(function(d) {
+    if (!catStats[d.category]) catStats[d.category] = {total:0, studied:0};
+    catStats[d.category].total++;
+    if (studied.indexOf(d.id) !== -1) catStats[d.category].studied++;
+  });
+
+  var html = '<div style="padding:20px 4px;">';
+  html += '<h2 style="font-family:\'Playfair Display\',serif; font-size:24px; margin-bottom:16px;">👤 Profil</h2>';
+
+  // Theme toggle
+  html += '<div class="dash-card" style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="toggleTheme(); render();">';
+  html += '<div><div style="font-size:13px; font-weight:700; color:var(--text-primary);">'+(isLight?'☀️ Aydınlık Mod':'🌙 Karanlık Mod')+'</div><div style="font-size:11px; color:var(--text-muted);">Tema değiştirmek için dokun</div></div>';
+  html += '<div style="width:44px; height:24px; border-radius:12px; background:'+(isLight?'var(--accent-blue)':'var(--border)')+'; position:relative; transition:background 0.3s;"><div style="width:20px; height:20px; border-radius:10px; background:white; position:absolute; top:2px; '+(isLight?'right:2px':'left:2px')+'; transition:all 0.3s; box-shadow:0 1px 3px rgba(0,0,0,0.2);"></div></div>';
+  html += '</div>';
+
+  // Progress
+  html += '<div class="dash-card">';
+  html += '<div style="text-align:center; margin-bottom:12px;"><div style="font-family:\'JetBrains Mono\',monospace; font-size:48px; font-weight:700; background:linear-gradient(135deg,var(--accent-cyan),var(--accent-blue)); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">%'+pct+'</div><div style="color:var(--text-muted); font-size:12px;">'+studiedN+' / '+total+' konu çalışıldı</div></div>';
+  html += '<div style="background:var(--bg-accent); height:8px; border-radius:4px; overflow:hidden; margin-bottom:12px;"><div style="background:linear-gradient(90deg,var(--accent-cyan),var(--accent-blue)); height:100%; width:'+pct+'%; border-radius:4px;"></div></div>';
+  html += '<div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px;">';
+  html += '<div style="text-align:center; padding:8px; background:var(--bg-accent); border-radius:8px;"><div style="font-size:20px; font-weight:700; color:#10b981;">'+mastered+'</div><div style="font-size:9px; color:var(--text-muted);">Uzman</div></div>';
+  html += '<div style="text-align:center; padding:8px; background:var(--bg-accent); border-radius:8px;"><div style="font-size:20px; font-weight:700; color:#f59e0b;">'+learning+'</div><div style="font-size:9px; color:var(--text-muted);">Öğreniyor</div></div>';
+  html += '<div style="text-align:center; padding:8px; background:var(--bg-accent); border-radius:8px;"><div style="font-size:20px; font-weight:700; color:var(--text-muted);">'+notStarted+'</div><div style="font-size:9px; color:var(--text-muted);">Yeni</div></div>';
+  html += '</div></div>';
+
+  // Category progress
+  html += '<div class="dash-card"><div style="font-size:11px; text-transform:uppercase; letter-spacing:1px; color:var(--accent-cyan); font-weight:700; margin-bottom:10px;">Kategori İlerleme</div>';
+  Object.entries(catStats).forEach(function(e) {
+    var c = categories[e[0]] || {};
+    var cp = e[1].total > 0 ? Math.round(e[1].studied / e[1].total * 100) : 0;
+    html += '<div style="margin-bottom:8px;"><div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:3px;"><span>'+(c.icon||'')+' '+(c.title||e[0])+'</span><span style="color:'+(c.color||'#888')+'; font-weight:600;">'+e[1].studied+'/'+e[1].total+'</span></div><div style="background:var(--bg-accent); height:6px; border-radius:3px; overflow:hidden;"><div style="background:'+(c.color||'#888')+'; height:100%; width:'+cp+'%; border-radius:3px;"></div></div></div>';
+  });
+  html += '</div>';
+
+  // Platform content
+  html += '<div class="dash-card"><div style="font-size:11px; text-transform:uppercase; letter-spacing:1px; color:var(--accent-blue); font-weight:700; margin-bottom:10px;">📦 Platform İçeriği</div>';
+  html += '<div style="display:grid; grid-template-columns:repeat(3,1fr); gap:6px;">';
+  html += '<div style="text-align:center; padding:8px; background:var(--bg-accent); border-radius:8px;"><div style="font-size:16px; font-weight:700; color:#3b82f6;">'+diseases.length+'</div><div style="font-size:9px; color:var(--text-muted);">Hastalık</div></div>';
+  html += '<div style="text-align:center; padding:8px; background:var(--bg-accent); border-radius:8px;"><div style="font-size:16px; font-weight:700; color:#f59e0b;">'+duels.length+'</div><div style="font-size:9px; color:var(--text-muted);">Düello</div></div>';
+  html += '<div style="text-align:center; padding:8px; background:var(--bg-accent); border-radius:8px;"><div style="font-size:16px; font-weight:700; color:#8b5cf6;">'+signalQuizzes.length+'</div><div style="font-size:9px; color:var(--text-muted);">Sinyal Quiz</div></div>';
+  html += '<div style="text-align:center; padding:8px; background:var(--bg-accent); border-radius:8px;"><div style="font-size:16px; font-weight:700; color:#06b6d4;">'+findings.length+'</div><div style="font-size:9px; color:var(--text-muted);">Bulgu</div></div>';
+  html += '<div style="text-align:center; padding:8px; background:var(--bg-accent); border-radius:8px;"><div style="font-size:16px; font-weight:700; color:#ec4899;">3</div><div style="font-size:9px; color:var(--text-muted);">Anatomi</div></div>';
+  html += '<div style="text-align:center; padding:8px; background:var(--bg-accent); border-radius:8px;"><div style="font-size:16px; font-weight:700; color:#f43f5e;">'+neuroEnhancePatterns.length+'</div><div style="font-size:9px; color:var(--text-muted);">Kontrast</div></div>';
+  html += '</div></div>';
+
+  // Favorites
+  html += '<div class="dash-card"><div style="font-size:11px; text-transform:uppercase; letter-spacing:1px; color:#ec4899; font-weight:700; margin-bottom:10px;">⭐ Favoriler ('+favs.length+')</div>';
+  if (favs.length > 0) {
+    html += '<div style="display:flex; flex-wrap:wrap; gap:4px;">';
+    favs.forEach(function(fid) {
+      var fd = diseases.find(function(d){return d.id===fid;});
+      if (fd) html += '<span class="concept-disease-link" data-id="'+fd.id+'" style="padding:5px 10px; border-radius:12px; font-size:11px; cursor:pointer; background:rgba(236,72,153,0.08); border:1px solid rgba(236,72,153,0.15); color:#ec4899;">'+fd.name.replace(/ \(.*\)/,'').substring(0,25)+'</span>';
+    });
+    html += '</div>';
+  } else {
+    html += '<div style="font-size:12px; color:var(--text-muted); text-align:center; padding:12px;">Hastalık kartlarında ⭐ butonuna basarak favori ekleyin</div>';
+  }
+  html += '</div>';
+
+  html += '<button onclick="if(confirm(\'Tüm ilerleme sıfırlansın mı?\')){studied=[];localStorage.setItem(\'neurorad_studied\',\'[]\');render();}" style="width:100%; margin-top:8px; padding:12px; background:rgba(244,63,94,0.1); border:1px solid rgba(244,63,94,0.2); border-radius:12px; color:#f43f5e; font-size:13px; font-weight:600; cursor:pointer; font-family:\'DM Sans\',sans-serif;">İlerlemeyi Sıfırla</button>';
+  html += '</div>';
+  main.innerHTML = html;
+}
+
 // Global error handler
 window.onerror = function(msg, url, line, col, error) {
   var main = document.getElementById('mainContent');
   if (main) main.innerHTML = '<div style="padding:20px;color:#f43f5e;font-size:13px;"><b>Hata:</b> ' + msg + '<br>Satır: ' + line + '</div>';
 };
 
+var toolPages = ['duel','finder','signal','emergency','staging','calc','report','concepts','variant','learn'];
+var atlasPages = ['anatomy','enhance','advanced','physics','artifact','measurements'];
+
 function updateBottomNav() {
   document.querySelectorAll('.bottom-nav-item').forEach(function(i) {
-    i.classList.toggle('active', i.dataset.page === currentPage);
+    var page = i.dataset.page;
+    var menu = i.dataset.menu;
+    if (menu === 'tools') {
+      i.classList.toggle('active', toolPages.indexOf(currentPage) !== -1);
+    } else if (menu === 'atlas') {
+      i.classList.toggle('active', atlasPages.indexOf(currentPage) !== -1);
+    } else if (page === 'profile') {
+      i.classList.toggle('active', currentPage === 'profile');
+    } else {
+      i.classList.toggle('active', page === currentPage);
+    }
   });
 }
 
@@ -8586,13 +8746,34 @@ function initApp() {
     });
   }
 
-  // Bottom navigation
+  // Bottom navigation (5 tabs + grid menus)
   document.querySelectorAll('.bottom-nav-item').forEach(item => {
     item.addEventListener('click', () => {
+      var menuId = item.dataset.menu;
+      if (menuId === 'tools') { document.getElementById('toolsMenu').classList.add('show'); return; }
+      if (menuId === 'atlas') { document.getElementById('atlasMenu').classList.add('show'); return; }
       currentPage = item.dataset.page;
       updateBottomNav();
       render();
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  // Grid menu navigation
+  document.querySelectorAll('.grid-menu-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      currentPage = btn.dataset.page;
+      document.querySelectorAll('.grid-overlay').forEach(o => o.classList.remove('show'));
+      updateBottomNav();
+      render();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  // Close grid menu on overlay click
+  document.querySelectorAll('.grid-overlay').forEach(overlay => {
+    overlay.addEventListener('click', e => {
+      if (e.target === overlay) overlay.classList.remove('show');
     });
   });
 
