@@ -2846,6 +2846,42 @@ const duels = [
     ]},
     keyRule: "EN ÖNEMLİ AYIRICI: EKSTRAOVARIAN (over dışı) = ektopik. İNTRAOVARIAN (over içi) = korpus luteum. Sliding sign: prob ile overı hareket ettir → kist overle birlikte hareket ederse İNTRAOVARIAN. Over DIŞINDA ayrı hareket ederse EKSTRA. Ring of fire: KL'de periferal hipervaskülarite (normal bulgu)."
   }
+,
+  {
+    title: "Wilms Tümörü vs Nöroblastom",
+    a: { name: "Wilms Tümörü", features: ["İNTRARENAL köken (claw sign)", "Kalsifikasyon nadir (%10)", "İyi sınırlı, pseudokapsül", "Renal ven/VCI trombüsü olabilir", "1-5 yaş pik", "VMA/HVA NORMAL"] },
+    b: { name: "Nöroblastom", features: ["EKSTRARENAL (adrenal/retroperitoneal)", "Kalsifikasyon SIK (%90)", "İrregüler sınır, damarları SARAR", "Aorta encasement (tıkamaz ama sarar)", "<5 yaş, sempatik zincir", "VMA/HVA YÜKSEK"] },
+    keyDiff: "Wilms: claw sign (böbrekten köken) + kalsifikasyon nadir. Nöroblastom: damar sarma + kalsifikasyon %90 + VMA yüksek.",
+    mnemonic: "Wilms = Within kidney (claw). Neuro = Next to kidney (wraps vessels)."
+  },
+  {
+    title: "Bilier Atrezi vs Neonatal Hepatit",
+    a: { name: "Bilier Atrezi", features: ["Triangular cord sign (≥4mm)", "SK küçük/GÖRÜNMEZ", "HIDA: ekskresiyon YOK (24 saat)", "Kasai 60 gün kuralı", "Konjuge bilirubin yüksek", "Cerrahi TEDAVİ"] },
+    b: { name: "Neonatal Hepatit", features: ["Triangular cord YOK", "SK NORMAL boyut", "HIDA: YAVAŞ ama ekskresiyon VAR", "Medikal tedavi", "Konjuge bilirubin yüksek (benzer)", "İdiyopatik veya enfeksiyöz"] },
+    keyDiff: "Atrezi: triangular cord + boş SK + HIDA ekskresiyon yok. Hepatit: normal SK + HIDA gecikmeli ekskresiyon var.",
+    mnemonic: "Atrezi = Absent gallbladder + Absent excretion. Hepatit = Has gallbladder + Has (slow) excretion."
+  },
+  {
+    title: "Malrotasyon/Volvulus vs Duodenal Atrezi",
+    a: { name: "Malrotasyon + Volvulus", features: ["BİLİYÖZ kusma (ACİL!)", "Whirlpool sign USG", "Corkscrew sign (upper GI)", "Treitz sağda/aşağıda", "ACİL Ladd prosedürü", "Herhangi yaş (en sık yenidoğan)"] },
+    b: { name: "Duodenal Atrezi", features: ["BİLİYÖZ kusma (ama stabil)", "Double bubble sign", "Distal gaz YOK (komplet)", "Down sendromu ilişkili (%30)", "Elektif cerrahi", "Doğumda prezente"] },
+    keyDiff: "Volvulus: whirlpool/corkscrew + ACİL cerrahi (barsak nekrozu riski). Duodenal atrezi: double bubble + Down + elektif.",
+    mnemonic: "Volvulus = Vortex (whirlpool) = Very urgent. Duodenal atrezi = Double bubble = Down sendromu."
+  },
+  {
+    title: "İntususepsiyon vs Malrotasyon/Volvulus",
+    a: { name: "İntususepsiyon", features: ["6ay-3yaş SIK", "Target sign (aksiyel USG)", "Pseudokidney sign (sagittal)", "Kolik ağrı + kanlı gaita (currant jelly)", "Hava/hidrostatik enema ile tedavi", "Lead point: >5 yaş ara"] },
+    b: { name: "Malrotasyon + Volvulus", features: ["Yenidoğan döneminde SIK", "Whirlpool sign USG", "Biliyöz kusma (yeşil)", "Treitz ligamanı anormal pozisyon", "ACİL Ladd prosedürü", "Barsak nekrozu riski"] },
+    keyDiff: "İntususepsiyon: target sign + 6ay-3yaş + enema tedavi. Volvulus: whirlpool + yenidoğan + ACİL cerrahi.",
+    mnemonic: "Intussusception = Inside-out (target). Volvulus = Vortex (whirlpool)."
+  },
+  {
+    title: "Pilor Stenozu vs Malrotasyon",
+    a: { name: "Pilor Stenozu", features: ["2-8 hafta erkek bebek", "NON-biliyöz projektil kusma", "Kas ≥3mm + kanal ≥17mm USG", "Target sign (pilorik kas)", "Hipokloremik metabolik ALKALOZ", "Ramstedt piloromyotomi"] },
+    b: { name: "Malrotasyon + Volvulus", features: ["Herhangi yaş yenidoğan", "BİLİYÖZ (yeşil) kusma", "Whirlpool sign USG", "Corkscrew sign upper GI", "Metabolik ASİDOZ (iskemi)", "ACİL Ladd prosedürü"] },
+    keyDiff: "Pilor: NON-biliyöz (safranın üstünde obstrüksiyon) + alkaloz. Volvulus: BİLİYÖZ (safranın altında) + asidoz. KUSMUĞUN RENGİ HAYAT KURTARIR.",
+    mnemonic: "Pilor = Pale vomit (non-bilious) + Pylorus. Volvulus = Verdant vomit (green/bilious) + Very urgent."
+  }
 ];
 
 // ===== FINDING FINDER DATA =====
@@ -3030,6 +3066,32 @@ const findings = [
     { name: "Fokal Orşit", clue: "Hipoekoik alan + hipervasküler + ağrı + ateş → antibiyotikle düzelir" },
     { name: "Testiküler İnfarkt", clue: "Hipoekoik + avasküler (Doppler'de akım YOK) → segmental veya global" },
     { name: "Burned-out Tümör", clue: "Kalsifik skar + retroperitoneal kitle → testis primer gerilemiş (NADIR)" }
+  ]}
+,
+  { finding: "Çocukta Abdominal Kitle", ddx: [
+    { name: "Wilms Tümörü", clue: "İntrarenal, claw sign, 1-5 yaş, VMA normal", freq: "En sık çocukluk renal tm" },
+    { name: "Nöroblastom", clue: "Ekstrarenal, kalsifikasyon, damar sarma, VMA yüksek", freq: "En sık ekstrakranial solid" },
+    { name: "Hepatoblastom", clue: "KC kitlesi, <3 yaş, AFP çok yüksek", freq: "En sık çocukluk KC tm" },
+    { name: "Mezoblastik Nefroma", clue: "Yenidoğan renal kitle, solid, benign", freq: "Yenidoğanın en sık renal tm" },
+    { name: "Teratom (Sakrokoksigeal)", clue: "Presacral kistik-solid, yenidoğan, kız>erkek", freq: "Yenidoğan en sık germ cell" }
+  ]},
+  { finding: "Yenidoğanda Biliyöz (Yeşil) Kusma", ddx: [
+    { name: "Malrotasyon + Volvulus", clue: "Whirlpool sign, ACİL cerrahi, barsak nekrozu riski", freq: "ACİL EKARTE ET" },
+    { name: "Duodenal Atrezi", clue: "Double bubble, Down sendromu %30, distal gaz yok", freq: "En sık konjenital obstrüksiyon" },
+    { name: "Jejunoileal Atrezi", clue: "Triple bubble, distal gaz yok, proksimal dilatasyon", freq: "Sık" },
+    { name: "Annüler Pankreas", clue: "Duodenumu çevreler, double bubble benzeri", freq: "Nadir" },
+    { name: "Mekonium İleusu", clue: "Kistik fibrozis, inspissated mekonium, microcolon", freq: "KF düşün" }
+  ]},
+  { finding: "Yenidoğanda Non-biliyöz Projektil Kusma", ddx: [
+    { name: "Hipertrofik Pilor Stenozu", clue: "2-8 hafta erkek, kas ≥3mm, kanal ≥17mm, zeytin", freq: "Klasik" },
+    { name: "Gastroözofageal Reflü", clue: "Projektil değil, yatar pozisyonda artar", freq: "Sık ama farklı" },
+    { name: "Pilor Spazm", clue: "Geçici, kas kalınlığı normal", freq: "Fizyolojik" }
+  ]},
+  { finding: "Neonatal Sarılık (Konjuge Hiperbilirubinemi)", ddx: [
+    { name: "Bilier Atrezi", clue: "Triangular cord sign, boş SK, Kasai 60 gün", freq: "ACİL cerrahi neden" },
+    { name: "Neonatal Hepatit", clue: "Normal SK, HIDA gecikmeli ekskresiyon", freq: "En sık neden" },
+    { name: "Koledok Kisti", clue: "Kistik dilatasyon, Todani sınıflaması", freq: "Nadir" },
+    { name: "Alagille Sendromu", clue: "Yüz, vertebra anomali, periferik PS", freq: "Sendromik" }
   ]}
 ];
 
@@ -3680,10 +3742,44 @@ const signalQuizzes = [
   { combo: "USG: Çocuk + Target sign (barsak) + Pseudokidney sagittal + Kolik ağrı + Kanlı gaita", answer: "İntususepsiyon", why: "Target sign = iç içe barsak katmanları aksiyelde. Pseudokidney = sagittal. 6ay-3yaş → idiyopatik. Hava/hidrostatik enema ile redüksiyon %85-90 başarılı." },
   { combo: "USG: Ven non-kompresbl + İntralüminal hipoekoik trombüs + Ven distansiyonu + Doppler akım YOK", answer: "Akut Derin Ven Trombozu (DVT)", why: "Kompresyon TESTİ: prob basınca ven kapanmıyorsa = TROMBÜS. Akut: hipoekoik yumuşak trombüs + ven şişkin. Doppler augmentasyon yokluğu = obstrüksiyon. Proksimal DVT → antikoagülasyon + PE riski." },
   { combo: "USG: Renal pelvis + major + minor kaliksler dilate + Parankim İNCELMİŞ + RI >0.70", answer: "Hidronefroz Grade IV (Ağır Obstrüksiyon)", why: "Grade IV = balonlaşmış kaliksler + kortikal atrofi → fonksiyon kaybı. RI >0.70 = akut obstrüksiyon lehine. Parankim incelme = KRONİK → kurtarılacak böbrek ne kadar?" }
+,
+  { combo: "USG: intrarenal kitle + claw sign + <5 yaş", answer: "Wilms Tümörü", category: "pediatric", difficulty: "orta" },
+  { combo: "BT: retroperitoneal kitle + kalsifikasyon %90 + damar sarma", answer: "Nöroblastom", category: "pediatric", difficulty: "orta" },
+  { combo: "USG: triangular cord sign + boş SK + neonatal sarılık", answer: "Bilier Atrezi", category: "pediatric", difficulty: "zor" },
+  { combo: "Direkt grafi: pnömatozis intestinalis + portal venöz gaz + prematüre", answer: "Nekrotizan Enterokolit (NEK)", category: "pediatric", difficulty: "orta" },
+  { combo: "USG: whirlpool sign + biliyöz kusma + yenidoğan", answer: "Malrotasyon + Midgut Volvulus", category: "pediatric", difficulty: "kolay" },
+  { combo: "USG: pilorik kas ≥3mm + kanal ≥17mm + non-biliyöz projektil kusma", answer: "Hipertrofik Pilor Stenozu", category: "pediatric", difficulty: "kolay" },
+  { combo: "USG: target sign + pseudokidney + 6ay-3yaş + kanlı gaita", answer: "İntususepsiyon", category: "usg", difficulty: "kolay" },
+  { combo: "MIBG pozitif + suprarenal kitle + VMA yüksek + <5 yaş", answer: "Nöroblastom (Stage 4S: spontan regresyon olabilir!)", category: "pediatric", difficulty: "zor" }
 ];
 
 // ===== DISEASE CONNECTIONS MAP =====
 const diseaseConnections = {
+  wilms_tumor: [
+    { to: "neuroblastoma", label: "Çocuk Abdominal Kitle DDx", mechanismTag: "İntrarenal vs Ekstrarenal" },
+    { to: "rcc", label: "Renal Kitle (yaş farkı)", mechanismTag: "Wilms <5 yaş, RCC erişkin" },
+    { to: "hydronephrosis", label: "Renal Ven Trombüsü", mechanismTag: "VCI uzanım kontrol" }
+  ],
+  neuroblastoma: [
+    { to: "wilms_tumor", label: "Çocuk Abdominal Kitle DDx", mechanismTag: "Ekstrarenal vs İntrarenal" },
+    { to: "pheochromocytoma", label: "Adrenal Kitle", mechanismTag: "Nöral krest köken her ikisi" }
+  ],
+  biliary_atresia: [
+    { to: "choledocholithiasis", label: "Neonatal Kolestaz DDx", mechanismTag: "Cerrahi vs medikal sarılık" },
+    { to: "hepatic_cirrhosis", label: "Geç Tanı Sonucu", mechanismTag: ">90 gün = siroz = transplant" }
+  ],
+  nec: [
+    { to: "mesenteric_ischemia", label: "Barsak İskemisi", mechanismTag: "Yenidoğan (NEK) vs erişkin (mezenterik)" },
+    { to: "malrotation_volvulus", label: "Yenidoğan Cerrahi Acil", mechanismTag: "Her ikisi cerrahi acil" }
+  ],
+  malrotation_volvulus: [
+    { to: "intussusception", label: "Çocuk Barsak Acil", mechanismTag: "Volvulus: yenidoğan. İntususepsiyon: 6ay-3yaş" },
+    { to: "nec", label: "Yenidoğan Cerrahi Acil", mechanismTag: "Biliyöz kusma = volvulus ekarte et" }
+  ],
+  hypertrophic_pyloric_stenosis: [
+    { to: "malrotation_volvulus", label: "Kusma Ayırıcı", mechanismTag: "Non-biliyöz (pilor) vs biliyöz (volvulus)" },
+    { to: "intussusception", label: "Çocuk Obstrüksiyon", mechanismTag: "Pilor: mide çıkış. İntus: ilekolik" }
+  ],
   hcc: {
     confusedWith: ['cholangiocarcinoma', 'hemangioma', 'fnh', 'hepatic_adenoma', 'fibrolamellar_hcc'],
     sameMechanism: ['cholangiocarcinoma', 'fibrolamellar_hcc'],
@@ -4136,7 +4232,10 @@ const quickSearchTags = [
   { label: '⭕ Ring Enhancement', query: 'ring rim periferal', icon: '⭕' },
   { label: '🩸 Vasküler Acil', query: 'iskemi trombüs anevrizma', icon: '🩸' },
   { label: '🫁 KC Lezyonu', query: 'karaciğer hepatik lezyon', icon: '🫁' },
-  { label: '🚨 Cerrahi Acil', query: 'perforasyon pnömatozis gangren', icon: '🚨' }
+  { label: '🚨 Cerrahi Acil', query: 'perforasyon pnömatozis gangren', icon: '🚨' },
+  { label: '👶 Pediatrik', query: 'wilms nöroblastom pilor volvulus pediatrik çocuk', icon: '👶' },
+  { label: '🔊 USG', query: 'usg ultrason doppler ekojen', icon: '🔊' },
+  { label: '🩷 Jinekolojik', query: 'over uterus endometrium fibroid', icon: '🩷' }
 ];
 
 function smartSearch(term) {
@@ -4436,6 +4535,21 @@ function renderStats(main) {
       ${needsReview.length > 0 ? '<div style="background:rgba(245,158,11,0.06); border:1px solid rgba(245,158,11,0.15); border-radius:var(--radius); padding:14px; margin-bottom:12px;"><div style="font-size:11px; text-transform:uppercase; letter-spacing:1px; color:#f59e0b; font-weight:700; margin-bottom:8px;">🔄 Tekrar Önerisi</div><div style="display:flex; flex-wrap:wrap; gap:4px;">'+needsReview.map(function(d){ return '<span class="concept-disease-link" data-id="'+d.id+'" style="padding:4px 8px; border-radius:12px; font-size:10px; cursor:pointer; background:rgba(245,158,11,0.1); border:1px solid rgba(245,158,11,0.2); color:#f59e0b;">'+d.name.replace(/ \(.*\)/,'').substring(0,25)+'</span>'; }).join('')+'</div></div>' : ''}
 
       ${notStudied.length > 0 ? '<div style="background:var(--bg-accent); border:1px solid var(--border); border-radius:var(--radius); padding:14px; margin-bottom:12px;"><div style="font-size:11px; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); font-weight:700; margin-bottom:8px;">📚 Henüz Başlanmadı</div><div style="display:flex; flex-wrap:wrap; gap:4px;">'+notStudied.map(function(d){ var c=categories[d.category]||{}; return '<span class="concept-disease-link" data-id="'+d.id+'" style="padding:4px 8px; border-radius:12px; font-size:10px; cursor:pointer; background:var(--bg-card); border:1px solid var(--border); color:var(--text-secondary);">'+(c.icon||'')+' '+d.name.replace(/ \(.*\)/,'').substring(0,22)+'</span>'; }).join('')+'</div></div>' : ''}
+
+      <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:14px; margin-bottom:12px;">
+        <div style="font-size:11px; text-transform:uppercase; letter-spacing:1px; color:var(--accent-blue); font-weight:700; margin-bottom:10px;">📦 Platform İçerik Özeti</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px;">
+          <div style="text-align:center; padding:8px; background:var(--bg-accent); border-radius:8px;"><div style="font-size:18px; font-weight:700; color:#3b82f6;">${diseases.length}</div><div style="font-size:9px; color:var(--text-muted);">Hastalık</div></div>
+          <div style="text-align:center; padding:8px; background:var(--bg-accent); border-radius:8px;"><div style="font-size:18px; font-weight:700; color:#f59e0b;">${duels.length}</div><div style="font-size:9px; color:var(--text-muted);">Düello</div></div>
+          <div style="text-align:center; padding:8px; background:var(--bg-accent); border-radius:8px;"><div style="font-size:18px; font-weight:700; color:#8b5cf6;">${signalQuizzes.length}</div><div style="font-size:9px; color:var(--text-muted);">Sinyal Quiz</div></div>
+          <div style="text-align:center; padding:8px; background:var(--bg-accent); border-radius:8px;"><div style="font-size:18px; font-weight:700; color:#06b6d4;">${findings.length}</div><div style="font-size:9px; color:var(--text-muted);">Bulgu Bulucu</div></div>
+          <div style="text-align:center; padding:8px; background:var(--bg-accent); border-radius:8px;"><div style="font-size:18px; font-weight:700; color:#f43f5e;">${pitfallsData.reduce(function(s,o){return s+o.pitfalls.length;},0)}</div><div style="font-size:9px; color:var(--text-muted);">Tuzak</div></div>
+          <div style="text-align:center; padding:8px; background:var(--bg-accent); border-radius:8px;"><div style="font-size:18px; font-weight:700; color:#10b981;">${protocolData.reduce(function(s,o){return s+o.protocols.length;},0)}</div><div style="font-size:9px; color:var(--text-muted);">Protokol</div></div>
+          <div style="text-align:center; padding:8px; background:var(--bg-accent); border-radius:8px;"><div style="font-size:18px; font-weight:700; color:#ec4899;">${postopData.length}</div><div style="font-size:9px; color:var(--text-muted);">Post-op</div></div>
+          <div style="text-align:center; padding:8px; background:var(--bg-accent); border-radius:8px;"><div style="font-size:18px; font-weight:700; color:#a855f7;">${casesData.length}</div><div style="font-size:9px; color:var(--text-muted);">Vaka</div></div>
+          <div style="text-align:center; padding:8px; background:var(--bg-accent); border-radius:8px;"><div style="font-size:18px; font-weight:700; color:#eab308;">${anatomyAtlas.length + enhancePatterns.length}</div><div style="font-size:9px; color:var(--text-muted);">Atlas</div></div>
+        </div>
+      </div>
 
       <button data-stats-reset="1" style="width:100%; margin-top:8px; padding:12px; background:rgba(244,63,94,0.1); border:1px solid rgba(244,63,94,0.2); border-radius:var(--radius-sm); color:var(--accent-rose); font-size:13px; font-weight:600; cursor:pointer; font-family:'DM Sans',sans-serif;">İlerlemeyi Sıfırla</button>
     </div>
