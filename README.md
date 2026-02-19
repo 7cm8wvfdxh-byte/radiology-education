@@ -6,7 +6,7 @@ Radyoloji asistanları için tasarlanmış, kapsamlı ve interaktif web tabanlı
 
 ## 🌐 Canlı Demo
 
-**[▶ Platformu Aç](https://[KULLANICI_ADI].github.io/radiology-education/)**
+**[▶ Platformu Aç](https://7cm8wvfdxh-byte.github.io/radiology-education/)**
 
 > GitHub Pages'i etkinleştirdikten sonra yukarıdaki linki güncelleyin.
 
@@ -51,11 +51,11 @@ Radyoloji asistanları için tasarlanmış, kapsamlı ve interaktif web tabanlı
 ### Seçenek 1: GitHub Pages (Önerilen)
 1. Bu repoyu fork edin
 2. Settings → Pages → Source: `main` branch → Save
-3. `https://[kullanici].github.io/radiology-education/` adresinden erişin
+3. `https://7cm8wvfdxh-byte.github.io/radiology-education/` adresinden erişin
 
 ### Seçenek 2: Lokal
 ```bash
-git clone https://github.com/[KULLANICI]/radiology-education.git
+git clone https://github.com/7cm8wvfdxh-byte/radiology-education.git
 cd radiology-education
 # Herhangi bir tarayıcıda açın:
 open index.html
