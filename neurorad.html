@@ -799,6 +799,10 @@ body {
       <div class="grid-menu-btn" data-page="concepts"><span>🧬</span>Bağlantılar</div>
       <div class="grid-menu-btn" data-page="variant"><span>🔀</span>Varyant</div>
       <div class="grid-menu-btn" data-page="learn"><span>🗺️</span>Öğrenme Yolu</div>
+      <div class="grid-menu-btn" data-page="pitfalls"><span>⚠️</span>Tuzaklar</div>
+      <div class="grid-menu-btn" data-page="protocol"><span>📋</span>Protokol</div>
+      <div class="grid-menu-btn" data-page="cases"><span>🧩</span>Vaka Sim.</div>
+      <div class="grid-menu-btn" data-page="postop"><span>🔪</span>Post-op</div>
     </div>
   </div>
 </div>
@@ -5055,6 +5059,10 @@ function render() {
   if (currentPage === "measurements") { renderMeasurements(main); return; }
   if (currentPage === "enhance") { renderNeuroEnhancePage(main); return; }
   if (currentPage === "profile") { renderProfilePage(main); return; }
+  if (currentPage === "pitfalls") { renderNeuroPitfallsPage(main); return; }
+  if (currentPage === "protocol") { renderNeuroProtocolPage(main); return; }
+  if (currentPage === "postop") { renderNeuroPostopPage(main); return; }
+  if (currentPage === "cases") { renderNeuroCasesPage(main); return; }
 
   const searchEl = document.getElementById('searchInput');
   const searchTerm = searchEl ? searchEl.value.toLowerCase().trim() : '';
