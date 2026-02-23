@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>AbdomenRad Patho-Imaging</title>
+<meta name="theme-color" content="#0f172a">
+<link rel="manifest" href="manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
 <style>
@@ -1916,6 +1918,150 @@ const diseases = [
   differential: ["Malrotasyon + volvulus — biliyöz kusma (FARKLI!), USG whirlpool", "Gastroözofageal reflü — biliyöz değil ama projektil değil, yatar pozisyonda artar", "Pilor spazm — kas kalınlığı normal, geçici obstrüksiyon"],
   protocol: "USG: yüksek frekanslı lineer prob. Epigastrik transvers + longitudinal. Hasta supin/sağ dekübit. Kas kalınlığı + kanal uzunluğu ölç.",
   quiz: { q: "Pilor stenozu neden non-biliyöz kusma yapar, biliyöz değil?", a: "Pilorik stenoz: mide ÇIKIŞ obstrüksiyonu (pilor = mide-duodenum bileşkesi). Safra papilla Vateri'den duodenuma açılır (pilorun DİSTALİNDE). Yani obstrüksiyon safranın karıştığı yerden ÖNCE → kusmuğa safra karışmaz = NON-BİLİYÖZ. Biliyöz kusma = obstrüksiyon Vater ampulası ALTINda → malrotasyon/volvulus düşün = ACİL!" }
+},
+{
+  id: "ipmn",
+  name: "IPMN (İntraduktal Papiller Müsinöz Neoplazi)",
+  category: "pancreas",
+  tag: "important",
+  tagText: "Önemli",
+  pathway: [
+    { type: "histo", label: "Histopatoloji", text: "Pankreas kanallarını döşeyen müsin üreten papiller epitelyal neoplazi. 3 tip: ana kanal (MD-IPMN), dal kanal (BD-IPMN), mikst. Displazi spektrumu: düşük grade → yüksek grade → invazif karsinom.", detail: "MD-IPMN malignite riski %60-70, BD-IPMN %25" },
+    { type: "tissue", label: "Doku Değişikliği", text: "Müsin hipersekresyonu → kanal dilatasyonu. MD-IPMN: ana pankreatik kanal >5mm diffüz dilatasyon. BD-IPMN: üzüm salkımı benzeri multikistik lezyon dal kanallardan köken.", detail: "Müsin papilladan dışarı sarkabilir (fish-mouth papilla — ERCP'de patognomonik)" },
+    { type: "signal", label: "Sinyal Karşılığı", text: "MR/MRCP: kanal dilatasyonu + kanal ile bağlantılı kistik lezyon. T2 hiperintens (müsinöz sıvı). Kontrastlanma: mural nodül varsa → malignite? DWI: mural nodülde kısıtlanma ise malignite şüphesi.", detail: "MRCP: kist-kanal bağlantısını göstermede en iyi modalite" },
+    { type: "finding", label: "Görüntüleme Bulgusu", text: "BD-IPMN: unsinat proseste üzüm salkımı multikistik lezyon + ana kanal ile bağlantı. MD-IPMN: ana kanal diffüz >5mm dilatasyon. Malignite bulguları: mural nodül >5mm, ana kanal >10mm, kist >3cm, kist büyüme hızı >5mm/yıl.", detail: "Fukuoka/Sendai kriterleri: endikasyon ve takip rehberi" }
+  ],
+  usg: "USG: pankreatik kistik lezyon (anekoik/hipoekoik, multiloküle olabilir). Ana kanal dilatasyonu. EUS (endoskopik USG): mural nodül + kist sıvısı aspirasyonu (CEA >192, sitoloji). MRCP ile korelasyon şart.",
+  keyPoint: "Pankreatik KİSTİK lezyon + KANAL DİLATASYONU + kanal ile BAĞLANTI = IPMN düşün. MD-IPMN: yüksek malignite riski → cerrahi. BD-IPMN: düşük risk ise takip. Worrisome features (Fukuoka): mural nodül, kist >3cm, kanal >5mm, lenfadenopati → EUS yap. High-risk stigmata: mural nodül >5mm + kanal >10mm → cerrahi.",
+  differential: ["Müsinöz kistik neoplazi (MCN) — kadın, gövde/kuyruk, kanal ile bağlantı YOK, periferik kalsifikasyon", "Seröz kistadenoma — mikrokistik/honeycomb, santral skar + starburst kalsifikasyon", "Pseudokist — pankreatit öyküsü, tek, düzgün duvarlı, epitel yok", "Pankreatik duktal adenokarsinom — solid, hipovasküler, kanal tıkanıklığı (double duct sign)"],
+  protocol: "MRCP (kist-kanal ilişkisi). MR T1, T2, DWI, T1 kontrastlı (mural nodül). EUS (aspirasyon: CEA, sitoloji). Takipte: BD-IPMN yıllık MRCP.",
+  quiz: { q: "BD-IPMN ile MCN arasındaki temel görüntüleme farkı nedir?", a: "KANAL BAĞLANTISI: BD-IPMN pankreas KANALINI ile BAĞLANTILIDIR (MRCP'de kanüle eden dal görülür). MCN kanal ile bağlantı YOKTUR (izole kistik kitle). Diğer farklar: MCN genellikle genç kadın + gövde/kuyruk yerleşimli + periferik yumurta kabuğu kalsifikasyon. BD-IPMN yaşlı + baş/unsinat + multiloküle + üzüm salkımı." }
+},
+{
+  id: "gallbladder_ca",
+  name: "Safra Kesesi Karsinomu",
+  category: "biliary",
+  tag: "critical",
+  tagText: "Kritik",
+  pathway: [
+    { type: "histo", label: "Histopatoloji", text: "En sık adenokarsinom (%90). Risk faktörleri: kronik kolesistit, porselen safra kesesi, safra kesesi polipleri >1cm. Erken evrede insidental (kolesistektomi sonrası), geç evrede KC invazyonu.", detail: "Porselen SK'de %5-6 kanser riski. Polip >1cm → cerrahi" },
+    { type: "tissue", label: "Doku Değişikliği", text: "3 patern: (1) Fokal veya diffüz duvar kalınlaşması. (2) SK lümenini dolduran polipoid kitle. (3) SK fossa kitlesi (SK görülmez, KC'ye invaze kitle). Direkt KC invazyonu (segment 4b-5).", detail: "En sık patern: irregular duvar kalınlaşması + KC invazyonu" },
+    { type: "signal", label: "Sinyal Karşılığı", text: "BT/MR: irregüler SK duvar kalınlaşması veya intralüminal kitle + erken arteryel kontrastlanma. KC invazyonu. Biliyer dilatasyon (Bismuth benzeri hilar kitle ise). DWI: kısıtlanma.", detail: "Porselein SK: BT'de SK duvarında kalsifikasyon" },
+    { type: "finding", label: "Görüntüleme Bulgusu", text: "USG: irregüler SK duvar kalınlaşması >3mm veya SK lümeninde solid kitle. Direkt KC invazyonu (segment 4b-5). Hilar LAP. Biliyer dilatasyon olabilir. BT/MR: arteryel kontrastlanma + geç wash-out.", detail: "İnsidental polip >1cm veya sapsız (sessile) polip → kanser şüphesi" }
+  ],
+  usg: "USG İLK BASAMAK: (1) SK duvar kalınlaşması (>3mm, irregüler, asimetrik). (2) İntralüminal kitle (immobil, vasküler — Doppler'de akım VAR). (3) KC invazyonu (segment 4b-5 hipoekoik alan). (4) Taş + kitle birlikteliği → kitle gizlenebilir! CEUS: arteryel hiperenhancement + wash-out = malign.",
+  keyPoint: "SK irregular duvar kalınlaşması + KC invazyonu (segment 4b-5) = SK karsinomu düşün. SK polip >1cm → kolesistektomi. Porselen SK → kanser riski. İnsidental olarak kolesistektomi spesmeninde → T stage'e bak (T1a: gözlem, T1b+: radikal kolesistektomi + KC rezeksiyonu).",
+  differential: ["Ksantogranülomatöz kolesistit — diffüz duvar kalınlaşması, intramurel nodüller, benign ama karsinomdan ayırt zor", "Adenomyomatoz — Rokitansky-Aschoff sinüsleri, 'comet tail' artefaktı USG, benign", "Akut kolesistit — diffüz duvar kalınlaşması ama düzgün, Murphy +, klinik akut", "Metastaz — melanom en sık SK metastaz yapan tümör"],
+  protocol: "USG (ilk). BT multifazlı (evreleme, KC invazyonu, LAP). MR/MRCP (biliyer anatomi). PET-BT (uzak metastaz). EUS (lokal invazyon).",
+  quiz: { q: "Safra kesesi poliplerinde hangi özellikler malignite düşündürür?", a: "Malignite düşündüren polip özellikleri: (1) BOYUT >1cm (en önemli — %50+ malignite riski). (2) Sesil (sapsız/broad-based) morfoloji. (3) Hızlı büyüme (>2mm/6 ay). (4) Vaskülarite (Doppler'de akım). (5) >50 yaş. (6) Eşlik eden safra taşı. (7) Primer sklerozan kolanjit (PSC) zemininde. Boyut <6mm → takip gereksiz. 6-9mm → 6 ayda USG. ≥10mm → kolesistektomi." }
+},
+{
+  id: "renal_angiomyolipoma",
+  name: "Renal Anjiyomiyolipom (AML)",
+  category: "kidney",
+  tag: "common",
+  tagText: "Sık",
+  pathway: [
+    { type: "histo", label: "Histopatoloji", text: "Benign mezenkimal tümör: anormal damarlar + düz kas + olgun yağ dokusu. Sporadik (%80) veya TSC ilişkili (%20). TSC'de bilateral multipl.", detail: "Tuberoskleroz kompleksi (TSC): bilateral AML + subependimal dev hücreli astrositom + kardiyak rabdomiyom" },
+    { type: "tissue", label: "Doku Değişikliği", text: "Makroskopik yağ içeriği TANISAL (minimal yağlı AML hariç). Anormal vasküler yapılar → spontan kanama riski (>4cm'de artmış). Wunderlich sendromu: spontan retroperitoneal hemoraji.", detail: ">4cm veya semptomatik → embolizasyon/cerrahi. <4cm → takip" },
+    { type: "signal", label: "Sinyal Karşılığı", text: "BT: YAĞ DANSİTESİ (<-10 HU) İÇEREN renal kitle — TANISAL. MR: T1 hiperintens (yağ sinyali) + chemical shift (India ink) sinyal kaybı. T2 değişken.", detail: "BT'de <-10 HU YAĞ = AML (RCC'de bu kadar düşük dansite YOKTUR)" },
+    { type: "finding", label: "Görüntüleme Bulgusu", text: "BT: yağ içeren renal kitle (<-10 HU). MR: T1 parlak, fat-sat'ta sinyal kaybı, chemical shift artefaktı. USG: hiperekoik kitle (yağ). Minimal yağlı AML: yağ tespit edilmez → RCC'den ayırt zor.", detail: "AML'de kalsifikasyon YOKTUR — kalsifikasyon varsa RCC düşün!" }
+  ],
+  usg: "USG: HİPEREKOİK renal kitle (yağ içeriği → parlak). <3cm homojen hiperekoik kitle = büyük olasılıkla AML. UYARI: küçük RCC de hiperekoik olabilir! Fark: AML'de posterior akustik gölgelenme yok, RCC'de heterojen olabilir. >4cm veya şüpheli → BT/MR ile doğrula.",
+  keyPoint: "Renal kitlede YAĞ (<-10 HU BT veya chemical shift MR) = AML (RCC'de yağ neredeyse HİÇ yoktur). İstisna: minimal yağlı AML (yağ tespit edilmez → RCC gibi). AML'de KALSİFİKASYON YOK → kalsifikasyon varsa RCC. TSC'de bilateral multipl AML. >4cm → kanama riski → embolizasyon/cerrahi.",
+  differential: ["RCC (berrak hücreli) — kalsifikasyon, kontrastlanma, venöz invazyon, yağ yok (nadir intrasellüler lipid — chemical shift sinyali verebilir)", "Retroperitoneal liposarkom — retroperitoneal yağlı kitle, renal kökenli DEĞİL", "Onkositom — solid, homojen, santral skar, yağ YOK", "Renal lipom — çok nadir, tamamen yağdan oluşur"],
+  protocol: "BT kontrastsız (yağ dansitesi ölçümü, -10 HU eşik). MR: T1, T1 fat-sat, chemical shift (in/opposed phase). >4cm veya TSC → düzenli takip veya embolizasyon.",
+  quiz: { q: "Renal AML'de neden -10 HU eşik değeri kullanılır?", a: "BT'de -10 HU kesin makroskopik yağ varlığını gösterir. Normal böbrek parankimi ~30-40 HU, RCC genellikle >20 HU'dur. RCC'de makroskopik yağ neredeyse hiç bulunmaz (nadir lipid-zengin RCC hariç). Bu nedenle bir renal kitlede ROI ölçümü -10 HU veya altında ise = makroskopik yağ VAR = AML. Bu eşik AML için %100'e yakın spesifisiteye sahiptir ve BİYOPSİ GEREKTIRMEZ." }
+},
+{
+  id: "mesenteric_ischemia",
+  name: "Akut Mezenterik İskemi",
+  category: "bowel",
+  tag: "critical",
+  tagText: "Kritik",
+  pathway: [
+    { type: "histo", label: "Histopatoloji", text: "Mezenterik arter/ven tıkanıklığı veya düşük akım → barsak duvarı iskemisi → nekroz. SMA oklüzyonu en sık (%50). Venöz tromboz (%5-15). Non-oklüzif (NOMI, %20-30).", detail: "Mortalite %60-80 — erken tanı HAYAT KURTARIR" },
+    { type: "tissue", label: "Doku Değişikliği", text: "Erken: mukozal hasar + ödem. Orta: transmural hasar + submuköz kanama. Geç: tam kat nekroz + perforasyon + pnömatozis (intramural hava). Portal venöz gaz geç ve kötü prognostik.", detail: "Barsak duvarı: mukoza → submukoza → muskularis → seroza sırasıyla etkilenir" },
+    { type: "signal", label: "Sinyal Karşılığı", text: "BT anjio: SMA/SMV'de dolum defekti (trombüs). Barsak duvarı kalınlaşması veya paper-thin wall. Kontrastlanma kaybı (devital segment). Mezenterik yağ dokusunda stranding.", detail: "Paper-thin duvar + kontrastlanma kaybı = transmural nekroz = ACİL cerrahi" },
+    { type: "finding", label: "Görüntüleme Bulgusu", text: "BT anjio: (1) SMA/SMV trombüs. (2) Barsak duvarı değişiklikleri: kalınlaşma → incipient; paper-thin → nekroz. (3) Pnömatozis intestinalis (duvar içi hava). (4) Portal venöz gaz. (5) Mezenterik stranding + asit. (6) Kontrastlanma kaybı.", detail: "Small bowel feces sign: ileus nedeniyle ince barsakta fekaloid materyal" }
+  ],
+  usg: "USG: SMA/SMV Doppler — akım kaybı veya trombus. Barsak duvarı kalınlaşması, dilatasyon, peristaltik yokluğu. Asit. SINIRLI DEĞER — BT ANJİO ALTINN STANDART. USG sadece ilk değerlendirmede (acil USG sonrası hemen BT anjio çekilmeli).",
+  keyPoint: "Akut karın + AF/kardiyovasküler hastalık + laktik asidoz = AKUT MEZENTERİK İSKEMİ düşün. BT anjio ile tanı. Erken: barsak duvarı kalınlaşma + mezenterik stranding. Geç: paper-thin duvar + kontrastlanma kaybı + pnömatozis + portal venöz gaz = NEKROZ → ACİL cerrahi. Mortalite yüksek — ZAMAN KRİTİK!",
+  differential: ["İnflamatuar barsak hastalığı — kronik, segmental, mural stratifikasyon", "İnfeksiyöz enterokolit — ateş, ishal, diffüz duvar kalınlaşması", "Mekanik barsak tıkanıklığı — geçiş noktası, proksimal dilatasyon", "Vaskülit (PAN) — multifokal mikroanevrizmalar, segmental tutulum"],
+  protocol: "BT ANJİO: multifazlı (kontrastsız + arteryel + portal). MPR reformasyonlar (SMA/SMV değerlendirmesi). Koronal reformat (barsak dağılımı). Laktik asit ölçümü.",
+  quiz: { q: "Akut mezenterik iskemide pnömatozis intestinalis neden kötü prognostik işarettir?", a: "Pnömatozis intestinalis = barsak DUVARI İÇİNDE HAVA kabarcıkları. Oluşum mekanizması: transmural nekroz → mukozal bariyer yıkılır → intralüminal baktreriler duvar içine girer → gaz üretir VEYA duvar nekrozunun kendisi gaz oluşturur. Bu bulgu TRANSMURAL NEKROZ demektir = barsak duvarının tüm katları ölmüş. Portal venöz gaz ise nekrotik barsaktan portal sisteme hava geçişini gösterir. İkisi birlikte = cerrahi MUTLAKA gerekli." }
+},
+{
+  id: "adrenal_adenoma",
+  name: "Adrenal Adenom",
+  category: "retroperitoneal",
+  tag: "common",
+  tagText: "Sık",
+  pathway: [
+    { type: "histo", label: "Histopatoloji", text: "Benign adrenal korteks tümörü. İntrasitoplazmaik LİPİD (kolesterol) zengin hücreler. Fonksiyonel (%15, Conn/Cushing) veya non-fonksiyonel (%85, insidental).", detail: "En sık adrenal insidentaloma nedeni (%80)" },
+    { type: "tissue", label: "Doku Değişikliği", text: "İntrasellüler lipid → chemical shift MR ile tespit. Lipid-zengin (çoğunluk): kolesterol dolu hücreler. Lipid-poor (%30): intrasellüler lipid az → chemical shift negatif olabilir → washout analizi gerekir.", detail: "Washout: adenom hızlı kontrastlanır + hızlı wash-out gösterir" },
+    { type: "signal", label: "Sinyal Karşılığı", text: "BT kontrastsız: <10 HU = LİPİD-ZENGİN ADENOM (spesifik). Chemical shift MR: opposed phase'de sinyal kaybı (intrasellüler yağ-su interaksiyonu). Washout BT: APW >60% veya RPW >40% = adenom.", detail: "Chemical shift: adenom 'India ink' artefaktı gösterir" },
+    { type: "finding", label: "Görüntüleme Bulgusu", text: "İyi sınırlı, homojen, küçük (<4cm genellikle) adrenal kitle. BT: <10 HU. MR: opposed phase sinyal kaybı. >4cm veya HU>10 → washout çalışması. Fonksiyonel ise biyokimya ile tanı.", detail: "İnsidentaloma akış şeması: boyut + HU + washout + fonksiyon testi" }
+  ],
+  usg: "USG: adrenal bölgede küçük, homojen, iyi sınırlı kitle. Sağ adrenal KC-böbrek arası, sol adrenal dalak-böbrek arası. USG ile kesin tanı KONULAMAZ → BT/MR ile karakterizasyon şart.",
+  keyPoint: "Adrenal insidentaloma → BT kontrastsız <10 HU = ADENOM (bitti, biyopsi gereksiz). >10 HU → washout BT (APW>60% veya RPW>40% = adenom). Chemical shift MR: opposed phase sinyal kaybı = intrasellüler lipid = ADENOM. >4cm veya atipik → metastaz/feokromositoma/ACC ekle.",
+  differential: ["Feokromositoma — yüksek BT dansite, T2 ÇOK parlak ('light bulb'), plazma/idrar metanefrin yüksek", "Adrenal metastaz — bilinen primer, >10 HU, washout yavaş, düzensiz", "Adrenokortikal karsinom (ACC) — >4cm, heterojen, nekroz, lokal invazyon", "Miyelolipom — makroskopik yağ (<-30 HU), BT'de belirgin düşük dansite"],
+  protocol: "BT kontrastsız (HU ölçümü). <10 HU → tanı. >10 HU → washout BT (kontrastlı 60sn + 15dk). MR: chemical shift (in/opposed phase). Biyokimya: metanefrin, kortizol, aldosteron.",
+  quiz: { q: "Chemical shift MR'da adrenal adenom neden opposed phase'de sinyal kaybeder?", a: "Adrenal adenom hücreleri İNTRASELLÜLER LİPİD (kolesterol) içerir. Aynı vokselde yağ ve su protonları BİRLİKTE bulunur. In-phase'de yağ ve su sinyalleri TOPLANIR (parlak). Opposed phase'de yağ ve su sinyalleri BİRBİRİNİ İPTAL eder → SİNYAL KAYBI. Bu 'India ink' artefaktı ile kitle sınırında siyah çizgi olarak da görülür. Metastaz veya feokromositomada intrasellüler lipid YOKTUR → sinyal kaybı OLMAZ." }
+},
+{
+  id: "ovarian_teratoma",
+  name: "Over Matür Kistik Teratomu (Dermoid Kist)",
+  category: "pelvis",
+  tag: "common",
+  tagText: "Sık",
+  pathway: [
+    { type: "histo", label: "Histopatoloji", text: "Germ hücreli tümör, 3 germ yaprağının hepsinden doku içerir: ektoderm (deri, saç, diş), mezoderm (yağ, kemik, kıkırdak), endoderm (tiroid dokusu). Benign (%99).", detail: "Reprodüktif yaş kadınlarda en sık benign over tümörü" },
+    { type: "tissue", label: "Doku Değişikliği", text: "YAĞ içeriği dominant (sebum). Rokitansky nodülü (dermoid plug): solid protüberans. Saç, diş, kemik komponentleri. Torsiyon riski (%16). Nadir malign dönüşüm (<2%, SCC en sık).", detail: "Sebum: vücut ısısında sıvı → oda ısısında katılaşır" },
+    { type: "signal", label: "Sinyal Karşılığı", text: "BT: yağ dansitesi + kalsifikasyon (diş/kemik) + yağ-sıvı seviyesi. MR: T1 HİPERİNTENS (yağ sinyali), fat-sat'ta SİNYAL KAYBI. Chemical shift artefaktı. T2 değişken.", detail: "T1 parlak over kisti: (1) dermoid (yağ → fat-sat'ta söner), (2) endometrioma (kan → fat-sat'ta SÖNMEZ)" },
+    { type: "finding", label: "Görüntüleme Bulgusu", text: "Kompleks kistik over kitlesi: yağ + kalsifikasyon (diş/kemik fragmanları) + yağ-sıvı seviyesi + Rokitansky nodülü (duvardan solid çıkıntı). Fat-sat: yağ komponenti söner. Chemical shift: sınırda artefakt.", detail: "Bilateral %10. Torsiyon: ani ağrı + over büyümüş + whirlpool sign" }
+  ],
+  usg: "USG: 'Dermoid mesh' (hiperekoik çizgiler = saç). 'Tip of the iceberg' sign (yoğun eko + posterior akustik gölgelenme → arka duvar görünmez). Rokitansky nodülü: duvardaki solid ekojen protüberans. Yağ-sıvı seviyesi. 'Dermoid plug'. Doppler: düşük akımlı.",
+  keyPoint: "Over kitlesi + YAĞ + KALSİFİKASYON (diş) = DERMOID. T1 parlak over lezyonunda fat-sat ile ayır: fat-sat'ta söner = yağ = dermoid. Fat-sat'ta SÖNMEZ = kan = endometrioma. Bilateral %10. Malign dönüşüm: >10cm, yaşlı, Rokitansky nodülünde kontrastlanma/solid komponent artışı.",
+  differential: ["Endometrioma — T1 parlak ama fat-sat'ta SÖNMEZ (kan sinyali), T2 shading", "Müsinöz kistadenoma — multiloküle, müsinöz sıvı, yağ/kalsifikasyon yok", "Hemorajik kist — T1 parlak (kan), takipte küçülür, fat-sat'ta sönmez", "İmmatür teratom — solid dominant, genç (<20), AFP yüksek, agresif"],
+  protocol: "USG (ilk). MR: T1, T1 fat-sat (yağ teyidi), T2, DWI, kontrastlı (solid komponent). BT: kalsifikasyon (diş, kemik). Tümör markerları: AFP, β-hCG, CA-125.",
+  quiz: { q: "Dermoid kist ile endometriomanın her ikisi de T1'de parlaktır — nasıl ayırt edilir?", a: "T1 parlak over lezyonu → FAT SAT uygula: (1) DERMOID: T1'de parlak, fat-sat'ta SİNYAL KAYBI → çünkü parlak sinyal YAĞdan (sebum). Fat-sat yağ sinyalini baskılar. (2) ENDOMETRIOMA: T1'de parlak, fat-sat'ta PARLAK KALIR → çünkü parlak sinyal methemoglobinden (KAN). Fat-sat kan sinyalini ETKİLEMEZ. Ek olarak endometriomada T2 'shading' (T2'de giderek koyulaşan sinyal = kronik kan ürünleri) karakteristiktir." }
+},
+{
+  id: "budd_chiari",
+  name: "Budd-Chiari Sendromu",
+  category: "liver",
+  tag: "important",
+  tagText: "Önemli",
+  pathway: [
+    { type: "histo", label: "Histopatoloji", text: "Hepatik ven çıkış yolu obstrüksiyonu (hepatik ven ve/veya IVC). Neden: hiperkoagülabilite (%75 — miyeloproliferatif, PNH, OKS), membranöz obstrüksiyon, tümör invazyonu.", detail: "Centrilobüler hepatik konjesyon → nekroz → fibroz → siroz" },
+    { type: "tissue", label: "Doku Değişikliği", text: "Akut: hepatomegali + sinüzoidal konjesyon + asit. Kronik: caudat lob HİPERTROFİSİ (ayrı venöz drenajı var — korunur). Periferal atrofi. Rejeneratif nodüller.", detail: "Caudat lob hipertrofisi: hepatik ven obstrüksiyonunun İMZASI" },
+    { type: "signal", label: "Sinyal Karşılığı", text: "Dinamik BT/MR: hetereojen 'mozaik' kontrastlanma paterni (konjesyon + perfüzyon farkları). Caudat lob erken homojen kontrastlanır (sağlam venöz drenaj). Periferik KC geç/zayıf kontrastlanır. Hepatik venlerde akım kaybı.", detail: "Flip-flop pattern: arteryelde periferik koyu + santral parlak → portalde ters" },
+    { type: "finding", label: "Görüntüleme Bulgusu", text: "BT/MR: hepatik ven trombüsü + IVC'de darlik/trombüs. Mozaik KC kontrastlanması. Caudat lob hipertrofisi. Spider web kolateral venler. Asit. Splenomegali. Rejeneratif nodüller (kronik).", detail: "Spider web: hepatik venleri bypass eden intrahepatik kollateraller" }
+  ],
+  usg: "USG + Doppler: Hepatik ven akımı YOK veya ters yönlü. IVC'de darlik/trombüs. Caudat lob büyümüş. Hepatomegali. Asit. Spider web kollateral (intrahepatik venler arasında ince bağlantılar). Hepatik ven görülmezse → Budd-Chiari düşün.",
+  keyPoint: "Hepatomegali + asit + karın ağrısı + hepatik ven akım kaybı = BUDD-CHIARİ. Caudat lob hipertrofisi PATOGNOMONİK (caudat lobun ayrı IVC drenajı korunur). Mozaik KC kontrastlanması. Hiperkoagülabilite taraması yap. Genç kadın + OKS + akut KC yetmezliği → Budd-Chiari?",
+  differential: ["Venooklüzif hastalık (SOS) — KİT sonrası, küçük hepatik venüller tutulur (büyük hepatik ven açık)", "Sağ kalp yetmezliği — hepatik ven dilate (tıkalı değil), IVC genişlemiş, kardiyak bulgu", "Pasif hepatik konjesyon — hepatik ven + IVC dilate (obstrüksiyon yok)", "Siroz — hepatik ven normal kalibrasyonda, portal HT bulguları, Budd-Chiari sonucu da siroz yapabilir"],
+  protocol: "USG Doppler (ilk — hepatik ven/IVC akım). BT multifazlı (mozaik patern + trombüs). MR/MRV (hepatik ven/IVC anatomi). Hiperkoagülabilite taraması (JAK2, PNH, antifosfolipid).",
+  quiz: { q: "Budd-Chiari'de caudat lob neden hipertrofik olur?", a: "KC'nin venöz drenajı: sağ, orta, sol hepatik venler → IVC. Caudat lob ise özeldir — DOĞRUDAN IVC'ye drene olan ayrı küçük venleri vardır (hepatik venleri bypass eder). Budd-Chiari'de hepatik venler tıkandığında KC'nin çoğu konjesyon → atrofi yoluna girer. Ancak caudat lob'un drenajı sağlamdır → kompanzatuar HİPERTROFİ gelişir. Bu anatomik özellik Budd-Chiari'nin PATOGNOMONİK bulgusunu oluşturur." }
+},
+{
+  id: "peritoneal_carcinomatosis",
+  name: "Peritoneal Karsinomatoz",
+  category: "peritoneum",
+  tag: "critical",
+  tagText: "Kritik",
+  pathway: [
+    { type: "histo", label: "Histopatoloji", text: "Periton yüzeyinde metastatik tümör implantları. En sık kaynak: over (%45), kolon (%20), mide (%15), pankreas. Transselomik yayılım (peritoneal sıvı akışı yolunu takip eder).", detail: "Peritoneal Carcinomatosis Index (PCI) ile evreleme" },
+    { type: "tissue", label: "Doku Değişikliği", text: "Peritoneal nodüller + plaklar + omental kek (omentum infiltrasyonu → kalınlaşmış solid omentum). Asit (genellikle hemorajik/eksüda). Peritoneal kontrastlanma.", detail: "Omental cake: büyük omentumun diffüz infiltrasyonu → solid kitle görünümü" },
+    { type: "signal", label: "Sinyal Karşılığı", text: "BT: peritoneal kalınlaşma + nodüller + kontrastlanma + asit + omental cake. MR: DWI peritoneal implantlarda kısıtlanma. PET-BT: FDG avid peritoneal tutulum. Omental cake: heterojen solid.", detail: "DWI: küçük peritoneal implantları tespit etmede en duyarlı MR sekansı" },
+    { type: "finding", label: "Görüntüleme Bulgusu", text: "Asit + peritoneal/omental kalınlaşma + nodüler kontrastlanma + omental cake. Peritoneal sıvı akış yollarında birikir: Douglas, Morrison, parakolik oluklarda. Sestal implantlar. Sausage-shaped (sosis) mesenter.", detail: "Morrison poşu ve Douglas'ta en erken implantlar birikir" }
+  ],
+  usg: "USG: asit + peritoneal kalınlaşma + nodüller. Omental cake: barsakların önünde solid hipoekoik kitle. Asit içinde floating intestinal anslar. Sestal implantlar: peritoneal yüzeylerde nodüler ekojeniteler. USG eşliğinde parasentez (sitoloji).",
+  keyPoint: "Asit + omental cake + peritoneal nodüller = PERİTONEAL KARSİNOMATOZ düşün. Primer aramada: kadın → over CA-125, erkek → GIS endoskopi. Omental cake = büyük omentumun solid infiltrasyonu. DWI küçük implantları tespit etmede BT'den ÜSTÜN. PCI skoru cerrahi kararı belirler.",
+  differential: ["Peritoneal TB — benzer görünüm, genç, endemik bölge, ADA yüksek asitte", "Peritoneal mezotelyoma — asbest öyküsü, peritoneal kalınlaşma, wet type asitli", "Pseudomyxoma peritonei — musin birikimi (jelatinöz asit), appendiks kökenli, scalloping", "Desmoid tümör (mezenterik) — solid mezenterik kitle, peritoneal değil"],
+  protocol: "BT multifazlı (peritoneal evreleme, primer arama). MR + DWI (küçük implant tespiti). PET-BT (fonksiyonel evreleme). USG parasentez (sitoloji). Diagnostik laparoskopi (PCI skorlama).",
+  quiz: { q: "Peritoneal karsinomatozda tümör implantları neden belirli bölgelerde birikir?", a: "Peritoneal sıvı akışı GRAVİTE ve DİYAFRAGM HAREKETLERİ ile yönlendirilir. Sıvı (ve içindeki tümör hücreleri) belirli 'havuz' bölgelerde birikir: (1) DOUGLAS boşluğu (en derin nokta — en erken tutulum). (2) MORRİSON poşu (hepatorenal reses). (3) Sağ parakolik oluk (sıvı buradan subfrenik alana çıkar). (4) Sigmoid mezokolon kökü. Bu anatomik yollar LİGAMENTLER ve MEZENTER ile belirlenir. Bu nedenle bu bölgeleri dikkatle değerlendir!" }
 }
 ];
 
@@ -2888,6 +3034,131 @@ const duels = [
     b: { name: "Malrotasyon + Volvulus", features: ["Herhangi yaş yenidoğan", "BİLİYÖZ (yeşil) kusma", "Whirlpool sign USG", "Corkscrew sign upper GI", "Metabolik ASİDOZ (iskemi)", "ACİL Ladd prosedürü"] },
     keyDiff: "Pilor: NON-biliyöz (safranın üstünde obstrüksiyon) + alkaloz. Volvulus: BİLİYÖZ (safranın altında) + asidoz. KUSMUĞUN RENGİ HAYAT KURTARIR.",
     mnemonic: "Pilor = Pale vomit (non-bilious) + Pylorus. Volvulus = Verdant vomit (green/bilious) + Very urgent."
+  },
+  {
+    title: "IPMN Ana Kanal vs Dal Kanal",
+    color: "#7c3aed",
+    diff: "medium",
+    cat: "pancreas",
+    signalPattern: { a: "Ana kanal >5mm 📏 + Diffüz dilatasyon", b: "Üzüm salkımı 🍇 + Kistik" },
+    a: { name: "MD-IPMN (Ana Kanal)", items: [
+      { label: "Kanal çapı", value: ">5mm diffüz dilatasyon (>10mm = yüksek risk)" },
+      { label: "Morfoloji", value: "Difüz veya segmental kanal genişlemesi" },
+      { label: "Malignite riski", value: "%60-70 (YÜKSEK)" },
+      { label: "Tedavi", value: "Cerrahi rezeksiyon ÖNERİLİR" },
+      { label: "Mural nodül", value: "Sık → malignite göstergesi" },
+      { label: "Papilla", value: "Fish-mouth (müsin dışarı akıyor)" }
+    ]},
+    b: { name: "BD-IPMN (Dal Kanal)", items: [
+      { label: "Morfoloji", value: "Üzüm salkımı multikistik lezyon" },
+      { label: "Lokalizasyon", value: "Unsinat proses (%70)" },
+      { label: "Malignite riski", value: "%25 (DÜŞÜK)" },
+      { label: "Tedavi", value: "TAKİP (worrisome feature yoksa)" },
+      { label: "Kanal bağlantısı", value: "Ana kanal ile bağlantı VAR (MRCP)" },
+      { label: "Boyut", value: "<3cm → takip, >3cm → dikkat" }
+    ]},
+    keyDiff: "Ana kanal dilatasyonu = yüksek malignite riski → cerrahi. Dal kanal kistik = düşük risk → takip (Fukuoka kriterleri ile). Her ikisinde de MRCP kanal ilişkisini gösterir.",
+    mnemonic: "Main duct = Major risk → Must operate. Branch duct = Benign mostly → Be watchful."
+  },
+  {
+    title: "Adrenal Adenom vs Metastaz",
+    color: "#ef4444",
+    diff: "medium",
+    cat: "retroperitoneal",
+    signalPattern: { a: "HU<10 ☀️ + Chemical shift kaybı", b: "HU>10 ⬛ + Washout yavaş" },
+    a: { name: "Adrenal Adenom", items: [
+      { label: "BT kontrastsız", value: "<10 HU (intrasellüler lipid)" },
+      { label: "Chemical shift MR", value: "Opposed phase sinyal KAYBI" },
+      { label: "Washout BT", value: "APW >60% veya RPW >40%" },
+      { label: "Boyut", value: "Genellikle <4cm, stabil" },
+      { label: "Sınır", value: "İyi sınırlı, homojen" },
+      { label: "Klinik", value: "İnsidental, asemptomatik (çoğu)" }
+    ]},
+    b: { name: "Adrenal Metastaz", items: [
+      { label: "BT kontrastsız", value: ">10 HU (lipid yok)" },
+      { label: "Chemical shift MR", value: "Sinyal kaybı YOK" },
+      { label: "Washout BT", value: "APW <60% (yavaş washout)" },
+      { label: "Boyut", value: "Değişken, büyüyebilir" },
+      { label: "Sınır", value: "Düzensiz, heterojen olabilir" },
+      { label: "Klinik", value: "Bilinen primer malignite" }
+    ]},
+    keyDiff: "BT <10 HU = ADENOM (bitti!). >10 HU → washout BT veya chemical shift MR. Opposed phase'de sinyal kaybı = intrasellüler lipid = ADENOM. Lipid yok + yavaş washout = METASTAZ şüphesi.",
+    mnemonic: "ADenom = ADipöz (yağlı). METastaz = METal gibi (yoğun, lipid yok)."
+  },
+  {
+    title: "Dermoid Kist vs Endometrioma (Over T1 Parlak)",
+    color: "#ec4899",
+    diff: "medium",
+    cat: "pelvis",
+    signalPattern: { a: "T1☀️ + Fat-sat SÖNER", b: "T1☀️ + Fat-sat SÖNMEZ + T2 shading" },
+    a: { name: "Dermoid Kist (Matür Teratom)", items: [
+      { label: "T1", value: "HİPERİNTENS (yağ = sebum)" },
+      { label: "T1 Fat-sat", value: "SİNYAL KAYBI (yağ baskılanır)" },
+      { label: "BT", value: "Yağ dansitesi + kalsifikasyon (diş/kemik)" },
+      { label: "T2", value: "Değişken (komponentlere bağlı)" },
+      { label: "USG", value: "Dermoid mesh (saç) + tip of iceberg" },
+      { label: "İçerik", value: "Yağ + saç + diş + kemik" }
+    ]},
+    b: { name: "Endometrioma", items: [
+      { label: "T1", value: "HİPERİNTENS (kan = methemoglobin)" },
+      { label: "T1 Fat-sat", value: "PARLAK KALIR (kan baskılanmaz)" },
+      { label: "BT", value: "Hafif hiperdens (eski kan)" },
+      { label: "T2", value: "SHADİNG (giderek koyulaşma)" },
+      { label: "USG", value: "Homojen hipoekoik (ground glass)" },
+      { label: "İçerik", value: "Eski kan (çikolata kisti)" }
+    ]},
+    keyDiff: "T1 parlak over kisti → FAT SAT uygula! Söner = YAĞ = dermoid. Sönmez = KAN = endometrioma. Ek: endometriomada T2 shading (kronik kan), dermoidde kalsifikasyon (diş).",
+    mnemonic: "Fat-sat answers all: Fat Falls (dermoid), Blood Braves (endometrioma stays bright)."
+  },
+  {
+    title: "Budd-Chiari vs Sağ Kalp Yetmezliği (Hepatik Konjesyon)",
+    color: "#0ea5e9",
+    diff: "hard",
+    cat: "liver",
+    signalPattern: { a: "Hepatik ven TIKALI + caudat lob↑", b: "Hepatik ven DİLATE + IVC genişlemiş" },
+    a: { name: "Budd-Chiari Sendromu", items: [
+      { label: "Hepatik venler", value: "TIKALI (trombüs/obstrüksiyon)" },
+      { label: "IVC", value: "Obstrüksiyon/darlik olabilir" },
+      { label: "Caudat lob", value: "HİPERTROFİK (korunmuş drenaj)" },
+      { label: "Kontrastlanma", value: "Mozaik patern (heterojen)" },
+      { label: "Kollateral", value: "Spider web (intrahepatik)" },
+      { label: "Neden", value: "Hiperkoagülabilite, miyeloproliferatif" }
+    ]},
+    b: { name: "Pasif Hepatik Konjesyon", items: [
+      { label: "Hepatik venler", value: "DİLATE (genişlemiş)" },
+      { label: "IVC", value: "GENİŞLEMİŞ (>2.5cm)" },
+      { label: "Caudat lob", value: "Normal" },
+      { label: "Kontrastlanma", value: "Retrograd kontrastlanma (IVC → hepatik ven)" },
+      { label: "Kollateral", value: "YOK (venler açık)" },
+      { label: "Neden", value: "Sağ kalp yetmezliği, triküspit regürjitasyon" }
+    ]},
+    keyDiff: "Hepatik venler TIKALI → Budd-Chiari. Hepatik venler DİLATE → pasif konjesyon. Caudat lob hipertrofisi Budd-Chiari'de PATOGNOMONİK. Mozaik patern vs retrograd kontrastlanma.",
+    mnemonic: "Budd = Blocked veins + Big caudate. Congestion = Corpulent veins + Cardiac cause."
+  },
+  {
+    title: "Renal AML vs RCC (Küçük Renal Kitle)",
+    color: "#10b981",
+    diff: "medium",
+    cat: "kidney",
+    signalPattern: { a: "Yağ (<-10 HU) + Kalsifikasyon YOK", b: "Kontrastlanma + Kalsifikasyon olabilir" },
+    a: { name: "Anjiyomiyolipom (AML)", items: [
+      { label: "BT dansitesi", value: "<-10 HU YAĞ (TANISAL)" },
+      { label: "Kalsifikasyon", value: "YOK (hiçbir zaman)" },
+      { label: "Chemical shift MR", value: "India ink artefaktı (intrasellüler lipid)" },
+      { label: "USG", value: "Hiperekoik (parlak — yağ)" },
+      { label: "Kontrastlanma", value: "Değişken" },
+      { label: "İlişki", value: "TSC'de bilateral multipl" }
+    ]},
+    b: { name: "RCC (Berrak Hücreli)", items: [
+      { label: "BT dansitesi", value: ">20 HU (yağ yok)" },
+      { label: "Kalsifikasyon", value: "Olabilir (%10-15)" },
+      { label: "Chemical shift MR", value: "İntrasellüler lipid nadiren (minimal sinyal kaybı)" },
+      { label: "USG", value: "Hipoekoik veya heterojen" },
+      { label: "Kontrastlanma", value: "Yoğun arteryel (hipervasküler)" },
+      { label: "İlişki", value: "VHL'de bilateral/multipl" }
+    ]},
+    keyDiff: "BT'de <-10 HU YAĞ = AML (biyopsi gereksiz). Kalsifikasyon varsa AML DEĞİL → RCC düşün. Minimal yağlı AML sorun: yağ tespit edilmez → RCC gibi görünür → biyopsi gerekebilir.",
+    mnemonic: "AML = Always Minus (negative HU) Lipid. RCC = Really Calcified & Contrasts."
   }
 ];
 
@@ -3757,7 +4028,18 @@ const signalQuizzes = [
   { combo: "USG: whirlpool sign + biliyöz kusma + yenidoğan", answer: "Malrotasyon + Midgut Volvulus", category: "pediatric", difficulty: "kolay" },
   { combo: "USG: pilorik kas ≥3mm + kanal ≥17mm + non-biliyöz projektil kusma", answer: "Hipertrofik Pilor Stenozu", category: "pediatric", difficulty: "kolay" },
   { combo: "USG: target sign + pseudokidney + 6ay-3yaş + kanlı gaita", answer: "İntususepsiyon", category: "usg", difficulty: "kolay" },
-  { combo: "MIBG pozitif + suprarenal kitle + VMA yüksek + <5 yaş", answer: "Nöroblastom (Stage 4S: spontan regresyon olabilir!)", category: "pediatric", difficulty: "zor" }
+  { combo: "MIBG pozitif + suprarenal kitle + VMA yüksek + <5 yaş", answer: "Nöroblastom (Stage 4S: spontan regresyon olabilir!)", category: "pediatric", difficulty: "zor" },
+  { combo: "MRCP üzüm salkımı kistik lezyon + unsinat proses + ana kanal ile bağlantı + yaşlı hasta", answer: "Dal Kanal IPMN (BD-IPMN)", category: "pancreas", difficulty: "orta" },
+  { combo: "Ana pankreatik kanal >10mm diffüz dilatasyon + fish-mouth papilla + mural nodül", answer: "Ana Kanal IPMN (MD-IPMN) — yüksek malignite riski!", category: "pancreas", difficulty: "orta" },
+  { combo: "Adrenal kitle BT <10 HU + chemical shift opposed phase sinyal kaybı + insidental", answer: "Adrenal Adenom (lipid-zengin)", category: "retroperitoneal", difficulty: "kolay" },
+  { combo: "Adrenal kitle >10 HU + washout APW <60% + bilinen akciğer kanseri", answer: "Adrenal Metastaz", category: "retroperitoneal", difficulty: "orta" },
+  { combo: "T1☀️ parlak over kisti + fat-sat'ta SİNYAL KAYBI + BT'de kalsifikasyon (diş) + Rokitansky nodülü", answer: "Over Dermoid Kisti (Matür Teratom)", category: "pelvis", difficulty: "kolay" },
+  { combo: "T1☀️ parlak over kisti + fat-sat'ta PARLAK KALIR + T2 shading + USG ground glass", answer: "Endometrioma (Çikolata Kisti)", category: "pelvis", difficulty: "kolay" },
+  { combo: "Hepatik ven akım kaybı + caudat lob hipertrofisi + mozaik KC kontrastlanması + asit + genç kadın OKS", answer: "Budd-Chiari Sendromu", category: "liver", difficulty: "orta" },
+  { combo: "Renal kitle BT <-10 HU yağ dansitesi + kalsifikasyon YOK + bilateral + TSC", answer: "Renal Anjiyomiyolipom (AML)", category: "kidney", difficulty: "kolay" },
+  { combo: "SMA'da dolum defekti + barsak duvarı paper-thin + kontrastlanma kaybı + pnömatozis + portal venöz gaz", answer: "Akut Mezenterik İskemi — TRANSMURAL NEKROZ (ACİL cerrahi!)", category: "bowel", difficulty: "zor" },
+  { combo: "Asit + omental cake + peritoneal nodüler kontrastlanma + DWI kısıtlanma + over kitlesi", answer: "Peritoneal Karsinomatoz (Over Kanseri)", category: "peritoneum", difficulty: "orta" },
+  { combo: "SK irregular duvar kalınlaşması + KC segment 4b-5 invazyonu + hilar LAP + yaşlı kadın", answer: "Safra Kesesi Karsinomu", category: "biliary", difficulty: "zor" }
 ];
 
 // ===== DISEASE CONNECTIONS MAP =====
@@ -7667,14 +7949,17 @@ function getDailyDisease() {
   return diseases[seed % diseases.length];
 }
 
-// ===== THEME TOGGLE =====
+// ===== THEME TOGGLE (synced across modules) =====
 function toggleTheme() {
   document.documentElement.classList.toggle('light-mode');
   var isLight = document.documentElement.classList.contains('light-mode');
+  localStorage.setItem('radiology-theme', isLight ? 'light' : 'dark');
   localStorage.setItem('abdrad_theme', isLight ? 'light' : 'dark');
+  document.querySelector('meta[name="theme-color"]').content = isLight ? '#f8fafc' : '#0f172a';
 }
 (function() {
-  if (localStorage.getItem('abdrad_theme') === 'light') document.documentElement.classList.add('light-mode');
+  var theme = localStorage.getItem('radiology-theme') || localStorage.getItem('abdrad_theme');
+  if (theme === 'light') document.documentElement.classList.add('light-mode');
 })();
 
 // ===== PROFILE PAGE =====
@@ -8063,6 +8348,10 @@ if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initApp);
 } else {
   initApp();
+}
+// ===== SERVICE WORKER REGISTRATION =====
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').catch(function() {});
 }
 </script>
 </body>
