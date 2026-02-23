@@ -812,6 +812,7 @@ body {
       <div class="grid-menu-btn" data-page="report"><span>📝</span>Rapor</div>
       <div class="grid-menu-btn" data-page="concepts"><span>🧬</span>Bağlantılar</div>
       <div class="grid-menu-btn" data-page="variant"><span>🔀</span>Varyant</div>
+      <div class="grid-menu-btn" data-page="learn"><span>🗺️</span>Öğrenme Yolu</div>
     </div>
   </div>
 </div>
@@ -827,6 +828,7 @@ body {
       <div class="grid-menu-btn" data-page="physics"><span>⚛️</span>MR Fizik</div>
       <div class="grid-menu-btn" data-page="artifact"><span>👻</span>Artefakt</div>
       <div class="grid-menu-btn" data-page="measurements"><span>📏</span>Ölçümler</div>
+      <div class="grid-menu-btn" data-page="advanced"><span>🔬</span>İleri MR</div>
     </div>
   </div>
 </div>
@@ -4362,8 +4364,10 @@ function render() {
   if (currentPage === "protocol") { renderProtocolPage(main); return; }
   if (currentPage === "postop") { renderPostopPage(main); return; }
   if (currentPage === "cases") { renderCasesPage(main); return; }
-  if (currentPage === "anatomy") { renderAnatomyPage(main); return; }
+  if (currentPage === "anatomy") { renderAbdAnatomyPage(main); return; }
   if (currentPage === "enhance") { renderEnhancePage(main); return; }
+  if (currentPage === "learn") { renderAbdLearningPath(main); return; }
+  if (currentPage === "advanced") { renderAbdAdvancedMR(main); return; }
   if (currentPage === "profile") { renderProfilePage(main); return; }
 
   const searchEl = document.getElementById('searchInput');
@@ -6952,6 +6956,254 @@ function renderCasesPage(main) {
   main.innerHTML = html;
 }
 
+// ===== ABDOMEN LEARNING PATH (4-WEEK PLAN) =====
+const abdLearningPath = [
+  {
+    week: 1,
+    title: "Karaciğer Temelleri & LI-RADS",
+    subtitle: "KC segmentasyonu, kontrast dinamikleri ve LI-RADS mantığı",
+    color: "#f43f5e",
+    icon: "🫁",
+    modules: [
+      { type: 'concept', title: 'Karaciğer Segmentasyonu (Couinaud)', desc: 'Couinaud 8 segment: Hepatik venler segmentleri AYIRIR (sol HV = II-III/IV sınırı, orta HV = sol-sağ lob = Cantlie hattı, sağ HV = anterior/posterior sektör). Portal ven dalları segmentleri BESler. IVC → safra kesesi çukuru hattı = Cantlie hattı = cerrahi sol-sağ lob sınırı.', action: 'anatomy', label: 'Anatomi Atlasını Aç' },
+      { type: 'concept', title: 'Kontrast Dinamikleri (Arteryel / Portal / Gecikmeli)', desc: 'Normal KC: çift kanlanma (%75 portal ven, %25 hepatik arter). Arteryel faz (25-35sn): arterden beslenen lezyonlar PARLAK (HCC, FNH, hemanjiom). Portal faz (60-70sn): KC parankimi pik kontrastlanma → lezyon/parenkim kontrastı. Gecikmeli faz (3-5dk): fibröz doku tutar, wash-out değerlendirmesi.', action: 'enhance', label: 'Kontrast Paternlerini Aç' },
+      { type: 'concept', title: 'LI-RADS Temelleri', desc: 'Sirotik/yüksek riskli hastada KC kitle değerlendirmesi: LR-1 (kesin benign) → LR-5 (kesin HCC). Major kriterler: arteryel faz hiperenhancement (APHE), wash-out, kapsül görünümü, çap, eşik büyüme. APHE + wash-out + >10mm = LR-5 (kesin HCC → biyopsisiz tanı!).', action: 'disease', id: 'hcc', label: 'HCC Kartını Aç' },
+      { type: 'study', ids: ['hcc', 'hemangioma', 'fnh', 'metastasis_liver', 'hepatic_adenoma'], title: 'Çalışılacak Hastalıklar', desc: 'Bu 5 hastalık KC kitle ayrımının temelini oluşturur. Her birinin kontrastlanma paternini öğren.' }
+    ]
+  },
+  {
+    week: 2,
+    title: "Pankreatobiliyer & GIS",
+    subtitle: "Pankreas kontrastlanması, MRCP tekniği, barsak duvar analizi",
+    color: "#f59e0b",
+    icon: "🟡",
+    modules: [
+      { type: 'concept', title: 'Pankreas Kontrastlanma Fiziği', desc: 'Normal pankreas: YOĞUN kapiller ağ → arteryel/pankreatik fazda HOMOJENkontrastlanır. PDAC: desmoplastik stroma → HİPOVASKÜLER → pankreatik fazda HİPODENS (çevre pankreastan koyu). pNET: zengin kapiller → HİPERVASKÜLER → arteryel fazda parlak. Bu basit kural ikisini ayırır!', action: 'disease', id: 'pancreatic_adenoca', label: 'PDAC Kartını Aç' },
+      { type: 'concept', title: 'MRCP Tekniği', desc: '2D kalın kesit MRCP: hızlı, genel bakış (T2 ağırlıklı → safra/pankreatik kanal parlak, çevre koyu). 3D ince kesit MRCP: detaylı, MPR yapılabilir → küçük taş/striktür tespiti. Sekretin MRCP: IV sekretin → pankreas salgısı artar → Wirsung doluluk ve fonksiyon. Tuzak: hava kabarcığı = taş gibi görünebilir (pozisyon değişir).', action: 'disease', id: 'choledocholithiasis', label: 'Koledokolitiyazis Kartını Aç' },
+      { type: 'concept', title: 'Barsak Duvar Analizi', desc: 'Normal duvar: ≤3mm (distansiyon). Kalınlaşma paterni: SİMETRİK + homojen = inflamatuar (Crohn, ÜK). ASİMETRİK + irregular = neoplastik. Katmanlanma (target sign): mukoza hiperemik + submukoza ödemli → aktif inflamasyon. Yağ halo sign: submukozal yağlanma → kronik inflamasyon (Crohn).', action: 'disease', id: 'crohn', label: 'Crohn Kartını Aç' },
+      { type: 'study', ids: ['pancreatic_adenoca', 'ipmn', 'cholangiocarcinoma', 'crohn', 'appendicitis'], title: 'Çalışılacak Hastalıklar', desc: 'Pankreatobiliyer ve GIS patolojilerinin temel 5 hastalığı.' }
+    ]
+  },
+  {
+    week: 3,
+    title: "Ürogenital & Pelvik",
+    subtitle: "Renal kitle karakterizasyonu, Bosniak, PI-RADS, over kitle analizi",
+    color: "#8b5cf6",
+    icon: "🫘",
+    modules: [
+      { type: 'concept', title: 'Renal Kitle Karakterizasyonu', desc: 'Solid kitle: kontrastlanma >20 HU artış = GERÇEK solid lezyon. Berrak hücreli RCC: hipervasküler → arteryel parlak, heterojen. Papiller RCC: hipovasküler → homojen, gecikmeli kontrastlanma. Kromofob RCC: homojen, orta kontrastlanma. AML: makroskopik yağ (-30 HU) → PATOGNOMONİK (yağsız AML tuzağı var!).', action: 'disease', id: 'rcc', label: 'RCC Kartını Aç' },
+      { type: 'concept', title: 'Bosniak Sınıflama (2019 Güncelleme)', desc: 'Bosniak I: basit kist (su dansitesi, ince duvar, kontrastlanma yok). Bosniak II: ince septa, ince kalsifikasyon, hiperdens kist. Bosniak IIF: minimal kalınlaşmış septa, takip gerekli. Bosniak III: kalınlaşmış irregular septa/duvar, kontrastlanan komponent → cerrahi düşün. Bosniak IV: solid kontrastlanan komponent → MALİGN kabul.', action: 'disease', id: 'bosniak_cysts', label: 'Bosniak Kartını Aç' },
+      { type: 'concept', title: 'PI-RADS Temelleri & Over Kitle Analizi', desc: 'PI-RADS: prostat mpMR → PZ\'de DWI dominant (kısıtlanma = şüpheli), TZ\'de T2 dominant (homojen kapsüllü = BPH, lentiküler/organize olmayan = Ca). Over kitle: solid komponent + kontrastlanma = en önemli malignite kriteri. Endometrioma: T1 parlak kist (kan), T2 shading (kronik kan ürünleri).', action: 'disease', id: 'prostate_ca', label: 'Prostat Ca Kartını Aç' },
+      { type: 'study', ids: ['rcc', 'aml', 'ovarian_ca', 'endometriosis', 'prostate_ca'], title: 'Çalışılacak Hastalıklar', desc: 'Ürogenital ve pelvik patolojilerin temel 5 hastalığı.' }
+    ]
+  },
+  {
+    week: 4,
+    title: "Entegrasyon & Ayırıcı Tanı",
+    subtitle: "Multiorgan ayırıcı tanı, acil abdomen, staging entegrasyonu",
+    color: "#10b981",
+    icon: "🏆",
+    modules: [
+      { type: 'concept', title: 'Sistematik Yaklaşım: Bulgu → Tanı', desc: '1) Organ lokalizasyonu (KC, pankreas, böbrek, barsak?) 2) Lezyon karakteri (kistik vs solid vs mikst) 3) Kontrastlanma paterni (hipervasküler vs hipovasküler vs periferik) 4) Klinik bağlam (siroz? kanser öyküsü? acil?) 5) Ayırıcı tanı → en olası tanı. Her vakada bu sırayı uygula!', action: 'finder', label: 'Tüm Karar Ağaçlarını Gör' },
+      { type: 'concept', title: 'Acil Abdomen Yaklaşımı', desc: 'Vasküler aciller: SMA trombozu (barsak duvarında kontrastlanma kaybı + pnömatozis), aort rüptürü (retroperitoneal hematom), portal ven trombozu. Travma: AAST organ yaralanma gradeleme. Serbest sıvı, aktif kanama (arteryel blush), sentinel clot sign → en çok yaralanan organ.', action: 'emergency', label: 'Acil Sayfasını Aç' },
+      { type: 'concept', title: 'Staging & Grading Entegrasyonu', desc: 'TNM evreleme: T (tümör boyutu/invazyon), N (lenf nodu), M (metastaz). Organ-spesifik: KC metastaz sayı/boyut, peritoneal karsinomatozis (PCI skoru), lenf nodu kısa aks >10mm = patolojik. Imaging rapor: cerrahın neye ihtiyacı var → damar invazyonu, rezektabilite, uzak metastaz.', action: 'staging', label: 'Evreleme Sayfasını Aç' },
+      { type: 'study', ids: ['mesenteric_ischemia', 'aortic_aneurysm', 'peritoneal_carcinomatosis', 'sma_thrombosis'], title: 'Çalışılacak Hastalıklar', desc: 'Vasküler aciller ve ileri evre hastalıklar — entegrasyon.' }
+    ]
+  }
+];
+
+// ===== ABDOMEN ADVANCED MR DATA =====
+const abdAdvancedMR = [
+  {
+    title: "DWI Abdomen (Difüzyon Ağırlıklı Görüntüleme)",
+    icon: "🔒",
+    color: "#f59e0b",
+    concepts: [
+      { name: "ADC Değerleri — Lezyon Karakterizasyonu", what: "Su molekülü hareketinin nicel ölçümü. Düşük ADC = yüksek selülarite veya viskozite", high: "Basit kist, nekrotik alan, ödemli doku (su serbest hareket eder)", low: "Malign tümör (yüksek selülarite), abse (visköz pü), sitotoksik ödem (iskemik barsak)" },
+      { name: "b-Değeri Seçimi", what: "Difüzyon gradyan gücü. Düşük b = perfüzyon etkisi dahil, yüksek b = gerçek difüzyon", high: "b50-100: perfüzyon ağırlıklı (IVIM → kapiller perfüzyon görselleştirme). Hipervasküler lezyonlar parlak", low: "b800-1000: gerçek difüzyon kısıtlanması. Malign lezyon tespitinde optimal. KC için b=800, barsak için b=600-800" },
+      { name: "Organ-Spesifik DWI (KC, Böbrek, Barsak)", what: "Her organın normal ADC değeri ve eşik değerleri farklı", high: "KC normal ADC: ~1.5 × 10⁻³ mm²/s. Böbrek korteks: ~2.2. İnce barsak: ~2.0", low: "KC malign lezyon: <1.0 × 10⁻³. Böbrek tümör: <1.5. Aktif Crohn segmenti: <1.3 (duvar DWI parlak)" }
+    ],
+    clinicalPearls: [
+      "🔑 DWI tümör vs abse: Abse → çok düşük ADC (visköz pü, 0.3-0.7), tümör → orta-düşük ADC (0.8-1.2). KC absesinde DWI parlak merkez = abse patolojik",
+      "🔑 DWI barsak inflamasyon aktivitesi: Aktif Crohn segmentinde DWI parlak + düşük ADC → aktivite belirteci. Fibrotik striktür = DWI parlak DEĞİL",
+      "🔑 Hepatobilier faz + DWI kombinasyonu: Gd-EOB-DTPA hepatobilier fazda hipointens (hepatosit yok) + DWI parlak = yüksek güvenle malign lezyon",
+      "🔑 TUZAK: T2 shine-through → hemanjiom gibi T2 parlak lezyonlar DWI'da da parlak görünebilir. MUTLAKA ADC haritasını kontrol et!"
+    ]
+  },
+  {
+    title: "DCE-MR (Dinamik Kontrastlı MR)",
+    icon: "💉",
+    color: "#f43f5e",
+    concepts: [
+      { name: "Zaman-Yoğunluk Eğrileri (Type I/II/III)", what: "Kontrastlanmanın zamansal davranışı — lezyon karakteri hakkında bilgi verir", high: "Type I (progressif artış): benign (hemanjiom, fibröz doku — yavaş dolum). Type III (hızlı wash-out): malign (HCC, hipervasküler met)", low: "Type II (plato): borderline — hem benign hem malign olabilir (FNH, düşük grade tümör). Tek başına tanısal değil" },
+      { name: "Wash-in / Wash-out Analizi", what: "Arteryel fazda kontrastlanma hızı ve gecikmeli fazda kayıp oranı", high: "Hızlı wash-in: hipervasküler lezyon (HCC, FNH, hemanjiom nodüler kontrastlanma). Wash-out: HCC'de portal/gecikmeli fazda çevre KC'den KOYU", low: "Yavaş wash-in + gecikmeli tutulum: desmoplastik tümör (kolanjiokarsinom, pankreas Ca). Fibröz doku = gecikmeli tutan" },
+      { name: "Hepatobilier Kontrast Ajanları (Gd-EOB-DTPA vs Gd-BOPTA)", what: "Hepatosit-spesifik kontrast: normal hepatositler tarafından alınır → hepatobilier fazda KC parlak", high: "Gd-EOB-DTPA (Primovist): %50 hepatobilier atılım → 20dk'da hepatobilier faz. Daha güçlü hepatosit uptake", low: "Gd-BOPTA (MultiHance): %5 hepatobilier → 60-120dk'da hepatobilier faz. Daha düşük hepatosit uptake ama dinamik fazları daha iyi" }
+    ],
+    clinicalPearls: [
+      "🔑 FNH vs adenom hepatobilier fazda: FNH = fonksiyonel hepatositler → Gd-EOB-DTPA ALIR → hepatobilier fazda İZO/HİPERİNTENS. Adenom = anormal hepatositler → ALMAZ → HİPOİNTENS",
+      "🔑 HCC wash-out mekanizması: HCC arteryel neovaskülarizasyon → arteryel APHE. Ama sinüzoidal yapı bozuk → portal akım azalır → portal/gecikmeli fazda çevre KC parankiminden KOYU (wash-out)",
+      "🔑 Kolanjiokarsinom gecikmeli tutulumu: Yoğun fibröz stroma → kontrast yavaş sızar + yavaş çıkar → arteryelde HİPO, gecikmeli fazda (5-10dk) İZO/HİPER. Bu 'fibröz doku retansiyon' paterni",
+      "🔑 Primovist TUZAĞI: Arteryel faz kalitesi ekstrasellüler ajanlara göre daha düşük (düşük doz). Küçük hipervasküler lezyonları kaçırabilirsin → hepatobilier faz ile telafi"
+    ]
+  },
+  {
+    title: "MR Elastografi",
+    icon: "📊",
+    color: "#8b5cf6",
+    concepts: [
+      { name: "KC Sertliği Ölçümü", what: "Mekanik dalga propagasyonu → doku sertliği (kPa) hesaplanır. Sert doku = hızlı dalga", high: "Fibrozis/siroz: sertlik artar (F4 siroz: >5-6 kPa). Konjesyon (sağ kalp yetmezliği): sertlik yapay artabilir", low: "Normal KC: ~2.0-2.5 kPa. Steatoz sertliği çok az artırır ama fibrozis olmadan genelde <3 kPa" },
+      { name: "Fibrozis Evreleme (F0-F4)", what: "METAVIR skoru ile korelasyon: F0=normal, F1=portal fibrozis, F2=bridging, F3=ciddi bridging, F4=siroz", high: "MRE eşik değerleri: F≥2: >3.0 kPa (klinik anlamlı fibrozis). F≥3: >3.5 kPa. F4: >5.0 kPa. Viral hepatit ve NAFLD için en iyi non-invaziv yöntem", low: "F0-F1: <3.0 kPa → anlamlı fibrozis YOK. Biyopsi gerekmez. Ancak steatohepatitin kendisi (NASH) elastografiyle ayırt edilemez" },
+      { name: "Teknik (Vibrasyon + Faz Kontrast)", what: "Pasif driver → 60Hz mekanik vibrasyon → KC'ye dalga gönderir → faz kontrast MR ile dalga haritası → sertlik hesaplama", high: "Avantaj: tüm KC'yi örnekler (biyopsi 1/50.000 hacim), obezitede bile çalışır (USG elastografinin limiti)", low: "Limitasyon: demir birikimi → sinyal düşer → ölçüm güvenilmez. Aşırı asit → dalga iletimi bozulur" }
+    ],
+    clinicalPearls: [
+      "🔑 Biyopsi yerine non-invaziv fibrozis: MRE → fibrozis evreleme AUC >0.95 (F≥2 için). KC biyopsisinin örnekleme hatası %25-40 → MRE tüm KC'yi değerlendirir",
+      "🔑 NAFLD takibi: MRE + MR-PDFF (proton dansite yağ fraksiyonu) kombinasyonu → yağlanma + fibrozis birlikte değerlendirilir → tedavi yanıtı takibi",
+      "🔑 Portal HT korelasyonu: KC sertliği >5 kPa → portal HT riski yüksek. Splenik sertlik de ölçülebilir → portal HT'nin indirekt belirteci",
+      "🔑 TUZAK: Akut hepatit (inflamasyon) → sertlik YAPAY artar (ödem etkisi). Akut alevlenmede ölçüm yapma → en az 3 ay bekle"
+    ]
+  },
+  {
+    title: "MRCP Teknikleri",
+    icon: "💚",
+    color: "#10b981",
+    concepts: [
+      { name: "2D Kalın Kesit vs 3D İnce Kesit MRCP", what: "2D: tek nefes tutma, hızlı, genel bakış (40-80mm kalın slab). 3D: çok ince kesit (1-1.5mm), MPR yapılabilir, detaylı", high: "2D avantajı: hızlı (1-2sn), hareket artefaktı az, koopere olmayan hastada. Safra ağacı genel değerlendirmesi", low: "3D avantajı: küçük taşlar (<5mm), stent içi değerlendirme, anatomik varyant detayı. Dezavantaj: uzun (3-5dk), hareket artefaktı" },
+      { name: "Sekretin MRCP", what: "IV sekretin → pankreas ekzokrin salgısını uyarır → Wirsung doluluk ve duodenal dolum gözlenir", high: "Pankreas divisum tanısı: sekretin ile minör papilladan akım → dorsal kanal dilatasyonu. Wirsung fonksiyonel kapasitesi", low: "Normal bulgu: sekretin sonrası Wirsung geçici dilatasyon (<3dk) + duodenum dolumu. Anormal: >5dk dilatasyon veya akım olmaması" },
+      { name: "Fonksiyonel Bilier Değerlendirme", what: "Kontrastlı MR kolanjiografi: hepatobilier kontrast → bilier atılım → anatomik + fonksiyonel bilgi", high: "Hepatobilier fazda safra yolları parlak → obstrüksiyon seviyesi net. Segmental atılım farkı → segmental obstrüksiyon", low: "Atılım olmaması: ciddi hepatosit disfonksiyonu veya komplet obstrüksiyon. Klinik kontekste değerlendir" }
+    ],
+    clinicalPearls: [
+      "🔑 Taş tespiti optimizasyonu: 3D ince kesit MRCP + radyal slab kombinasyonu. Negatif dolum defekti = taş. Hava ile karıştırma: pozisyon değiştir → hava hareket eder, taş etmez",
+      "🔑 Striktür karakterizasyonu: Kısa + düzgün = benign (PSC, postoperatif). Uzun + irregüler + proksimal dilatasyon = malign (kolanjiokarsinom). Shoulder sign = malign striktür",
+      "🔑 Pankreas divisum: popülasyonun %5-10. Dorsal kanal → minör papilla (Santorini). Ventral kanal → majör papilla (küçük, sadece uncinate drene eder). Rekürren pankreatit nedeni olabilir",
+      "🔑 TUZAK: MRCP'de safra yolları dilate ise kontrast MRCP ek bilgi verir. Ama normal çaplı yollarda taş MRCP'den kaçabilir → klinik şüphe devam ediyorsa EUS düşün"
+    ]
+  }
+];
+
+// ===== ABDOMEN ANATOMY SVG REGIONS =====
+const abdomenAnatomyRegions = [
+  { id: "liver", name: "Karaciğer", color: "#f43f5e",
+    svgType: "polygon", points: "70,60 200,45 270,55 280,80 270,130 220,150 140,145 70,120",
+    info: {
+      segments: "Couinaud 8 segment: I (kaudat), II-III (sol lateral), IVa-IVb (sol medial), V-VIII (sağ lob). Hepatik venler segmentleri ayırır, portal venler segmentleri besler.",
+      landmarks: "Cantlie hattı (orta hepatik ven = sağ-sol lob sınırı): IVC → safra kesesi çukuru hattı. Falciform ligaman: segment II-III / IVa-IVb sınırı.",
+      normalMeasures: "Midklavikular hatta kraniokaudal ≤15.5cm. Kaudat/sağ lob oranı <0.65. Portal ven <13mm.",
+      variants: "Riedel lobu (sağ lob uzantısı). Aksesuar sol lob. Aberrant hepatik arter (%25-40).",
+      keyPearl: "Couinaud segmentasyon cerrahi planlamada ZORUNLU. Aberrant arter varyantları kolesistektomide iatrojenik yaralanma riski taşır."
+    }
+  },
+  { id: "spleen", name: "Dalak", color: "#a855f7",
+    svgType: "ellipse", cx: 310, cy: 100, rx: 32, ry: 45,
+    info: {
+      segments: "Homojen parankim. Beyaz pulpa (lenfoid) + kırmızı pulpa (sinüzoidler). Arteryel fazda benekli kontrastlanma NORMAL.",
+      landmarks: "Sol üst kadran, 9-11. kosta. Splenik hilus: tortüöz splenik arter + splenik ven. Gastrosplenik ve splenorenal ligamanlar.",
+      normalMeasures: "Uzun aks <13cm. Splenik ven <10mm.",
+      variants: "Aksesuar dalak (%10-30). Polispleni (sol izomerizm). Aspleni (sağ izomerizm).",
+      keyPearl: "Arteryel fazda dalak BENEKLI kontrastlanır (zebra paterni) → lezyon sanılmamalı! Portal fazda homojenleşir."
+    }
+  },
+  { id: "pancreas", name: "Pankreas", color: "#f59e0b",
+    svgType: "polygon", points: "130,155 175,148 220,145 260,150 290,158 260,168 220,170 175,172 130,168",
+    info: {
+      segments: "Baş (uncinate dahil), boyun, gövde, kuyruk. Baş duodenumla C-loop yapar. Kuyruk dalak hilusuna uzanır.",
+      landmarks: "SMA + SMV: pankreas boynu arkasında. Splenik ven: gövde-kuyruk arkasında. CBD: pankreas başı içinden geçer.",
+      normalMeasures: "Baş ≤3cm, gövde ≤2.5cm, kuyruk ≤2cm. Wirsung ≤3mm.",
+      variants: "Pankreas divisum (%5-10). Annüler pankreas. Ektopik pankreas (mide antrum).",
+      keyPearl: "Aksesuar dalak pankreas kuyruğunda kitle gibi görünebilir → TÜM FAZLARDA dalakla aynı sinyal = aksesuar dalak. Double duct sign = periampüller tümör."
+    }
+  },
+  { id: "gallbladder", name: "Safra Kesesi", color: "#10b981",
+    svgType: "ellipse", cx: 190, cy: 142, rx: 14, ry: 20,
+    info: {
+      segments: "Fundus, korpus, infundibulum, boyun → kistik kanal → CBD birleşimi.",
+      landmarks: "KC segment IVb-V sınırında fossa. Portal triad: hepatik arter + portal ven + safra kanalı.",
+      normalMeasures: "Uzun aks ≤10cm, transvers ≤4cm. Duvar ≤3mm. CBD ≤6mm (kolesistektomi sonrası ≤8mm).",
+      variants: "Kistik kanal birleşme varyasyonları (düşük, medial, posterior). Frigyalı başlık (fundus katlantısı). Agenezi (nadir).",
+      keyPearl: "Kolesistektomi sonrası CBD hafif genişler (reservoir etkisi kaybolur → 10mm'e kadar kabul). Yeni dilatasyon + sarılık = patolojik."
+    }
+  },
+  { id: "right_kidney", name: "Sağ Böbrek", color: "#3b82f6",
+    svgType: "ellipse", cx: 100, cy: 195, rx: 28, ry: 40,
+    info: {
+      segments: "Korteks (glomerüller), medulla (piramidler), renal sinüs (pelvis + yağ + damar).",
+      landmarks: "Renal arter: aortadan L1-2 seviyesinde. Sağ renal ven IVC'ye direkt dökülür. Üreter: UPJ → üreter → UVJ.",
+      normalMeasures: "Uzun aks: 9-12cm. Korteks kalınlığı ≥10mm. Renal arter RI <0.70.",
+      variants: "Aksesuar renal arter (%25-30). Çift toplayıcı sistem. At nalı böbrek.",
+      keyPearl: "Aksesuar renal arter transplant donörde BT anjio ile gösterilmeli. Bosniak sınıflama renal kistik kitle yönetiminin temelidir."
+    }
+  },
+  { id: "left_kidney", name: "Sol Böbrek", color: "#3b82f6",
+    svgType: "ellipse", cx: 295, cy: 185, rx: 28, ry: 40,
+    info: {
+      segments: "Korteks, medulla, renal sinüs. Sol böbrek genellikle sağdan 0.5cm büyüktür.",
+      landmarks: "Sol renal ven: aorta ÖNÜNden geçer (nutcracker pozisyon). Sol adrenal: sol böbrek üst polü medialinde.",
+      normalMeasures: "Uzun aks: 9-12cm. Parankim kalınlığı ≥15mm.",
+      variants: "Retroaortik/circumaortik sol renal ven (%2-8). Sol taraflı IVC (nadir).",
+      keyPearl: "Nutcracker sendromu: aorta-SMA arası sol renal ven sıkışır → hematüri. SMA-aort açısı <25° → SMA sendromu ile birlikte olabilir."
+    }
+  },
+  { id: "stomach", name: "Mide", color: "#ef4444",
+    svgType: "polygon", points: "150,105 200,95 240,100 250,125 235,148 195,155 155,145 140,125",
+    info: {
+      segments: "Kardia, fundus, korpus, antrum, pilorus. Duvar: mukoza, submukoza, muskularis propria, seroza.",
+      landmarks: "Küçük kurvatur (hepatogastrik ligaman). Büyük kurvatur (gastrokolik ligaman). Gastrik plikalar en iyi distansiyonla değerlendirilir.",
+      normalMeasures: "Duvar ≤5mm (distansiyon ile). Distansiyon olmadan duvar kalın GÖRÜNÜR → tuzak.",
+      variants: "Hiyatal herni (sliding vs paraözofageal). Mide divertikülü (fundus posterior).",
+      keyPearl: "Gastrik kanser evrelemede: T2 = muskularis propria invazyonu, T3 = seroza, T4 = komşu organ. Su veya hava ile distansiyon sağla."
+    }
+  },
+  { id: "small_bowel", name: "İnce Barsak", color: "#06b6d4",
+    svgType: "polygon", points: "135,215 260,215 270,290 250,320 145,320 125,290",
+    info: {
+      segments: "Duodenum (D1-D4), jejunum (proksimal 2/5), ileum (distal 3/5). Jejunum: kalın kıvrımlar. İleum: ince kıvrımlar + Peyer plakları.",
+      landmarks: "Treitz ligamanı: duodenojejunal bileşke. İleoçekal valv: terminal ileum → çekum. MR enterografi ile en iyi değerlendirilir.",
+      normalMeasures: "Duvar ≤3mm (distansiyon), ≤5mm (kollaps). Lümen çapı ≤3cm.",
+      variants: "Malrotasyon (Treitz sağda). Meckel divertikülü (%2 popülasyon). Duplikasyon kisti.",
+      keyPearl: "3-6-9 kuralı: ince barsak >3cm, kolon >6cm, çekum >9cm = obstrüksiyon. Duvar kalınlığı DİSTANSE barsakta değerlendirilmeli."
+    }
+  },
+  { id: "colon", name: "Kolon", color: "#ec4899",
+    svgType: "polygon", points: "85,175 100,170 110,210 110,320 120,340 275,340 285,320 285,210 295,170 310,175 310,195 300,210 300,330 290,355 105,355 95,330 95,210",
+    info: {
+      segments: "Çekum + apendiks, çıkan kolon, hepatik fleksura, transvers kolon, splenik fleksura, inen kolon, sigmoid, rektum.",
+      landmarks: "Hepatik fleksura: KC alt kenarı altında. Splenik fleksura: dalak alt polü yakınında. Rektosigmoid bileşke: S3 seviyesi.",
+      normalMeasures: "Duvar ≤3-5mm. Çekum çapı ≤9cm. Kolon çapı ≤6cm.",
+      variants: "Sağ taraflı kolon (situs inversus). Mobil çekum. Redundan sigmoid.",
+      keyPearl: "Kolorektal Ca evreleme: T3 = perikolik yağ invazyonu (en sık evre). CRM (circumferential resection margin) <1mm = pozitif → lokal nüks riski. Rektal Ca MR evreleme zorunlu."
+    }
+  },
+  { id: "aorta", name: "Aort", color: "#dc2626",
+    svgType: "rect", x: 191, y: 60, width: 14, height: 280, rx: 7,
+    info: {
+      segments: "Abdominal aort: diyafragma → bifurkasyon (L4). Dalları: çölyak (T12), SMA (L1), renal arterler (L1-2), IMA (L3).",
+      landmarks: "Çölyak trunk: sol gastrik + splenik + hepatik arter. SMA: pankreatik boyun arkası. IVC: aortanın sağında.",
+      normalMeasures: "Suprarenal <2.5cm, infrarenal <2cm. ≥3cm = AAA. SMA-aort açısı: 38-65°.",
+      variants: "Aksesuar renal arter. Hepatik arter varyasyonları (Michel). Median arkuat ligaman kompresyonu.",
+      keyPearl: "AAA rüptür riski: çap ≥5.5cm (erkek), ≥5.0cm (kadın) → cerrahi endikasyon. Akut karın ağrısı + hipotansiyon + posterior duvar defekti = rüptür düşün."
+    }
+  },
+  { id: "bladder", name: "Mesane", color: "#0ea5e9",
+    svgType: "ellipse", cx: 198, cy: 365, rx: 40, ry: 22,
+    info: {
+      segments: "Detrusor kas (3 katman). Trigon: iki üreteral orifis + internal üretral orifis.",
+      landmarks: "Mesane kubbesi: peritonla örtülü. Posterior: rektum (erkek) veya uterus (kadın). Prevesikal alan (Retzius boşluğu).",
+      normalMeasures: "Duvar ≤3mm (distansiyon). ≤5mm (boş). Post-miksiyonel rezidü <50mL.",
+      variants: "Mesane divertikülü (kas defekti → herniyasyon). Urakal remnant (kubbe).",
+      keyPearl: "Mesane Ca evreleme: T2 = muskularis propria invazyon (kas-invaziv). MR → perivesikal yağ invazyonu (T3) tespitinde BT'den üstün."
+    }
+  },
+  { id: "uterus", name: "Uterus / Prostat", color: "#d946ef",
+    svgType: "polygon", points: "180,340 216,340 220,358 210,370 198,374 186,370 176,358",
+    info: {
+      segments: "Uterus: fundus, korpus, istmus, serviks. Zonlar (MR): endometrium (T2 parlak), junctional zone (T2 koyu), myometrium. Prostat: periferik zon (PZ), transizyonel zon (TZ), santral zon.",
+      landmarks: "Douglas çukuru: rektouterin poş (en derin peritoneal alan). Prostat: NVB posterolateral → cerrahi korumalı.",
+      normalMeasures: "Uterus: 6-10cm. Endometrial kalınlık: postmenopozal <4mm. Prostat: >30cc = BPH.",
+      variants: "Müllerian anomaliler (uterus didelfis, bikornis, septus). Utrikül kisti (prostat orta hat).",
+      keyPearl: "Postmenopozal endometrial kalınlık ≥4mm + kanama = biyopsi. PI-RADS: PZ'de DWI dominant, TZ'de T2 dominant."
+    }
+  }
+];
+
 // ===== NORMAL ANATOMY ATLAS =====
 const anatomyAtlas = [
   { organ: "Karaciğer", icon: "🫁", color: "#f43f5e",
@@ -7144,6 +7396,253 @@ function renderEnhancePage(main) {
 
     html += '</div></div></div>';
   });
+  html += '</div>';
+  main.innerHTML = html;
+}
+
+// ===== ABDOMEN LEARNING PATH RENDERER =====
+function renderAbdLearningPath(main) {
+  var completedWeeks = JSON.parse(localStorage.getItem('abdrad_learn_weeks') || '[]');
+  var html = '<div style="padding:20px 4px;">';
+  html += '<h2 style="font-family:Playfair Display,serif; font-size:24px; margin-bottom:4px;">🗺️ Öğrenme Yolu</h2>';
+  html += '<p style="color:var(--text-muted); font-size:13px; margin-bottom:6px;">Sistematik 4 haftalık abdomen radyoloji eğitimi</p>';
+  html += '<p style="color:var(--text-muted); font-size:11px; margin-bottom:16px; font-style:italic;">Ezberleme değil — kontrastlanma dinamiklerini anla, patolojiyi mekanizmasıyla kavra</p>';
+
+  // Progress overview
+  var pct = Math.round((completedWeeks.length / 4) * 100);
+  html += '<div style="background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:12px; margin-bottom:16px;">';
+  html += '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">';
+  html += '<span style="font-size:12px; font-weight:600; color:var(--text-primary);">Genel İlerleme</span>';
+  html += '<span style="font-size:12px; color:var(--accent-cyan);">' + completedWeeks.length + '/4 hafta</span>';
+  html += '</div>';
+  html += '<div style="height:6px; background:var(--bg-accent); border-radius:3px; overflow:hidden;">';
+  html += '<div style="height:100%; width:' + pct + '%; background:linear-gradient(90deg, var(--accent-cyan), var(--accent-blue)); border-radius:3px; transition:width 0.3s;"></div>';
+  html += '</div></div>';
+
+  abdLearningPath.forEach(function(week) {
+    var isComplete = completedWeeks.indexOf(week.week) !== -1;
+    var isOpen = window._abdLearnWeek === week.week;
+    var weekColorRGB = week.color === '#f43f5e' ? '244,63,94' : week.color === '#f59e0b' ? '245,158,11' : week.color === '#8b5cf6' ? '139,92,246' : '16,185,129';
+
+    html += '<div class="disease-card abd-learn-week" style="margin-bottom:12px; border-left:3px solid ' + week.color + '; opacity:' + (isComplete ? '0.7' : '1') + ';">';
+    html += '<div class="disease-header abd-learn-week-toggle" data-week="' + week.week + '">';
+    html += '<span style="font-size:20px; margin-right:6px;">' + (isComplete ? '✅' : week.icon) + '</span>';
+    html += '<div style="flex:1; min-width:0;">';
+    html += '<span class="disease-name" style="font-size:14px;">Hafta ' + week.week + ': ' + week.title + '</span>';
+    html += '<div style="font-size:11px; color:var(--text-muted);">' + week.subtitle + '</div>';
+    html += '</div>';
+    html += '<span class="chevron">' + (isOpen ? '▴' : '▾') + '</span>';
+    html += '</div>';
+
+    if (isOpen) {
+      html += '<div class="disease-content" style="display:block;max-height:5000px;overflow:visible;"><div style="padding:0 14px 16px;">';
+
+      week.modules.forEach(function(mod) {
+        if (mod.type === 'concept') {
+          html += '<div style="background:rgba(' + weekColorRGB + ',0.06); border:1px solid ' + week.color + '22; border-radius:var(--radius); padding:12px; margin-bottom:10px;">';
+          html += '<div style="font-size:13px; font-weight:700; color:' + week.color + '; margin-bottom:6px;">💡 ' + mod.title + '</div>';
+          html += '<div style="font-size:12px; color:var(--text-secondary); line-height:1.7;">' + mod.desc + '</div>';
+          if (mod.action) {
+            html += '<div class="abd-learn-action" data-action="' + mod.action + '" data-id="' + (mod.id || '') + '" style="margin-top:8px; padding:6px 12px; background:' + week.color + '15; border:1px solid ' + week.color + '33; border-radius:var(--radius-sm); color:' + week.color + '; font-size:11px; font-weight:600; cursor:pointer; display:inline-block;">→ ' + mod.label + '</div>';
+          }
+          html += '</div>';
+        }
+        if (mod.type === 'study') {
+          html += '<div style="background:var(--bg-accent); border-radius:var(--radius); padding:10px 12px; margin-bottom:10px;">';
+          html += '<div style="font-size:11px; font-weight:700; color:var(--text-primary); margin-bottom:4px;">📚 ' + mod.title + '</div>';
+          html += '<div style="font-size:11px; color:var(--text-muted); margin-bottom:8px;">' + mod.desc + '</div>';
+          html += '<div style="display:flex; flex-wrap:wrap; gap:4px;">';
+          mod.ids.forEach(function(did) {
+            var dd = diseases.find(function(x) { return x.id === did; });
+            var isStudied = studied.indexOf(did) !== -1;
+            if (dd) {
+              html += '<span class="abd-learn-disease-link" data-id="' + did + '" style="padding:4px 8px; border-radius:12px; font-size:10px; cursor:pointer; border:1px solid ' + (isStudied ? '#10b981' : 'var(--border)') + '; background:' + (isStudied ? 'rgba(16,185,129,0.1)' : 'var(--bg-card)') + '; color:' + (isStudied ? '#10b981' : 'var(--text-secondary)') + ';">' + (isStudied ? '✓ ' : '') + dd.name.replace(/ \(.*\)/, '').substring(0, 25) + '</span>';
+            }
+          });
+          html += '</div></div>';
+        }
+      });
+
+      // Week complete toggle
+      html += '<div class="abd-learn-complete-btn" data-week="' + week.week + '" style="margin-top:8px; padding:10px; text-align:center; background:' + (isComplete ? '#10b98115' : 'var(--bg-accent)') + '; border:1px solid ' + (isComplete ? '#10b98144' : 'var(--border)') + '; border-radius:var(--radius); cursor:pointer; color:' + (isComplete ? '#10b981' : 'var(--text-muted)') + '; font-size:12px; font-weight:600;">';
+      html += isComplete ? '✅ Tamamlandı — tekrar aç' : '☐ Bu haftayı tamamlandı olarak işaretle';
+      html += '</div>';
+
+      html += '</div></div>';
+    }
+    html += '</div>';
+  });
+
+  // Tips
+  html += '<div style="background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:14px; margin-top:8px;">';
+  html += '<div style="font-size:11px; text-transform:uppercase; letter-spacing:1px; color:var(--accent-amber); font-weight:700; margin-bottom:8px;">💡 Öğrenme İpuçları</div>';
+  html += '<div style="font-size:12px; color:var(--text-secondary); line-height:1.7;">';
+  html += '• Her hastalığı okurken "Bu lezyon NEDEN bu fazda parlak/koyu?" sorusunu sor<br>';
+  html += '• Pathway (patoloji → kontrastlanma yolu) bölümünü sadece OKU değil, ANLAT kendine<br>';
+  html += '• 💉 Kontrast paternleri atlasını kullan — wash-in/wash-out mantığını kavra<br>';
+  html += '• Düelloları açıp benzer lezyonları YAN YANA karşılaştır (ör: HCC vs hemanjiom)<br>';
+  html += '• Her haftanın sonunda Quiz\'e gir — Leitner sistemi zayıf konuları tekrar sorar';
+  html += '</div></div>';
+
+  html += '</div>';
+  main.innerHTML = html;
+}
+
+// ===== ABDOMEN ADVANCED MR RENDERER =====
+function renderAbdAdvancedMR(main) {
+  var html = '<div style="padding:20px 4px;">';
+  html += '<h2 style="font-family:Playfair Display,serif; font-size:24px; margin-bottom:4px;">🔬 İleri MR Teknikleri</h2>';
+  html += '<p style="color:var(--text-muted); font-size:13px; margin-bottom:16px;">DWI, DCE-MR, Elastografi, MRCP — abdomen klinik uygulamalar</p>';
+
+  abdAdvancedMR.forEach(function(section) {
+    html += '<div style="margin-bottom:20px;">';
+    html += '<div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">';
+    html += '<span style="font-size:24px;">' + section.icon + '</span>';
+    html += '<div style="font-size:16px; font-weight:700; color:' + section.color + ';">' + section.title + '</div>';
+    html += '</div>';
+
+    section.concepts.forEach(function(c) {
+      html += '<div class="disease-card adv-card" style="margin-bottom:8px; border-left:3px solid ' + section.color + ';">';
+      html += '<div class="disease-header adv-toggle">';
+      html += '<span class="disease-name" style="font-size:13px;">' + c.name + '</span>';
+      html += '<span class="chevron">▾</span>';
+      html += '</div>';
+      html += '<div class="disease-content"><div style="padding:0 16px 16px;">';
+      html += '<div style="font-size:12px; color:var(--text-secondary); margin-bottom:8px;"><b>Ne ölçer:</b> ' + c.what + '</div>';
+      if (c.high && c.high !== 'N/A') {
+        html += '<div style="background:rgba(239,68,68,0.05); border-left:3px solid #ef4444; padding:8px 12px; border-radius:0 8px 8px 0; margin-bottom:6px; font-size:11px;"><span style="color:#ef4444; font-weight:700;">↑ Yüksek:</span> <span style="color:var(--text-secondary);">' + c.high + '</span></div>';
+      }
+      if (c.low && c.low !== 'N/A') {
+        html += '<div style="background:rgba(59,130,246,0.05); border-left:3px solid #3b82f6; padding:8px 12px; border-radius:0 8px 8px 0; font-size:11px;"><span style="color:#3b82f6; font-weight:700;">↓ Düşük:</span> <span style="color:var(--text-secondary);">' + c.low + '</span></div>';
+      }
+      html += '</div></div></div>';
+    });
+
+    html += '<div style="background:var(--bg-accent); border-radius:var(--radius); padding:12px; margin-top:8px;">';
+    html += '<div style="font-size:11px; text-transform:uppercase; letter-spacing:1px; color:' + section.color + '; font-weight:700; margin-bottom:8px;">Klinik İpuçları</div>';
+    section.clinicalPearls.forEach(function(p) {
+      html += '<div style="font-size:12px; color:var(--text-secondary); line-height:1.6; margin-bottom:6px;">' + p + '</div>';
+    });
+    html += '</div></div>';
+  });
+
+  html += '</div>';
+  main.innerHTML = html;
+}
+
+// ===== ABDOMEN SVG ANATOMY MAP RENDERER =====
+function getAbdRegionCenter(region) {
+  if (region.svgType === 'ellipse') {
+    return { x: region.cx, y: region.cy };
+  }
+  if (region.svgType === 'rect') {
+    return { x: region.x + region.width / 2, y: region.y + region.height / 2 };
+  }
+  // polygon
+  var pts = region.points.split(/\s+/);
+  var sumX = 0, sumY = 0, count = 0;
+  for (var i = 0; i < pts.length; i++) {
+    var coords = pts[i].split(',');
+    sumX += parseFloat(coords[0]);
+    sumY += parseFloat(coords[1]);
+    count++;
+  }
+  return { x: Math.round(sumX / count), y: Math.round(sumY / count) };
+}
+
+function renderAbdAnatomyPage(main) {
+  var selectedId = window._abdAnatomySelected || null;
+  var selectedRegion = null;
+  if (selectedId) {
+    for (var ri = 0; ri < abdomenAnatomyRegions.length; ri++) {
+      if (abdomenAnatomyRegions[ri].id === selectedId) { selectedRegion = abdomenAnatomyRegions[ri]; break; }
+    }
+  }
+
+  var html = '<div style="padding:20px 4px;">';
+  html += '<h2 style="font-family:\'Playfair Display\',serif; font-size:24px; margin-bottom:4px;">🫀 Abdomen Anatomi Haritası</h2>';
+  html += '<p style="color:var(--text-muted); font-size:13px; margin-bottom:12px;">Organa tıkla → segmentasyon, landmarklar, ölçüler ve klinik ipuçlarını gör</p>';
+
+  // SVG Map
+  html += '<div style="background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:12px; margin-bottom:16px;">';
+  html += '<div style="text-align:center; font-size:12px; color:var(--text-muted); margin-bottom:8px;">Anterior Abdomen Görünümü</div>';
+  html += '<svg viewBox="50 30 310 370" style="width:100%; max-width:400px; margin:0 auto; display:block;">';
+
+  // Body outline
+  html += '<rect x="65" y="40" width="265" height="350" rx="40" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>';
+
+  // Render each organ
+  for (var oi = 0; oi < abdomenAnatomyRegions.length; oi++) {
+    var r = abdomenAnatomyRegions[oi];
+    var isSelected = selectedId === r.id;
+    var fillColor = isSelected ? r.color : r.color + '33';
+    var strokeW = isSelected ? 2.5 : 1.5;
+    var center = getAbdRegionCenter(r);
+
+    html += '<g class="abd-anatomy-region" data-region="' + r.id + '" style="cursor:pointer;">';
+
+    if (r.svgType === 'ellipse') {
+      html += '<ellipse cx="' + r.cx + '" cy="' + r.cy + '" rx="' + r.rx + '" ry="' + r.ry + '" fill="' + fillColor + '" stroke="' + r.color + '" stroke-width="' + strokeW + '"/>';
+    } else if (r.svgType === 'rect') {
+      html += '<rect x="' + r.x + '" y="' + r.y + '" width="' + r.width + '" height="' + r.height + '" rx="' + r.rx + '" fill="' + fillColor + '" stroke="' + r.color + '" stroke-width="' + strokeW + '"/>';
+    } else {
+      html += '<polygon points="' + r.points + '" fill="' + fillColor + '" stroke="' + r.color + '" stroke-width="' + strokeW + '"/>';
+    }
+
+    // Label
+    var fontSize = r.name.length > 10 ? 8 : 9;
+    html += '<text x="' + center.x + '" y="' + (center.y + 3) + '" fill="' + (isSelected ? '#fff' : r.color) + '" font-size="' + fontSize + '" font-weight="600" text-anchor="middle" font-family="DM Sans,sans-serif" pointer-events="none">' + r.name + '</text>';
+
+    html += '</g>';
+  }
+
+  html += '</svg>';
+  html += '</div>';
+
+  // Selected region detail
+  if (selectedRegion) {
+    var sr = selectedRegion;
+    html += '<div style="background:var(--bg-card); border:1px solid ' + sr.color + '44; border-radius:var(--radius); padding:16px; border-left:4px solid ' + sr.color + ';">';
+    html += '<div style="font-size:18px; font-weight:700; color:' + sr.color + '; margin-bottom:12px;">' + sr.name + '</div>';
+
+    // Segments
+    html += '<div style="margin-bottom:8px; padding:10px; background:rgba(59,130,246,0.06); border-left:3px solid #3b82f6; border-radius:0 8px 8px 0;">';
+    html += '<div style="font-size:9px; text-transform:uppercase; color:#3b82f6; font-weight:700; margin-bottom:3px;">📐 SEGMENTASYON</div>';
+    html += '<div style="font-size:12px; color:var(--text-secondary); line-height:1.6;">' + sr.info.segments + '</div></div>';
+
+    // Landmarks
+    html += '<div style="margin-bottom:8px; padding:10px; background:rgba(16,185,129,0.06); border-left:3px solid #10b981; border-radius:0 8px 8px 0;">';
+    html += '<div style="font-size:9px; text-transform:uppercase; color:#10b981; font-weight:700; margin-bottom:3px;">📍 LANDMARKLAR</div>';
+    html += '<div style="font-size:12px; color:var(--text-secondary); line-height:1.6;">' + sr.info.landmarks + '</div></div>';
+
+    // Normal measures
+    html += '<div style="margin-bottom:8px; padding:10px; background:rgba(168,85,247,0.06); border-left:3px solid #a855f7; border-radius:0 8px 8px 0;">';
+    html += '<div style="font-size:9px; text-transform:uppercase; color:#a855f7; font-weight:700; margin-bottom:3px;">📏 NORMAL ÖLÇÜLER</div>';
+    html += '<div style="font-size:12px; color:var(--text-secondary); line-height:1.6;">' + sr.info.normalMeasures + '</div></div>';
+
+    // Variants
+    html += '<div style="margin-bottom:8px; padding:10px; background:rgba(245,158,11,0.06); border-left:3px solid #f59e0b; border-radius:0 8px 8px 0;">';
+    html += '<div style="font-size:9px; text-transform:uppercase; color:#f59e0b; font-weight:700; margin-bottom:3px;">🔀 VARYANTLAR</div>';
+    html += '<div style="font-size:12px; color:var(--text-secondary); line-height:1.6;">' + sr.info.variants + '</div></div>';
+
+    // Key Pearl
+    html += '<div style="padding:10px; background:rgba(244,63,94,0.06); border-left:3px solid #f43f5e; border-radius:0 8px 8px 0;">';
+    html += '<div style="font-size:9px; text-transform:uppercase; color:#f43f5e; font-weight:700; margin-bottom:3px;">💎 KLİNİK İNCİ</div>';
+    html += '<div style="font-size:12px; color:var(--text-secondary); line-height:1.6;">' + sr.info.keyPearl + '</div></div>';
+
+    html += '</div>';
+  } else {
+    html += '<div style="text-align:center; padding:30px 20px; color:var(--text-muted);">';
+    html += '<div style="font-size:13px;">☝️ Haritada bir organa dokun</div>';
+    html += '<div style="font-size:11px; margin-top:4px;">O organın segmentasyonu, landmarkları, ölçüleri ve klinik ipuçlarını göreceksin</div>';
+    html += '</div>';
+  }
+
+  // Quick link to old list-based atlas
+  html += '<div style="margin-top:12px; text-align:center;">';
+  html += '<span class="abd-anatomy-list-link" style="font-size:11px; color:var(--text-muted); cursor:pointer; text-decoration:underline;">📋 Liste görünümüne geç (eski atlas)</span>';
+  html += '</div>';
+
   html += '</div>';
   main.innerHTML = html;
 }
@@ -7368,6 +7867,17 @@ function initApp() {
         window._conceptOpen = window._conceptOpen === cid ? null : cid;
         render(); return;
       }
+      // Advanced MR toggle
+      if (header.classList.contains('adv-toggle')) {
+        var card = header.closest('.disease-card');
+        if (card) { card.classList.toggle('open'); } return;
+      }
+      // Learning path week toggle
+      if (header.classList.contains('abd-learn-week-toggle')) {
+        var wk = parseInt(header.getAttribute('data-week'));
+        window._abdLearnWeek = window._abdLearnWeek === wk ? null : wk;
+        render(); return;
+      }
       // Duel toggle
       if (header.classList.contains('duel-toggle')) {
         var card = header.closest('.disease-card');
@@ -7457,6 +7967,43 @@ function initApp() {
     if (t.classList.contains('conn-link')) { var ci=t.getAttribute('data-conn-id'); if(ci) goToDisease(ci); return; }
     // Concept disease links
     if (t.classList.contains('concept-disease-link')) { var cdid=t.getAttribute('data-id'); if(cdid) goToDisease(cdid); return; }
+    // Learning path actions
+    if (t.classList.contains('abd-learn-action') || t.closest('.abd-learn-action')) {
+      var la = t.classList.contains('abd-learn-action') ? t : t.closest('.abd-learn-action');
+      var act = la.getAttribute('data-action');
+      var aid = la.getAttribute('data-id');
+      if (act === 'anatomy') { currentPage='anatomy'; updateBottomNav(); render(); }
+      else if (act === 'enhance') { currentPage='enhance'; updateBottomNav(); render(); }
+      else if (act === 'finder') { currentPage='finder'; updateBottomNav(); render(); }
+      else if (act === 'emergency') { currentPage='emergency'; updateBottomNav(); render(); }
+      else if (act === 'staging') { currentPage='staging'; updateBottomNav(); render(); }
+      else if (act === 'advanced') { currentPage='advanced'; updateBottomNav(); render(); }
+      else if (act === 'disease' && aid) { goToDisease(aid); }
+      return;
+    }
+    // Learning path disease links
+    if (t.classList.contains('abd-learn-disease-link')) { var ldid=t.getAttribute('data-id'); if(ldid) goToDisease(ldid); return; }
+    // Learning path complete button
+    if (t.classList.contains('abd-learn-complete-btn')) {
+      var lwk = parseInt(t.getAttribute('data-week'));
+      var cw = JSON.parse(localStorage.getItem('abdrad_learn_weeks') || '[]');
+      if (cw.indexOf(lwk) !== -1) { cw = cw.filter(function(w){return w!==lwk;}); } else { cw.push(lwk); }
+      localStorage.setItem('abdrad_learn_weeks', JSON.stringify(cw));
+      render(); return;
+    }
+    // Anatomy SVG region click
+    if (t.closest('.abd-anatomy-region')) {
+      var regionEl = t.closest('.abd-anatomy-region');
+      var regionId = regionEl.getAttribute('data-region');
+      window._abdAnatomySelected = window._abdAnatomySelected === regionId ? null : regionId;
+      render(); return;
+    }
+    // Anatomy list view link
+    if (t.classList.contains('abd-anatomy-list-link')) {
+      window._abdAnatomySelected = null;
+      renderAnatomyPage(document.getElementById('mainContent'));
+      return;
+    }
     // Calculator buttons
     if (t.hasAttribute('data-calc-run')) {
       var cid = t.getAttribute('data-calc-run');
