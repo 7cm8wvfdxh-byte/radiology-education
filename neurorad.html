@@ -294,6 +294,8 @@ body {
 .tag-important { background: rgba(245,158,11,0.15); color: var(--accent-amber); }
 .tag-critical { background: rgba(244,63,94,0.15); color: var(--accent-rose); }
 .tag-highyield { background: rgba(139,92,246,0.15); color: var(--accent-purple); }
+.tag-benign{background:rgba(16,185,129,0.15);color:#10b981;}
+.tag-rare{background:rgba(168,85,247,0.15);color:#a855f7;}
 
 .chevron {
   font-size: 18px;
@@ -1725,7 +1727,7 @@ const diseases = [
     {
       type: "tissue",
       label: "Doku Değişikliği",
-      text: "Hiperakut (0-6h): intakt eritrositler + oksihemoglobin (diamanyetik). Akut (6-72h): deoksihemoglobin (paramanyetik, intraselüler). Erken subakut (3-7g): methemoglobin intraselüler. Geç subakut (1-4h): methemoglobin ekstraselüler. Kronik: hemosiderin (makrofajlar içinde, süperparagmanyetik).",
+      text: "Hiperakut (0-6h): intakt eritrositler + oksihemoglobin (diamanyetik). Akut (6-72h): deoksihemoglobin (paramanyetik, intraselüler). Erken subakut (3-7g): methemoglobin intraselüler. Geç subakut (1-4 hafta): methemoglobin ekstraselüler. Kronik: hemosiderin (makrofajlar içinde, süperparamanyetik).",
       detail: "Her hemoglobin formu farklı sayıda unpaired elektrona sahip → farklı manyetik susceptibilite"
     },
     {
@@ -1741,7 +1743,7 @@ const diseases = [
       detail: "Gradient echo hemosiderin için FLAIR'den çok daha hassas"
     }
   ],
-  keyPoint: "Kanama evrelerini ezberlemek yerine prensibi anla: (1) Hemoglobin oksijenasyonu azaldıkça unpaired elektron sayısı artar → paramanyetik etki artar. (2) Paramanyetik maddeler T2'yi kısaltır (koyu) ve T1'i kısaltır (parlak — özellikle methemoglobin). (3) İntraselüler paramanyetik madde T2 etkisini artırır (susceptibility). (4) Hemosiderin süperparagmanyetik → hem T1 hem T2 koyu.",
+  keyPoint: "Kanama evrelerini ezberlemek yerine prensibi anla: (1) Hemoglobin oksijenasyonu azaldıkça unpaired elektron sayısı artar → paramanyetik etki artar. (2) Paramanyetik maddeler T2'yi kısaltır (koyu) ve T1'i kısaltır (parlak — özellikle methemoglobin). (3) İntraselüler paramanyetik madde T2 etkisini artırır (susceptibility). (4) Hemosiderin süperparamanyetik → hem T1 hem T2 koyu.",
   differential: [
     "Hemorajik metastaz — melanom, renal, koryokarsinom; multipl olabilir",
     "Kavernöz malformasyon — 'popcorn' görünüm, hemosiderin halkası, farklı yaşlarda kanama",
@@ -1752,52 +1754,6 @@ const diseases = [
   quiz: {
     q: "Methemoglobin neden T1'de parlaktır?",
     a: "Methemoglobin'de demir Fe³⁺ formundadır ve 5 unpaired elektronu vardır (güçlü paramanyetik). Bu unpaired elektronlar çevrelerindeki su protonlarının spin-lattice (T1) relaksasyonunu hızlandırır → T1 süresi kısalır → T1 ağırlıklı görüntüde daha fazla sinyal → parlak görünüm. Bu 'paramanyetik relaksasyon artırımı' (PRE) etkisidir — aynı prensip Gadolinium kontrastın T1'i parlatmasıyla aynıdır."
-  }
-},
-
-{
-  id: "svt",
-  name: "Serebral Venöz Tromboz (SVT)",
-  category: "vascular",
-  tag: "critical",
-  tagText: "Kritik",
-  pathway: [
-    {
-      type: "histo",
-      label: "Histopatoloji",
-      text: "Dural sinüs veya kortikal venlerde trombüs oluşumu. Hiperkoagülabilite, dehidratasyon, enfeksiyon, OKS kullanımı, gebelik risk faktörleri. Trombüs venöz drenajı engeller → venöz konjesyon → venöz infarkt.",
-      detail: "Trombüs: fibrin + trombosit + eritrosit ağı. Zamanla organize olur."
-    },
-    {
-      type: "tissue",
-      label: "Doku Değişikliği",
-      text: "Venöz drenaj bozulur → intrakranial basınç ↑ + venöz staz. Kapiller basınç ↑ → vazojenik ödem + hemorajik venöz infarkt. Arteriyel infarkttan farklı: venöz infarkt sıklıkla hemorajik ve arteriyel dağılıma uymaz.",
-      detail: "Venöz infarkt: kortikal venlerin drenaj alanına uyar, parasagittal veya temporal"
-    },
-    {
-      type: "signal",
-      label: "Sinyal/Dansite Karşılığı",
-      text: "Akut trombüs: BT'de sinüste hiperdens ('dense clot sign', 'cord sign'). MR: T1 akut izointens → subakut parlak (metHb). T2: akut hipointens → subakut parlak. CTV/MRV: dolum defekti. 'Empty delta sign': sagittal sinüste kontrastlanan duvar, dolmayan lümen.",
-      detail: "Trombüsün sinyal değişimi kanama evrelerine paralel → aynı hemoglobin degradasyon yolu"
-    },
-    {
-      type: "finding",
-      label: "Görüntüleme Bulgusu",
-      text: "BT: dense sinüs sign. BT venografi: dolum defekti. MR: sinüste akım kaybı (flow void kaybolur). Parankimde: arteriyel dağılıma uymayan ödem ± hemorajik infarkt (parasagittal, bilateral olabilir). Empty delta sign (kontrast sonrası).",
-      detail: "Bilateral parasagittal hemorajik infarkt → süperior sagittal sinüs trombozu düşün"
-    }
-  ],
-  keyPoint: "SVT'de infarkt neden arteriyel dağılıma uymaz? Arteriyel infarkt bir arterin beslediği bölgede olur (vasküler terörlerle sınırlı). Venöz infarkt ise venöz drenaj alanına uyar — bu alan arteriyel teritoryelerle örtüşmez. Parasagittal bilateral hemorajik lezyon görürsen → ACA veya MCA infarktına uymaz → venöz tromboz düşün. Hemorajik olma nedeni: venöz basınç ↑ → kapiller rüptür.",
-  differential: [
-    "Arteriyel infarkt — tek arter dağılımına uyar, hemorajik olmayabilir",
-    "Bilateral parasagittal lezyonlarda: PRES, diffüz aksonal hasar",
-    "Sinüste hiperdens görünüm: yüksek hematokrit (polisitemia), dehidratasyon → BT venografi ile doğrula",
-    "Araknoid granülasyon — sinüs içinde dolum defekti ama benign, T2'de BOS sinyalinde"
-  ],
-  protocol: "BT + BT venografi (ilk tercih, hızlı). MR: T1, T2, FLAIR, DWI, GRE/SWI (hemorajik infarkt), T1 kontrastlı (empty delta). MR venografi (TOF veya kontrastlı). Trombüsün yaşını belirlemek için T1 ve T2 sinyal analizi.",
-  quiz: {
-    q: "SVT'de 'empty delta sign' neden oluşur?",
-    a: "Kontrastlı BT veya MR'da sagittal sinüsün duvarı (dura) kontrastlanır çünkü dural duvar kendi vasa vasorum'u ile beslenir ve kanlanması devam eder. Ancak sinüs lümenindeki trombüs avaskülerdir ve kontrastlanmaz. Sonuç: kontrastlanan duvar (çevre) + kontrastlanmayan lümen (merkez) → aksiyel kesitte üçgen şeklinde 'delta' harfi → 'empty delta sign'. Bu boş üçgen trombüsün kendisidir."
   }
 },
 
@@ -2618,7 +2574,7 @@ const diseases = [
   ],
   keyPoint: "Kolposefali (geniş oksipital hornlar) neden oluşur? Normalde korpus kallozum spleniumundan geçen kommissüral lifler oksipital beyaz cevheri oluşturur. Splenium yokluğunda bu lifler eksiktir → oksipital beyaz cevher hacmi azalır → oksipital horn genişler (ex-vacuo dilatasyon). Frontal hornlar ise Probst demetleri nedeniyle medialden girintilenir ve dar görünür. Sonuç: dar frontal + geniş oksipital hornlar = kolposefali.",
   differential: [
-    "Holoprozensefali — hemisferler ayrışmamış, farklı spekrtrum",
+    "Holoprozensefali — hemisferler ayrışmamış, farklı spektrum",
     "Septo-optik displazi — septum pellucidum yokluğu, optik sinir hipoplazisi, hipofizer disfonksiyon",
     "Normal basınçlı hidrosefali — ventriküller geniş ama KK mevcut",
     "Periventrik lökomalazi — beyaz cevher hasarı ama KK genellikle mevcut"
@@ -3272,7 +3228,7 @@ const diseases = [
   protocol: "MR: Sagittal T1, T2, STIR. T1 kontrastlı (sagittal + aksiyel — tümör sınırları). GRE/SWI (cap sign → ependimom). Aksiyel T2: santral mi eksantrik mi? Tüm spinal kord taranmalı. Drop metastaz: intrakranial ve spinal kontrastlı MR.",
   quiz: {
     q: "'Cap sign' nedir ve neden ependimomda görülür?",
-    a: "Cap sign: spinal ependimomun üst ve alt kutuplarında T2/GRE'de hipointens hemosiderin birikim halkası (koyu 'şapka'). Neden ependimomda? Ependimomlar vasküler yapı bakımından zengindir ve tekrarlayan mikrokanamalara eğilimlidir. Bu küçük kanamalar tümörün kutuplarında (polar bölgelerde) birikir → hemoglobin → hemosiderin → süperparagmanyetik → T2/GRE hipointens. Astrositomlarda bu kadar belirgin kanama eğilimi yoktur → cap sign görülmez. Cap sign ependimom tanısında %90+ spesifisiteye sahiptir ve cerrahi planlamayı etkiler."
+    a: "Cap sign: spinal ependimomun üst ve alt kutuplarında T2/GRE'de hipointens hemosiderin birikim halkası (koyu 'şapka'). Neden ependimomda? Ependimomlar vasküler yapı bakımından zengindir ve tekrarlayan mikrokanamalara eğilimlidir. Bu küçük kanamalar tümörün kutuplarında (polar bölgelerde) birikir → hemoglobin → hemosiderin → süperparamanyetik → T2/GRE hipointens. Astrositomlarda bu kadar belirgin kanama eğilimi yoktur → cap sign görülmez. Cap sign ependimom tanısında %90+ spesifisiteye sahiptir ve cerrahi planlamayı etkiler."
   }
 },
 
@@ -3829,31 +3785,6 @@ const diseases = [
   }
 },
 {
-  id: "hemangioblastoma",
-  name: "Hemanjioblastom",
-  category: "tumor",
-  tag: "important",
-  tagText: "Önemli",
-  pathway: [
-    { type: "histo", label: "Histopatoloji", text: "WHO Grade 1 tümör. Stromal hücreler (lipid yüklü, vakuollü) + zengin kapiller ağ. Von Hippel-Lindau (VHL) sendromu ile ilişkili olabilir (%25).", detail: "VHL: kromozom 3p25 — tümör süpresör gen kaybı → VEGF artışı → anjiogenez" },
-    { type: "tissue", label: "Doku Değişikliği", text: "İki patern: (1) Kistik + mural nodül (%60): büyük kist + duvarında yoğun kontrastlanan nodül. (2) Solid (%40): yoğun homojen kontrastlanma. Posterior fossa en sık lokalizasyon.", detail: "Kist duvarı tümöral DEĞİL → sadece mural nodül rezeke edilir" },
-    { type: "signal", label: "Sinyal/Dansite Karşılığı", text: "Kist: T1↓, T2↑. Mural nodül: T1 izo, T2 izo-hiper, YOĞUN kontrastlanma. Flow void'lar (zengin vaskülarite). DWI: kısıtlanma yok.", detail: "Perfüzyon: rCBV çok yüksek (hipervasküler tümör)" },
-    { type: "finding", label: "Görüntüleme Bulgusu", text: "Posterior fossa kistik kitle + yoğun kontrastlanan mural nodül. Flow void'lar. Serebellumda en sık, spinal kord (özellikle servikal/torakal) ikinci sık. VHL'de multipl + retinal anjiom + renal kist/RCC + feokromositoma.", detail: "Spinal hemanjioblastom: siringomiyeli eşlik edebilir" }
-  ],
-  keyPoint: "Posterior fossa kistik kitle + yoğun kontrastlanan mural nodül = hemanjioblastom düşün. Genç erişkinde serebellar hemanjioblastom → VHL taraması yap (renal USG, oftalmolojik muayene, genetik test). Pilositik astrositomdan fark: hemanjioblastomda flow void'lar + erişkin yaş.",
-  differential: [
-    "Pilositik astrositom — çocuklarda, mural nodül daha az vasküler, flow void yok",
-    "Metastaz — multipl, solid, düzensiz halka kontrastlanma",
-    "Medulloblastom — solid, 4V dolduran, çocuklarda",
-    "Ependimom — 4V kökenli, kalsifikasyon olabilir"
-  ],
-  protocol: "MR: T1, T2, FLAIR, DWI, T1 kontrastlı (3 düzlem). MR anjio (flow void değerlendirmesi). Spinal MR (VHL taraması). DSA preop embolizasyon düşünülebilir.",
-  quiz: {
-    q: "Hemanjioblastomda kist duvarı neden rezeke edilmez?",
-    a: "Kist duvarı reaktif gliotik doku içerir, tümöral değildir. Tümör yalnızca mural nodüldedir. Bu nedenle cerrahi olarak sadece mural nodül çıkarılır. Kist sıvısı proteinden zengindir (tümörün vasküler geçirgenliği nedeniyle) ve postop spontan rezorbe olur."
-  }
-},
-{
   id: "germinoma",
   name: "Germinoma (SSS)",
   category: "tumor",
@@ -3879,31 +3810,6 @@ const diseases = [
   }
 },
 {
-  id: "cavernoma",
-  name: "Kavernöz Malformasyon (Kavernom)",
-  category: "vascular",
-  tag: "common",
-  tagText: "Sık",
-  pathway: [
-    { type: "histo", label: "Histopatoloji", text: "Endotel kaplı sinüzoidal vasküler boşluklar, arada beyin parankimi YOK. Düşük akımlı malformasyon. Tekrarlayan mikrokanamalara yatkın.", detail: "Arada beyin dokusu olmaması AVM'den ayırır. Arteryel beslenme yok." },
-    { type: "tissue", label: "Doku Değişikliği", text: "Tekrarlayan kanamalar → farklı evrelerde kan ürünleri birikir → 'popcorn' görünümü. Hemosiderin halkası. Çevre gliozis minimal.", detail: "Anjiyografide OKÜLTdür — düşük akım → anjioda görünmez" },
-    { type: "signal", label: "Sinyal/Dansite Karşılığı", text: "T1/T2: HETEROJen merkez (karışık kan ürünleri — 'popcorn'). T2/GRE/SWI: çevreleyen KOYU hemosiderin halkası. GRE/SWI'da belirgin 'blooming'. Kontrastlanma minimal veya yok.", detail: "SWI > GRE: kavernom tespitinde en duyarlı sekans" },
-    { type: "finding", label: "Görüntüleme Bulgusu", text: "T2'de popcorn görünümlü lezyon + hemosiderin halkası. SWI'da belirgin hipointens odak. BT'de hiperdens (kalsifikasyon + kan). Kontrastlanma yok/minimal. Familyal formda multipl (>5 lezyon).", detail: "Zabramski sınıflaması: Tip I-IV (MR görünümüne göre)" }
-  ],
-  keyPoint: "POPCORN + hemosiderin halkası + GRE/SWI'da blooming + kontrastlanma YOK = kavernom. Anjiyografide GÖRÜNmez (okült vasküler malformasyon). Multipl ise familyal form düşün (CCM1/2/3 gen mutasyonu). Epilepsi en sık semptom (%50-80).",
-  differential: [
-    "Hemorajik metastaz — kontrastlanma VAR, peritümöral ödem, primer malignite öyküsü",
-    "AVM — flow void'lar, anjiyografide besleyici arter/drene edici ven, yüksek akım",
-    "Kapiller telenjiektazi — SWI'da küçük odak, kontrastlanma olabilir, asemptomatik",
-    "DAI — travma öyküsü, gri-beyaz cevher bileşkesi + korpus kallozum + beyin sapı"
-  ],
-  protocol: "MR: T1, T2, FLAIR, SWI/GRE (en önemli!), T1 kontrastlı. Familyal şüphede: tüm beyin + spinal SWI. Anjiyografi GEREKSİZ (okült).",
-  quiz: {
-    q: "Kavernom neden konvansiyonel anjiyografide görünmez?",
-    a: "Kavernom DÜŞÜK AKIMLI vasküler malformasyondur — arteryel beslenmesi yoktur, sinüzoidal boşluklardan çok yavaş kan akışı vardır. Anjiyografi yüksek akımlı vasküler yapıları gösterir. Bu nedenle kavernoma 'anjiyografik olarak okült vasküler malformasyon' denir. SWI/GRE en duyarlı sekans olup hemosiderin ve deoksihemoglobini tespit eder."
-  }
-},
-{
   id: "dva",
   name: "Gelişimsel Venöz Anomali (DVA)",
   category: "vascular",
@@ -3925,31 +3831,6 @@ const diseases = [
   quiz: {
     q: "DVA neden cerrahi olarak çıkarılmamalıdır?",
     a: "DVA bir hastalık değil, normal venöz drenajın ANATOMİK VARYANTIDIR. Beyin parankiminin fonksiyonel venöz drenaj yolunu oluşturur. Bu yapıyı cerrahi olarak kesmek/bağlamak → venöz drenaj bozulur → venöz HİPERTANSİYON → venöz İNFARKT (hemorajik olabilir). Bu nedenle DVA tespit edildiğinde DOKUNULMAZ."
-  }
-},
-{
-  id: "moyamoya",
-  name: "Moyamoya Hastalığı",
-  category: "vascular",
-  tag: "important",
-  tagText: "Önemli",
-  pathway: [
-    { type: "histo", label: "Histopatoloji", text: "İntimal fibröz hiperplazi → bilateral İCA terminal segment + proksimal ACA/MCA progresif stenozu/oklüzyonu. Kompanzatuar bazal kollateral ağ gelişir ('puff of smoke').", detail: "Japonya/Doğu Asya'da sık. RNF213 gen polimorfizmi ile ilişkili" },
-    { type: "tissue", label: "Doku Değişikliği", text: "Büyük damar oklüzyonu → bazal ganglia ve talamus çevresinde küçük perforatör kollateral ağ. Kronik hipoperfüzyon → ivy sign (leptomeningeal kollateral). Çocuk: iskemik strok. Erişkin: hemorajik strok.", detail: "Çocuklarda iskemi baskın, erişkinlerde hemoraji baskın" },
-    { type: "signal", label: "Sinyal/Dansite Karşılığı", text: "MRA: bilateral ICA/MCA/ACA'da akım kaybı ('stump'). Bazal ganglia çevresinde çok sayıda küçük flow void (kollateral ağ). FLAIR: ivy sign (sulkuslarda hiperintensite — yavaş akımlı leptomeningeal kollateral).", detail: "Perfüzyon: hemisferik hipoperfüzyon + asetazolamid testi ile vazodilatör rezerv azalmış" },
-    { type: "finding", label: "Görüntüleme Bulgusu", text: "MRA: bilateral ICA terminal/MCA/ACA stenozu + bazal 'puff of smoke' kollateral ağ. FLAIR ivy sign. Parankimal: multipl küçük infarktlar (watershed alanında). DSA: altın standart (Suzuki evrelemesi).", detail: "Unilateral ise 'moyamoya sendromu' (sekonder nedenler: orak hücreli anemi, Down, NF1, radyoterapi)" }
-  ],
-  keyPoint: "Bilateral ICA/MCA/ACA progresif stenoz + bazal kollateral ağ ('puff of smoke') = MOYAMOYA. Çocuklarda TIA/iskemik strok, erişkinlerde ICH ile başvuru. MRA + FLAIR ivy sign tanı koydurur. DSA Suzuki evrelemesi altın standart. Tedavi: revaskülarizasyon (STA-MCA bypass).",
-  differential: [
-    "Aterosklerotik stenoz — tek taraflı, fokal, yaşlı, risk faktörleri",
-    "Vaskülit — multifokal düzensiz stenoz, inflamasyon bulguları",
-    "Orak hücre hastalığı — moyamoya sendromu yapabilir, anemi öyküsü",
-    "Fibromusküler displazi — genellikle servikal segment, boncuk dizisi"
-  ],
-  protocol: "MRA (TOF + kontrastlı). FLAIR (ivy sign). Perfüzyon MR (asetazolamid challenge). DSA (Suzuki evrelemesi). Bilateral değerlendirme şart.",
-  quiz: {
-    q: "Moyamoya'da 'ivy sign' nedir ve neden oluşur?",
-    a: "Ivy sign: FLAIR'de serebral sulkuslarda hiperintensite görülmesidir. Büyük damarlar tıkalı olduğunda beyin leptomeningeal kollateral damarlar geliştirir. Bu damarlar sulkuslar boyunca YAVAŞ AKIMLI kan taşır. Yavaş akım → BOS içinde yüksek sinyal (FLAIR'de suprese olmaz, TOF'ta arteryel sinyale benzer). Sarmaşık (ivy) gibi sulkusları saran bu görünüm kronik hipoperfüzyonun göstergesidir."
   }
 },
 {
@@ -4053,31 +3934,6 @@ const diseases = [
   }
 },
 {
-  id: "osmotic_demyelination",
-  name: "Ozmotik Demiyelinizasyon Sendromu",
-  category: "demyelinating",
-  tag: "critical",
-  tagText: "Kritik",
-  pathway: [
-    { type: "histo", label: "Histopatoloji", text: "Santral pontin miyelinoliz (CPM) + ekstrapontin miyelinoliz (EPM). Hiponatreminin hızlı düzeltilmesi → oligodendrosit ozmotik hasarı → demiyelinizasyon (aksonlar korunur).", detail: "Na+ düzeltme hızı: max 8-10 mEq/L/24 saat. Daha hızlı düzeltme = ODS riski ↑" },
-    { type: "tissue", label: "Doku Değişikliği", text: "PONS: santral simetrik demiyelinizasyon (periferik miyelin korunur — 'trident sign'). EPM: bilateral bazal ganglia, talamus, serebellum, lateral genikulat cisim.", detail: "Ponsta kortikoventriküler lifler sıklıkla korunur → simetrik santral lezyon" },
-    { type: "signal", label: "Sinyal/Dansite Karşılığı", text: "MR (GECIKMIŞ — 2-4 hafta sonra belirginleşir): T2/FLAIR hiperintens. T1 hipointens. DWI: ERKEN dönemde kısıtlanma. Kontrastlanma genellikle YOK (BBB genellikle sağlam).", detail: "Klinik başlangıçta MR NORMAL olabilir! 1-2 hafta sonra tekrarla" },
-    { type: "finding", label: "Görüntüleme Bulgusu", text: "CPM: ponsta simetrik santral T2 hiperintensite + periferik miyelin korunmuş ('trident/yarasa' paterni). EPM: bilateral simetrik bazal ganglia/talamus T2 hiperintensite. Her ikisi beraber olabilir. DWI erken evrede en duyarlı.", detail: "BT'de genellikle normal veya hafif hipodens — MR çok daha duyarlı" }
-  ],
-  keyPoint: "Hiponatremi düzeltme öyküsü + ponsta simetrik 'trident' T2 lezyonu ± bazal ganglia tutulumu = OZMOTİK DEMİYELİNİZASYON. Klinik başlangıçta MR normal olabilir → 1-2 hafta sonra tekrarla! DWI erken evrede pozitif. Profilaksi: Na+ düzeltme hızı <8-10 mEq/L/gün.",
-  differential: [
-    "Pontin infarkt — tek taraflı, arteriyel dağılım, DWI akut kısıtlanma",
-    "Pontin gliom — çocuklarda, assimetrik, genişletici kitle",
-    "Behçet — beyin sapı tutulumu olabilir, üveit + oral ülser öyküsü",
-    "Wernicke ensefalopatisi — periaqueductal + mamiller cisim + talamus, tiamin eksikliği"
-  ],
-  protocol: "MR: T2/FLAIR (trident), DWI (erken tanı), T1, T1 kontrastlı. Klinik korelasyon: hiponatremi öyküsü + düzeltme hızı. Erken MR negatif ise 1-2 hafta sonra tekrar.",
-  quiz: {
-    q: "Ozmotik demiyelinizasyonda 'trident sign' nasıl oluşur?",
-    a: "Ponsta ventral periferik miyelin ve tegmentumun bir kısmı korunurken, santral miyelin ozmotik hasarla demiyelinize olur. Bu asimetrik hasar paterni T2/FLAIR'de ponsta santral hiperintensite + periferik korunan normal sinyal → 'trident (üç çatallı)' veya 'yarasa kanadı' şeklinde görünüm oluşturur. Periferik miyelin korunmasının nedeni: periferdeki damarlar farklı ozmotik strese daha dirençli yapıdadır."
-  }
-},
-{
   id: "cns_vasculitis",
   name: "Primer SSS Vasküliti (PACNS)",
   category: "inflammatory",
@@ -4111,7 +3967,7 @@ const diseases = [
   pathway: [
     { type: "histo", label: "Histopatoloji", text: "WHO Grade 1, mikst glionöronal tümör. Displastik ganglion hücreleri + neoplastik glial komponent. Temporal lob en sık (%70). Çocuk ve genç erişkinlerde kronik epilepsinin sık nedeni.", detail: "BRAF V600E mutasyonu sık (%20-60) → hedefe yönelik tedavi potansiyeli" },
     { type: "tissue", label: "Doku Değişikliği", text: "Solid + kistik kitle. Kalsifikasyon sık (%35). Kontrastlanma değişken: %50 kontrastlanır (solid + kistik + mural nodül veya diffüz). Ödem minimal/yok.", detail: "DNET'ten fark: gangliogliomda kontrastlanma daha SIK" },
-    { type: "signal", label: "Sinyal/Dansite Karşılığı", text: "T1 hipo-izo, T2/FLAIR hiperintens. Kistik + solid komponent (heterojn). BT: kalsifikasyon + kistik alan. DWI: kısıtlanma yok (düşük grade). Kontrastlanma %50'de var (değişken patern).", detail: "Kemik scalloping (kronik yavaş büyüme, DNET gibi)" },
+    { type: "signal", label: "Sinyal/Dansite Karşılığı", text: "T1 hipo-izo, T2/FLAIR hiperintens. Kistik + solid komponent (heterojen). BT: kalsifikasyon + kistik alan. DWI: kısıtlanma yok (düşük grade). Kontrastlanma %50'de var (değişken patern).", detail: "Kemik scalloping (kronik yavaş büyüme, DNET gibi)" },
     { type: "finding", label: "Görüntüleme Bulgusu", text: "Temporal lob kortikal/subkortikal kistik + solid kitle. Kalsifikasyon. Kontrastlanma değişken. Ödem yok/minimal. Kemik remodeling. Genç hasta + epilepsi.", detail: "Solid komponenti varsa → DNET'ten ayır (DNET genellikle kontrastlanmaz)" }
   ],
   keyPoint: "Temporal lob + genç hasta + epilepsi + kistik-solid kitle + kalsifikasyon + kontrastlanma VAR = gangliogliom. DNET'ten fark: gangliogliomda kontrastlanma %50 VAR (DNET'te neredeyse hiç yok), solid komponent daha belirgin. İkisi de benign, ikisi de epilepsi cerrahisinde çıkarılır.",
@@ -4188,13 +4044,14 @@ const categories = {
   congenital: { icon: "🧒", color: "#06b6d4", title: "Konjenital Anomaliler", bg: "rgba(6,182,212,0.1)" },
   degenerative: { icon: "🧓", color: "#10b981", title: "Dejeneratif Hastalıklar", bg: "rgba(16,185,129,0.1)" },
   spinal: { icon: "🦴", color: "#ec4899", title: "Spinal Patolojiler", bg: "rgba(236,72,153,0.1)" },
-  daily: { icon: "📋", color: "#64748b", title: "Günlük Pratik / Yaşlanma", bg: "rgba(100,116,139,0.1)" }
+  daily: { icon: "📋", color: "#64748b", title: "Günlük Pratik / Yaşlanma", bg: "rgba(100,116,139,0.1)" },
+  inflammatory: { icon: "🔥", color: "#f97316", title: "İnflamatuar Hastalıklar", bg: "rgba(249,115,22,0.1)" }
 };
 
 // ===== STATE =====
 let currentTab = "all";
 let currentPage = "home";
-let studied = JSON.parse(localStorage.getItem('neurorad_studied') || '[]');
+let studied = []; try { studied = JSON.parse(localStorage.getItem('neurorad_studied') || '[]'); } catch(e) {}
 
 // ===== SIGNAL ATLAS DATA =====
 const signalAtlas = [
@@ -4219,7 +4076,7 @@ const signalAtlas = [
     items: [
       { name: "Serbest su / BOS", reason: "Serbest su protonları → yavaş T1 relaksasyon (lattice ile etkileşim az) → uzun T1 → düşük sinyal", examples: "Ventriküller, kistler, ödem" },
       { name: "Akut deoksihemoglobin", reason: "İntraselüler paramanyetik etki T2'yi etkiler ama T1'e etkisi zayıf → T1 iso-hipo", examples: "Akut hematom (6-72 saat)" },
-      { name: "Hemosiderin", reason: "Süperparagmanyetik → güçlü susceptibility → T2 etkisi baskın, T1 de uzar", examples: "Kronik hematom kenarı" },
+      { name: "Hemosiderin", reason: "Süperparamanyetik → güçlü susceptibility → T2 etkisi baskın, T1 de uzar", examples: "Kronik hematom kenarı" },
       { name: "Hava / kalsifikasyon", reason: "Proton yok (hava) veya çok düşük proton yoğunluğu → sinyal üretilmez", examples: "Pnömosefali, yoğun kalsifikasyon" },
       { name: "T1 Black Hole (MS)", reason: "Ciddi aksonal kayıp + doku tahribatı → serbest su artışı → T1 uzar", examples: "Kronik MS plakları (geri dönüşümsüz hasar)" }
     ]
@@ -4242,7 +4099,7 @@ const signalAtlas = [
     color: "#64748b",
     items: [
       { name: "Akut deoksihemoglobin", reason: "İntraselüler paramanyetik → susceptibility etkisi → T2* kısaltır → sinyal kaybı", examples: "Akut hematom (6-72 saat)" },
-      { name: "Hemosiderin", reason: "Süperparagmanyetik → çok güçlü T2/T2* kısaltma → belirgin sinyal kaybı (blooming)", examples: "Kronik kanama, kavernom halkası" },
+      { name: "Hemosiderin", reason: "Süperparamanyetik → çok güçlü T2/T2* kısaltma → belirgin sinyal kaybı (blooming)", examples: "Kronik kanama, kavernom halkası" },
       { name: "Yoğun kalsifikasyon", reason: "Proton yoğunluğu düşük + susceptibility etkisi → sinyal kaybı", examples: "Kalsifiye menenjiyom, kalsifiye granülom" },
       { name: "Yüksek selülarite", reason: "Hücreler arası su çok az → T2 kısa → hipointens (BT'de hiperdens ile paralel)", examples: "Lenfoma, medulloblastom" },
       { name: "Kazeöz nekroz", reason: "Kurumuş protein-lipid debris → serbest su çok az → T2 kısa", examples: "Tüberkülom merkezi" },
@@ -4357,7 +4214,7 @@ const signalProfiles = [
       { seq: "Akut (6-72h)", val: "T1⚪ T2⬛", why: "Deoksi-Hb intrasellüler → T2* kısaltır" },
       { seq: "Erken subakut", val: "T1☀️ T2⬛", why: "İntrasellüler MetHb: T1 parlak + T2 koyu" },
       { seq: "Geç subakut", val: "T1☀️ T2💧", why: "Ekstrasellüler MetHb: T1 parlak + T2 parlak" },
-      { seq: "Kronik", val: "T1⬛ T2⬛", why: "Hemosiderin süperparagmanyetik → her şey koyu" },
+      { seq: "Kronik", val: "T1⬛ T2⬛", why: "Hemosiderin süperparamanyetik → her şey koyu" },
       { seq: "GRE/SWI", val: "⬛⬛⬛ Her evrede koyu", why: "Paramanyetik ürünler her zaman susceptibility" }
     ]},
   { id: "epidermoid", name: "Epidermoid Kist", cat: "tumor",
@@ -5783,7 +5640,7 @@ const findings = [
 ];
 
 // ===== SMART QUIZ SYSTEM (Leitner) =====
-let quizScores = JSON.parse(localStorage.getItem('neurorad_quiz_scores') || '{}');
+let quizScores = {}; try { quizScores = JSON.parse(localStorage.getItem('neurorad_quiz_scores') || '{}'); } catch(e) {}
 
 function getQuizBox(id) { return quizScores[id] || 0; }
 function promoteQuiz(id) { quizScores[id] = Math.min((quizScores[id] || 0) + 1, 4); localStorage.setItem('neurorad_quiz_scores', JSON.stringify(quizScores)); }
@@ -5955,7 +5812,6 @@ const signalBadges = {
   brain_abscess:       { t1:'⬛', t2:'💧', flair:'💧', dwi:'🔒', ce:'⭕', extra:'Ring + DWI merkez parlak' },
   hsv_encephalitis:    { t1:'⬛', t2:'💧', flair:'💧', dwi:'🔒', ce:'💉?', extra:'Bilateral temporal' },
   toxoplasmosis:       { t1:'⬛', t2:'💧', flair:'💧', dwi:'⚪', ce:'⭕', extra:'Eccentric target sign' },
-  tuberculoma:         { t1:'⚪', t2:'⬛', flair:'⬛', dwi:'⚪', ce:'⭕', extra:'T2 hipointens merkez' },
   tbc_meningitis:      { t1:'⬛', t2:'💧', flair:'💧', dwi:'⚪', ce:'💉', extra:'Bazal menenjit' },
   cryptococcosis:      { t1:'⬛', t2:'💧', flair:'⬛', dwi:'⚪', ce:'❌', extra:'Soap bubble PVS' },
   neurocysticercosis:  { t1:'⬛', t2:'💧', flair:'💧', dwi:'⚪', ce:'⭕?', extra:'Scolex + evre değişir' },
@@ -5992,7 +5848,17 @@ const signalBadges = {
   spinal_davf:         { t1:'⬛', t2:'💧', flair:'💧', dwi:'⚪', extra:'Perimedüller flow void' },
   spinal_epidural_abscess:{ t1:'⬛', t2:'💧', flair:'💧', dwi:'🔒', ce:'⭕', extra:'Epidural + disk enf.' },
   spinal_meningioma_schwannoma:{ t1:'⚪', t2:'💧', flair:'💧', dwi:'⚪', ce:'💉', extra:'İntradural-EM' },
-  b12_deficiency:      { t1:'⚪', t2:'💧', flair:'💧', dwi:'⚪', extra:'Dorsal kolon inverted V' }
+  b12_deficiency:      { t1:'⚪', t2:'💧', flair:'💧', dwi:'⚪', extra:'Dorsal kolon inverted V' },
+  germinoma: { t1: 'iso-↓', t2: 'iso-↓', flair: '↑', dwi: '↑(kısıtlanma)', ce: 'homojen++' },
+  dva: { t1: '↓(flow void)', t2: '↓(flow void)', flair: '-', swi: 'belirgin', ce: 'medusa head' },
+  cvst: { t1: 'değişken', t2: 'değişken', flair: '↑', dwi: 'değişken', ce: 'dolma defekti' },
+  neurosarcoidosis: { t1: 'iso', t2: '↑', flair: '↑', dwi: 'değişken', ce: 'leptomeningeal/nodüler' },
+  dnet: { t1: '↓', t2: '↑', flair: '↑(bright rim)', dwi: '-', ce: 'genellikle(-)' },
+  central_neurocytoma: { t1: 'iso', t2: 'iso-↑', flair: '↑', dwi: '↑', ce: 'heterojen+' },
+  cns_vasculitis: { t1: 'değişken', t2: '↑', flair: '↑', dwi: '↑(akut)', ce: 'leptomeningeal+' },
+  ganglioglioma: { t1: '↓-iso', t2: '↑', flair: '↑', dwi: '-', ce: 'değişken(nodüler/ring)' },
+  choroid_plexus_pap: { t1: 'iso', t2: 'iso-↑', flair: '↑', dwi: '-', ce: 'yoğun homojen++' },
+  susac_syndrome: { t1: '↓(snowball)', t2: '↑', flair: '↑(snowball)', dwi: '↑(akut)', ce: 'leptomeningeal+' }
 };
 
 // ===== DISEASE CONNECTIONS MAP =====
@@ -6123,12 +5989,6 @@ const diseaseConnections = {
     sameMechanism: ['brain_abscess'], // enfeksiyöz ring
     sameLocation: ['lymphoma'], // bazal ganglia/periventriküler
     mechanismTag: 'İmmünyetmez + bazal ganglia ring → eccentric target sign'
-  },
-  tuberculoma: {
-    confusedWith: ['metastasis', 'lymphoma'],
-    sameMechanism: ['brain_abscess'], // granülomatöz enfeksiyon
-    sameLocation: ['metastasis'],
-    mechanismTag: 'Granülom → kazeöz nekroz → T2 hipointens merkez (fibroz/kalsifikasyon)'
   },
   small_vessel_disease: {
     confusedWith: ['ms', 'enlarged_pvs'],
@@ -6283,7 +6143,7 @@ const diseaseConnections = {
   },
   tbc_meningitis: {
     confusedWith: ['cryptococcosis'],
-    sameMechanism: ['tuberculoma'],
+    sameMechanism: ['tbc_meningitis'],
     sameLocation: ['cryptococcosis'],
     mechanismTag: 'Bazal menenjit (bazal sisternlerde kontrastlanma) + hidrosefali + perivasküler infarktlar'
   },
@@ -6433,7 +6293,7 @@ const learningPath = [
     modules: [
       { type: 'concept', title: 'Demyelinizasyon Neden FLAIR\'de Parlak?', desc: 'Myelin yıkımı → serbest su artar → T2/FLAIR hiperintens. MS: perivenüler → ovoid plaklar. NMO: astrositopati → longitudinal miyelit. ADEM: postinfeksiyöz → büyük fluffy plaklar.', action: 'disease', id: 'ms', label: 'MS Kartını Aç' },
       { type: 'concept', title: 'Enfeksiyöz Ring vs Tümör Ring', desc: 'Abse: ince düzgün ring + DWI parlak merkez (pü). Tümör: kalın düzensiz ring + DWI serbest merkez (nekroz). MRS farkı: abse = amino asit, tümör = Cho yüksek.', action: 'duel', label: 'GBM vs Abse Düellosu' },
-      { type: 'study', ids: ['ms', 'nmo', 'adem', 'tumefactive_ms', 'brain_abscess', 'hsv_encephalitis', 'toxoplasmosis', 'tuberculoma'], title: 'Çalışılacak Hastalıklar', desc: 'Demyelinizan + enfeksiyöz — otoimmün vs mikrobiyel mekanizma farkı.' }
+      { type: 'study', ids: ['ms', 'nmo', 'adem', 'tumefactive_ms', 'brain_abscess', 'hsv_encephalitis', 'toxoplasmosis', 'tbc_meningitis'], title: 'Çalışılacak Hastalıklar', desc: 'Demyelinizan + enfeksiyöz — otoimmün vs mikrobiyel mekanizma farkı.' }
     ]
   },
   {
@@ -6744,7 +6604,11 @@ function renderStats(main) {
 function renderSmartQuiz(main) {
   // Increment session
   let session = parseInt(localStorage.getItem('neurorad_quiz_session') || '0');
-  localStorage.setItem('neurorad_quiz_session', String(session + 1));
+  if (!window._quizSessionCounted) {
+    window._quizSessionCounted = true;
+    session++;
+    localStorage.setItem('neurorad_quiz_session', String(session));
+  }
   
   const pool = getSmartQuizPool();
   const shuffled = [...pool].sort(() => Math.random() - 0.5);
@@ -10076,6 +9940,11 @@ function initApp() {
   }
 
   render();
+
+  function generateReportText() {
+    var main = document.getElementById('mainContent');
+    return main ? main.innerText : '';
+  }
 
   // ===== GLOBAL CLICK DELEGATION =====
   document.addEventListener('click', function(e) {
