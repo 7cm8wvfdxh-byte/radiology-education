@@ -5636,6 +5636,270 @@ const findings = [
       { name: "Dandy-Walker Malformasyonu", key: "Konjenital + vermis hipoplazi/agenezi + 4. ventrikül kistik dilatasyonu + posterior fossa genişlemiş", color: "#10b981" }
     ],
     decisionTree: "Kistik posterior fossa → YAŞ KRİTİK! ÇOCUK: Vermis/midline = medulloblastom (solid, DWI+) veya ependimom (4V, foramina uzanımı). Hemisfer kist + mural nodül = JPA (#1 çocuk serebellar tümör). ERİŞKİN: Hemisfer kist + vasküler nodül = hemanjioblastom (VHL sor!). Ekstra-aksiyel BOS-benzeri + DWI(+) = epidermoid. Doğumsal + vermis yok = Dandy-Walker."
+  },
+  {
+    finding: "Meninkslerde Kontrastlanma (Dural vs Leptomeningeal)",
+    icon: "🧩",
+    diseases: [
+      { name: "Meningiom (en passant)", key: "Dural-bazlı kitle + homojen kontrastlanma + dural tail işareti + BT kalsifikasyon", color: "#f43f5e" },
+      { name: "Leptomeningeal Karsinomatozis", key: "Sulkal dolma + nodüler leptomeningeal enhancement + hidrosefali + bilinen primer malignite", color: "#f59e0b" },
+      { name: "Nörosarkoidoz", key: "Pakimeningeal (dural) kalınlaşma + bazal leptomeningeal tutulum + hipofiz sapı + ACE yüksek", color: "#8b5cf6" },
+      { name: "Tüberküloz Menenjit", key: "Bazal sisternalarda yoğun kontrastlanma + hidrosefali + vaskülit/infarkt + kranial sinir tutulumu", color: "#06b6d4" },
+      { name: "İdiopatik Hipertrofik Pakimenenjit", key: "Diffüz dural kalınlaşma + IgG4 ilişkili olabilir + kranial nöropati + baş ağrısı", color: "#10b981" },
+      { name: "İntrakranial Hipotansiyon", key: "Diffüz SİMETRİK pakimeningeal (dural) kontrastlanma + subdural koleksiyon + beyin sarkması", color: "#ec4899" }
+    ],
+    decisionTree: "DURAL (pakimeningeal) mı LEPTOMENINGEAL mi? → DURAL (kalın, düzgün çizgisel): simetrik = intrakranial hipotansiyon veya IHP. Fokal = meningiom/metastaz. → LEPTOMENINGEAL (sulkuslara uzanan, pia-araknoid): bazal sisternalar = TBC menenjit veya sarkoidoz. Diffüz sulkal = karsinomatozis. Hidrosefali eşlik ediyor mu? EVET = TBC/karsinomatozis."
+  },
+  {
+    finding: "Santral Pons Lezyonu",
+    icon: "🔷",
+    diseases: [
+      { name: "Osmotik Demiyelinizasyon (CPM)", key: "Hızlı Na+ düzeltme öyküsü + santral pons + trident paterni + akut/subakut + pons genişlemez", color: "#f43f5e" },
+      { name: "Pontin Gliom (DIPG)", key: "Çocuk + diffüz pontin genişleme + baziler arter sarılmış + heterojen T2 + kontrastlanma değişken", color: "#f59e0b" },
+      { name: "Pontin İnfarkt", key: "Akut başlangıç + baziler arter alanı + DWI kısıtlanma + vasküler risk faktörleri", color: "#8b5cf6" },
+      { name: "MS (beyin sapı plağı)", key: "Periferalde/dorsal yerleşim + trigeminal/fasiyal nükleus tutulumu + dissemine lezyonlar", color: "#06b6d4" },
+      { name: "Beyin Sapı Ensefaliti (Listeria/Bickerstaff)", key: "Romboensefalit paterni + kranial sinir felçleri + ateş (Listeria) veya anti-GQ1b (Bickerstaff)", color: "#10b981" }
+    ],
+    decisionTree: "Pons lezyonu → Pons GENİŞLEMİŞ mi? EVET + çocuk = DIPG düşün. HAYIR + santral simetrik = CPM (Na+ öyküsü sor!). → DWI kısıtlanma + akut başlangıç = infarkt (baziler arter). → Periferal/dorsal + dissemine = MS. → Ateş + kranial sinir = Listeria romboensefaliti."
+  },
+  {
+    finding: "Serebellopontin Açı Kitlesi",
+    icon: "🔺",
+    diseases: [
+      { name: "Vestibüler Schwannom", key: "İAK genişlemiş + ice cream cone şekli + T2 heterojen + akustik semptomlar + NF2'de bilateral", color: "#f43f5e" },
+      { name: "Meningiom (SPA)", key: "Geniş dural baz + dural tail + IAK genişlemez + BT kalsifikasyon + homojen kontrastlanma", color: "#f59e0b" },
+      { name: "Epidermoid Kist", key: "DWI PARLAK (keratin) + BOS benzeri T1/T2 ama FLAIR baskılanmaz + kontrastlanma YOK + kenar düzensiz", color: "#8b5cf6" },
+      { name: "Fasiyal Schwannom", key: "Fasiyal kanal boyunca uzanım + genikülat ganglion + fasiyal parezi + IAK ön-üst", color: "#06b6d4" },
+      { name: "Araknoid Kist", key: "Tüm sekanslarda BOS sinyali + FLAIR baskılanır + DWI kısıtlanma YOK + düzgün sınırlı", color: "#10b981" },
+      { name: "Trigeminal Schwannom", key: "Meckel kavitesine uzanım + dumbbell şekli (orta + posterior fossa) + trigeminal semptomlar", color: "#ec4899" }
+    ],
+    decisionTree: "SPA kitlesi → IAK genişlemiş mi? EVET = schwannom (vestibüler #1). IAK normal + geniş dural baz = meningiom. → DWI parlak + FLAIR baskılanmaz = epidermoid. → BOS sinyali + FLAIR baskılanır = araknoid kist. → Schwannom ama fasiyal semptom = fasiyal schwannom. → Meckel kavitesi + dumbbell = trigeminal schwannom."
+  },
+  {
+    finding: "Optik Sinir / Kiazma Lezyonu",
+    icon: "👁️",
+    diseases: [
+      { name: "Optik Nörit (MS)", key: "Genç kadın + tek taraflı + retrobulber ağrı + optik sinir T2 hiperintens + kontrastlanma + MS plakları", color: "#f43f5e" },
+      { name: "NMO Optik Nöriti", key: "Bilateral + uzun segment (kiazma dahil) + şiddetli görme kaybı + AQP4-Ab (+)", color: "#f59e0b" },
+      { name: "Optik Yol Gliomu", key: "Çocuk + fusiform optik sinir/kiazma kalınlaşması + NF1 ilişkili + T2 parlak + kinking", color: "#8b5cf6" },
+      { name: "Optik Kılıf Meningiomu", key: "Tram-track sign (periferal kontrastlanma, merkez koyu) + kalsifikasyon + kadın > erkek", color: "#06b6d4" },
+      { name: "Sarkoidoz (optik sinir)", key: "Optik sinir kalınlaşması + perinöral kontrastlanma + sistemik bulgular + ACE yüksek", color: "#10b981" },
+      { name: "IgG4 İlişkili Hastalık", key: "Bilateral + infraorbital sinir tutulumu olabilir + lakrimal bez + yüksek IgG4 + fibrotik", color: "#ec4899" }
+    ],
+    decisionTree: "Optik sinir lezyonu → Akut görme kaybı + ağrı + genç? → MS optik nörit (tek taraf) vs NMO (bilateral, kiazma). → Çocuk + fusiform kalınlaşma = optik gliom (NF1 sor). → Tram-track enhancement = optik kılıf meningiomu. → Perinöral + sistemik = sarkoidoz/IgG4. → NMO ipuçları: uzun segment + bilateral + şiddetli."
+  },
+  {
+    finding: "Hipofiz / Sellar Lezyon",
+    icon: "🔴",
+    diseases: [
+      { name: "Hipofiz Adenomu", key: "Mikroadenom: dinamik MR'da geç kontrastlanma + gland deviasyonu. Makroadenom: sellar genişleme + snowman şekli + kavernöz sinüs", color: "#f43f5e" },
+      { name: "Kraniofarenjiom", key: "Suprasellar kistik + kalsifikasyon (BT %90) + T1 parlak kist (makine yağı) + çocuk/genç erişkin", color: "#f59e0b" },
+      { name: "Rathke Kisti", key: "İntraseller küçük kist + T1 değişken (protein) + kontrastlanmaz + intrakistik nodül", color: "#8b5cf6" },
+      { name: "Hipofizit (Lenfositik/IgG4)", key: "Hipofiz sapı kalınlaşmış + homojen kontrastlanma + diabetes insipidus + otoimmün", color: "#06b6d4" },
+      { name: "Hipofiz Apopleksisi", key: "Makroadenom zemini + ani başlangıç + kanama/nekroz + T1 hiperintens + akut görme kaybı", color: "#10b981" },
+      { name: "Meningiom (sellar/suprasellar)", key: "Dural bazlı + homojen + dural tail + kalsifikasyon + sella genişlemez (hipofizden ayrı)", color: "#ec4899" }
+    ],
+    decisionTree: "Sellar lezyon → Kistik mi solid mi? KİSTİK: kontrastlanma yok + küçük intraseller = Rathke kisti. Suprasellar + kalsifikasyon = kraniofarenjiom. SOLİD: sellar genişleme + snowman = makroadenom. Dural tail + sella normal = meningiom. → Sap kalın + DI = hipofizit. → Akut + kanama = apopleksi."
+  },
+  {
+    finding: "Kalsifiye İntrakranial Lezyon",
+    icon: "ite",
+    diseases: [
+      { name: "Oligodendrogliom", key: "Kortikal yerleşim + kaba kalsifikasyon (%70-90 BT) + T2 heterojen + 1p/19q ko-delesyon", color: "#f43f5e" },
+      { name: "Meningiom", key: "Ekstra-aksiyel + psammomatöz kalsifikasyon + dural baz + homojen kontrastlanma", color: "#f59e0b" },
+      { name: "AVM (arteriyovenöz malformasyon)", key: "Flow voidler + T2 hemosiderin + kalsifikasyon + tangled vessel yumağı + BT anjiyografi", color: "#8b5cf6" },
+      { name: "Konjenital Enfeksiyon (TORCH)", key: "Periventriküler kalsifikasyon (CMV) veya diffüz (toksoplazmoz) + mikrosefali + çocuk", color: "#06b6d4" },
+      { name: "Nörosistiserkoz (granüler/kalsifiye evre)", key: "Multipl küçük noktasal kalsifikasyonlar + kist zemininde + endemik bölge + nöbet öyküsü", color: "#10b981" },
+      { name: "Fahr Hastalığı / Fizyolojik Kalsifikasyon", key: "Bilateral bazal ganglia + dentat nükleus + SİMETRİK + Ca/PTH metabolizması bozuk (Fahr) veya yaşa bağlı", color: "#ec4899" },
+      { name: "Tuberoskleroz (SEN)", key: "Subependimal kalsifiye nodüller + kortikal tüberler + SEGA (Monro yakını) + kutanöz bulgular", color: "#94a3b8" }
+    ],
+    decisionTree: "Kalsifiye lezyon → Bilateral SİMETRİK bazal ganglia = Fahr (PTH/Ca kontrol) veya yaşa bağlı fizyolojik. → Subependimal nodüller + cilt = tuberoskleroz. → Kortikal kitle + kaba kalsifikasyon = oligodendrogliom. → Ekstra-aksiyel + dural = meningiom. → Multipl küçük noktasal = NCC (endemik) veya TORCH (çocuk). → Flow void + kalsifikasyon = AVM."
+  },
+  {
+    finding: "Ventrikül İçi Kitle",
+    icon: "💧",
+    diseases: [
+      { name: "Koroid Pleksus Papillomu", key: "Lateral ventrikül (çocuk) veya 4. ventrikül (erişkin) + yoğun kontrastlanma + hidrosefali + BOS aşırı üretimi", color: "#f43f5e" },
+      { name: "Ependimom (intraventriküler)", key: "4. ventrikül + plastik büyüme (foraminalardan uzanım) + kalsifikasyon + çocuk/genç", color: "#f59e0b" },
+      { name: "Kolloid Kist", key: "Foramen Monro'da + 3. ventrikül anteriorunda + T1 hiperintens + bilateral hidrosefali + akut obstrüksiyon riski", color: "#8b5cf6" },
+      { name: "Santral Nörositom", key: "Lateral ventrikül + foramen Monro yakını + genç erişkin + bubbly/swiss cheese + orta derecede kontrastlanma", color: "#06b6d4" },
+      { name: "Subependimal Dev Hücreli Astrositom (SEGA)", key: "Foramen Monro yakını + tuberoskleroz + büyüyen subependimal nodül + kontrastlanır", color: "#10b981" },
+      { name: "Subependimom", key: "4. ventrikül veya lateral ventrikül + az/hiç kontrastlanma + yaşlı erişkin + asemptomatik + küçük", color: "#ec4899" },
+      { name: "Meningiom (intraventriküler)", key: "Trigon bölgesi + homojen kontrastlanma + erişkin kadın + kalsifikasyon olabilir", color: "#94a3b8" }
+    ],
+    decisionTree: "İntraventriküler kitle → LOKALİZASYON KRİTİK! 3. ventrikül anterior (Monro) + T1 parlak = kolloid kist. Monro yakını + TS öyküsü = SEGA. → Lateral ventrikül + bubbly = santral nörositom. Trigon + homojen = meningiom. → 4. ventrikül + foramina uzanım = ependimom. + Çocuk + yoğun kontrastlanma = koroid pleksus papillomu. + Kontrastlanma az + yaşlı = subependimom."
+  },
+  {
+    finding: "Multipl Ring-Enhancing Lezyonlar",
+    icon: "🔘",
+    diseases: [
+      { name: "Metastaz", key: "Gri-beyaz bileşke + orantısız vazojenik ödem + bilinen primer + farklı boyutlarda", color: "#f43f5e" },
+      { name: "Beyin Absesi (multipl)", key: "DWI merkez kısıtlanma + düzgün ince ring + daughter apse + ateş + lökositoz", color: "#f59e0b" },
+      { name: "Toksoplazmoz", key: "HIV+ CD4<100 + bazal ganglia predileksiyon + eccentric target sign + anti-tokso Ab(+)", color: "#8b5cf6" },
+      { name: "Tümefaktif MS (multipl)", key: "Open ring enhancement + perivenöz dağılım + CVS işareti + genç hasta", color: "#06b6d4" },
+      { name: "Septik Emboli", key: "Gri-beyaz bileşke + endokardit/IVDA + küçük boyutlu + DWI(+) + multipl arteriyel alan", color: "#10b981" },
+      { name: "Lenfoma (immünyetmez)", key: "HIV+ + periventriküler + homojen veya ring + DWI belirgin kısıtlı + EBV ilişkili", color: "#ec4899" }
+    ],
+    decisionTree: "Multipl ring lezyonlar → İmmünyetmez mi? EVET + bazal ganglia = toksoplazmoz (#1) vs lenfoma (periventriküler). → İmmünkompetan: bilinen kanser + gri-beyaz bileşke = metastaz. DWI merkez kısıtlı + ateş = abse. Open ring + genç = tümefaktif MS. Endokardit/IVDA + küçük = septik emboli. TAKTİK: Tokso vs lenfoma ayrımında → 2 hafta ampirik tedavi → yanıt yok = biyopsi."
+  },
+  {
+    finding: "T2 Hipointens Lezyon",
+    icon: "⬛",
+    diseases: [
+      { name: "Kalsifikasyon", key: "BT'de hiperdens + T2*/GRE sinyal kaybı + SWI blooming + T1 değişken", color: "#f43f5e" },
+      { name: "Melanin İçeren Lezyon", key: "T1 hiperintens + T2 hipointens + melanom metastazı + multipl olabilir", color: "#f59e0b" },
+      { name: "Hemosiderin Birikimi", key: "Kronik kanama + GRE/SWI belirgin blooming + çevrede T2 hipointens rim", color: "#8b5cf6" },
+      { name: "Meningiom (fibröz tip)", key: "Ekstra-aksiyel + T2 belirgin hipointens + yoğun homojen kontrastlanma + dural tail", color: "#06b6d4" },
+      { name: "PCNSL (Lenfoma)", key: "Solid + homojen + periventriküler + DWI kısıtlı + yüksek sellülarite → T2 göreceli düşük sinyal", color: "#10b981" },
+      { name: "Kolloid Kist", key: "3. ventrikül + Foramen Monro + T2 hipointens (yoğun müsinöz içerik) + T1 hiperintens", color: "#ec4899" },
+      { name: "Akut Deoksihemoglobin (Hiperakut Kanama)", key: "Hiperakut-akut evre hematom + T2 hipointens rim/merkez + GRE belirgin", color: "#94a3b8" }
+    ],
+    decisionTree: "T2 hipointens lezyon → SWI/GRE blooming belirgin mi? EVET: kalsifikasyon (BT ile doğrula), hemosiderin (kronik kanama), akut kanama. → T1 de hiperintens? EVET = melanin (melanom?) veya subakut kanama. → Ekstra-aksiyel + dural = fibröz meningiom. → Periventriküler + homojen + DWI kısıtlı = lenfoma. → Foramen Monro + küçük = kolloid kist."
+  },
+  {
+    finding: "Beyin Sapı Lezyonu",
+    icon: "🧿",
+    diseases: [
+      { name: "Beyin Sapı İnfarktı", key: "Akut başlangıç + DWI kısıtlanma + vasküler dağılım (anterior/posterior) + baziler arter patolojisi", color: "#f43f5e" },
+      { name: "Beyin Sapı Gliomu", key: "Çocuk: DIPG (pons, diffüz). Erişkin: fokal, dorsale ekzofitik, tektal + kitle etkisi", color: "#f59e0b" },
+      { name: "Kavernöz Malformasyon", key: "Popcorn paterni + T2 hemosiderin rim + heterojen sinyal (kanama evreleri) + GRE/SWI belirgin", color: "#8b5cf6" },
+      { name: "MS / Demiyelinizasyon", key: "Periferal/dorsal yerleşim + trigeminal entry zone + diğer dissemine lezyonlar + genç hasta", color: "#06b6d4" },
+      { name: "Osmotik Demiyelinizasyon (CPM)", key: "Santral pontin + trident paterni + Na+ düzeltme öyküsü + pons genişlemez", color: "#10b981" },
+      { name: "Romboensefalit (Listeria/Behçet)", key: "Ateş + kranial nöropati + dorsal pons/medulla + immünsüpresyon (Listeria) veya oral/genital ülser (Behçet)", color: "#ec4899" }
+    ],
+    decisionTree: "Beyin sapı lezyonu → AKUT + DWI(+) = infarkt (baziler arter değerlendir). → Popcorn + hemosiderin rim = kavernöz malformasyon. → Çocuk + diffüz pons genişlemesi = DIPG. → Periferal/dorsal + dissemine = MS. → Santral pontin + Na+ öyküsü = CPM. → Ateş + kranial sinir + dorsal = romboensefalit (Listeria vs Behçet)."
+  },
+  {
+    finding: "Unilateral Temporal Lob Lezyonu",
+    icon: "🧠",
+    diseases: [
+      { name: "HSV Ensefaliti", key: "ACİL! Ateş + bilateral asimetrik medial temporal/insular + DWI kısıtlanma + hemorajik + limbik tutulum", color: "#f43f5e" },
+      { name: "Temporal Lob Gliomu", key: "İnfiltratif T2/FLAIR hiperintens + kitle etkisi + kontrastlanma yok/az (düşük derece) veya ring (yüksek derece)", color: "#f59e0b" },
+      { name: "Limbik Ensefalit (otoimmün)", key: "Bilateral medial temporal + T2/FLAIR hiperintens + subakut hafıza kaybı + anti-LGI1/CASPR2/NMDA Ab", color: "#8b5cf6" },
+      { name: "Temporal Lob Epilepsi (MTS)", key: "Hipokampal skleroz = atrofi + T2/FLAIR hiperintens + forniks atrofisi + mamiller cisim asimetri", color: "#06b6d4" },
+      { name: "DNET (Disembryoplastik Nöroepitelyal Tümör)", key: "Kortikal + bubbly/multikistik + kalsifikasyon olabilir + refrakter epilepsi + genç + kontrastlanma az", color: "#10b981" },
+      { name: "Gangliogliom", key: "Temporal lob + kistik-solid + kalsifikasyon + genç hasta + epilepsi + mural nodül kontrastlanır", color: "#ec4899" }
+    ],
+    decisionTree: "Temporal lob lezyonu → ACİL Mİ? Ateş + akut + medial temporal + DWI(+) = HSV ensefaliti (acil asiklovir!). → Subakut + bilateral medial temporal + hafıza kaybı = limbik ensefalit (Ab paneli). → Kronik + hipokampal atrofi + epilepsi = MTS. → Kitle etkisi + infiltratif = gliom. → Kortikal + bubbly + genç + epilepsi = DNET. → Kistik-solid + kalsifikasyon = gangliogliom."
+  },
+  {
+    finding: "Difüz Beyaz Cevher Hastalığı",
+    icon: "🌫️",
+    diseases: [
+      { name: "Lökodistrofi (metakromatik/adrenal)", key: "Çocuk + SİMETRİK + posterior dominant (MLD) veya periventriküler (ALD) + U-lifi korunur (erken) → geç tutulur", color: "#f43f5e" },
+      { name: "HIV Ensefalopatisi", key: "Bilateral simetrik + periventriküler + kitle etkisi YOK + kontrastlanma YOK + CD4 düşük", color: "#f59e0b" },
+      { name: "PML", key: "Asimetrik + U-lifi tutulumu (subkortikal) + kitle etkisi az + JC virüs + immünyetmez", color: "#8b5cf6" },
+      { name: "Toksik Lökoensefalopati", key: "Simetrik + posterior + kemoterapötik ajan/radyasyon öyküsü + DWI değişken", color: "#06b6d4" },
+      { name: "Kronik Mikroanjiopatik İskemi (SVD)", key: "Yaşlı + HT/DM + periventriküler + simetrik + laküner infarktlar eşlik", color: "#10b981" },
+      { name: "ADEM", key: "Çocuk/genç + monofazik + büyük asimetrik lezyonlar + derin gri cevher tutulumu + post-enfeksiyöz", color: "#ec4899" }
+    ],
+    decisionTree: "Difüz beyaz cevher hastalığı → SİMETRİK mi ASİMETRİK mi? SİMETRİK + çocuk = lökodistrofi (posterior=MLD, periventriküler=ALD). SİMETRİK + yaşlı + risk = SVD. SİMETRİK + HIV = HIV ensefalopatisi. → ASİMETRİK + U-lifi tutulumu + immünyetmez = PML. → Monofazik + büyük + çocuk = ADEM. → İlaç/RT öyküsü = toksik."
+  },
+  {
+    finding: "Pineal Bölge Kitlesi",
+    icon: "📌",
+    diseases: [
+      { name: "Germ Hücreli Tümör (Germinom)", key: "Çocuk/genç erkek + homojen kontrastlanma + beta-HCG/AFP yükselebilir + suprasellar senkron lezyon", color: "#f43f5e" },
+      { name: "Pineoblastom", key: "Çocuk + agresif + patlayan kalsifikasyon (exploded calcification) + DWI kısıtlı + drop metastaz", color: "#f59e0b" },
+      { name: "Pineositom", key: "Erişkin + yavaş büyüyen + iyi sınırlı + kalsifikasyon periferalde korunur (exploded değil)", color: "#8b5cf6" },
+      { name: "Tektal Gliom", key: "Tektum/lamina quadrigemina + küçük + aquedukt stenozu → obstrüktif hidrosefali + düşük derece + takip", color: "#06b6d4" },
+      { name: "Pineal Kist", key: "İnce duvar (<2mm) + ince rim kontrastlanma + iç sinyal BOS benzeri + küçük + asemptomatik", color: "#10b981" },
+      { name: "Meningiom (pineal bölge)", key: "Ekstra-aksiyel + tentorial bazlı + homojen kontrastlanma + dural tail + erişkin", color: "#ec4899" }
+    ],
+    decisionTree: "Pineal bölge kitlesi → Kistik + ince duvar + BOS benzeri = pineal kist (normal varyant). → Solid + çocuk erkek + homojen = germinom (tümör markerları iste!). → Çocuk + agresif + exploded kalsifikasyon = pineoblastom. → Erişkin + yavaş = pineositom (kalsifikasyon periferal korunur). → Tektumda küçük + hidrosefali = tektal gliom. → Tentorial bazlı = meningiom."
+  },
+  {
+    finding: "İntrakranial Kanama Paterni",
+    icon: "🩸",
+    diseases: [
+      { name: "Hipertansif Kanama", key: "Bazal ganglia (putamen #1) / talamus / pons / serebellum + HT öyküsü + derin lokalizasyon", color: "#f43f5e" },
+      { name: "Serebral Amiloid Anjiopati (CAA)", key: "Yaşlı + LOBar (kortikal/subkortikal) + multipl farklı yaşta + SWI mikro kanamalar + periventriküler WMH", color: "#f59e0b" },
+      { name: "AVM Kanaması", key: "Genç hasta + LOBAR + tangled vessel + flow void + çevre hemosiderin + BT anjiyografi ile nidus", color: "#8b5cf6" },
+      { name: "Anevrizma Rüptürü (SAK)", key: "Bazal sisterna SAK + silvian fissür + anterior komünikan #1 + hidrosefali + BT anjiyografi", color: "#06b6d4" },
+      { name: "Tümör İçi Kanama", key: "Heterojen kitle + çevresel ödem + inkomplet hemosiderin rim + bilinen malignite (melanom, renal, koryokarsinom)", color: "#10b981" },
+      { name: "Koagülopati / Antikoagülan", key: "Antikoagülan kullanımı + atipik lokalizasyon + sıvı seviye (fluid level) + hızlı genişleme", color: "#ec4899" },
+      { name: "Dural Sinüs Trombozu Kanaması", key: "Venöz dağılım + parasagittal/temporal + bilateral + alttaki tromboz (MRV/CTV ile doğrula)", color: "#94a3b8" }
+    ],
+    decisionTree: "İntrakranial kanama → DERİN (bazal ganglia/talamus/pons) + HT = hipertansif. → LOBAR + yaşlı + multipl mikro kanama = CAA. LOBAR + genç + flow void = AVM. → SAK bazal sisterna = anevrizma (anjiyografi!). → Venöz dağılım + bilateral = DVT kanaması (MRV!). → Heterojen kitle + inkomplet rim = tümör kanaması. → Antikoagülan + fluid level = koagülopati."
+  },
+  {
+    finding: "SWI/GRE Multipl Mikro Kanama",
+    icon: "⚫",
+    diseases: [
+      { name: "Serebral Amiloid Anjiopati (CAA)", key: "Yaşlı >60 + LOBAR (kortikal-subkortikal) + sentrisefalik bölge korunur + kortikal sideroz", color: "#f43f5e" },
+      { name: "Hipertansif Mikroanjiopati", key: "DERİN lokalizasyon (bazal ganglia, talamus, pons, serebellum) + HT öyküsü + sentrisefalik", color: "#f59e0b" },
+      { name: "Difüz Aksonal Hasar (DAI)", key: "Travma öyküsü + gri-beyaz bileşke + korpus kallozum + beyin sapı + klinikle orantısız hasar", color: "#8b5cf6" },
+      { name: "Kavernöz Malformasyon (multipl)", key: "Popcorn lezyonlar + T2 hemosiderin rim + değişik evrede kanama + aile öyküsü (otozomal dominant)", color: "#06b6d4" },
+      { name: "Radyasyon Vaskülopatisi", key: "Önceki RT alanında + gecikmiş (yıllar sonra) + beyaz cevher değişiklikleri eşlik eder", color: "#10b981" },
+      { name: "Serebral Vaskülit", key: "Genç hasta + multipl arteriyel alan + infarktlar eşlik eder + damar duvarı kontrastlanması", color: "#ec4899" },
+      { name: "İnfektif Endokardit (septik emboli)", key: "Ateş + kalp üfürümü + gri-beyaz bileşke + DWI(+) infarktlar eşlik + kan kültürü (+)", color: "#94a3b8" }
+    ],
+    decisionTree: "Multipl mikro kanama → LOKALİZASYON KRİTİK! LOBAR (kortikal) + yaşlı = CAA. DERİN (bazal ganglia/pons) + HT = hipertansif mikroanjiopati. → Travma + gri-beyaz bileşke + korpus kallozum = DAI. → Popcorn + hemosiderin rim = kavernöz malformasyon (familyal?). → RT alanında = radyasyon vaskülopatisi. → Genç + multifokal infarkt = vaskülit. → Ateş + endokardit = septik emboli."
+  },
+  {
+    finding: "Kranial Sinir Enhancement",
+    icon: "🔌",
+    diseases: [
+      { name: "Bell Palsi (Fasiyal Nörit)", key: "Akut fasiyal paralizi + fasiyal sinir (labirin/timpanik segment) kontrastlanma + idiopatik + steroid yanıtı", color: "#f43f5e" },
+      { name: "Schwannom (kranial sinir)", key: "Fokal fusiform/nodüler kitle + etkilenen sinir boyunca + homojen kontrastlanma + nöral foramen genişlemiş", color: "#f59e0b" },
+      { name: "Lenfoma / Leptomeningeal Yayılım", key: "Multipl kranial sinir + diffüz kalınlaşma + leptomeningeal tutulum eşlik + BOS sitolojisi (+)", color: "#8b5cf6" },
+      { name: "Nörosarkoidoz", key: "Multipl kranial sinir (özellikle CN VII, II) + bazal menenjit + hipofiz sapı + ACE yüksek + sistemik bulgular", color: "#06b6d4" },
+      { name: "Guillain-Barré Sendromu (GBS)", key: "Bilateral simetrik + kauda ekina sinir kök kontrastlanması + aksiyel kesitte 'anterior horn sign' (spinal)", color: "#10b981" },
+      { name: "Perineural Tümör Yayılımı", key: "Baş-boyun malignitesi + sinir boyunca lineer kontrastlanma + foramen genişlemiş + trigeminal/fasiyal yol", color: "#ec4899" }
+    ],
+    decisionTree: "Kranial sinir kontrastlanması → TEK sinir + akut paralizi = Bell palsi (CN VII) veya schwannom (fokal kitle). → MULTİPL sinir: bazal menenjit + sistemik = sarkoidoz. Malignansi öyküsü = leptomeningeal yayılım. → Bilateral simetrik + kauda ekina = GBS. → Sinir boyunca lineer + foramen genişlemiş + baş-boyun tümör = perineural yayılım."
+  },
+  {
+    finding: "Orta Hat Kitlesi (Çocuk)",
+    icon: "👶",
+    diseases: [
+      { name: "Kraniofarenjiom", key: "Suprasellar + kistik-solid + kalsifikasyon (%90 BT) + T1 parlak kist + çocuk 5-14 yaş", color: "#f43f5e" },
+      { name: "Optik Yol Gliomu", key: "Kiazma/optik sinir kalınlaşması + NF1 ilişkili + fusiform + T2 parlak + görme bozukluğu", color: "#f59e0b" },
+      { name: "Germ Hücreli Tümör", key: "Pineal ve/veya suprasellar + erkek çocuk + homojen kontrastlanma + tümör markerleri (AFP/beta-HCG)", color: "#8b5cf6" },
+      { name: "Hipotalamik Hamartom", key: "Tuber cinereum + T1/T2 gri cevher izointens + kontrastlanma YOK + gelastik nöbet + erken puberte", color: "#06b6d4" },
+      { name: "Langerhans Hücreli Histiositoz (LCH)", key: "Hipofiz sapı kalınlaşmış + DI (diabetes insipidus) + kemik lezyonları + cilt bulguları", color: "#10b981" },
+      { name: "Pilositik Astrositom (hipotalamik)", key: "Suprasellar solid-kistik kitle + parlak kontrastlanma + çocuk + NF1 ile ilişkili olabilir", color: "#ec4899" }
+    ],
+    decisionTree: "Çocukta orta hat kitlesi → Suprasellar + kalsifikasyon + kistik = kraniofarenjiom (#1). → Kiazma/optik sinir + NF1 = optik yol gliomu. → Pineal ± suprasellar + erkek = germinom (marker!). → Tuber cinereum + kontrastlanma yok + gelastik nöbet = hipotalamik hamartom. → Sap kalın + DI + kemik = LCH. → Suprasellar solid-kistik + parlak kontrastlanma = pilositik astrositom."
+  },
+  {
+    finding: "İntramedüller Spinal Kord Lezyonu",
+    icon: "🦴",
+    diseases: [
+      { name: "Spinal Ependimom", key: "SANTRAL yerleşim + simetrik kord genişlemesi + polar kist + hemosiderin cap (kanama) + erişkin", color: "#f43f5e" },
+      { name: "Spinal Astrositom", key: "EKSANTRİK + infiltratif + düzensiz sınır + parsiyel kontrastlanma + çocuk > erişkin", color: "#f59e0b" },
+      { name: "Demiyelinizasyon (MS/NMO/MOG)", key: "Kısa segment (MS <2 vertebra) veya uzun segment (NMO ≥3) + periferal/dorsal (MS) veya santral (NMO)", color: "#8b5cf6" },
+      { name: "Hemangioblastom", key: "Kist + yoğun kontrast tutan mural nodül + flow void + pial yüzeyde + VHL sendromu araştır", color: "#06b6d4" },
+      { name: "Spinal Kord İnfarktı", key: "Hiperakut başlangıç + owl eye paterni (anterior horn) + DWI kısıtlanma + pencil-like T2 hiperintensite", color: "#10b981" },
+      { name: "Spinal Dural AV Fistül (sDAVF)", key: "Yaşlı erkek + torakolomber + perimedüller flow void + progresif miyelopati + santral T2 hiperintensite", color: "#ec4899" }
+    ],
+    decisionTree: "İntramedüller lezyon → SANTRAL + simetrik + hemosiderin cap = ependimom. EKSANTRİK + infiltratif = astrositom. → Kist + parlak nodül + flow void = hemanjioblastom (VHL!). → Kısa segment + periferal = MS. Uzun segment + santral = NMO. → Hiperakut + owl eye = infarkt. → Progresif + perimedüller flow void = sDAVF (DSA!)."
+  },
+  {
+    finding: "Dural Kuyruk İşareti (Dural Tail Sign)",
+    icon: "🏷️",
+    diseases: [
+      { name: "Meningiom", key: "Dural tail sign'in EN SIK nedeni + homojen kontrastlanma + ekstra-aksiyel + BT kalsifikasyon + geniş dural baz", color: "#f43f5e" },
+      { name: "Dural Lenfoma", key: "Diffüz dural kalınlaşma + DWI belirgin kısıtlı + homojen + immünyetmez veya immünkompetan", color: "#f59e0b" },
+      { name: "Dural Sarkoidoz", key: "Nodüler veya diffüz dural kalınlaşma + parankimal/leptomeningeal tutulum eşlik + ACE + biyopsi", color: "#8b5cf6" },
+      { name: "Dural Metastaz", key: "Bilinen primer (meme, prostat, akciğer) + fokal/diffüz dural kontrastlanma + kemik tutulumu olabilir", color: "#06b6d4" },
+      { name: "İntrakranial Hipotansiyon", key: "Diffüz SİMETRİK düzgün dural kontrastlanma + beyin sarkması + subdural + MR miyelografi ile kaçak", color: "#10b981" },
+      { name: "Erdheim-Chester Hastalığı", key: "Simetrik dural kalınlaşma + retroperitoneal fibrozis + uzun kemik skleroz + xantogranülomatöz", color: "#ec4899" }
+    ],
+    decisionTree: "Dural tail sign → Fokal kitle + dural baz + homojen = meningiom (#1 neden, ama patognomonik DEĞİL!). → DWI kısıtlı + diffüz dural = lenfoma. → Nodüler dural + sistemik = sarkoidoz. → Bilinen kanser + dural = metastaz (kemik pencere kontrol!). → Diffüz SİMETRİK + beyin sarkması = intrakranial hipotansiyon. DİKKAT: Dural tail sign meningioma spesifik değildir — %60 meningiom, ama diğer nedenler de dural tail yapabilir."
+  },
+  {
+    finding: "Serebral Atrofi Paterni",
+    icon: "📉",
+    diseases: [
+      { name: "Alzheimer Hastalığı", key: "Bilateral medial temporal lob (hipokampal) atrofi + posterior parietal + MTA skoru ≥2 + yaşlı + demans", color: "#f43f5e" },
+      { name: "Frontotemporal Demans (FTD)", key: "ASİMETRİK frontal ve/veya anterior temporal atrofi + knife-blade atrofi + davranışsal/dil bozukluğu + <65 yaş", color: "#f59e0b" },
+      { name: "Huntington Hastalığı", key: "Bilateral KAUDAT NÜKLEUS atrofisi + frontal horn genişlemesi (box-car ventriküller) + kore + genetik", color: "#8b5cf6" },
+      { name: "MSA (Multisistem Atrofi)", key: "MSA-C: serebellar + pons atrofisi + hot cross bun sign. MSA-P: putaminal atrofi + slit-like hipointensite", color: "#06b6d4" },
+      { name: "PSP (Progresif Supranükleer Palsi)", key: "Mezensefalon atrofisi + hummingbird sign (sagittal) + morning glory sign (aksiyel) + vertikal bakış felci", color: "#10b981" },
+      { name: "CJD (Creutzfeldt-Jakob)", key: "Hızlı progresif demans + kortikal ribboning DWI(+) + kaudat/putamen DWI(+) + 14-3-3 protein + miyoklonus", color: "#ec4899" }
+    ],
+    decisionTree: "Serebral atrofi paterni → Medial temporal (hipokampal) dominant + yaşlı = Alzheimer. → Frontal/anterior temporal ASİMETRİK + knife-blade = FTD. → Kaudat atrofi + box-car = Huntington (genetik test). → Serebellar + pons + hot cross bun = MSA-C. → Mezensefalon + hummingbird sign = PSP. → HIZLI progresif + DWI kortikal ribboning = CJD (ACİL!). TAKTİK: Atrofi paterni klinik fenotipi yansıtır — bölgesel patern tanıyı yönlendirir."
   }
 ];
 
@@ -9424,6 +9688,121 @@ const neuroPitfallsData = [
         trap: "Bebekte geniş ekstra-aksiyel BOS mesafesi → subdural efüzyon şüphesi → istismar?",
         truth: "Benign makrosefali: bilateral simetrik frontal subaraknoid genişleme, köprü venleri SUBARAKNOİD mesafeden geçer. Subdural: venler ALTINDA.",
         avoid: "Köprü venleri subaraknoid mesafeden geçiyor = benign. Koleksiyon altında = subdural. FLAIR: subdural tam baskılanmaz." }
+    ]
+  },
+  {
+    organ: "Sella / Suprasellar", icon: "🔴", color: "#ec4899",
+    pitfalls: [
+      { title: "Rathke Kisti → Kraniofarenjiom Sanılması", danger: "high",
+        trap: "Sellar/suprasellar kistik lezyon görüldüğünde → tüm kistik lezyonlar kraniofarenjiom sanılır.",
+        truth: "Rathke kisti: intraseller, küçük (<1 cm), kontrastlanma YOK, ince duvar, intrakistik nodül olabilir. Kraniofarenjiom: suprasellar uzanım, KALSİFİKASYON (BT'de %90), T1 parlak kist (makine yağı), solid komponent kontrastlanır, daha büyük.",
+        avoid: "BT çek: kalsifikasyon = kraniofarenjiom. Kontrastlanma yok + küçük + intraseller = Rathke kisti. Rathke kistinde intrakistik nodül (waxy nodule) patognomoniktir." },
+      { title: "Hipofiz Konkavitesi → Empty Sella Sanılması", danger: "medium",
+        trap: "Hipofiz glandının üst yüzeyinde konkavite → 'empty sella' raporu → intrakranial hipertansiyon?",
+        truth: "Parsiyel empty sella yaşlı kadınlarda sıklıkla fizyolojik bir bulgudur (%20'ye kadar). Gerçek empty sella sendromu: hipofiz fonksiyon bozukluğu + görme alan defekti + BOS basınç artışı ile birlikte olmalı.",
+        avoid: "Hipofiz gland yüksekliği <3 mm + sapın deviye olmadığı durumlarda fizyolojik olabilir. Klinik semptom yoksa endokrinolojik tetkik gereksiz. İntrakranial HT şüphesinde → optik sinir kılıf genişliği + transvers sinüs stenozu kontrol et." },
+      { title: "Fizyolojik Hipofiz Büyümesi (Puberte/Gebelik) → Adenom Sanılması", danger: "medium",
+        trap: "Genç kız/gebe kadında hipofiz normalden büyük + konveks üst sınır → mikroadenom veya hipofizit şüphesi.",
+        truth: "Pubertede hipofiz fizyolojik olarak büyür (özellikle kızlarda), üst sınır konveks olabilir ve yükseklik 10 mm'e ulaşabilir. Gebelikte ve postpartum dönemde hipofiz %120-136 büyüyebilir (laktotrop hiperplazi).",
+        avoid: "Yaş + cinsiyet + reprodüktif durum değerlendir. Puberte/gebelik döneminde hipofiz büyük + konveks = NORMAL VARYANT. Homojen kontrastlanma + fokal lezyon YOK = fizyolojik. Fokal geç kontrastlanan alan varsa → mikroadenom düşün." }
+    ]
+  },
+  {
+    organ: "Orbital", icon: "👁️", color: "#f59e0b",
+    pitfalls: [
+      { title: "Optik Sinir Tortuozitesi → İntrakranial Hipertansiyon Sanılması", danger: "medium",
+        trap: "Aksiyel MR'da optik sinir kıvrımlı (tortüöz) görünümü → papilödem/intrakranial HT ön tanısı.",
+        truth: "Optik sinir tortuozitesi yüksek miyopide, yaşlılıkta ve konstitüsyonel olarak normal bireylerde görülebilir. İntrakranial HT'de: optik sinir kılıf genişlemesi (>5.5 mm) + posterior glob düzleşmesi + empty sella + transvers sinüs stenozu eşlik eder.",
+        avoid: "İzole tortuozite tek başına intrakranial HT tanısı KOYDURTMAZ. Eşlik eden bulgular ara: sinir kılıf genişlemesi, glob düzleşmesi, empty sella. Klinik: baş ağrısı, papilödem, görme bulanıklığı varsa LP düşün." },
+      { title: "Göz Protezi/Silikon Artefaktı → Orbital Kitle Sanılması", danger: "low",
+        trap: "Göz protezi (veya silikon implant) olan hastada MR'da orbital bölgede artefakt/sinyal anormalliği → retrobulber kitle?",
+        truth: "Göz protezi ve silikon yağı (vitrektomi sonrası) MR'da belirgin artefakt oluşturur. Silikon: T1 ve T2'de parlak (yağ benzeri ama fat-sat ile BASKLANMAZ). Protez: susceptibility artefaktı yaratır.",
+        avoid: "Klinik öykü SOR: göz protezi? vitrektomi? Silikon yağı fat-sat'ta baskılanmaz (yağdan farklı!). STIR ile karşılaştır. Gerekirse kontralateral orbita ile karşılaştır." },
+      { title: "Retrobulber Yağ Sinyali Değişikliği → Orbital Selülit/İnflamasyon Sanılması", danger: "medium",
+        trap: "Retrobulber yağ dokusunda sinyal artışı veya stranding → orbital selülit veya enflamatuvar hastalık.",
+        truth: "Retrobulber yağda T2/STIR sinyal artışı kimyasal kayma artefaktı veya parcellation artefaktı olabilir. Gerçek orbital selülit/inflamasyon: proptoz, kas kalınlaşması, preseptal ödem, ateş + lökositoz eşlik eder. Tiroid oftalmopati: bilateral, alt ve medial rektus kalınlaşması (tendon korunur).",
+        avoid: "Tek başına retrobulber yağ sinyali → klinik korelasyon ŞART. Kas kalınlaşması var mı? Proptoz var mı? Preseptal yumuşak doku ödemi var mı? Orbital apekse uzanım → acil (görme tehlikesi)." }
+    ]
+  },
+  {
+    organ: "Venöz", icon: "🔵", color: "#6366f1",
+    pitfalls: [
+      { title: "Araknoid Granülasyon → Sinüs Trombozu Sanılması", danger: "high",
+        trap: "Dural venöz sinüs içinde dolma defekti → tromboz raporu yazılır.",
+        truth: "Araknoid granülasyonlar: düzgün sınırlı, yuvarlak/oval, BOS ile İDENTİK sinyal (T2 parlak, T1 koyu, FLAIR koyu, DWI kısıtlanma YOK). Tromboz: T1'de hiperintens (subakut), FLAIR'de BOS'tan farklı, DWI kısıtlanma olabilir, sinüs etrafında ödem/kollateral.",
+        avoid: "Dolma defekti BOS sinyalinde mi? EVET = araknoid granülasyon. T1 hiperintens + FLAIR parlak = tromboz. Kontrastlı MRV veya CTV: granülasyon etrafında akım KORUNUR, trombozda akım YOK." },
+      { title: "Gelişimsel Venöz Anomali (DVA) → AVM/Patolojik Malformasyon Sanılması", danger: "medium",
+        trap: "Kontrastlı MR'da medusa başı görünümünde venöz yapılar → AVM veya vasküler malformasyon?",
+        truth: "DVA (venöz anjiom): EN SIK vasküler malformasyon + NEREDEYSE HER ZAMAN BENİGN. Caput medusa paterni + tek drene edici ven + çevre parankimde normal. AVM: nidus + besleyici arter + erken dolma veni + flow voidler.",
+        avoid: "DVA = fizyolojik normal drenaj varyantı. Cerrahi KONTRENDIKE (çevre parankimin tek venöz drenajı olabilir). Eşlik eden kavernom (%20-30) varsa kanama riski artmış → SWI ile kontrol et." },
+      { title: "Hipoplazik Transvers Sinüs → Sinüs Trombozu Sanılması", danger: "high",
+        trap: "TOF MRV'de bir transvers sinüs belirgin ince/görünmüyor → 'transvers sinüs trombozu' raporu.",
+        truth: "Transvers sinüsler %60-70 ASİMETRİK: sağ genellikle dominant. Sol transvers sinüs hipoplazik veya aplazik olabilir. Gerçek tromboz: önceki görüntülemede normal + akut semptomlar + parankimal ödem/kanama eşlik.",
+        avoid: "TOF MRV yavaş akıma duyarlı → hipoplazi abartılır. Kontrastlı MRV veya CTV ile doğrula. Hipoplazik sinüs: kemik sulkusu da küçük (BT'de). Tromboz: akut baş ağrısı + papilödem + parankimal venöz infarkt." }
+    ]
+  },
+  {
+    organ: "DWI / Difüzyon", icon: "🔒", color: "#8b5cf6",
+    pitfalls: [
+      { title: "FLAIR-DWI Mismatch Yanlış Yorumlama", danger: "high",
+        trap: "DWI(+) lezyon + FLAIR negatif → 'tüm DWI pozitif lezyonlar akut infarkt' şeklinde yorumlama.",
+        truth: "DWI-FLAIR mismatch (DWI+/FLAIR-) akut inmede başlangıç zamanı bilinmiyorsa: lezyon <4.5 saat olma olasılığı yüksek (tromboliz penceresi). Ancak: epidermoid kist, abse, lenfoma, bazı tümörler de DWI pozitiftir ve FLAIR değişken olabilir.",
+        avoid: "DWI(+) = infarkt DEĞİL, kısıtlanma. KLİNİK + ADC haritası + kontrastlı sekanslar ile birlikte değerlendir. DWI-FLAIR mismatch yalnızca klinik olarak inme düşünülen hastalarda zaman penceresi belirlemede kullanılır." },
+      { title: "Absede DWI Pitfall: Tedavi Sonrası Değişiklik", danger: "medium",
+        trap: "Beyin absesinde DWI kısıtlanma = tanı. Ancak tedavi sonrası DWI takibinde kısıtlanma devam eder → 'tedavi başarısız' raporu.",
+        truth: "Abse tedavisinde DWI kısıtlanma kontrast çapından daha YAVAŞ geriler. Tedaviye yanıt vermesine rağmen DWI 2-4 hafta daha pozitif kalabilir. Gerçek tedavi yanıtı: kontrast halka incelir, ADC değeri artar, kavite küçülür.",
+        avoid: "Abse tedavi takibinde DWI değil → kontrastlı MR + ADC değer takibi kullan. ADC değeri zamanla artıyorsa = iyileşme. Kavite küçülmüyor + ring kalınlaşıyor = tedavi yetersiz." },
+      { title: "DWI Pseudonormalizasyonu (Subakut İnfarkt)", danger: "high",
+        trap: "İnme sonrası 7-14 günde kontrol DWI'da kısıtlanma kaybolmuş → 'lezyon düzelmiş' yorumu.",
+        truth: "DWI pseudonormalizasyonu: sitotoksik ödem çözülür + vazojenik ödem gelişir → ADC geçici olarak NORMAL görünür (7-14 gün). Bu iyileşme DEĞİL, geçiş fazıdır. T2/FLAIR'de lezyon hâlâ görünür. Kronik evrede ADC yüksek (gliozis/ensefalomalazi).",
+        avoid: "Subakut dönemde (7-14 gün) DWI normal olabilir → BEKLENEN BİR BULGU. T2/FLAIR ile çapraz kontrol et. İleri dönemde ADC yükselir = gliozis (gerçek doku hasarı kanıtı). DWI tek başına infarkt evresini belirlemez." }
+    ]
+  },
+  {
+    organ: "İnfeksiyöz", icon: "🦠", color: "#ef4444",
+    pitfalls: [
+      { title: "Tüberkülom → Metastaz Sanılması", danger: "high",
+        trap: "Multipl ring-enhancing lezyonlar → metastaz ön tanısı → biyopsi/cerrahi planlanır.",
+        truth: "Tüberkülom: T2 HİPOİNTENS merkez (kazeöz nekroz, METASTAZDAN FARKLI). Çevre ödem metastaza göre daha az. Bazal menenjit + hidrosefali eşlik edebilir. MRS'de lipid piki belirgin. Endemik bölgede yaşayan veya immünyetmez hastada TBC düşün.",
+        avoid: "T2'de merkez hipointens + bazal menenjit = TBC düşün. Endemik bölge, BCG öyküsü, temas öyküsü sor. PPD/IGRA testi iste. Metastazda merkez genellikle T2 hiperintens (nekrotik sıvı). Şüphede → ampirik anti-TBC tedavi + takip." },
+      { title: "HIV Lökoensefalopatisi → PML Sanılması", danger: "high",
+        trap: "HIV+ hastada bilateral beyaz cevher lezyonları → PML raporu.",
+        truth: "HIV ensefalopatisi: SİMETRİK, periventriküler, kitle etkisi YOK, kontrastlanma YOK, yavaş progresyon, CD4 genellikle <200. PML: ASİMETRİK, subkortikal U-lifi TUTAR (önemli fark!), kitle etkisi az ama VAR, keskin sınır, hızlı progresyon.",
+        avoid: "U-lifi (subkortikal arkuat lifler) tutulumu = PML ipucu (#1 ayırt edici). SİMETRİK = HIV ensefalopatisi. JC virüs PCR (BOS) iste. PML'de IRIS (immün rekonstitüsyon) ile kontrastlanma + kitle etkisi ortaya çıkabilir." }
+    ]
+  },
+  {
+    organ: "Konjenital / Gelişimsel", icon: "💒", color: "#06b6d4",
+    pitfalls: [
+      { title: "Blake Pouch Kisti → Araknoid Kist Sanılması", danger: "medium",
+        trap: "Posterior fossada BOS yoğunluklu kistik lezyon → 'araknoid kist' veya 'Dandy-Walker varyant' raporu.",
+        truth: "Blake pouch kisti: 4. ventrikülün inferior çıkışının (foramen Magendie) membranöz tıkanıklığı. Koroid pleksus kist İÇİNDE rotasyonla altta kalır. 4. ventrikül dilate + BOS akım çalışmasında foramen Magendie kapalı. Araknoid kist: koroid pleksus DIŞINDA, 4. ventrikül normal boyutta.",
+        avoid: "Sagittal MR'da koroid pleksusun pozisyonuna bak: kist İÇİNDE aşağıda = Blake pouch. DIŞINDA = araknoid kist. Faz-kontrast BOS akım çalışması: Magendie kapalı = Blake pouch. Vermis NORMAL = Dandy-Walker DEĞİL." },
+      { title: "Perinatal Hipoksik-İskemik Ensefalopati (HIE) → Lökodistrofi Sanılması", danger: "high",
+        trap: "Bebekte/küçük çocukta bilateral simetrik beyaz cevher sinyal anormalliği → metabolik/lökodistrofi araştırması başlatılır.",
+        truth: "Perinatal HIE'de beyaz cevher hasarı: posterior periventriküler (PVL = periventriküler lökomalazi) veya derin gri cevher hasarı (bazal ganglia + talamus). Lökodistrofi: progresif + spesifik dağılım paterni + gelişimsel gerileme.",
+        avoid: "PERINATAL ÖYKÜ KRİTİK: prematürite, doğum komplikasyonu, APGAR düşük = HIE düşün. PVL: periventriküler T2/FLAIR hiperintensite + ventriküler düzensizlik (kayıp beyaz cevher). Lökodistrofi: PROGRESİF + yaşa uygun miyelinizasyon KAYBI + enzim eksikliği." },
+      { title: "Band Heterotopi → Subependimal Nodüler Heterotopi Sanılması", danger: "medium",
+        trap: "Ventrikül duvarı yakınında veya subkortikal beyaz cevherde gri cevher sinyalli yapılar → tip ayrımı yapılmaz.",
+        truth: "Subependimal nodüler heterotopi: ventrikül duvarında nodüler çıkıntılar, gri cevher sinyali, kontrastlanma YOK (tuberoskleroz SEN'den ayır!). Band heterotopi (double cortex): korteks ile ventrikül arasında SÜREKLİ bant şeklinde gri cevher, genellikle kadınlarda (X'e bağlı: DCX/LIS1 mutasyonu).",
+        avoid: "NODÜLER (düzensiz) = subependimal heterotopi. BANT ŞEKLİNDE (sürekli) = band heterotopi. Her ikisi de gri cevher izointens + kontrastlanma YOK. Tüberoskleroz SEN: KALSİFİYE + kontrastlanabilir (SEGA) → BT ile ayır. Epilepsi etyolojisinde önemli." }
+    ]
+  },
+  {
+    organ: "Kemik / Kafatası", icon: "💀", color: "#94a3b8",
+    pitfalls: [
+      { title: "Aksesuar Sütur / Wormian Kemik → Fraktür Sanılması", danger: "high",
+        trap: "BT'de kafatası kemiklerinde lineer radyolusen hat → kafatası fraktürü raporu, özellikle travma uygunsuz çocuklarda istismar şüphesi.",
+        truth: "Aksesuar süturlar (mendozal, metopik persistent) ve Wormian kemikler (lambda bölgesi) düzgün, sklerotik kenarlı ve bilateral simetrik olabilir. Fraktür: düzensiz kenar, NON-sklerotik, sütur hatlarını GEÇER, dallanma paterni.",
+        avoid: "Sklerotik (beyaz) kenar = sütur/aksesuar kemik. Non-sklerotik (keskin, koyu) = fraktür. Sütur hatları anatomik lokalizasyonda seyreder, fraktür atipik yol izler. Wormian kemikler: lambda bölgesi, osteogenesis imperfekta, kleidokranial displazi, hipotiroidide artar." },
+      { title: "Paget Hastalığı → Fibröz Displazi / Metastaz Sanılması", danger: "medium",
+        trap: "Kalvaryumda genişleme + mikst litik-sklerotik patern → metastaz veya fibröz displazi düşünülür.",
+        truth: "Paget: EVRELERİ var — litik (osteoporosis circumscripta) → mikst → sklerotik (cotton wool). Kalvaryum KALINlaşmış, diploe genişlemiş. Fibröz displazi: ground glass dansite + kemik genişlemesi + genç hasta. Metastaz: multipl, düzensiz, yaşlı + bilinen kanser.",
+        avoid: "Paget'te kalvaryum ÖNCELİKLE kalınlaşır (fibröz displazide de genişler ama patern farklı). Paget: yaşlı + ALP çok yüksek + kemik sintigrafide artmış tutulum. Fibröz displazi: genç + ground glass. Cotton wool paterni Paget'e neredeyse patognomonik." },
+      { title: "Epidermoid → Dermoid Karıştırılması (Kafatası)", danger: "medium",
+        trap: "Kafatasında ekstra-aksiyel kistik lezyon → epidermoid ve dermoid birbirine karıştırılır.",
+        truth: "Epidermoid: ektoderm kaynaklı, DWI PARLAK (keratin), BOS benzeri T1/T2 ama FLAIR baskılanmaz, SPA/parasellar sık, midline DIŞI. Dermoid: ektoderm + mezoderm, YAĞ İÇERİR (T1 parlak, fat-sat'ta SÖNER), midline yerleşim (posterior fossa/frontal), rüptür → yağ damlaları (kimyasal menenjit).",
+        avoid: "T1 parlak + fat-sat söner = YAĞLI = dermoid. DWI parlak + fat-sat etkilenmez = epidermoid. Dermoid MİDLINE, epidermoid OFF-MİDLINE. Rüptüre dermoid: subaraknoid/ventriküler yağ damlaları → kimyasal menenjit." }
     ]
   }
 ];
