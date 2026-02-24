@@ -2051,7 +2051,42 @@ const signalBadges = {
   splenic_pathology:{ extra:'Wedge infarkt / rim abse / DWI lenfoma' },
   retroperitoneal_fibrosis:{ extra:'Periaortik plak + üreter medial deviasyon' },
   retroperitoneal_sarcoma:{ t1:'☀️', extra:'Yağ kitlesi + kalın septalar >2mm' },
-  peritoneal_mesothelioma:{ dwi:'🔒', extra:'Diffüz peritoneal kalınlaşma + plevral plak' }
+  peritoneal_mesothelioma:{ dwi:'🔒', extra:'Diffüz peritoneal kalınlaşma + plevral plak' },
+  // Additional signal badges
+  accessory_spleen:{ t1:'⚪', t2:'⚪', dwi:'⚪', ce:'💉', extra:'Dalak parankimi ile izointens (tüm sekanslarda)' },
+  acute_appendicitis:{ dwi:'🔒', ce:'💉', extra:'>6mm + stranding + appendikolit' },
+  acute_cholecystitis:{ ce:'💉', extra:'Duvar kalınlaşma >3mm + perikolesistik sıvı + Murphy' },
+  adrenal_adenoma:{ t1:'⚪', t2:'⚪', dwi:'⚪', ce:'💉→❌', extra:'CS sinyal kaybı + <10HU + APW>60%' },
+  adrenal_metastasis:{ t1:'⬛', t2:'💧', dwi:'🔒', ce:'💉', extra:'CS sinyal kaybı YOK + DWI(+) + heterojen CE' },
+  adrenal_myelolipoma:{ t1:'☀️', t2:'💧', dwi:'⚪', ce:'❌', extra:'Makroskopik yağ T1 parlak + fat-sat söner' },
+  adrenocortical_ca:{ t1:'⬛', t2:'💧', dwi:'🔒', ce:'💉', extra:'Büyük (>4cm) heterojen + invazif + nekroz' },
+  biliary_atresia:{ extra:'Triangular cord sign + USG safra kesesi küçük/yok' },
+  bladder_ca:{ t1:'⚪', t2:'💧', dwi:'🔒', ce:'💉', extra:'DWI kısıtlanma + duvar kitlesi + VI-RADS' },
+  cervical_ca:{ t1:'⚪', t2:'💧', dwi:'🔒', ce:'💉', extra:'T2 parlak servikal kitle + DWI(+) + FIGO evreleme' },
+  dvt:{ extra:'Venöz dolma defekti + akut: ven genişlemiş + kronik: duvar kalınlaşma' },
+  ectopic_pregnancy:{ extra:'Adneksiyel kitle + serbest sıvı + boş uterus + β-hCG yüksek' },
+  endometrial_ca:{ t1:'⚪', t2:'💧', dwi:'🔒', ce:'💉', extra:'T2 hipointens myometriumda parlak kitle + junctional zone değerlendir' },
+  endometriosis:{ t1:'☀️', t2:'⬛', dwi:'⚪', ce:'❌', extra:'T1 parlak (kan) + T2 shading (hemosiderin)' },
+  gallbladder_ca:{ dwi:'🔒', ce:'💉', extra:'İrregüler SK duvar kalınlaşma + KC invazyon' },
+  hypertrophic_pyloric_stenosis:{ extra:'USG kas kalınlığı ≥3mm + kanal uzunluğu ≥17mm' },
+  intussusception:{ extra:'Target sign (aksiyel) + pseudokidney (sagittal) + lead point ara' },
+  malrotation_volvulus:{ extra:'Whirlpool sign + SMA-SMV inversiyonu + DJ bağ sağda' },
+  nec:{ extra:'Pnömatozis intestinalis + portal venöz gaz + distansiyon' },
+  neuroblastoma:{ t1:'⬛', t2:'💧', dwi:'🔒', ce:'💉', extra:'Kalsifikasyon + damar sarma + orta hat geçer + MIBG(+)' },
+  ovarian_ca:{ t1:'⚪', t2:'💧', dwi:'🔒', ce:'💉', extra:'Solid-kistik + DWI(+) + asit + peritoneal implant' },
+  ovarian_cyst_torsion:{ extra:'Büyük over + whirlpool sign + stromal ödem + periferik foliküller' },
+  ovarian_teratoma:{ t1:'☀️', t2:'💧', dwi:'⚪', ce:'❌', extra:'Yağ T1 parlak + kalsifikasyon + Rokitansky nodül' },
+  pheochromocytoma:{ t1:'⬛', t2:'💧💧', dwi:'🔒', ce:'💉', extra:'T2 çok parlak (light bulb sign) + vasküler + CS kaybı yok' },
+  prostate_ca:{ t1:'⚪', t2:'⬛', dwi:'🔒', ce:'💉', extra:'T2 hipointens PZ + DWI(+) + erken CE + PI-RADS' },
+  rectal_ca:{ t1:'⚪', t2:'💧', dwi:'🔒', ce:'💉', extra:'DWI kısıtlanma + duvar kitlesi + CRM + EMVI' },
+  renal_angiomyolipoma:{ t1:'☀️', ce:'💉', extra:'Yağ <-10HU + T1 parlak + fat-sat söner + CS India ink' },
+  splenic_infarct:{ dwi:'🔒', extra:'Wedge (kama) periferik hipodens + DWI(+) + rim CE' },
+  splenic_lesions:{ extra:'Variable: kist (T2↑↑ CE-) vs hemanjiom (T2↑↑ nodüler CE) vs lenfoma (DWI+) vs met' },
+  splenomegaly:{ extra:'>13cm kraniokaudal + portal HT / hematolojik / enfeksiyon / depo' },
+  testicular_tumor:{ dwi:'🔒', ce:'💉', extra:'Solid hipoekoik testiküler kitle + DWI(+) + AFP/β-hCG' },
+  tubo_ovarian_abscess:{ t1:'⬛', t2:'💧', dwi:'🔒🔒', ce:'⭕', extra:'Kalın duvarlı kompleks koleksiyon + DWI çok parlak (pü)' },
+  uterine_fibroid:{ t1:'⬛', t2:'⬛', dwi:'🔒', ce:'💉', extra:'T2 hipointens + düşük ADC + homojen kontrastlanma' },
+  wilms_tumor:{ t1:'⚪', t2:'💧', dwi:'🔒', ce:'💉', extra:'Heterojen renal kitle + claw sign + ven invazyonu değerlendir' }
 };
 
 // ===== DIFFERENTIAL DUEL DATA =====
@@ -5988,6 +6023,96 @@ const abdCalcs = [
       var col = bmi < 25 ? "#10b981" : bmi < 30 ? "#f59e0b" : "#f43f5e";
       return { result: r, color: col };
     }
+  },
+  {
+    id: "child_pugh", name: "Child-Pugh Skoru", icon: "🫁", color: "#f59e0b",
+    desc: "Siroz şiddet sınıflaması — prognoz ve cerrahi risk değerlendirmesi",
+    fields: [
+      { id: "cp_bil", label: "Bilirubin (mg/dL)", placeholder: "ör: 2.5" },
+      { id: "cp_alb", label: "Albümin (g/dL)", placeholder: "ör: 3.0" },
+      { id: "cp_inr", label: "INR", placeholder: "ör: 1.5" },
+      { id: "cp_ascites", label: "Asit (0=yok, 1=hafif, 2=orta-ağır)", placeholder: "0, 1 veya 2" },
+      { id: "cp_enc", label: "Ensefalopati (0=yok, 1=grade I-II, 2=grade III-IV)", placeholder: "0, 1 veya 2" }
+    ],
+    calculate: function(v) {
+      var bil = parseFloat(v.cp_bil), alb = parseFloat(v.cp_alb), inr = parseFloat(v.cp_inr);
+      var asc = parseInt(v.cp_ascites), enc = parseInt(v.cp_enc);
+      if (isNaN(bil) || isNaN(alb) || isNaN(inr) || isNaN(asc) || isNaN(enc)) return { result: "Tüm değerleri girin", color: "#64748b" };
+      var score = 0;
+      // Bilirubin
+      if (bil < 2) score += 1; else if (bil <= 3) score += 2; else score += 3;
+      // Albumin
+      if (alb > 3.5) score += 1; else if (alb >= 2.8) score += 2; else score += 3;
+      // INR
+      if (inr < 1.7) score += 1; else if (inr <= 2.3) score += 2; else score += 3;
+      // Ascites
+      score += asc + 1;
+      // Encephalopathy
+      score += enc + 1;
+      var cls = score <= 6 ? "A" : score <= 9 ? "B" : "C";
+      var r = "Child-Pugh Skoru = " + score + "/15 → Sınıf " + cls + "\n\n";
+      if (cls === "A") { r += "✅ Sınıf A (5-6 puan): İyi kompanse siroz.\n1-yıllık sağkalım ~%100. Cerrahi genellikle güvenli.\nRadyolojik: KC morfolojisi korunmuş, minimal variks."; return { result: r, color: "#10b981" }; }
+      if (cls === "B") { r += "🟡 Sınıf B (7-9 puan): Orta dekompansasyon.\n1-yıllık sağkalım ~%80. Cerrahi YÜKSEK RİSK.\nRadyolojik: Lobüler kontur, splenomegali, asit, varisler.\nTransplant değerlendirmesi başlat."; return { result: r, color: "#f59e0b" }; }
+      r += "🔴 Sınıf C (10-15 puan): Ağır dekompansasyon.\n1-yıllık sağkalım ~%45. Cerrahi KONTRENDİKE.\nRadyolojik: Belirgin atrofi-hipertrofi, refrakter asit, portal HT bulguları.\nACİL transplant listesine al."; return { result: r, color: "#f43f5e" };
+    }
+  },
+  {
+    id: "meld_score", name: "MELD Skoru", icon: "🔴", color: "#dc2626",
+    desc: "Karaciğer transplant önceliklendirme — 90 günlük mortalite tahmini",
+    fields: [
+      { id: "meld_bil", label: "Bilirubin (mg/dL)", placeholder: "ör: 3.0" },
+      { id: "meld_inr", label: "INR", placeholder: "ör: 1.8" },
+      { id: "meld_cr", label: "Kreatinin (mg/dL)", placeholder: "ör: 1.2" }
+    ],
+    calculate: function(v) {
+      var bil = parseFloat(v.meld_bil), inr = parseFloat(v.meld_inr), cr = parseFloat(v.meld_cr);
+      if (isNaN(bil) || isNaN(inr) || isNaN(cr)) return { result: "Tüm değerleri girin", color: "#64748b" };
+      // MELD values capped at minimum 1.0
+      bil = Math.max(bil, 1.0);
+      inr = Math.max(inr, 1.0);
+      cr = Math.max(cr, 1.0);
+      cr = Math.min(cr, 4.0); // Cap creatinine at 4.0
+      var meld = 3.78 * Math.log(bil) + 11.2 * Math.log(inr) + 9.57 * Math.log(cr) + 6.43;
+      meld = Math.round(Math.min(meld, 40));
+      meld = Math.max(meld, 6);
+      var r = "MELD Skoru = " + meld + "\n\n";
+      if (meld < 10) { r += "✅ MELD <10: Düşük mortalite riski (%1.9 — 3 aylık).\nTransplant listesi önceliği düşük.\nRadyolojik: Portal HT bulguları hafif, KC morfolojisi nispeten korunmuş."; return { result: r, color: "#10b981" }; }
+      if (meld < 20) { r += "🟡 MELD 10-19: Orta mortalite riski (%6 — 3 aylık).\nTransplant değerlendirmesi.\nRadyolojik: Asit, splenomegali, varisler izlenebilir. HCC tarama 6 ayda bir."; return { result: r, color: "#f59e0b" }; }
+      if (meld < 30) { r += "🟠 MELD 20-29: Yüksek mortalite riski (%19.6 — 3 aylık).\nTransplant ÖNCELİKLİ.\nRadyolojik: Belirgin portal HT, refrakter asit, TIPS değerlendir."; return { result: r, color: "#f59e0b" }; }
+      r += "🔴 MELD ≥30: Çok yüksek mortalite riski (>%50 — 3 aylık).\nACİL transplant gerekli.\nRadyolojik: Ağır portal HT, multiorgan yetmezlik bulguları.\nMELD >40 = en yüksek öncelik."; return { result: r, color: "#f43f5e" };
+    }
+  },
+  {
+    id: "pirads_score", name: "PI-RADS v2.1 Skoru", icon: "🔵", color: "#3b82f6",
+    desc: "Prostat MR değerlendirme — klinik anlamlı kanser olasılığı",
+    fields: [
+      { id: "pi_zone", label: "Zon (PZ veya TZ)", placeholder: "PZ veya TZ" },
+      { id: "pi_t2", label: "T2W skoru (1-5)", placeholder: "1-5" },
+      { id: "pi_dwi", label: "DWI/ADC skoru (1-5)", placeholder: "1-5" },
+      { id: "pi_dce", label: "DCE (+ veya -)", placeholder: "+ veya -" }
+    ],
+    calculate: function(v) {
+      var zone = (v.pi_zone || "").toUpperCase().trim();
+      var t2 = parseInt(v.pi_t2), dwi = parseInt(v.pi_dwi);
+      var dce = (v.pi_dce || "").trim();
+      if (!zone || isNaN(t2) || isNaN(dwi) || !dce) return { result: "Tüm değerleri girin (Zon: PZ/TZ, T2: 1-5, DWI: 1-5, DCE: +/-)", color: "#64748b" };
+      var pirads = 0;
+      if (zone === "PZ") {
+        // PZ: DWI dominant
+        pirads = dwi;
+        if (dwi === 3 && dce === "+") pirads = 4;
+      } else {
+        // TZ: T2 dominant
+        pirads = t2;
+        if (t2 === 3 && dwi >= 4) pirads = 4;
+      }
+      var r = "PI-RADS v2.1 = Kategori " + pirads + "  (" + (zone === "PZ" ? "Periferik Zon — DWI dominant" : "Transizyonel Zon — T2 dominant") + ")\n\n";
+      if (pirads <= 1) { r += "✅ PI-RADS 1: Çok düşük (klinik anlamlı kanser olasılığı <%3).\nNormal görünüm. Biyopsi gerekmez."; return { result: r, color: "#10b981" }; }
+      if (pirads === 2) { r += "✅ PI-RADS 2: Düşük (klinik anlamlı kanser olasılığı <%10).\nBenign bulgu. Biyopsi gerekmez."; return { result: r, color: "#10b981" }; }
+      if (pirads === 3) { r += "🟡 PI-RADS 3: Ara (belirsiz — kanser olasılığı %10-20).\nKlinik korelasyon + PSA dansitesi değerlendir.\nPSAd >0.15: biyopsi düşün. PSAd ≤0.15: takip MR."; return { result: r, color: "#f59e0b" }; }
+      if (pirads === 4) { r += "🟠 PI-RADS 4: Yüksek (kanser olasılığı %25-50).\nMR-füzyon biyopsi ÖNERİLİR.\nPZ: DWI belirgin kısıtlanma (<1.5cm) veya DWI 3 + DCE(+).\nTZ: Lentiküler hipointens T2 lezyon."; return { result: r, color: "#f59e0b" }; }
+      r += "🔴 PI-RADS 5: Çok yüksek (kanser olasılığı >%60).\nBiyopsi KESİNLİKLE GEREKLİ.\n≥1.5cm lezyon veya ekstraprostratik uzanım.\nMR-füzyon + sistematik biyopsi + evreleme (kemik sintigrafisi)."; return { result: r, color: "#f43f5e" };
+    }
   }
 ];
 
@@ -6243,6 +6368,32 @@ const abdPhysicsTopics = [
       { signal: "Kronik kanama (>4 hafta)", examples: "Eski hematom, hemosiderin, organize abse", mechanism: "Hemosiderin → T2/SWI'da koyu halka. Kalsifikasyon olabilir. BT'de izodens→hipodens." }
     ],
     clinicalPearl: "Adrenal kanama: yenidoğanda doğum travması, erişkinde antikoagülan/stres. Akut BT'de HİPERDANS → subakutta T1 PARLAK → kronik HİPODENS. Bilateral adrenal kanama = akut adrenal yetmezlik (Waterhouse-Friderichsen)."
+  },
+  {
+    title: "MR Elastografi (MRE) — Fibrozis Değerlendirmesi",
+    icon: "🔊", color: "#7c3aed",
+    concept: "MRE mekanik dalga propagasyonunu görüntüler. Dokuya 60 Hz vibrasyon uygulanır → dalga hızı ölçülür → elastisite (stiffness) haritası oluşturulur. Sert doku = hızlı dalga = yüksek kPa.",
+    rules: [
+      { signal: "Normal KC: <2.5 kPa", examples: "Sağlıklı KC parankimi, basit steatoz (F0)", mechanism: "Normal KC yumuşak → düşük dalga hızı → düşük stiffness değeri. Steatoz tek başına stiffness artırmaz (inflamasyon yoksa)." },
+      { signal: "Hafif fibrozis (F1): 2.5-2.9 kPa", examples: "Kronik hepatit (erken), hafif NASH fibrozisi", mechanism: "Periportal fibrozis başlar → hafif stiffness artışı. METAVIR F1 korelasyonu. Klinik karar: takip + etiyoloji tedavisi." },
+      { signal: "Belirgin fibrozis (F2): 2.9-3.5 kPa", examples: "Kronik hepatit B/C ilerleyen fibrozis, NASH F2", mechanism: "Periportal + köprüleşen fibrozis → orta stiffness artışı. METAVIR F2 korelasyonu. Tedavi kararı için önemli eşik." },
+      { signal: "İleri fibrozis (F3): 3.5-4.5 kPa", examples: "Köprüleşen fibrozis, pre-sirotik KC", mechanism: "Yaygın köprüleşen fibrozis → belirgin stiffness artışı. METAVIR F3. Variks taraması başlat." },
+      { signal: "Siroz (F4): >4.5-5.0 kPa", examples: "Siroz (tüm etiyolojiler), portal HT, HCC riski artmış", mechanism: "Rejeneratif nodüller + yaygın fibrozis → çok yüksek stiffness. METAVIR F4. HCC tarama + transplant değerlendirmesi." }
+    ],
+    clinicalPearl: "MRE'nin biyopsiye üstünlükleri: tüm KC örneklenir (sampling bias yok), non-invazif, tekrarlanabilir, F2-F4 için AUC >0.90. TUZAKLAR: akut inflamasyon/konjesyon stiffness artırır (yanlış yüksek), demir birikimi MRE sinyalini bozar (R2* >200 s⁻¹ dikkat), aşırı asit dalga propagasyonunu engeller. Transient elastografi (FibroScan) ile korelasyon iyi ama MRE obez + asitli hastalarda ÜSTÜN."
+  },
+  {
+    title: "PDFF & R2* — Karaciğer Yağ ve Demir Kantitasyonu",
+    icon: "📊", color: "#0891b2",
+    concept: "PDFF (Proton Density Fat Fraction): multi-echo Dixon/IDEAL tekniği ile su ve yağ sinyalleri ayrıştırılır → yağ oranı (%) hesaplanır. R2* (1/T2*): demir birikimi T2* kısaltır → R2* artar. Her iki parametre aynı nefes tutma sekansında elde edilir.",
+    rules: [
+      { signal: "PDFF Normal: <%5", examples: "Sağlıklı KC, tedavi sonrası yağ regresyonu", mechanism: "<%5 yağ fraksiyonu = normal hepatosit lipid içeriği. Histolojik grade 0." },
+      { signal: "PDFF Hafif steatoz: %5-17", examples: "NAFLD grade 1, metabolik sendrom, obezite, ilaç (amiodaron, steroid)", mechanism: "%5-17 = hafif-orta yağlanma. Histolojik grade 1-2. Yaşam tarzı değişikliği ile reversible." },
+      { signal: "PDFF Ağır steatoz: >%17-22", examples: "NASH, ağır NAFLD, alkolik steatoz", mechanism: ">%17-22 = ağır yağlanma. Histolojik grade 3. NASH riski artmış → biyopsi veya MRE ile fibrozis değerlendir." },
+      { signal: "R2* Normal: <70 s⁻¹ (LIC <1.8 mg/g)", examples: "Normal KC demiri", mechanism: "Düşük R2* = normal demir. LIC (Liver Iron Concentration) ile lineer korelasyon." },
+      { signal: "R2* Artmış: >70 s⁻¹ (hafif), >150 s⁻¹ (orta), >250 s⁻¹ (ağır)", examples: "Hemokromatozis, transfüzyonel hemosiderozis, talasemi, miyelodisplazi", mechanism: "Demir paramanyetik → T2/T2* kısaltır → sinyal düşer. R2* >250 s⁻¹ = şelasyon tedavisi gerekli. R2* >400 s⁻¹ = kardiyak demir değerlendirmesi ekle." }
+    ],
+    clinicalPearl: "PDFF avantajları: konfounder-corrected (T1 bias, T2* decay, spectral modelling düzeltilir), biyopsi ile mükemmel korelasyon (r>0.9), tedavi yanıtı takibi için ideal. TUZAK: ağır demir birikimi (R2* >300) PDFF doğruluğunu bozar → önce demir tedavisi. KLİNİK EŞIKLER: PDFF %5 = steatoz tanı eşiği, PDFF >%10 = klinik çalışmalarda tedavi başlama eşiği. R2* ve PDFF aynı sekansla elde edilir (çoklu eko GRE) → 1 nefes tutmada yağ + demir kantitasyonu."
   }
 ];
 
