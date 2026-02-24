@@ -4,56 +4,509 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Radiology Education Platform</title>
+<meta name="description" content="İnteraktif Radyoloji Eğitim Platformu — Nöroradyoloji ve Abdomen Radyoloji">
+<meta name="theme-color" content="#0f172a">
+<link rel="manifest" href="manifest.json">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;}
-.container{max-width:500px;width:100%;text-align:center;}
-h1{font-family:'Playfair Display',Georgia,serif;font-size:32px;background:linear-gradient(135deg,#3b82f6,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;}
-.subtitle{color:#94a3b8;font-size:14px;margin-bottom:40px;}
-.card{background:#1e293b;border:1px solid #334155;border-radius:16px;padding:24px;margin-bottom:16px;text-decoration:none;display:block;transition:all 0.3s;cursor:pointer;}
-.card:hover{transform:translateY(-2px);border-color:#3b82f6;box-shadow:0 8px 30px rgba(59,130,246,0.15);}
-.card-icon{font-size:48px;margin-bottom:12px;}
-.card-title{font-size:20px;font-weight:700;color:#f1f5f9;margin-bottom:6px;}
-.card-desc{font-size:13px;color:#94a3b8;line-height:1.5;}
-.card-stats{display:flex;gap:12px;justify-content:center;margin-top:12px;}
-.stat{background:#0f172a;padding:4px 12px;border-radius:8px;font-size:11px;color:#06b6d4;font-weight:600;}
-.footer{margin-top:40px;color:#475569;font-size:12px;}
-.footer a{color:#3b82f6;text-decoration:none;}
+:root{--bg:#0f172a;--bg2:#1e293b;--bg3:#334155;--text:#e2e8f0;--text2:#94a3b8;--text3:#475569;--accent:#3b82f6;--accent2:#06b6d4;--danger:#f43f5e;--success:#10b981;--warn:#f59e0b;--radius:16px;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:0;transition:background 0.3s,color 0.3s;}
+body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#64748b;--text3:#94a3b8;}
+
+/* Header */
+.header{background:var(--bg2);border-bottom:1px solid var(--bg3);padding:16px 20px;position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);}
+.header-inner{max-width:800px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:10px;}
+.logo h1{font-family:'Playfair Display',Georgia,serif;font-size:22px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.header-actions{display:flex;gap:8px;}
+.header-btn{background:var(--bg);border:1px solid var(--bg3);border-radius:10px;padding:8px 12px;color:var(--text2);font-size:13px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all 0.2s;}
+.header-btn:hover{border-color:var(--accent);color:var(--accent);}
+
+/* Main */
+.main{max-width:800px;margin:0 auto;padding:20px;}
+
+/* Search */
+.search-section{margin-bottom:24px;}
+.search-box{position:relative;}
+.search-box input{width:100%;background:var(--bg2);border:1px solid var(--bg3);border-radius:12px;padding:14px 16px 14px 44px;color:var(--text);font-size:15px;outline:none;transition:border-color 0.2s;}
+.search-box input:focus{border-color:var(--accent);}
+.search-box .search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:18px;}
+.search-results{background:var(--bg2);border:1px solid var(--bg3);border-radius:12px;margin-top:8px;max-height:400px;overflow-y:auto;display:none;}
+.search-results.active{display:block;}
+.sr-item{padding:12px 16px;border-bottom:1px solid var(--bg3);cursor:pointer;display:flex;align-items:center;gap:12px;transition:background 0.15s;}
+.sr-item:hover{background:var(--bg);}
+.sr-item:last-child{border-bottom:none;}
+.sr-badge{background:var(--bg);padding:3px 8px;border-radius:6px;font-size:10px;font-weight:700;text-transform:uppercase;white-space:nowrap;}
+.sr-badge.neuro{color:#8b5cf6;border:1px solid rgba(139,92,246,0.3);}
+.sr-badge.abdomen{color:#f59e0b;border:1px solid rgba(245,158,11,0.3);}
+.sr-name{font-size:14px;font-weight:600;color:var(--text);}
+.sr-cat{font-size:11px;color:var(--text3);margin-top:2px;}
+
+/* Stats Overview */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:24px;}
+.stat-card{background:var(--bg2);border:1px solid var(--bg3);border-radius:12px;padding:14px 10px;text-align:center;transition:all 0.2s;}
+.stat-card:hover{border-color:var(--accent2);}
+.stat-val{font-size:22px;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.stat-label{font-size:10px;color:var(--text3);margin-top:4px;text-transform:uppercase;letter-spacing:0.5px;}
+
+/* Module Cards */
+.module-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px;}
+.module-card{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--radius);padding:20px;text-decoration:none;display:block;transition:all 0.3s;cursor:pointer;position:relative;overflow:hidden;}
+.module-card:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,0.3);}
+.module-card.neuro{border-left:3px solid #8b5cf6;}
+.module-card.neuro:hover{border-color:#8b5cf6;box-shadow:0 12px 40px rgba(139,92,246,0.15);}
+.module-card.abdomen{border-left:3px solid #f59e0b;}
+.module-card.abdomen:hover{border-color:#f59e0b;box-shadow:0 12px 40px rgba(245,158,11,0.15);}
+.mc-icon{font-size:40px;margin-bottom:10px;}
+.mc-title{font-size:18px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.mc-desc{font-size:12px;color:var(--text2);line-height:1.5;margin-bottom:12px;}
+.mc-stats{display:flex;flex-wrap:wrap;gap:6px;}
+.mc-stat{background:var(--bg);padding:3px 8px;border-radius:6px;font-size:10px;color:var(--accent2);font-weight:600;}
+.mc-progress{margin-top:12px;}
+.mc-progress-bar{background:var(--bg);border-radius:4px;height:6px;overflow:hidden;}
+.mc-progress-fill{height:100%;border-radius:4px;transition:width 0.5s;}
+.mc-progress-fill.neuro{background:linear-gradient(90deg,#8b5cf6,#a78bfa);}
+.mc-progress-fill.abdomen{background:linear-gradient(90deg,#f59e0b,#fbbf24);}
+.mc-progress-text{font-size:10px;color:var(--text3);margin-top:4px;display:flex;justify-content:space-between;}
+
+/* Profile Section */
+.profile-section{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--radius);padding:20px;margin-bottom:24px;}
+.profile-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.profile-title{font-size:16px;font-weight:700;}
+.profile-actions{display:flex;gap:6px;}
+.profile-btn{background:var(--bg);border:1px solid var(--bg3);border-radius:8px;padding:6px 12px;color:var(--text2);font-size:11px;cursor:pointer;display:flex;align-items:center;gap:4px;transition:all 0.2s;}
+.profile-btn:hover{border-color:var(--accent);color:var(--accent);}
+.profile-btn.danger:hover{border-color:var(--danger);color:var(--danger);}
+.profile-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;}
+.ps-item{text-align:center;padding:10px;background:var(--bg);border-radius:10px;}
+.ps-val{font-size:18px;font-weight:700;color:var(--accent2);}
+.ps-label{font-size:10px;color:var(--text3);margin-top:2px;}
+.streak-info{background:var(--bg);border-radius:10px;padding:12px;display:flex;align-items:center;gap:10px;}
+.streak-fire{font-size:28px;}
+.streak-text{flex:1;}
+.streak-days{font-size:16px;font-weight:700;color:var(--warn);}
+.streak-sub{font-size:11px;color:var(--text3);}
+
+/* Quick Access */
+.quick-section{margin-bottom:24px;}
+.quick-title{font-size:14px;font-weight:700;color:var(--text2);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.5px;}
+.quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.quick-btn{background:var(--bg2);border:1px solid var(--bg3);border-radius:10px;padding:12px 8px;text-align:center;cursor:pointer;transition:all 0.2s;text-decoration:none;}
+.quick-btn:hover{border-color:var(--accent);transform:translateY(-1px);}
+.quick-btn .qb-icon{font-size:22px;margin-bottom:4px;}
+.quick-btn .qb-text{font-size:10px;color:var(--text2);font-weight:600;}
+
+/* Footer */
+.footer{text-align:center;padding:20px;color:var(--text3);font-size:12px;border-top:1px solid var(--bg3);}
+.footer-links{display:flex;gap:16px;justify-content:center;margin-bottom:8px;}
+.footer-links a{color:var(--text2);text-decoration:none;font-size:11px;transition:color 0.2s;}
+.footer-links a:hover{color:var(--accent);}
+
+/* Import/Export Modal */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.active{display:flex;}
+.modal{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--radius);padding:24px;max-width:480px;width:100%;max-height:80vh;overflow-y:auto;}
+.modal h3{font-size:18px;margin-bottom:16px;}
+.modal textarea{width:100%;background:var(--bg);border:1px solid var(--bg3);border-radius:8px;padding:12px;color:var(--text);font-size:12px;font-family:monospace;min-height:200px;resize:vertical;margin-bottom:12px;}
+.modal-btns{display:flex;gap:8px;justify-content:flex-end;}
+.btn{padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all 0.2s;}
+.btn-primary{background:var(--accent);color:white;}
+.btn-primary:hover{opacity:0.9;}
+.btn-secondary{background:var(--bg);color:var(--text2);border:1px solid var(--bg3);}
+.btn-secondary:hover{border-color:var(--accent);}
+.btn-danger{background:var(--danger);color:white;}
+.btn-danger:hover{opacity:0.9;}
+.btn-success{background:var(--success);color:white;}
+.btn-success:hover{opacity:0.9;}
+
+/* Toast */
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--success);color:white;padding:10px 20px;border-radius:10px;font-size:13px;font-weight:600;z-index:300;opacity:0;transition:opacity 0.3s;pointer-events:none;}
+.toast.show{opacity:1;}
+
+@media(max-width:600px){
+  .stats-grid{grid-template-columns:repeat(2,1fr);}
+  .module-cards{grid-template-columns:1fr;}
+  .quick-grid{grid-template-columns:repeat(4,1fr);}
+  .profile-stats{grid-template-columns:repeat(3,1fr);}
+}
 </style>
 </head>
 <body>
-<div class="container">
-  <h1>🧠 Radiology Education</h1>
-  <p class="subtitle">PATHO → IMAGING BRIDGE — İnteraktif Radyoloji Eğitim Platformu</p>
-  
-  <a class="card" href="neurorad.html">
-    <div class="card-icon">🧠</div>
-    <div class="card-title">NeuroRad</div>
-    <div class="card-desc">Nöroradyoloji — beyin, spinal, baş-boyun patolojileri. Histopatolojiden görüntülemeye köprü.</div>
-    <div class="card-stats">
-      <span class="stat">81 hastalık</span>
-      <span class="stat">8,770+ satır</span>
-      <span class="stat">6 kontrast patern</span>
-      <span class="stat">3 anatomi bölgesi</span>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-inner">
+    <div class="logo">
+      <span style="font-size:24px">🩻</span>
+      <h1>Radiology Education</h1>
     </div>
-  </a>
-  
-  <a class="card" href="abdomenrad.html">
-    <div class="card-icon">🫁</div>
-    <div class="card-title">AbdomenRad</div>
-    <div class="card-desc">Abdominopelvik radyoloji — karaciğer, pankreas, böbrek, barsak, pelvik, USG ve pediatrik.</div>
-    <div class="card-stats">
-      <span class="stat">80 hastalık</span>
-      <span class="stat">7,300+ satır</span>
-      <span class="stat">8 kontrast patern</span>
-      <span class="stat">9 anatomi atlası</span>
+    <div class="header-actions">
+      <button class="header-btn" onclick="toggleTheme()" id="themeBtn" title="Tema Değiştir">
+        🌙 <span id="themeText">Koyu</span>
+      </button>
     </div>
-  </a>
-  
-  <div class="footer">
-    <p>Toplam: 161 hastalık · 16,000+ satır · 1.2MB+</p>
-    <p style="margin-top:6px;">Radyoloji asistanları için tasarlandı</p>
   </div>
 </div>
+
+<!-- Main Content -->
+<div class="main">
+
+  <!-- Search -->
+  <div class="search-section">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="globalSearch" placeholder="Tüm modüllerde hastalık, bulgu, sekans ara..." oninput="handleSearch(this.value)">
+    </div>
+    <div class="search-results" id="searchResults"></div>
+  </div>
+
+  <!-- Global Stats -->
+  <div class="stats-grid" id="statsGrid">
+    <div class="stat-card"><div class="stat-val" id="totalDiseases">171</div><div class="stat-label">Hastalık</div></div>
+    <div class="stat-card"><div class="stat-val" id="totalQuizDone">0</div><div class="stat-label">Quiz Çözüldü</div></div>
+    <div class="stat-card"><div class="stat-val" id="totalDuelWon">0</div><div class="stat-label">Duel Kazanıldı</div></div>
+    <div class="stat-card"><div class="stat-val" id="totalStudyDays">0</div><div class="stat-label">Çalışma Günü</div></div>
+  </div>
+
+  <!-- Module Cards -->
+  <div class="module-cards">
+    <a class="module-card neuro" href="neurorad.html">
+      <div class="mc-icon">🧠</div>
+      <div class="mc-title">NeuroRad</div>
+      <div class="mc-desc">Nöroradyoloji — beyin, spinal, baş-boyun patolojileri</div>
+      <div class="mc-stats">
+        <span class="mc-stat">78 hastalık</span>
+        <span class="mc-stat">42 duel</span>
+        <span class="mc-stat">21 sinyal profili</span>
+      </div>
+      <div class="mc-progress">
+        <div class="mc-progress-bar"><div class="mc-progress-fill neuro" id="neuroProgress" style="width:0%"></div></div>
+        <div class="mc-progress-text"><span id="neuroProgressText">Başlamadın</span><span id="neuroProgressPct">0%</span></div>
+      </div>
+    </a>
+    <a class="module-card abdomen" href="abdomenrad.html">
+      <div class="mc-icon">🫁</div>
+      <div class="mc-title">AbdomenRad</div>
+      <div class="mc-desc">Abdominopelvik radyoloji — KC, pankreas, böbrek, barsak, pelvik</div>
+      <div class="mc-stats">
+        <span class="mc-stat">93 hastalık</span>
+        <span class="mc-stat">50 duel</span>
+        <span class="mc-stat">24 sinyal profili</span>
+      </div>
+      <div class="mc-progress">
+        <div class="mc-progress-bar"><div class="mc-progress-fill abdomen" id="abdomenProgress" style="width:0%"></div></div>
+        <div class="mc-progress-text"><span id="abdomenProgressText">Başlamadın</span><span id="abdomenProgressPct">0%</span></div>
+      </div>
+    </a>
+  </div>
+
+  <!-- Profile Section -->
+  <div class="profile-section">
+    <div class="profile-header">
+      <div class="profile-title">📊 Genel İlerleme</div>
+      <div class="profile-actions">
+        <button class="profile-btn" onclick="exportData()">📤 Dışa Aktar</button>
+        <button class="profile-btn" onclick="showImportModal()">📥 İçe Aktar</button>
+      </div>
+    </div>
+    <div class="profile-stats">
+      <div class="ps-item"><div class="ps-val" id="masteredCount">0</div><div class="ps-label">Öğrenildi</div></div>
+      <div class="ps-item"><div class="ps-val" id="quizAccuracy">--%</div><div class="ps-label">Quiz Doğruluk</div></div>
+      <div class="ps-item"><div class="ps-val" id="totalXP">0</div><div class="ps-label">Toplam XP</div></div>
+    </div>
+    <div class="streak-info">
+      <div class="streak-fire">🔥</div>
+      <div class="streak-text">
+        <div class="streak-days" id="streakDays">0 günlük seri</div>
+        <div class="streak-sub" id="streakSub">Bugün çalışmaya başla!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Access -->
+  <div class="quick-section">
+    <div class="quick-title">Hızlı Erişim</div>
+    <div class="quick-grid">
+      <a class="quick-btn" href="neurorad.html#quiz"><div class="qb-icon">🧩</div><div class="qb-text">Neuro Quiz</div></a>
+      <a class="quick-btn" href="abdomenrad.html#quiz"><div class="qb-icon">🧩</div><div class="qb-text">Abdomen Quiz</div></a>
+      <a class="quick-btn" href="neurorad.html#duel"><div class="qb-icon">⚔️</div><div class="qb-text">Neuro Duel</div></a>
+      <a class="quick-btn" href="abdomenrad.html#duel"><div class="qb-icon">⚔️</div><div class="qb-text">Abdomen Duel</div></a>
+      <a class="quick-btn" href="neurorad.html#signal"><div class="qb-icon">🧲</div><div class="qb-text">Sinyal Atlas</div></a>
+      <a class="quick-btn" href="neurorad.html#anatomy"><div class="qb-icon">🧠</div><div class="qb-text">Anatomi</div></a>
+      <a class="quick-btn" href="abdomenrad.html#emergency"><div class="qb-icon">🚨</div><div class="qb-text">Acil Bulgular</div></a>
+      <a class="quick-btn" href="abdomenrad.html#cases"><div class="qb-icon">📋</div><div class="qb-text">Vaka Simüle</div></a>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <div class="footer-links">
+    <a href="neurorad.html">NeuroRad</a>
+    <a href="abdomenrad.html">AbdomenRad</a>
+  </div>
+  <p>Toplam: 171 hastalık · 92 duel · 45 sinyal profili · 1.4MB+</p>
+  <p style="margin-top:4px;">Radyoloji asistanları için tasarlandı</p>
+</div>
+
+<!-- Import Modal -->
+<div class="modal-overlay" id="importModal">
+  <div class="modal">
+    <h3>📥 Veri İçe Aktar</h3>
+    <p style="color:var(--text2);font-size:12px;margin-bottom:12px;">Daha önce dışa aktarılmış JSON verisini yapıştırın. Bu işlem mevcut ilerlemenizin üzerine yazacaktır.</p>
+    <textarea id="importData" placeholder='{"neurorad": {...}, "abdomenrad": {...}}'></textarea>
+    <div class="modal-btns">
+      <button class="btn btn-secondary" onclick="closeImportModal()">İptal</button>
+      <button class="btn btn-primary" onclick="importData()">İçe Aktar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ===== THEME MANAGEMENT =====
+function getTheme() {
+  return localStorage.getItem('radiology-theme') || 'dark';
+}
+
+function applyTheme(theme) {
+  document.body.classList.toggle('light', theme === 'light');
+  const btn = document.getElementById('themeBtn');
+  const text = document.getElementById('themeText');
+  if (theme === 'light') { btn.innerHTML = '☀️ <span id="themeText">Açık</span>'; }
+  else { btn.innerHTML = '🌙 <span id="themeText">Koyu</span>'; }
+  localStorage.setItem('radiology-theme', theme);
+}
+
+function toggleTheme() {
+  const current = getTheme();
+  const next = current === 'dark' ? 'light' : 'dark';
+  applyTheme(next);
+}
+
+// ===== CROSS-MODULE SEARCH =====
+const searchIndex = [
+  // NeuroRad diseases
+  { name: "Glioblastom (GBM)", cat: "Tümör", module: "neuro", url: "neurorad.html", id: "gbm" },
+  { name: "Menenjiyom", cat: "Tümör", module: "neuro", url: "neurorad.html", id: "meningioma" },
+  { name: "Medulloblastom", cat: "Tümör", module: "neuro", url: "neurorad.html", id: "medulloblastoma" },
+  { name: "Pilositik Astrositom", cat: "Tümör", module: "neuro", url: "neurorad.html", id: "pilocytic" },
+  { name: "Akut İskemik İnfarkt", cat: "Vasküler", module: "neuro", url: "neurorad.html", id: "acute_stroke" },
+  { name: "Beyin Absesi", cat: "Enfeksiyon", module: "neuro", url: "neurorad.html", id: "abscess" },
+  { name: "Multipl Skleroz (MS)", cat: "Demiyelinizan", module: "neuro", url: "neurorad.html", id: "ms" },
+  { name: "Epidural Hematom", cat: "Travma", module: "neuro", url: "neurorad.html", id: "edh" },
+  { name: "Subdural Hematom", cat: "Travma", module: "neuro", url: "neurorad.html", id: "sdh" },
+  { name: "Subaraknoid Kanama", cat: "Vasküler", module: "neuro", url: "neurorad.html", id: "sah" },
+  { name: "AVM", cat: "Vasküler", module: "neuro", url: "neurorad.html", id: "avm" },
+  { name: "Schwannom (Vestibüler)", cat: "Tümör", module: "neuro", url: "neurorad.html", id: "schwannoma" },
+  { name: "Hipofiz Adenomu", cat: "Tümör", module: "neuro", url: "neurorad.html", id: "pituitary" },
+  { name: "Kraniofarenjiom", cat: "Tümör", module: "neuro", url: "neurorad.html", id: "craniopharyngioma" },
+  { name: "Lenfoma (SSS)", cat: "Tümör", module: "neuro", url: "neurorad.html", id: "lymphoma" },
+  { name: "Toksoplazmoz", cat: "Enfeksiyon", module: "neuro", url: "neurorad.html", id: "toxoplasmosis" },
+  { name: "PML", cat: "Enfeksiyon", module: "neuro", url: "neurorad.html", id: "pml" },
+  { name: "ADEM", cat: "Demiyelinizan", module: "neuro", url: "neurorad.html", id: "adem" },
+  { name: "Ependimom", cat: "Tümör", module: "neuro", url: "neurorad.html", id: "ependymoma" },
+  { name: "Oligodendrogliom", cat: "Tümör", module: "neuro", url: "neurorad.html", id: "oligodendroglioma" },
+  { name: "Hemanjioblastom", cat: "Tümör", module: "neuro", url: "neurorad.html", id: "hemangioblastoma" },
+  { name: "Germinoma", cat: "Tümör", module: "neuro", url: "neurorad.html", id: "germinoma" },
+  { name: "Kavernöz Malformasyon", cat: "Vasküler", module: "neuro", url: "neurorad.html", id: "cavernoma" },
+  { name: "DVA (Gelişimsel Venöz Anomali)", cat: "Vasküler", module: "neuro", url: "neurorad.html", id: "dva" },
+  { name: "Moyamoya Hastalığı", cat: "Vasküler", module: "neuro", url: "neurorad.html", id: "moyamoya" },
+  { name: "CVST (Venöz Sinüs Trombozu)", cat: "Vasküler", module: "neuro", url: "neurorad.html", id: "cvst" },
+  { name: "Nörosarkoidoz", cat: "İnflamatuar", module: "neuro", url: "neurorad.html", id: "neurosarcoidosis" },
+  { name: "DNET", cat: "Tümör", module: "neuro", url: "neurorad.html", id: "dnet" },
+  { name: "Santral Nörositom", cat: "Tümör", module: "neuro", url: "neurorad.html", id: "central_neurocytoma" },
+  { name: "Gangliogliom", cat: "Tümör", module: "neuro", url: "neurorad.html", id: "ganglioglioma" },
+  { name: "Ozmotik Demiyelinizasyon", cat: "Demiyelinizan", module: "neuro", url: "neurorad.html", id: "osmotic_demyelination" },
+  { name: "SSS Vasküliti (PACNS)", cat: "Vasküler", module: "neuro", url: "neurorad.html", id: "cns_vasculitis" },
+  { name: "Susac Sendromu", cat: "İnflamatuar", module: "neuro", url: "neurorad.html", id: "susac_syndrome" },
+  { name: "Koroid Pleksus Papillomu", cat: "Tümör", module: "neuro", url: "neurorad.html", id: "choroid_plexus_pap" },
+
+  // AbdomenRad diseases
+  { name: "Hepatosellüler Karsinom (HCC)", cat: "Karaciğer", module: "abdomen", url: "abdomenrad.html", id: "hcc" },
+  { name: "Karaciğer Hemanjiom", cat: "Karaciğer", module: "abdomen", url: "abdomenrad.html", id: "hemangioma" },
+  { name: "FNH (Fokal Nodüler Hiperplazi)", cat: "Karaciğer", module: "abdomen", url: "abdomenrad.html", id: "fnh" },
+  { name: "Hepatik Adenom", cat: "Karaciğer", module: "abdomen", url: "abdomenrad.html", id: "hepatic_adenoma" },
+  { name: "Kolanjiokarsinom", cat: "Karaciğer", module: "abdomen", url: "abdomenrad.html", id: "cholangiocarcinoma" },
+  { name: "Pankreatik Duktal Adenokarsinom", cat: "Pankreas", module: "abdomen", url: "abdomenrad.html", id: "pdac" },
+  { name: "Akut Pankreatit", cat: "Pankreas", module: "abdomen", url: "abdomenrad.html", id: "acute_pancreatitis" },
+  { name: "RCC (Renal Hücreli Karsinom)", cat: "Böbrek", module: "abdomen", url: "abdomenrad.html", id: "rcc" },
+  { name: "Böbrek Taşı", cat: "Böbrek", module: "abdomen", url: "abdomenrad.html", id: "renal_stone" },
+  { name: "Apandisit", cat: "Barsak", module: "abdomen", url: "abdomenrad.html", id: "appendicitis" },
+  { name: "Crohn Hastalığı", cat: "Barsak", module: "abdomen", url: "abdomenrad.html", id: "crohn" },
+  { name: "Over Torsiyonu", cat: "Pelvis", module: "abdomen", url: "abdomenrad.html", id: "ovarian_torsion" },
+  { name: "Wilms Tümörü", cat: "Pediatrik", module: "abdomen", url: "abdomenrad.html", id: "wilms_tumor" },
+  { name: "Nöroblastom", cat: "Pediatrik", module: "abdomen", url: "abdomenrad.html", id: "neuroblastoma" },
+  { name: "IPMN", cat: "Pankreas", module: "abdomen", url: "abdomenrad.html", id: "ipmn" },
+  { name: "Safra Kesesi Karsinomu", cat: "Biliyer", module: "abdomen", url: "abdomenrad.html", id: "gallbladder_ca" },
+  { name: "Renal Anjiyomiyolipom (AML)", cat: "Böbrek", module: "abdomen", url: "abdomenrad.html", id: "renal_angiomyolipoma" },
+  { name: "Akut Mezenterik İskemi", cat: "Barsak", module: "abdomen", url: "abdomenrad.html", id: "mesenteric_ischemia" },
+  { name: "Adrenal Adenom", cat: "Retroperiton", module: "abdomen", url: "abdomenrad.html", id: "adrenal_adenoma" },
+  { name: "Over Dermoid Kisti", cat: "Pelvis", module: "abdomen", url: "abdomenrad.html", id: "ovarian_teratoma" },
+  { name: "Budd-Chiari Sendromu", cat: "Karaciğer", module: "abdomen", url: "abdomenrad.html", id: "budd_chiari" },
+  { name: "Peritoneal Karsinomatoz", cat: "Periton", module: "abdomen", url: "abdomenrad.html", id: "peritoneal_carcinomatosis" },
+  { name: "Endometrioma", cat: "Pelvis", module: "abdomen", url: "abdomenrad.html", id: "endometrioma" },
+  { name: "İntususepsiyon", cat: "Pediatrik", module: "abdomen", url: "abdomenrad.html", id: "intussusception" },
+  { name: "Feokromositoma", cat: "Retroperiton", module: "abdomen", url: "abdomenrad.html", id: "pheochromocytoma" },
+  { name: "Rektal Kanser", cat: "Barsak", module: "abdomen", url: "abdomenrad.html", id: "rectal_cancer" }
+];
+
+function handleSearch(query) {
+  const results = document.getElementById('searchResults');
+  if (!query || query.length < 2) { results.classList.remove('active'); return; }
+  const q = query.toLowerCase();
+  const matches = searchIndex.filter(item =>
+    item.name.toLowerCase().includes(q) || item.cat.toLowerCase().includes(q) || item.id.toLowerCase().includes(q)
+  ).slice(0, 10);
+
+  if (matches.length === 0) {
+    results.innerHTML = '<div style="padding:16px;text-align:center;color:var(--text3)">Sonuç bulunamadı</div>';
+  } else {
+    results.innerHTML = matches.map(m => `
+      <div class="sr-item" onclick="window.location.href='${m.url}'">
+        <span class="sr-badge ${m.module}">${m.module === 'neuro' ? 'NEURO' : 'ABDOMEN'}</span>
+        <div><div class="sr-name">${m.name}</div><div class="sr-cat">${m.cat}</div></div>
+      </div>
+    `).join('');
+  }
+  results.classList.add('active');
+}
+
+// Close search on outside click
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.search-section')) {
+    document.getElementById('searchResults').classList.remove('active');
+  }
+});
+
+// ===== PROFILE & STATS =====
+function loadCrossModuleStats() {
+  let totalQuiz = 0, totalDuel = 0, totalXP = 0, totalMastered = 0;
+  let quizCorrect = 0, quizTotal = 0;
+  let studyDays = new Set();
+
+  // NeuroRad stats
+  try {
+    const neuroStats = JSON.parse(localStorage.getItem('neurorad-stats') || '{}');
+    totalQuiz += neuroStats.quizDone || 0;
+    totalDuel += neuroStats.duelWon || 0;
+    totalXP += neuroStats.xp || 0;
+    totalMastered += neuroStats.mastered || 0;
+    quizCorrect += neuroStats.quizCorrect || 0;
+    quizTotal += neuroStats.quizTotal || 0;
+    if (neuroStats.studyDays) neuroStats.studyDays.forEach(d => studyDays.add(d));
+  } catch(e) {}
+
+  // AbdomenRad stats
+  try {
+    const abdStats = JSON.parse(localStorage.getItem('abdomenrad-stats') || '{}');
+    totalQuiz += abdStats.quizDone || 0;
+    totalDuel += abdStats.duelWon || 0;
+    totalXP += abdStats.xp || 0;
+    totalMastered += abdStats.mastered || 0;
+    quizCorrect += abdStats.quizCorrect || 0;
+    quizTotal += abdStats.quizTotal || 0;
+    if (abdStats.studyDays) abdStats.studyDays.forEach(d => studyDays.add(d));
+  } catch(e) {}
+
+  document.getElementById('totalQuizDone').textContent = totalQuiz;
+  document.getElementById('totalDuelWon').textContent = totalDuel;
+  document.getElementById('totalStudyDays').textContent = studyDays.size;
+  document.getElementById('masteredCount').textContent = totalMastered;
+  document.getElementById('totalXP').textContent = totalXP;
+  document.getElementById('quizAccuracy').textContent = quizTotal > 0 ? Math.round(quizCorrect / quizTotal * 100) + '%' : '--%';
+
+  // Streak
+  const sortedDays = Array.from(studyDays).sort().reverse();
+  let streak = 0;
+  const today = new Date().toISOString().split('T')[0];
+  if (sortedDays.length > 0) {
+    let checkDate = new Date(today);
+    for (let i = 0; i < 365; i++) {
+      const dateStr = checkDate.toISOString().split('T')[0];
+      if (sortedDays.includes(dateStr)) { streak++; checkDate.setDate(checkDate.getDate() - 1); }
+      else if (i === 0) { checkDate.setDate(checkDate.getDate() - 1); continue; }
+      else break;
+    }
+  }
+  document.getElementById('streakDays').textContent = streak + ' günlük seri';
+  document.getElementById('streakSub').textContent = streak > 0 ? 'Harika gidiyorsun!' : 'Bugün çalışmaya başla!';
+
+  // Progress bars
+  updateModuleProgress('neuro', 78);
+  updateModuleProgress('abdomen', 93);
+}
+
+function updateModuleProgress(module, totalDiseases) {
+  try {
+    const key = module === 'neuro' ? 'neurorad-stats' : 'abdomenrad-stats';
+    const stats = JSON.parse(localStorage.getItem(key) || '{}');
+    const mastered = stats.mastered || 0;
+    const pct = Math.min(Math.round(mastered / totalDiseases * 100), 100);
+    document.getElementById(module + 'Progress').style.width = pct + '%';
+    document.getElementById(module + 'ProgressPct').textContent = pct + '%';
+    document.getElementById(module + 'ProgressText').textContent =
+      pct === 0 ? 'Başlamadın' : pct < 25 ? 'Başlangıç' : pct < 50 ? 'İlerliyorsun' : pct < 75 ? 'İyi gidiyorsun' : pct < 100 ? 'Neredeyse bitti' : 'Tamamlandı!';
+  } catch(e) {}
+}
+
+// ===== EXPORT / IMPORT =====
+function exportData() {
+  const data = {};
+  const keys = ['neurorad-stats', 'abdomenrad-stats', 'neurorad-progress', 'abdomenrad-progress',
+                'neurorad-mastered', 'abdomenrad-mastered', 'neurorad-bookmarks', 'abdomenrad-bookmarks',
+                'radiology-theme'];
+  keys.forEach(key => {
+    const val = localStorage.getItem(key);
+    if (val) data[key] = val;
+  });
+  // Also export any key starting with 'neuro' or 'abd'
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key.startsWith('neuro') || key.startsWith('abd') || key.startsWith('radiology')) {
+      data[key] = localStorage.getItem(key);
+    }
+  }
+
+  const json = JSON.stringify(data, null, 2);
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `radiology-backup-${new Date().toISOString().split('T')[0]}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('Veriler başarıyla dışa aktarıldı!');
+}
+
+function showImportModal() { document.getElementById('importModal').classList.add('active'); }
+function closeImportModal() { document.getElementById('importModal').classList.remove('active'); }
+
+function importData() {
+  try {
+    const raw = document.getElementById('importData').value.trim();
+    const data = JSON.parse(raw);
+    Object.keys(data).forEach(key => localStorage.setItem(key, data[key]));
+    closeImportModal();
+    showToast('Veriler başarıyla içe aktarıldı!');
+    setTimeout(() => location.reload(), 1000);
+  } catch(e) {
+    showToast('Hata: Geçersiz JSON formatı!');
+  }
+}
+
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+// ===== INIT =====
+applyTheme(getTheme());
+loadCrossModuleStats();
+</script>
 </body>
 </html>
