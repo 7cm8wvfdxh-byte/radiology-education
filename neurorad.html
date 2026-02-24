@@ -7364,6 +7364,64 @@ const reportTemplates = [
       { label: "Central Vein Sign", options: ["Değerlendirilmedi", "Mevcut (MS destekler)", "Yok"], key: "cvs" }
     ],
     template: "Demyelinizan lezyonlar: Periventriküler {pv_lesions}, jukstakortikal/kortikal {jc_lesions}, infratentoriyel {infra_lesions}, spinal {spinal}. Aktivite: {active}. Önceki ile kıyasla: {new_lesions}. Central vein sign: {cvs}. YORUM: McDonald 2017 kriterleri açısından klinik korelasyon önerilir."
+  },
+  {
+    id: "spinal_stenosis_report",
+    title: "Spinal Stenoz Raporu",
+    icon: "🦴",
+    color: "#059669",
+    description: "Seviye + stenoz derecesi + kord sinyali + foraminal daralma + sinir kökü basısı",
+    fields: [
+      { label: "Değerlendirilen Segment", options: ["Servikal (C2-C7)", "Torakal (T1-T12)", "Lomber (L1-S1)"], key: "segment" },
+      { label: "En Dar Seviye", options: ["C3-C4", "C4-C5", "C5-C6", "C6-C7", "L2-L3", "L3-L4", "L4-L5", "L5-S1", "Multipl seviye (belirt)"], key: "level" },
+      { label: "Santral Kanal Stenozu (Schizas sınıflaması)", options: ["Grade A: BOS belirgin, kaudal sinirler dağınık", "Grade B: BOS mevcut ama sinirler posterior epidural yağ planını siliyor", "Grade C: BOS minimal, sinirler homojen görünümde ama gruplar ayrılabilir", "Grade D: BOS yok, sinirler ayırt edilemiyor (ciddi stenoz)"], key: "central_stenosis" },
+      { label: "Foraminal Stenoz (Lee sınıflaması)", options: ["Grade 0: Normal (periforaminal yağ korunmuş)", "Grade 1: Hafif (yağ obliterasyonu < 1/3)", "Grade 2: Orta (yağ obliterasyonu 1/3-2/3)", "Grade 3: İleri (yağ tamamen kaybolmuş, sinir kökü kompresyonu)"], key: "foraminal_stenosis" },
+      { label: "Foraminal Stenoz Tarafı", options: ["Sol", "Sağ", "Bilateral", "Bilateral asimetrik (ağırlıklı taraf: ...)"], key: "foraminal_side" },
+      { label: "Disk Patolojisi", options: ["Bulging (diffüz anüler kabarma)", "Protrüzyon (fokal, geniş taban)", "Ekstrüzyon (dar boyun, disk aralığı aşmış)", "Sekestre (kopmuş fragman, migre)", "Disk desiccation (T2 sinyal kaybı)"], key: "disc_pathology" },
+      { label: "Spinal Kord / Konus Sinyali", options: ["Normal sinyal", "T2 hiperintensite (miyelopati bulgusu)", "T1 hipointensite (miyelomalazi — irreverzıbl)", "Snake eye appearance (bilateral anterior horn T2 hiperintens)"], key: "cord_signal" },
+      { label: "Ligamentum Flavum", options: ["Normal kalınlık (<4mm)", "Hafif hipertrofi (4-5mm)", "Belirgin hipertrofi (>5mm)", "Kalsifikasyon/ossifikasyon mevcut"], key: "lig_flavum" },
+      { label: "Spondilolistezis", options: ["Yok", "Grade 1 (%1-25 kayma)", "Grade 2 (%26-50 kayma)", "Grade 3-4 (>%50 kayma)", "Retrolistezis"], key: "listhesis" },
+      { label: "Ek Bulgular", options: ["Faset artropati", "Endplate (Modic) değişiklikleri", "Sinovyal kist", "Epidural lipomatozis", "Schmorl nodülü"], key: "additional_spine" }
+    ],
+    template: "Spinal segment: {segment}. En dar seviye: {level}. Santral kanal stenozu: {central_stenosis}. Foraminal stenoz: {foraminal_stenosis}, taraf: {foraminal_side}. Disk patolojisi: {disc_pathology}. Spinal kord/konus sinyali: {cord_signal}. Ligamentum flavum: {lig_flavum}. Spondilolistezis: {listhesis}. Ek bulgular: {additional_spine}. YORUM: Klinik korelasyon ve nörolojik muayene bulguları ile birlikte değerlendirilmelidir."
+  },
+  {
+    id: "epilepsy_mr_report",
+    title: "Epilepsi MR Raporu",
+    icon: "⚡",
+    color: "#eab308",
+    description: "Hipokampal skleroz + fokal kortikal displazi + FLAIR değişiklik + yapısal lezyon",
+    fields: [
+      { label: "Hipokampus Hacmi (Sol)", options: ["Normal", "Hafif atrofik", "Belirgin atrofik (MTS şüphesi)", "Değerlendirilemedi"], key: "hippo_left" },
+      { label: "Hipokampus Hacmi (Sağ)", options: ["Normal", "Hafif atrofik", "Belirgin atrofik (MTS şüphesi)", "Değerlendirilemedi"], key: "hippo_right" },
+      { label: "Hipokampal T2/FLAIR Sinyali", options: ["Normal bilateral", "Sol hipokampusta artmış sinyal", "Sağ hipokampusta artmış sinyal", "Bilateral artmış sinyal"], key: "hippo_signal" },
+      { label: "Hipokampal İnternal Yapı", options: ["Normal internal mimari", "İnternal yapı kaybı (digitations silinmiş)", "Değerlendirilemedi"], key: "hippo_structure" },
+      { label: "Fokal Kortikal Displazi (FCD) Bulgusu", options: ["Yok", "Kortikal kalınlaşma + bulanık gri-beyaz cevher sınırı (tip II şüphesi)", "Transmantle sign (ventrikül yüzeyine uzanan FLAIR hiperintensite)", "Subkortikal T2/FLAIR hiperintensite (tip I şüphesi)", "Bottom of sulcus displazi (olası FCD IIb)"], key: "fcd" },
+      { label: "Temporal Lob Ek Bulgular", options: ["Normal", "Temporal pol beyaz cevher sinyal artışı (MTS ilişkili)", "Temporal lob enkefalosel/araknosel", "Temporal neokorteks displazi"], key: "temporal_extra" },
+      { label: "Diğer Epileptojenik Lezyonlar", options: ["Yok", "Tümör (DNET, gangliogliom şüphesi)", "Kavernöz malformasyon", "Tuberoskleroz tuber", "Heterotopi (nodüler/band)", "Polimikrogiri", "Postenfeksiyöz/posttravmatik ensefalomalazi"], key: "other_lesion" },
+      { label: "FLAIR Değişiklikler", options: ["Yok", "Mesial temporal FLAIR hiperintensite", "Kortikal/subkortikal fokal FLAIR hiperintensite", "Yaygın beyaz cevher sinyal değişikliği"], key: "flair_changes" },
+      { label: "Yapısal Asimetri", options: ["Yok", "Temporal horn asimetrisi (geniş taraf: ...)", "Forniks asimetrisi", "Mammiller cisim asimetrisi"], key: "asymmetry" }
+    ],
+    template: "Hipokampus hacmi: sol {hippo_left}, sağ {hippo_right}. Hipokampal sinyal: {hippo_signal}. İnternal yapı: {hippo_structure}. Fokal kortikal displazi: {fcd}. Temporal lob ek: {temporal_extra}. Diğer epileptojenik lezyon: {other_lesion}. FLAIR değişiklikler: {flair_changes}. Yapısal asimetri: {asymmetry}. YORUM: ILAE epilepsi MR protokolüne (HARNESS-MRI) göre değerlendirilmiştir. EEG ve klinik korelasyon önerilir."
+  },
+  {
+    id: "pf_pediatric_tumor_report",
+    title: "Posterior Fossa / Pediatrik Tümör Raporu",
+    icon: "👶",
+    color: "#a855f7",
+    description: "Lokalizasyon + DWI + kist/solid + kontrastlanma + metastaz durumu",
+    fields: [
+      { label: "Lokalizasyon", options: ["4. ventrikül (intraventriküler)", "Serebellar hemisfer", "Vermis / midline", "Beyin sapı (pons/medulla)", "CPA (serebellopontin açı)", "Ekstra-aksiyel"], key: "pf_location" },
+      { label: "Kist / Solid Oran", options: ["Tamamen solid", "Ağırlıklı solid + minimal kistik", "Kist + mural nodül (klasik pilositik patern)", "Ağırlıklı kistik + solid komponent", "Tamamen kistik"], key: "cyst_solid" },
+      { label: "DWI / ADC", options: ["DWI kısıtlanma yok (ADC yüksek/normal)", "Belirgin DWI kısıtlanma (ADC düşük — yüksek selülarite)", "Heterojen kısıtlanma (mikst alanlar)", "Değerlendirilemedi (artefakt)"], key: "dwi_pf" },
+      { label: "Kontrastlanma Paterni", options: ["Kontrastlanma yok/minimal", "Homojen yoğun kontrastlanma", "Heterojen kontrastlanma", "Mural nodül kontrastlanması (kist duvarı kontrastlanmıyor)", "Ring enhancement"], key: "pf_enhancement" },
+      { label: "4. Ventrikül İlişkisi", options: ["4. ventrikül dışından bası", "4. ventrikül içinden köken (tavanı iter)", "4. ventrikül tabanından köken (foraminalardan uzanım)", "4. ventrikülü dolduran, orijin belirsiz", "4. ventrikül ile ilişki yok"], key: "fourth_vent" },
+      { label: "Hidrosefali", options: ["Yok", "Hafif (temporal horn genişlemesi)", "Orta (3. ventrikül + lateral ventriküller dilate)", "İleri (periventrikül ödem + tüm ventriküller dilate)"], key: "hydro" },
+      { label: "MR Spektroskopi", options: ["Yapılmadı", "Yüksek Cho/NAA (artmış selülarite)", "Taurin piki (medulloblastom düşündürür)", "Laktat piki", "Normal spektrum"], key: "mrs_pf" },
+      { label: "Leptomeningeal / Drop Metastaz", options: ["Spinal MR yapılmadı", "Spinal MR normal (metastaz yok)", "Leptomeningeal kontrastlanma mevcut (metastaz şüphesi)", "Nodüler drop metastaz (spinal kanal içi)"], key: "drop_met" },
+      { label: "Ön Tanı", options: ["Pilositik astrositom (kist + nodül, DWI negatif)", "Medulloblastom (solid, DWI pozitif, 4V tavanı)", "Ependimom (4V tabanı, foraminadan uzanım, plastik)", "Atipik teratoid/rabdoid tümör (AT/RT — <3 yaş, agresif)", "Diffüz pontin gliom (DIPG — ponsu ekspande eden)", "Hemanjioblastom (kist + yoğun kontraslanan nodül, erişkin)"], key: "pf_diagnosis" }
+    ],
+    template: "Posterior fossa kitlesi: Lokalizasyon {pf_location}, boyut ve yapı {cyst_solid}. DWI: {dwi_pf}. Kontrastlanma: {pf_enhancement}. 4. ventrikül ilişkisi: {fourth_vent}. Hidrosefali: {hydro}. MRS: {mrs_pf}. Leptomeningeal/drop metastaz: {drop_met}. Ön tanı: {pf_diagnosis}. YORUM: Pediatrik posterior fossa tümörlerinde kesin tanı histopatolojik + moleküler sınıflama (WHO 2021 CNS tümör sınıflaması) ile konulur. Preop evreleme için tüm nöroaksis görüntülemesi önerilir."
   }
 ];
 
@@ -9724,6 +9782,51 @@ const neuroCasesData = [
     ],
     finalDiagnosis: "Normal Basınçlı Hidrosefali (NPH) — VP şant ile tedavi edilebilir demans. Tap test pozitif → şant planla.",
     keyLearning: "NPH triadı: yürüme (ilk) + inkontinans + demans. MR: Evans >0.3 + dar kallosal açı + DESH. Tap test: 30-50ml BOS → yürüme düzelirse şant yap. TEDAVİ EDİLEBİLİR demans — tanı kaçırma!"
+  },
+  {
+    title: "Akut Spinal Kord Sendromu — Anterior Spinal Arter Sendromu",
+    difficulty: "İleri", color: "#dc2626", icon: "🦴",
+    presentation: "58 yaşında erkek, aort anevrizması onarımı sonrası uyanınca bilateral alt ekstremite paralizisi + ağrı/ısı duyusu kaybı. Propriyosepsiyon ve vibrasyon duyusu SAĞLAM. Mesane retansiyonu.",
+    steps: [
+      { step: 1, question: "Bilateral motor kayıp + ağrı/ısı kaybı + korunmuş propriyosepsiyon. Lokalizasyon ve sendrom?", options: ["Posterior kord sendromu", "Brown-Séquard sendromu", "Anterior spinal arter sendromu", "Konus medüllaris sendromu"], correct: 2,
+        explanation: "ANTERİOR SPİNAL ARTER SENDROMU: anterior 2/3 kord tutulumu → bilateral motor (kortikospinal traktus), ağrı/ısı (spinotalamik traktus) kaybı. Posterior kolonlar SAĞLAM (propriyosepsiyon, vibrasyon korunmuş). Aort cerrahisi: anterior spinal arter aorttan beslenir → intraoperatif hipotansiyon/klempleme → iskemi." },
+      { step: 2, question: "Spinal MR'da hangi bulguları beklersin?", options: ["Posterior kord DWI kısıtlanma", "Anterior kord DWI kısıtlanma + T2 hiperintensite (owl eye/yılan gözü paterni)", "Normal MR", "Epidural abse"], correct: 1,
+        explanation: "Spinal DWI: anterior kord bilateral DWI kısıtlanma (sitotoksik ödem). Aksiyel T2: OWL EYE (baykuş gözü / yılan gözü) paterni — bilateral anterior horn hiperintensitesi. Sagittal T2: pencil-like hiperintensite (uzun segment). Sagittal DWI: en duyarlı sekans (erken tanı). Vertebra gövdesinde de infarkt olabilir." },
+      { step: 3, question: "Tanı: anterior spinal arter sendromu. Yönetim ve prognoz?", options: ["Acil cerrahi dekompresyon", "Trombolitik tedavi (IV tPA)", "Kan basıncı yükseltme (MAP hedefi) + destekleyici tedavi", "Steroid pulse tedavi"], correct: 2,
+        explanation: "Spinal kord infarktında SPESİFİK TEDAVİ SINIRLI. MAP yükseltme (hemodinamik augmentasyon): perfüzyon basıncını artır. Antikoagülasyon: tromboembolik etiyolojide. Tromboliz: spinal infarkt için KANITLANMAMIŞ (beyin infarktından farklı). Prognoz: %50 kısmi iyileşme, tam iyileşme nadir. Mesane fonksiyonu en geç düzelen." }
+    ],
+    finalDiagnosis: "Anterior Spinal Arter Sendromu — aort cerrahisi sonrası spinal kord iskemisi. Bilateral motor paralizi + disosiye duyu kaybı.",
+    keyLearning: "Anterior spinal arter: anterior 2/3 kord besler. Owl eye (aksiyel T2) + pencil-like (sagittal T2) + DWI kısıtlanma = spinal infarkt. Posterior kolonlar SAĞLAM (propriyosepsiyon korunmuş). Aort cerrahisi + FibroMusküler displazi + ateroskleroz = risk faktörleri."
+  },
+  {
+    title: "CPA Kitlesi Değerlendirmesi — Schwannom vs Meningiom",
+    difficulty: "Orta", color: "#f59e0b", icon: "🔊",
+    presentation: "52 yaşında kadın, 1 yıldır progresif sol kulakta işitme kaybı + tinnitus. Son 2 aydır denge bozukluğu. Odyogramda sol sensorinöral işitme kaybı.",
+    steps: [
+      { step: 1, question: "Tek taraflı sensorinöral işitme kaybı + tinnitus. İlk düşünce ve görüntüleme?", options: ["Meniere hastalığı — temporal kemik BT", "CPA kitlesi ekarte et — kontrastlı MR (İAK protokolü)", "Otoskleroz — yüksek çözünürlüklü temporal BT", "Akustik nöropati — ABR testi yeterli"], correct: 1,
+        explanation: "Tek taraflı sensorinöral işitme kaybı → CPA KİTLESİ EKarte ET (en önemlisi vestibüler schwannom). İAK (internal akustik kanal) protokolü MR: ince kesit T2 (CISS/FIESTA) + T1 post-kontrast. Vestibüler schwannom: CPA kitlelerinin %80'i. Meniere: bilateral olabilir ama tek taraflı ise kitle ekarte et." },
+      { step: 2, question: "MR: sol CPA'da 2.5 cm kontrastlanan kitle, İAK'a uzanım mevcut ('ice cream cone' görünümü). T2'de kitle içi heterojen sinyal. Ayırıcı tanı?", options: ["Epidermoid kist", "Vestibüler schwannom", "Meningiom", "Araknoid kist"], correct: 1,
+        explanation: "VESTIBÜLER SCHWANNOM: İAK'tan CPA'ya uzanan kitle (ice cream cone / dondurma külahı). T2 heterojen (kistik/nekrotik alanlar büyük tümörlerde). YOĞUN kontrastlanma. İAK GENİŞLEMİŞ (kemik remodeling). Meningiom: dural tabanlı, İAK'a GIRMEZ (veya minimal), dural tail, kalsifikasyon olabilir. Epidermoid: DWI PARLAK, kontrastlanma YOK." },
+      { step: 3, question: "Vestibüler schwannom (Koos grade 3). Tedavi planlaması için hangi ek değerlendirme kritik?", options: ["PET-BT metastaz taraması", "İşitme durumu + tümör boyutu + hasta tercihi (cerrahi vs SRS vs takip)", "Lomber ponksiyon", "Serebral anjiyografi"], correct: 1,
+        explanation: "TEDAVİ SEÇENEKLERİ: 1) Takip (küçük, asemptomatik — yıllık MR). 2) SRS/Gamma Knife (<2.5-3 cm, işitme koruma şansı daha yüksek). 3) Cerrahi: retrosigmoid, translabirintin veya orta fossa yaklaşımı. Koos 3 (>2.5 cm, CPA'yı dolduran): genellikle cerrahi. İşitme koruması: tümör boyutu ile TERS orantılı. NF2'de bilateral schwannom → bevacizumab seçeneği." }
+    ],
+    finalDiagnosis: "Sol Vestibüler Schwannom (Akustik Nörinom) — Koos grade 3. İAK'tan CPA'ya uzanan, kontrastlanan kitle.",
+    keyLearning: "CPA kitleleri: schwannom (%80) > meningiom (%10) > epidermoid (%5). Schwannom: İAK'a GİRER, İAK genişler, ice cream cone, T2 heterojen, yoğun kontrastlanma. Meningiom: dural tail, geniş dural taban, İAK'a GİRMEZ, kalsifikasyon. Epidermoid: DWI parlak, kontrastlanma YOK."
+  },
+  {
+    title: "Yenidoğanda Nöbetler + MR Bulguları — Neonatal HIE",
+    difficulty: "İleri", color: "#8b5cf6", icon: "👶",
+    presentation: "Term yenidoğan (38 hafta), zor doğum (omuz distosisi + uzamış 2. evre). Apgar: 1. dk 2, 5. dk 5. Kord pH: 6.9. Doğumdan 6 saat sonra tekrarlayan tonik-klonik nöbetler başlamış. Hipoton, emmeme güçlüğü.",
+    steps: [
+      { step: 1, question: "Term yenidoğan + perinatal asfiksi + nöbetler. En olası tanı ve ilk görüntüleme zamanlaması?", options: ["Neonatal inme — hemen MR çek", "Hipoksik-iskemik ensefalopati (HIE) — MR DWI 24-72 saat", "Metabolik hastalık — USG yeterli", "Konjenital enfeksiyon — BT çek"], correct: 1,
+        explanation: "HİPOKSİK-İSKEMİK ENSEFALOPATİ (HIE): düşük Apgar + düşük kord pH + nöbetler = KLASİK. MR zamanlaması: DWI 24-72 SAAT (en duyarlı dönem). İlk 24 saatte DWI fals negatif olabilir. BT: radyasyon → yenidoğanda KONTRENDİKE (istisnalar hariç). USG: kanama taraması ama HIE için yetersiz." },
+      { step: 2, question: "3. günde MR: bilateral bazal ganglia + talamus + perisilvian kortekste DWI kısıtlanma (ADC düşük). MRS: bazal ganglionda belirgin laktat piki + NAA düşük. Bu bulgu paterni neyi gösterir?", options: ["Hafif HIE — iyi prognoz", "Ağır (profound) HIE — santral pattern, kötü prognoz", "Watershed pattern — parsiyel HIE", "Normal yenidoğan MR"], correct: 1,
+        explanation: "SANTRAL PATTERN (AĞIR HIE): bazal ganglia + talamus + perisilvian korteks = AKUT PROFOUND asfiksi (ani, total hipoksi). Term bebekte EN KÖTÜ prognoz paterni. MRS: laktat/NAA >0.29 (bazal ganglionda) = ağır hasar prediktörü. Watershed pattern: prolonged partial asfiksi → daha iyi prognoz. MRS: DWI'dan bile ERKEN pozitifleşir." },
+      { step: 3, question: "HIE tedavisinde terapötik hipoterminin rolü ve MR takibi?", options: ["Hipotermi 12 saat içinde başlanmalı, kontrol MR 7-10 günde", "Hipotermi 6 saat içinde başlanmalı, kontrol MR 7-10 günde", "Hipotermi gerekli değil, sadece antikonvülzan", "Hipotermi 24 saat içinde başlanmalı, MR 1 ayda"], correct: 1,
+        explanation: "TERAPÖTİK HİPOTERMİ: doğumdan sonra ≤6 SAAT içinde başlanmalı (33.5°C, 72 saat süre). NNT (number needed to treat): 7 (her 7 tedavide 1 ölüm/sakatlık önlenir). Kontrol MR: 7-10. gün → T1/T2 hasarı gösterir (DWI pseudonormalize olur). ADC pseudonormalizasyonu: 7-10. günde ADC yükselir → DWI YANILTICI olabilir → T1/T2 + MRS güvenilir." }
+    ],
+    finalDiagnosis: "Ağır Neonatal Hipoksik-İskemik Ensefalopati (HIE) — santral pattern (bazal ganglia + talamus). Terapötik hipotermi uygulandı.",
+    keyLearning: "HIE paternleri: 1) Santral (profound): bazal ganglia + talamus → akut total asfiksi, KÖTÜ prognoz. 2) Watershed (peripheral): su ayrımı bölgeleri → parsiyel uzamış asfiksi, DAHA İYİ prognoz. DWI: 24-72 saat en duyarlı. MRS: en erken pozitifleşen sekans (laktat). ADC pseudonormalizasyonu: 7-10 gün → bu dönemde T1/T2 güvenilir."
   }
 ];
 
