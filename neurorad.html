@@ -4342,6 +4342,150 @@ const signalProfiles = [
       { seq: "Kontrast", val: "☀️ Leptomeningeal olabilir", why: "Meningeal mikrovasküler inflamasyon" },
       { seq: "Retinal FA", val: "⬛ Dal arter oklüzyonu", why: "Retinal arteriolar endoteliopati" },
       { seq: "MS'ten fark", val: "⚠️ Snowball ALTTA", why: "MS: Dawson fingers ÜSTTE (kallosal-ventriküler yüz)" }
+    ]},
+  { id: "metastasis_sp", name: "Beyin Metastazı", cat: "tumor",
+    signals: [
+      { seq: "T1", val: "⬛ Hipo (melanom: ☀️)", why: "Çoğu metastaz T1 hipo. Melanom: melanin paramanyetik → T1 parlak" },
+      { seq: "T2", val: "💧 Hiper + orantısız ödem", why: "Tümör çevresi vazojenik ödem >> tümör boyutu" },
+      { seq: "DWI", val: "🔒 Değişken", why: "Selülarite tümör tipine bağlı; ring periferinde kısıtlanma" },
+      { seq: "Kontrast", val: "⭕💉 Ring veya homojen", why: "Küçük: homojen. Büyük: santral nekroz → ring enhancement" },
+      { seq: "SWI", val: "⬛ Kanama sık", why: "Melanom, RCC, tiroid, koryokarsinom → hemorajik metastaz" },
+      { seq: "GBM farkı", val: "⚠️ Multipl + gri-beyaz bileşke", why: "GBM tek; metastaz multipl + hematojen yayılım → kortikal-subkortikal" }
+    ]},
+  { id: "schwannoma_sp", name: "Vestibüler Schwannom", cat: "tumor",
+    signals: [
+      { seq: "T1", val: "⬛ Hipo-izo", why: "Solid tümör, su içeriği artmış" },
+      { seq: "T2", val: "💧 Hiperintens", why: "Antoni B: myksoid gevşek yapı → T2 parlak" },
+      { seq: "DWI", val: "⚪ Kısıtlanma yok", why: "Düşük selülarite → benign sinyali" },
+      { seq: "Kontrast", val: "💉💉 Yoğun homojen", why: "Zengin vaskülarite → belirgin kontrastlanma" },
+      { seq: "IAC", val: "📍 İnternal akustik kanal GENİŞLEMESİ", why: "Tümör IAC'den CPA'ya uzanır → ice cream cone" },
+      { seq: "Menenjiyom farkı", val: "⚠️ Dural tail YOK + IAC genişlemiş", why: "Menenjiyom: dural tail(+), IAC genişlemesi(-)" }
+    ]},
+  { id: "low_grade_glioma_sp", name: "Düşük Gradeli Gliom (WHO II)", cat: "tumor",
+    signals: [
+      { seq: "T1", val: "⬛ Hipointens", why: "Tümöral su artışı → T1 uzar" },
+      { seq: "T2/FLAIR", val: "💧 Homojen hiperintens", why: "İnfiltratif tümör → FLAIR'de homojen parlak" },
+      { seq: "DWI", val: "⚪ Kısıtlanma YOK", why: "Düşük selülarite → ekstraselüler alan geniş" },
+      { seq: "Kontrast", val: "❌ Kontrastlanma YOK", why: "BBB SAĞLAM → kontrast sızmaz (Grade II)" },
+      { seq: "Perfüzyon", val: "⚪ rCBV düşük", why: "Neoanjiyogenez minimal → düşük kan hacmi" },
+      { seq: "Spektroskopi", val: "📊 NAA↓ Cho↑ (hafif)", why: "Nöronal hasar + düşük proliferasyon" }
+    ]},
+  { id: "medulloblastoma_sp", name: "Medulloblastom", cat: "tumor",
+    signals: [
+      { seq: "T1", val: "⬛ Hipo-izointens", why: "Yoğun selüler tümör" },
+      { seq: "T2", val: "⬛⚪ İzo-hafif HİPO", why: "Çok yüksek selülarite → serbest su az → T2 kısalır" },
+      { seq: "DWI", val: "🔒🔒🔒 ÇOK belirgin kısıtlanma", why: "Small round blue cell → en yüksek selülarite → ADC çok düşük" },
+      { seq: "Kontrast", val: "💉 Heterojen", why: "Değişken vaskülarite + nekroz alanları" },
+      { seq: "Lokalizasyon", val: "📍 4. ventrikül TABAN", why: "Çocuk: midline serebellar vermis. Erişkin: lateral" },
+      { seq: "Drop metastaz", val: "⚠️ Spinal MR ŞART", why: "BOS yolu ile spinal leptomeningeal yayılım → preop spinal MR" }
+    ]},
+  { id: "pituitary_adenoma_sp", name: "Hipofiz Adenomu", cat: "tumor",
+    signals: [
+      { seq: "T1 (mikro)", val: "⬛ Normal hipofizden HİPO", why: "Mikoadenom normal hipofizden daha düşük sinyal" },
+      { seq: "T2", val: "💧 Değişken", why: "Subtipe göre: prolaktinom T2 parlak, GH adenom T2 koyu" },
+      { seq: "Dinamik MR", val: "⚠️ GECİKMELİ kontrastlanma", why: "Mikoadenom: normal hipofiz hızlı boyanır, adenom GEÇ boyanır (tuzak!)" },
+      { seq: "Makro T1+Gd", val: "💉 Heterojen", why: "Büyük adenomda nekroz + kist → heterojen kontrastlanma" },
+      { seq: "Kavernöz sinüs", val: "📍 ICA enkasmanı?", why: ">50% ICA sarımı = kavernöz sinüs invazyonu (Knosp 3-4)" },
+      { seq: "Apopleksi", val: "☀️ T1 parlak (kanama)", why: "Akut kanama → hipofizer apopleksi → acil başağrısı + görme kaybı" }
+    ]},
+  { id: "nmo_sp", name: "NMO/NMOSD (Devic)", cat: "demyelinating",
+    signals: [
+      { seq: "Spinal T2", val: "💧💧 UZUN segment (≥3 vertebra)", why: "Longitudinal extensive transverse myelitis → ≥3 segment tutulum" },
+      { seq: "Spinal kesit", val: "📍 SANTRAL (gri cevher)", why: "Astrositopati → santral gri cevher tutulumu (MS: periferal beyaz)" },
+      { seq: "Optik sinir", val: "💧💉 UZUN segment neuritis", why: "Optik sinirin >1/2'si tutulur (MS: kısa segment)" },
+      { seq: "Beyin FLAIR", val: "💧 Area postrema", why: "AQP4 yoğun bölgeler: area postrema, periependimal" },
+      { seq: "DWI", val: "⚪/🔒 Değişken", why: "Akut dönemde hafif kısıtlanma olabilir" },
+      { seq: "MS'ten fark", val: "⚠️ Uzun spinal + santral", why: "MS: kısa segment (<2 vertebra) + dorsolateral beyaz cevher" }
+    ]},
+  { id: "adem_sp", name: "ADEM (Akut Dissemine Ensefalomiyelit)", cat: "demyelinating",
+    signals: [
+      { seq: "T2/FLAIR", val: "💧💧 Büyük fluffy lezyonlar", why: "Perivenöz demiyelinizasyon → büyük, düzensiz sınırlı hiperintens alanlar" },
+      { seq: "T1", val: "⬛ Hipo (lezyonlar)", why: "Demiyelinizasyon + ödem → T1 uzar" },
+      { seq: "DWI", val: "⚪/🔒 Periferik kısıtlanma", why: "Akut demiyelinizasyon cephesinde hafif kısıtlanma" },
+      { seq: "Kontrast", val: "💉? Değişken ring/nodüler", why: "Akut dönemde kontrastlanma olabilir, %30 open ring" },
+      { seq: "Dağılım", val: "🔀 Subkortikal beyaz + bazal ganglia", why: "MS'ten fark: derin gri cevher tutulumu daha sık" },
+      { seq: "MS'ten fark", val: "⚠️ Monofazik + eşzamanlı", why: "Tüm lezyonlar aynı yaşta (MS: farklı zamanlı plaklar)" }
+    ]},
+  { id: "hsv_encephalitis_sp", name: "HSV Ensefaliti", cat: "infectious",
+    signals: [
+      { seq: "T2/FLAIR", val: "💧💧 BİLATERAL temporal + insular", why: "HSV-1 olfaktör/trigeminal yolla temporal loba ulaşır" },
+      { seq: "DWI", val: "🔒🔒 Erken ve belirgin", why: "Sitotoksik ödem → DWI MR'ın EN ERKEN bulgusu" },
+      { seq: "T1", val: "⬛ → ☀️ (kanama)", why: "Erken: ödem hipo. Sonra: hemorajik nekroz → T1 parlak odaklar" },
+      { seq: "Kontrast", val: "💉 Gyral/leptomeningeal", why: "Kortikal inflamasyon + BBB yıkımı" },
+      { seq: "SWI", val: "⬛ Hemorajik odaklar", why: "Nekrotizan ensefalit → kanama sık" },
+      { seq: "Dağılım", val: "📍 Limbik sistem (bilateral asimetrik)", why: "Temporal + insular + singulat + orbital frontal" }
+    ]},
+  { id: "cjd_sp", name: "CJD (Creutzfeldt-Jakob)", cat: "degenerative",
+    signals: [
+      { seq: "DWI", val: "🔒🔒🔒 Kortikal ribboning", why: "Spongiform değişiklik → kortikal DWI kısıtlanma = EN DUYARLI bulgu" },
+      { seq: "FLAIR", val: "💧 Korteks + bazal ganglia", why: "Kaudat + putamen + kortikal hiperintensite" },
+      { seq: "T1", val: "⚪ Normal (erken)", why: "Yapısal değişiklik geç → T1 erken dönemde normal" },
+      { seq: "T2", val: "💧 Bazal ganglia", why: "Kaudat + putamen hiperintens → DWI kadar belirgin değil" },
+      { seq: "Kontrast", val: "❌ Kontrastlanma YOK", why: "İnflamasyon minimal → BBB sağlam" },
+      { seq: "Varyant CJD farkı", val: "⚠️ Pulvinar sign", why: "vCJD: posterior talamus (pulvinar) hiperintens → hockey stick sign" }
+    ]},
+  { id: "pres_sp", name: "PRES (Posterior Reversible Ensefalopati)", cat: "vascular",
+    signals: [
+      { seq: "T2/FLAIR", val: "💧💧 Posterior-dominant", why: "Otoregülasyon bozulması → posterior sirkülasyon daha hassas → vazojenik ödem" },
+      { seq: "DWI", val: "⚪ Kısıtlanma YOK (ÖNEMLİ!)", why: "VAZOJENİK ödem → ADC yüksek (sitotoksik DEĞİL → reversibl)" },
+      { seq: "T1", val: "⬛ Hafif hipo", why: "Ödem → T1 uzar" },
+      { seq: "Kontrast", val: "💉? Değişken leptomeningeal", why: "BBB bozulması → değişken kontrastlanma" },
+      { seq: "Kanama", val: "⬛ SWI: %15 mikrokanama", why: "Ciddi vakalarda hemorajik dönüşüm" },
+      { seq: "DWI(+) ise", val: "⚠️ İrreversible olabilir!", why: "DWI kısıtlanma = sitotoksik ödem → kalıcı infarkt riski" }
+    ]},
+  { id: "avm_sp", name: "AVM (Arteriovenöz Malformasyon)", cat: "vascular",
+    signals: [
+      { seq: "T1/T2", val: "⬛⬛ Flow void kümesi", why: "Yüksek akımlı damarlar → sinyal kaybı = flow void" },
+      { seq: "FLAIR", val: "💧? Çevre gliozis/ödem", why: "Kronik iskemi + steal fenomeni → periferik gliozis" },
+      { seq: "SWI", val: "⬛ Eski kanama + drenaj venleri", why: "Frajil damarlar → hemosiderin birikimi + drene venler" },
+      { seq: "MRA/CTA", val: "🔴 Nidus + erken ven dolumu", why: "Arteryel besleyen → nidus → erken venöz drenaj (şant)" },
+      { seq: "Perfüzyon", val: "📊 Perinidal hipoperfüzyon", why: "Steal fenomeni: AVM kan çalar → çevre hipoperfüze" },
+      { seq: "DSA", val: "🏆 ALTIN STANDART", why: "Dinamik akım paterni + Spetzler-Martin sınıflama" }
+    ]},
+  { id: "sak_sp", name: "Subaraknoid Kanama (SAK)", cat: "vascular",
+    signals: [
+      { seq: "BT (akut)", val: "☀️ HİPERDENS sisternler", why: "Akut kan hiperdens → sisternlerde parlak sinyal → %95 duyarlılık" },
+      { seq: "FLAIR", val: "💧💧 Sulkus HİPERİNTENS", why: "BOS'taki kan FLAIR'de suprese olmaz → EN DUYARLI MR sekansı" },
+      { seq: "T1", val: "⚪/☀️ Subakut: parlak", why: "Akut: normal. Subakut: methemoglobin → T1 parlak" },
+      { seq: "SWI", val: "⬛ Süperfisyal sideroz", why: "Kronik SAK → kortikal hemosiderin birikimi" },
+      { seq: "CTA", val: "🎯 Anevrizma tespiti", why: "Anevrizma lokalizasyonu ve morfolojisi → tedavi planı" },
+      { seq: "DWI", val: "🔒? Vazospazm infarktı", why: "SAK sonrası vazospazm → gecikmiş iskemik infarkt" }
+    ]},
+  { id: "nph_sp", name: "Normal Basınçlı Hidrosefali (NPH)", cat: "degenerative",
+    signals: [
+      { seq: "T2/FLAIR", val: "💧 Ventriküler genişleme", why: "Orantısız ventriküler dilatasyon (sulkuslar korunmuş)" },
+      { seq: "DESH", val: "📍 Tight high convexity", why: "Yüksek konveksite dar sulkus + Sylvian fissür genişlemiş = DESH paterni" },
+      { seq: "Flow void (akuadukt)", val: "⬛ Artmış akım", why: "Phase-contrast MR: akuaduktal flow artmış → şant yanıtını öngörür" },
+      { seq: "DWI", val: "⚪ Kısıtlanma yok", why: "Periventriküler T2 hiperintensite = transependimal BOS sızıntısı (iskemi DEĞİL)" },
+      { seq: "Periventriküler", val: "💧 FLAIR halo", why: "Transependimal BOS migrasyonu → periventriküler smooth hiperintensite" },
+      { seq: "Atrofiden fark", val: "⚠️ Orantısız ventrikül/sulkus", why: "Atrofi: orantılı ventrikül + sulkus genişleme. NPH: ventrikül >> sulkus" }
+    ]},
+  { id: "oligodendroglioma_sp", name: "Oligodendrogliom", cat: "tumor",
+    signals: [
+      { seq: "T1", val: "⬛ Hipo (± kalsifikasyon)", why: "Tümöral su + kalsifikasyon → heterojen sinyal" },
+      { seq: "T2/FLAIR", val: "💧 Kortikal-subkortikal", why: "Kortikal infiltrasyon → kortikal genişleme + FLAIR parlak" },
+      { seq: "DWI", val: "⚪ Kısıtlanma yok (Grade II)", why: "Düşük selülarite → serbest difüzyon" },
+      { seq: "BT", val: "💎 KALSİFİKASYON %70-90", why: "Oligodendrogliomlarda kalsifikasyon ÇOK SIK (tanısal ipucu)" },
+      { seq: "Kontrast", val: "❌/💉 Grade'e bağlı", why: "Grade II: kontrastlanma yok. Grade III (anaplastik): kontrastlanma (+)" },
+      { seq: "Genetik", val: "🧬 1p/19q ko-delesyon", why: "IDH mutant + 1p/19q ko-delesyon = oligodendrogliom → iyi prognoz" }
+    ]},
+  { id: "ependymoma_sp", name: "Ependimom", cat: "tumor",
+    signals: [
+      { seq: "T1", val: "⬛⚪ Heterojen", why: "Kist + kanama + solid komponent → karışık sinyal" },
+      { seq: "T2", val: "💧 Heterojen hiperintens", why: "Mikrokistler + solid → heterojen" },
+      { seq: "DWI", val: "⚪/🔒 Hafif kısıtlanma", why: "Orta selülarite → medulloblastomdan daha düşük kısıtlanma" },
+      { seq: "Kontrast", val: "💉 Heterojen", why: "Vaskülarize solid komponent + kistik alanlar kontrastlanmaz" },
+      { seq: "Lokalizasyon", val: "📍 4. ventrikül → foramen uzanımı", why: "Plastik tümör: foramen Luschka/Magendie'ye uzanır" },
+      { seq: "Medulloblastom farkı", val: "⚠️ DWI daha az parlak + foramen uzanır", why: "Medulloblastom: çok parlak DWI, midline kitle. Ependimom: foramen uzanımı" }
+    ]},
+  { id: "spinal_cord_infarct_sp", name: "Spinal Kord İnfarktı", cat: "vascular",
+    signals: [
+      { seq: "DWI", val: "🔒🔒 ÇOK ERKEN pozitif", why: "Beyin infarktı gibi: dakikalar içinde DWI(+) → sitotoksik ödem" },
+      { seq: "T2 (sagittal)", val: "💧 Pencil-like hiperintensite", why: "Anterior spinal arter alanı → uzunlamasına ince hiperintens" },
+      { seq: "T2 (aksiyel)", val: "🦉 OWL EYE / snake eye", why: "Bilateral anterior horn tutulumu → baykuş gözü paterni" },
+      { seq: "T1", val: "⬛ Normal → subakut hipo", why: "Erken normal, subakut dönemde hipointensite" },
+      { seq: "Kontrast", val: "💉? Subakut kontrastlanma", why: "Reperfüzyon sonrası BBB yıkımı → geç kontrastlanma olabilir" },
+      { seq: "Vertebral body", val: "💧 Komşu vertebra T2 hiper", why: "Aynı arter vertebra gövdesini de besler → eşzamanlı kemik infarktı" }
     ]}
 ];
 
