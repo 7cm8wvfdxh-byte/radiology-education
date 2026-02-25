@@ -3986,6 +3986,114 @@ const signalProfiles = [
       { seq: "EMVI", val: "🩸 Ven içi tümör sinyali", why: "Ekstramurel vasküler invazyon = KÖTÜ prognostik" },
       { seq: "Müsinöz", val: "💧💧 T2 ÇOK PARLAK", why: "Müsinöz karsinom: %10-15, yüksek su/müsin → çok parlak" },
       { seq: "Post-KRT", val: "⬛ Fibrozis (T2 koyu)", why: "Tedavi yanıtı: tümör → fibrozis → T2 koyu (mrTRG)" }
+    ]},
+  { id: "fibrolamellar_hcc_sp", name: "Fibrolamellar HCC", cat: "liver",
+    signals: [
+      { seq: "T1", val: "⬛ Hipointens", why: "Solid tümör → T1 uzar" },
+      { seq: "T2", val: "⬛/💧 Heterojen", why: "Fibröz stroma T2 koyu + tümör alanları parlak" },
+      { seq: "Skar T2", val: "⬛ HİPOİNTENS", why: "Santral skar: yoğun fibröz + kalsifikasyon → T2 KOYu (FNH'den FARK!)" },
+      { seq: "DWI", val: "🔒 Kısıtlanma", why: "Solid tümör selülaritesi" },
+      { seq: "Kontrast", val: "💉 Heterojen + skar geç dolum", why: "Arteryel heterojen, skar gecikmeli kontrastlanma" },
+      { seq: "BT", val: "💎 Santral KALSİFİKASYON (%50-70)", why: "Fibröz skar kalsifiye olur → FNH'de kalsifikasyon çok nadir" }
+    ]},
+  { id: "liver_metastasis_sp", name: "KC Metastazı (Hipovasküler)", cat: "liver",
+    signals: [
+      { seq: "T1", val: "⬛ Hipointens", why: "Tümör dokusu → T1 uzar" },
+      { seq: "T2", val: "💧 Hafif-orta hiper (target sign)", why: "Merkez nekroz + periferik viable tümör = hedef sign" },
+      { seq: "DWI", val: "🔒 Belirgin kısıtlanma", why: "Yüksek selülarite → ADC düşük → DWI EN DUYARLI sekans" },
+      { seq: "Arteryel", val: "⭕ Periferik rim", why: "Periferik viable tümör kontrastlanır, merkez nekroz" },
+      { seq: "Portal/Geç", val: "⬛ Kalıcı hipodens", why: "Portal beslenme yok → çevre KC'den koyu kalır" },
+      { seq: "Hepatobilier", val: "⬛ Hipo + perilesyonel halo", why: "Hepatosit yok → Gd-EOB almaz + çevre hepatosit kompresyonu" }
+    ]},
+  { id: "ipmn_sp", name: "IPMN (İntraduktal Papiller Müsinöz Neoplazi)", cat: "pancreas",
+    signals: [
+      { seq: "T2/MRCP", val: "💧💧 Kanal dilatasyonu", why: "Müsin üretimi → kanal genişlemesi → T2 parlak kistik yapı" },
+      { seq: "T1", val: "⬛/☀️ Müsin içeriğe bağlı", why: "Proteinöz müsin → T1 hafif parlak olabilir" },
+      { seq: "DWI", val: "🔒? Mural nodülde", why: "Mural nodül DWI(+) = malignite şüphesi → cerrahi düşün" },
+      { seq: "Kontrast", val: "💉 Mural nodül kontrastlanma", why: "Kontrastlanan mural nodül = high-risk stigmata" },
+      { seq: "Main duct", val: "📏 MPD ≥10mm = cerrahi", why: "Ana kanal tipi: MPD genişlemiş + yüksek malignite riski" },
+      { seq: "Branch duct", val: "📏 <3cm = takip, ≥3cm = değerlendir", why: "Dal tipi: düşük malignite riski, boyut ve gelişime göre takip" }
+    ]},
+  { id: "oncocytoma_sp", name: "Onkositom (Böbrek)", cat: "kidney",
+    signals: [
+      { seq: "T1", val: "⚪ İzointens", why: "Homojen solid tümör → böbrek parankim ile benzer" },
+      { seq: "T2", val: "⚪/💧 İzo-hafif hiper", why: "Homojen yapı, belirgin parlak değil" },
+      { seq: "DWI", val: "⚪/🔒 Hafif kısıtlanma", why: "Benign ama selüler → hafif kısıtlanma (RCC ayırt edilemez)" },
+      { seq: "Arteryel", val: "☀️ Homojen kontrastlanma", why: "Hipervasküler homojen boyanma → segmental enhancement inversion" },
+      { seq: "Santral skar", val: "⬛ Spoke-wheel (tekerlek çubukları)", why: "Santral stellat skar → arteryel fazda radyal damar paterni" },
+      { seq: "Klinik", val: "⚠️ RCC'den AYIRT EDİLEMEZ", why: "Preop tanı güç → biyopsi veya parsiyel nefrektomi" }
+    ]},
+  { id: "adrenocortical_ca_sp", name: "Adrenokortikal Karsinom (ACC)", cat: "adrenal",
+    signals: [
+      { seq: "Boyut", val: "📏 BÜYÜK (genellikle >6cm)", why: "Boyut EN ÖNEMLİ kriter: >4cm = şüpheli, >6cm = yüksek risk" },
+      { seq: "T1/T2", val: "⬜ HETERojen", why: "Nekroz + kanama + solid = karışık sinyal" },
+      { seq: "Chemical Shift", val: "⚠️ %30 CS kaybı VAR (TUZAK!)", why: "İntrasellüler lipid olabilir → adenom SANILIR → boyut dikkate al!" },
+      { seq: "DWI", val: "🔒 Kısıtlanma", why: "Yüksek selülarite → malignite" },
+      { seq: "Kontrast", val: "💉 Heterojen + nekroz", why: "İrregüler kontrastlanma + santral nekroz alanları" },
+      { seq: "İnvazyon", val: "🔴 Damar/organ invazyon", why: "IVC tümör trombüsü + komşu organ invazyon = ACC" }
+    ]},
+  { id: "uterine_fibroid_sp", name: "Uterin Fibroid (Leiomyom)", cat: "gynecologic",
+    signals: [
+      { seq: "T2", val: "⬛⬛ Çok HİPOİNTENS", why: "Yoğun düz kas + kollajen fibröz → T2 çok kısa → KARAKTERİSTİK" },
+      { seq: "T1", val: "⚪ İzointens", why: "Myometrium ile benzer sinyal (dejenerasyon hariç)" },
+      { seq: "DWI", val: "🔒 Düşük ADC", why: "Fibröz yapı → kısıtlanma. Leiomyosarkomdan ADC ile ayırt güç" },
+      { seq: "Kontrast", val: "💉 Homojen (tipik)", why: "Vaskülarize fibroid homojen boyanır" },
+      { seq: "Dejenerasyon", val: "☀️/💧 T1 parlak (hemorajik)", why: "Kırmızı dejenerasyon: T1 parlak + T2 koyu = gebelikte sık" },
+      { seq: "Sarkom şüphe", val: "⚠️ Hızlı büyüme + nekroz + postmenopozal", why: "Leiomyosarkom: DWI çok parlak + nekroz + hızlı büyüme → biyopsi" }
+    ]},
+  { id: "ovarian_ca_sp", name: "Over Kanseri", cat: "gynecologic",
+    signals: [
+      { seq: "T2", val: "💧 Solid-kistik karışık", why: "Papiller solid komponent + kistik alan → heterojen" },
+      { seq: "DWI", val: "🔒🔒 Solid kısımda belirgin", why: "Solid malign komponent → yüksek selülarite" },
+      { seq: "Kontrast", val: "💉 Solid komponent + septa", why: "Kalın irregüler septa + solid nodül kontrastlanır" },
+      { seq: "T1 (müsinöz)", val: "☀️ Parlak kist", why: "Müsinöz tip: proteinöz müsin → T1 yüksek sinyal" },
+      { seq: "Peritoneal", val: "🔒 DWI implantlar", why: "Peritoneal karsinomatozis: omental cake + DWI parlak peritoneal nodüller" },
+      { seq: "Asit", val: "💧 Serbest sıvı", why: "Over Ca + asit + omental cake = peritoneal yayılım triadı" }
+    ]},
+  { id: "bladder_ca_sp", name: "Mesane Kanseri", cat: "pelvic",
+    signals: [
+      { seq: "T2", val: "💧 Orta hiperintens kitle", why: "Tümör dokusu T2'de orta parlak (detrusor: koyu)" },
+      { seq: "DWI", val: "🔒🔒 Belirgin kısıtlanma", why: "Yüksek selülarite → DWI en duyarlı sekans" },
+      { seq: "T1+Gd", val: "💉 Erken kontrastlanma", why: "Tümör erken boyanır, submukoza geç → inner layer dönüşüm" },
+      { seq: "Muskularis", val: "⬛ T2 koyu katman bozulması", why: "T2 kas invazyon → kas-invaziv (≥T2) = radikal sistektomi" },
+      { seq: "Perivesikal yağ", val: "💧 Stranding", why: "T3: perivesikal yağa uzanım → MR BT'den üstün" },
+      { seq: "VI-RADS", val: "📊 1-5 skorlama", why: "VI-RADS: kas invazyon olasılığı. ≥3 = kas-invaziv muhtemel → tedavi değişir" }
+    ]},
+  { id: "acute_pancreatitis_sp", name: "Akut Pankreatit", cat: "pancreas",
+    signals: [
+      { seq: "T1 yağ baskılı", val: "⬛ Pankreas SİNYAL KAYBI", why: "Normal pankreas T1 parlak (proteinaz). Pankreatitte ödem → T1 düşer" },
+      { seq: "T2", val: "💧 Ödem + peripankreatik sıvı", why: "İnflamasyon → su artışı → T2 uzar" },
+      { seq: "DWI", val: "🔒 Artmış kısıtlanma", why: "İnflamatuar selüler infiltrasyon" },
+      { seq: "Kontrast", val: "⬛ Nekroz: kontrastlanma YOK", why: "Nekrotizan pankreatit: perfüzyon kaybı → >%30 kontrastlanmama" },
+      { seq: "Koleksiyon", val: "💧 Peripankreatik sıvı", why: "Akut koleksiyon (≤4 hafta) → WON/psödokist (>4 hafta)" },
+      { seq: "CTSI", val: "📊 BT Severity Index", why: "Balthazar grade + nekroz oranı → CTSI skoru → prognoz tahmini" }
+    ]},
+  { id: "ulcerative_colitis_sp", name: "Ülseratif Kolit", cat: "bowel",
+    signals: [
+      { seq: "T2", val: "💧 Duvar ödemi", why: "Mukozal + submukozal inflamasyon → T2 uzar" },
+      { seq: "DWI", val: "🔒 Aktif inflamasyonda", why: "Aktif ÜK: duvar DWI kısıtlanma = aktivite göstergesi" },
+      { seq: "Kontrast", val: "💉 Mukozal stratifikasyon", why: "Mukoza + submukoza ayrı kontrastlanma → target sign" },
+      { seq: "Dağılım", val: "📍 Rektumdan PROKSIMALE KESİNTİSİZ", why: "ÜK: rektumdan başlar, kesintisiz yayılır (Crohn: skip!)" },
+      { seq: "Haustra", val: "❌ Haustra kaybı (lead pipe)", why: "Kronik: haustra kaybı + kolon kısalması → lead pipe sign" },
+      { seq: "Crohn farkı", val: "⚠️ Sürekli + mukozal + rektum(+)", why: "Crohn: skip + transmural + fistül. ÜK: sürekli + mukozal + rektum her zaman tutulur" }
+    ]},
+  { id: "renal_infarct_sp", name: "Renal İnfarkt", cat: "kidney",
+    signals: [
+      { seq: "DWI", val: "🔒 Erken kısıtlanma", why: "Sitotoksik ödem → DWI en erken bulgu (BT'den önce!)" },
+      { seq: "BT", val: "⬛ Wedge (kama) hipodens", why: "Arteryel oklüzyon → perfüzyon kaybı → kama şekilli kontrastlanma defekti" },
+      { seq: "Kortikal rim", val: "☀️ Rim sign (kapsüler CE)", why: "Kapsüler arterler → kortikal yüzey perfüze kalır → kortikal rim sign" },
+      { seq: "T2", val: "💧 Hiperintens (akut)", why: "Ödem → T2 uzar" },
+      { seq: "CTA", val: "❌ Renal arter oklüzyon", why: "Emboli/diseksiyon/trombüs → arter dolmuyor" },
+      { seq: "Kronik", val: "⬛ Skar + kortikal atrofi", why: "İnfarkt alanı: fibrozis + küçülme + kortikal incelme" }
+    ]},
+  { id: "myelolipoma_sp", name: "Adrenal Miyelolipom", cat: "adrenal",
+    signals: [
+      { seq: "T1", val: "☀️ PARLAK (makroskopik yağ)", why: "Makroskopik yağ → kısa T1 → çok parlak" },
+      { seq: "T1 yağ baskılı", val: "⬛ SİNYAL DÜŞER", why: "Makroskopik yağ baskılanır → KESİN TANI (lipid-rich adenomdan FARK)" },
+      { seq: "T2", val: "☀️ Yağ kısımları parlak", why: "Yağ T2'de de parlak" },
+      { seq: "BT", val: "⬛⬛ NEGATİF HU (-30 ile -120)", why: "Makroskopik yağ → negatif attenüasyon → PATOGNOMONİK" },
+      { seq: "Chemical Shift", val: "⚠️ India ink kenarında", why: "Makroskopik yağ chemical shift DEĞİL yağ baskılama ile gösterilir" },
+      { seq: "Klinik", val: "✅ Biyopsi GEREKSIZ", why: "Negatif HU + yağ baskılama = kesin miyelolipom tanısı → takip yeterli" }
     ]}
 ];
 
@@ -7603,6 +7711,26 @@ const abdomenAnatomyRegions = [
       keyPearl: "Mesane Ca evreleme: T2 = muskularis propria invazyon (kas-invaziv). MR → perivesikal yağ invazyonu (T3) tespitinde BT'den üstün."
     }
   },
+  { id: "adrenal_r", name: "Sağ Adrenal", color: "#f97316",
+    svgType: "polygon", points: "108,155 120,145 130,155 120,165",
+    info: {
+      segments: "Medial krus (gövde) + lateral krus (kanat). Y veya ters V şekli. IVC arkasında, KC sağ lobu medialinde.",
+      landmarks: "IVC ile sağ diyafragmatik krus arasında yer alır. Sağ adrenal ven direkt IVC'ye dökülür (kısa → cerrahi zor).",
+      normalMeasures: "Krus kalınlığı ≤10mm. Nodül <4cm + <10 HU = adenom. Wash-out APW >60% = benign.",
+      variants: "Myelolipom (makroskopik yağ → negatif HU). Adrenal hemoraji (neonatal/stres). Ektopik adrenal.",
+      keyPearl: "<10 HU = adenom (kesin). Chemical shift sinyal kaybı ≥%20 = lipid-rich adenom. Feo düşünüyorsan biyopsi YAPMA!"
+    }
+  },
+  { id: "adrenal_l", name: "Sol Adrenal", color: "#f97316",
+    svgType: "polygon", points: "280,150 295,140 305,150 295,160",
+    info: {
+      segments: "Ters Y/üçgen şekli. Sol böbrek üst polü önü-medialinde.",
+      landmarks: "Sol adrenal ven sol renal vene dökülür (sağdan farklı!). Pankreas kuyruğu ve dalak komşuluğunda.",
+      normalMeasures: "Krus kalınlığı ≤10mm. >4cm = malignite riski artar. Non-kontrast BT attenüasyonu kritik.",
+      variants: "Feokromositoma: T2 light bulb sign. Adrenokortikal Ca: >6cm + heterojen + nekroz.",
+      keyPearl: "Sol adrenal ven → sol renal ven → IVC. Venöz örnekleme bu anatomiye bağlı. Conn sendromu lateralizasyonunda adrenal venöz örnekleme altın standart."
+    }
+  },
   { id: "uterus", name: "Uterus / Prostat", color: "#d946ef",
     svgType: "polygon", points: "180,340 216,340 220,358 210,370 198,374 186,370 176,358",
     info: {
@@ -7670,7 +7798,25 @@ const anatomyAtlas = [
     landmarks: "PZ: T2'de PARLAK (normal). TZ: T2'de heterojen (BPH nodülleri). NVB (nörovasküler demet): prostat posterolateral → erektil fonksiyon (cerrahi korumalı). Denonvillier fasya: prostat-rektum arası.",
     normalMeasures: "Prostat: genç <20cc, >40 yaş BPH ile büyür (>30cc = BPH). PSA <4 ng/mL (PSA yoğunluğu: PSA/hacim <0.15). Mesane duvar ≤3mm (distansiyon), ≤5mm (boş). Post-miksiyonel rezidü <50mL.",
     variants: "Median lob BPH: mesane tabanına protrüzyon → J-sign (üreteral obstrüksiyon). Utrikül kisti: verumontanum düzeyinde orta hat kist (Müllerian kalıntı). Prostatik kalsifikasyon (sık, benign).",
-    keyPearl: "PI-RADS ANATOMİSİ: PZ → T2 parlak (kanser T2 koyu). TZ → T2 zaten heterojen (BPH) → bu yüzden TZ'de T2 dominant değil. PZ'de DWI dominant, TZ'de T2 dominant evreleme. EPE: kapsüler irregülarite + NVB asimetrisi." }
+    keyPearl: "PI-RADS ANATOMİSİ: PZ → T2 parlak (kanser T2 koyu). TZ → T2 zaten heterojen (BPH) → bu yüzden TZ'de T2 dominant değil. PZ'de DWI dominant, TZ'de T2 dominant evreleme. EPE: kapsüler irregülarite + NVB asimetrisi." },
+  { organ: "Adrenal Bezler", icon: "🔶", color: "#f97316",
+    segments: "Her iki adrenal: medial krus (gövde), lateral krus (kanat) ve apeks. Sağ adrenal: IVC arkasında, KC sağ lobu medialinde. Sol adrenal: sol böbrek üst polü medialinde, dalak ve pankreas kuyruğu yakınında.",
+    landmarks: "Sağ adrenal: IVC ile sağ diyafragmatik krus arasında → Y/ters V şekli. Sol adrenal: sol böbrek üst polü önü-medialinde → ters Y/üçgen. Adrenal venler: sağ → IVC'ye direkt, sol → sol renal vene dökülür (cerrahi önemli).",
+    normalMeasures: "Krus kalınlığı: ≤10mm (>10mm = patolojik). Boyut: uzun aks <4cm genellikle benign. >4cm → malignite riski artar. Adrenal nodül ≤1cm + stabil = benign (follow-up). BT non-kontrast: adenom <10 HU, belirsiz >10 HU.",
+    variants: "Adrenal myelolipom: makroskopik yağ (negatif HU) = patognomonik. Adrenal hemoraji: neonatal/stres/antikoagülan → akut büyük + subakut küçülme. Ektopik adrenal doku (nadir, renal hilus).",
+    keyPearl: "4cm KURALI + ATTENÜASYON. <10 HU = lipid-rich adenom (kesin tanı, biyopsi gereksiz). >10 HU → wash-out hesapla: APW >60% veya RPW >40% = adenom. Chemical shift MR: opposed-phase sinyal kaybı ≥%20 = intrasellüler lipid = adenom. Feo düşünüyorsan biyopsi YAPMA → katekolamin krizi!" },
+  { organ: "Peritoneal Boşluklar & Mezenter", icon: "🕸️", color: "#64748b",
+    segments: "Peritoneal kavite: suprameskolik (subfrenik, subhepatik/Morison, sol subfrenik, omental bursa) ve inframezkolik (sağ + sol parakolik oluklar, pelvis). Retroperitoneum: anterior pararenal, perirenal, posterior pararenal alan.",
+    landmarks: "Morison poşu: sağ böbrek-KC arası (en bağımlı supin alan → serbest sıvı ilk birikir). Douglas poşu: rektouterin/rektovezikal (en derin pelvik alan). Omental bursa: Winslow forameni arkası + mide arkası. Parakolik oluklar: sağ taraf kesintisiz → pelvis-subfrenik iletişim.",
+    normalMeasures: "Periton: 1-2mm (kalınlaşma = karsinomatozis veya inflamasyon). Mezenter yağı: temiz homojen (dirty fat = stranding = inflamasyon/tümör). Asit: Morison'da >5mm = saptanabilir. Omentum majus: 2-5mm (kalınlaşma = omental cake → karsinomatozis).",
+    variants: "Peritoneal bant/yapışıklık (cerrahi sonrası → internal herniasyon riski). Omental infarkt (sağ parakolik → apandisit taklidi). Epiploik apandajit (oval yağlı yapı torsiyonu → fokal karın ağrısı).",
+    keyPearl: "SERİ SIVI DAĞILIMI: supin pozisyonda sıvı → Morison poşu → sağ parakolik oluk → pelvis (Douglas). Karsinomatozis üçlüsü: asit + omental cake + peritoneal nodüler kalınlaşma. Over Ca → peritoneal yayılım EN SIK." },
+  { organ: "Mide", icon: "🔴", color: "#ef4444",
+    segments: "Kardia, fundus, korpus, antrum, pilorus. Duvar katmanları (MR T2): mukoza (parlak), submukoza (koyu), muskularis propria (orta), seroza (ince parlak).",
+    landmarks: "Küçük kurvatur: hepatogastrik ligaman. Büyük kurvatur: gastrokolik ligaman (omentuma bağlar). İnsisura angularis: korpus-antrum sınırı. Sol gastrik arter: küçük kurvatur boyunca seyreder.",
+    normalMeasures: "Duvar kalınlığı: distansiyon ile ≤5mm (antrum 5-8mm kabul). Distansiyon OLMADAN duvar kalın GÖRÜNÜR → TUZAK! Pilorus: infantta ≤3mm kalınlık, ≤17mm uzunluk (artarsa → HPS).",
+    variants: "Hiyatal herni: tip I sliding (%95), tip II-IV paraözofageal. Gastrik divertikül: fundus posterior duvarında (genellikle insidental). Ektopik pankreas: antrum submukozal nodül.",
+    keyPearl: "GASTRİK KANSER EVRELEMESİ: T2 = muskularis propria invazyon (MR'da koyu katman bozulması). T3 = seroza aşımı. T4 = komşu organ invazyon. DİSTANSİYON ZORUNLU → su/hava ile mide distanse edilmeden duvar evrelemesi yapılamaz. Linitis plastica: diffüz duvar kalınlaşma + peri-gastrik infiltrasyon." }
 ];
 
 // ===== CONTRAST ENHANCEMENT PATTERNS =====
