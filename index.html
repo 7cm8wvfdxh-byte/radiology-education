@@ -26,21 +26,38 @@ body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#6474
 .main{max-width:800px;margin:0 auto;padding:20px;}
 
 /* Search */
-.search-section{margin-bottom:24px;}
+.search-section{margin-bottom:24px;position:relative;}
 .search-box{position:relative;}
 .search-box input{width:100%;background:var(--bg2);border:1px solid var(--bg3);border-radius:12px;padding:14px 16px 14px 44px;color:var(--text);font-size:15px;outline:none;transition:border-color 0.2s;}
 .search-box input:focus{border-color:var(--accent);}
 .search-box .search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:18px;}
-.search-results{background:var(--bg2);border:1px solid var(--bg3);border-radius:12px;margin-top:8px;max-height:400px;overflow-y:auto;display:none;}
+.search-box .search-shortcut{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:11px;background:var(--bg);border:1px solid var(--bg3);border-radius:4px;padding:2px 6px;pointer-events:none;}
+.search-filters{display:none;background:var(--bg2);border:1px solid var(--bg3);border-bottom:none;border-radius:12px 12px 0 0;margin-top:8px;padding:6px 8px;gap:4px;flex-wrap:wrap;}
+.search-filters.active{display:flex;}
+.sf-btn{background:var(--bg);border:1px solid var(--bg3);border-radius:8px;padding:4px 10px;font-size:11px;font-weight:600;color:var(--text2);cursor:pointer;transition:all 0.15s;white-space:nowrap;}
+.sf-btn:hover{border-color:var(--accent);color:var(--accent);}
+.sf-btn.active{background:var(--accent);border-color:var(--accent);color:white;}
+.sf-count{font-size:10px;opacity:0.7;margin-left:3px;}
+.search-results{background:var(--bg2);border:1px solid var(--bg3);border-radius:0 0 12px 12px;max-height:420px;overflow-y:auto;display:none;}
+.search-results.no-filters{border-radius:12px;margin-top:8px;}
 .search-results.active{display:block;}
-.sr-item{padding:12px 16px;border-bottom:1px solid var(--bg3);cursor:pointer;display:flex;align-items:center;gap:12px;transition:background 0.15s;}
-.sr-item:hover{background:var(--bg);}
+.sr-item{padding:10px 16px;border-bottom:1px solid var(--bg3);cursor:pointer;display:flex;align-items:flex-start;gap:10px;transition:background 0.15s;}
+.sr-item:hover,.sr-item.kb-active{background:var(--bg);}
 .sr-item:last-child{border-bottom:none;}
-.sr-badge{background:var(--bg);padding:3px 8px;border-radius:6px;font-size:10px;font-weight:700;text-transform:uppercase;white-space:nowrap;}
+.sr-badges{display:flex;flex-direction:column;gap:3px;flex-shrink:0;padding-top:2px;}
+.sr-badge{background:var(--bg);padding:3px 8px;border-radius:6px;font-size:10px;font-weight:700;text-transform:uppercase;white-space:nowrap;text-align:center;}
 .sr-badge.neuro{color:#8b5cf6;border:1px solid rgba(139,92,246,0.3);}
 .sr-badge.abdomen{color:#f59e0b;border:1px solid rgba(245,158,11,0.3);}
-.sr-name{font-size:14px;font-weight:600;color:var(--text);}
+.sr-badge.duel{color:#f43f5e;border:1px solid rgba(244,63,94,0.3);}
+.sr-badge.signal{color:#06b6d4;border:1px solid rgba(6,182,212,0.3);}
+.sr-type{font-size:9px;color:var(--text3);text-align:center;}
+.sr-info{flex:1;min-width:0;}
+.sr-name{font-size:14px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .sr-cat{font-size:11px;color:var(--text3);margin-top:2px;}
+.sr-context{font-size:11px;color:var(--text2);margin-top:4px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.sr-context mark{background:rgba(59,130,246,0.25);color:var(--accent);border-radius:2px;padding:0 1px;}
+.sr-footer{padding:8px 16px;border-top:1px solid var(--bg3);font-size:11px;color:var(--text3);text-align:center;display:none;}
+.sr-footer.active{display:block;}
 
 /* Stats Overview */
 .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:24px;}
@@ -155,9 +172,17 @@ body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#6474
   <div class="search-section">
     <div class="search-box">
       <span class="search-icon">🔍</span>
-      <input type="text" id="globalSearch" placeholder="Tüm modüllerde hastalık, bulgu, sekans ara..." oninput="handleSearch(this.value)">
+      <input type="text" id="globalSearch" placeholder="Hastalık, bulgu, ayırıcı tanı, sinyal paterni ara..." autocomplete="off" oninput="handleSearch(this.value)" onkeydown="handleSearchKeys(event)">
+      <span class="search-shortcut" id="searchShortcut">/</span>
+    </div>
+    <div class="search-filters" id="searchFilters">
+      <button class="sf-btn active" data-filter="all" onclick="setSearchFilter('all')">Tümü<span class="sf-count" id="sfAll"></span></button>
+      <button class="sf-btn" data-filter="disease" onclick="setSearchFilter('disease')">Hastalık<span class="sf-count" id="sfDisease"></span></button>
+      <button class="sf-btn" data-filter="duel" onclick="setSearchFilter('duel')">Duel<span class="sf-count" id="sfDuel"></span></button>
+      <button class="sf-btn" data-filter="signal" onclick="setSearchFilter('signal')">Sinyal<span class="sf-count" id="sfSignal"></span></button>
     </div>
     <div class="search-results" id="searchResults"></div>
+    <div class="sr-footer" id="searchFooter"></div>
   </div>
 
   <!-- Global Stats -->
@@ -265,6 +290,7 @@ body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#6474
 <!-- Toast -->
 <div class="toast" id="toast"></div>
 
+<script src="search-data.js"></script>
 <script>
 // ===== THEME MANAGEMENT =====
 function getTheme() {
@@ -286,195 +312,408 @@ function toggleTheme() {
   applyTheme(next);
 }
 
-// ===== CROSS-MODULE SEARCH =====
+// ===== COMPREHENSIVE GLOBAL SEARCH =====
 const searchIndex = [
   // NeuroRad diseases (74)
-  { name: "Glioblastom (GBM)", cat: "Tümör", module: "neuro", url: "neurorad.html", id: "gbm" },
-  { name: "Menenjiyom", cat: "Tümör", module: "neuro", url: "neurorad.html", id: "meningioma" },
-  { name: "Düşük Dereceli Gliom (Grade 2)", cat: "Tümör", module: "neuro", url: "neurorad.html", id: "low_grade_glioma" },
-  { name: "Beyin Metastazı", cat: "Tümör", module: "neuro", url: "neurorad.html", id: "metastasis" },
-  { name: "Primer CNS Lenfoma (PCNSL)", cat: "Tümör", module: "neuro", url: "neurorad.html", id: "lymphoma" },
-  { name: "Vestibüler Schwannom", cat: "Tümör", module: "neuro", url: "neurorad.html", id: "schwannoma" },
-  { name: "Medulloblastom", cat: "Tümör", module: "neuro", url: "neurorad.html", id: "medulloblastoma" },
-  { name: "Hipofiz Adenomu", cat: "Tümör", module: "neuro", url: "neurorad.html", id: "pituitary_adenoma" },
-  { name: "Kraniofarenjiom", cat: "Tümör", module: "neuro", url: "neurorad.html", id: "craniopharyngioma" },
-  { name: "Ependimom", cat: "Tümör", module: "neuro", url: "neurorad.html", id: "ependymoma" },
-  { name: "Oligodendrogliom", cat: "Tümör", module: "neuro", url: "neurorad.html", id: "oligodendroglioma" },
-  { name: "Hemanjioblastom", cat: "Tümör", module: "neuro", url: "neurorad.html", id: "hemangioblastoma" },
-  { name: "Germinoma (SSS)", cat: "Tümör", module: "neuro", url: "neurorad.html", id: "germinoma" },
-  { name: "DNET", cat: "Tümör", module: "neuro", url: "neurorad.html", id: "dnet" },
-  { name: "Santral Nörositom", cat: "Tümör", module: "neuro", url: "neurorad.html", id: "central_neurocytoma" },
-  { name: "Gangliogliom", cat: "Tümör", module: "neuro", url: "neurorad.html", id: "ganglioglioma" },
-  { name: "Koroid Pleksus Papillomu", cat: "Tümör", module: "neuro", url: "neurorad.html", id: "choroid_plexus_pap" },
-  { name: "Multipl Skleroz (MS)", cat: "Demiyelinizan", module: "neuro", url: "neurorad.html", id: "ms" },
-  { name: "Neuromyelitis Optica (NMO/Devic)", cat: "Demiyelinizan", module: "neuro", url: "neurorad.html", id: "nmo" },
-  { name: "ADEM", cat: "Demiyelinizan", module: "neuro", url: "neurorad.html", id: "adem" },
-  { name: "Tümefaktif Demyelinizasyon", cat: "Demiyelinizan", module: "neuro", url: "neurorad.html", id: "tumefactive_ms" },
-  { name: "Ozmotik Demyelinizasyon (ODS)", cat: "Demiyelinizan", module: "neuro", url: "neurorad.html", id: "osmotic_demyelination" },
-  { name: "MOGAD", cat: "Demiyelinizan", module: "neuro", url: "neurorad.html", id: "mog" },
-  { name: "Akut İskemik İnme", cat: "Vasküler", module: "neuro", url: "neurorad.html", id: "acute_ischemic" },
-  { name: "İntraparenkimal Kanama Evreleri", cat: "Vasküler", module: "neuro", url: "neurorad.html", id: "hemorrhage_stages" },
-  { name: "CVST (Venöz Sinüs Trombozu)", cat: "Vasküler", module: "neuro", url: "neurorad.html", id: "cvst" },
-  { name: "Subaraknoid Kanama (SAK)", cat: "Vasküler", module: "neuro", url: "neurorad.html", id: "sak" },
-  { name: "AVM", cat: "Vasküler", module: "neuro", url: "neurorad.html", id: "avm" },
-  { name: "Kavernöz Malformasyon", cat: "Vasküler", module: "neuro", url: "neurorad.html", id: "cavernoma" },
-  { name: "DVA (Gelişimsel Venöz Anomali)", cat: "Vasküler", module: "neuro", url: "neurorad.html", id: "dva" },
-  { name: "PRES", cat: "Vasküler", module: "neuro", url: "neurorad.html", id: "pres" },
-  { name: "Dural AV Fistül", cat: "Vasküler", module: "neuro", url: "neurorad.html", id: "dural_avf" },
-  { name: "Moyamoya Hastalığı", cat: "Vasküler", module: "neuro", url: "neurorad.html", id: "moyamoya" },
-  { name: "Serebral Amiloid Anjiyopati (CAA)", cat: "Vasküler", module: "neuro", url: "neurorad.html", id: "caa" },
-  { name: "Hipertansif Kanama", cat: "Vasküler", module: "neuro", url: "neurorad.html", id: "hypertensive_hemorrhage" },
-  { name: "SSS Vasküliti (PACNS)", cat: "İnflamatuar", module: "neuro", url: "neurorad.html", id: "cns_vasculitis" },
-  { name: "Beyin Absesi", cat: "Enfeksiyon", module: "neuro", url: "neurorad.html", id: "brain_abscess" },
-  { name: "HSV Ensefaliti", cat: "Enfeksiyon", module: "neuro", url: "neurorad.html", id: "hsv_encephalitis" },
-  { name: "Tüberküloz Menenjiti", cat: "Enfeksiyon", module: "neuro", url: "neurorad.html", id: "tbc_meningitis" },
-  { name: "Toksoplazmoz", cat: "Enfeksiyon", module: "neuro", url: "neurorad.html", id: "toxoplasmosis" },
-  { name: "PML", cat: "Enfeksiyon", module: "neuro", url: "neurorad.html", id: "pml" },
-  { name: "Nörosistiserkoz", cat: "Enfeksiyon", module: "neuro", url: "neurorad.html", id: "neurocysticercosis" },
-  { name: "Kriptokokoz Menenjit", cat: "Enfeksiyon", module: "neuro", url: "neurorad.html", id: "cryptococcosis" },
-  { name: "Nörosarkoidoz", cat: "İnflamatuar", module: "neuro", url: "neurorad.html", id: "neurosarcoidosis" },
-  { name: "Susac Sendromu", cat: "İnflamatuar", module: "neuro", url: "neurorad.html", id: "susac_syndrome" },
-  { name: "Chiari Tip 1 Malformasyonu", cat: "Konjenital", module: "neuro", url: "neurorad.html", id: "chiari1" },
-  { name: "Dandy-Walker Malformasyonu", cat: "Konjenital", module: "neuro", url: "neurorad.html", id: "dandy_walker" },
-  { name: "Korpus Kallozum Agenezisi", cat: "Konjenital", module: "neuro", url: "neurorad.html", id: "corpus_callosum_agenesis" },
-  { name: "Holoprozensefali", cat: "Konjenital", module: "neuro", url: "neurorad.html", id: "holoprosencephaly" },
-  { name: "Kortikal Malformasyonlar", cat: "Konjenital", module: "neuro", url: "neurorad.html", id: "cortical_malformations" },
-  { name: "Alzheimer Hastalığı", cat: "Dejeneratif", module: "neuro", url: "neurorad.html", id: "alzheimer" },
-  { name: "Parkinson Hastalığı", cat: "Dejeneratif", module: "neuro", url: "neurorad.html", id: "parkinson" },
-  { name: "Huntington Hastalığı", cat: "Dejeneratif", module: "neuro", url: "neurorad.html", id: "huntington" },
-  { name: "Normal Basınçlı Hidrosefali (NPH)", cat: "Dejeneratif", module: "neuro", url: "neurorad.html", id: "nph" },
-  { name: "Frontotemporal Demans", cat: "Dejeneratif", module: "neuro", url: "neurorad.html", id: "ftd" },
-  { name: "Creutzfeldt-Jakob (CJD)", cat: "Dejeneratif", module: "neuro", url: "neurorad.html", id: "cjd" },
-  { name: "Wernicke Ensefalopatisi", cat: "Dejeneratif", module: "neuro", url: "neurorad.html", id: "wernicke" },
-  { name: "Servikal Spondilotik Miyelopati", cat: "Spinal", module: "neuro", url: "neurorad.html", id: "cervical_spondylotic_myelopathy" },
-  { name: "Disk Herniasyonu", cat: "Spinal", module: "neuro", url: "neurorad.html", id: "disc_herniation" },
-  { name: "Spinal Kord İnfarktı", cat: "Spinal", module: "neuro", url: "neurorad.html", id: "spinal_cord_infarct" },
-  { name: "Spinal Dural AV Fistül", cat: "Spinal", module: "neuro", url: "neurorad.html", id: "spinal_davf" },
-  { name: "İntramedüller Tümörler", cat: "Spinal", module: "neuro", url: "neurorad.html", id: "intramedullary_tumor" },
-  { name: "Siringomyeli", cat: "Spinal", module: "neuro", url: "neurorad.html", id: "syringomyelia" },
-  { name: "B12 Eksikliği", cat: "Spinal", module: "neuro", url: "neurorad.html", id: "b12_deficiency" },
-  { name: "Spinal Epidural Abse", cat: "Spinal", module: "neuro", url: "neurorad.html", id: "spinal_epidural_abscess" },
-  { name: "Spinal Menenjiyom ve Schwannom", cat: "Spinal", module: "neuro", url: "neurorad.html", id: "spinal_meningioma_schwannoma" },
-  { name: "Küçük Damar Hastalığı (Fazekas)", cat: "Günlük Pratik", module: "neuro", url: "neurorad.html", id: "small_vessel_disease" },
-  { name: "Perivasküler Boşluklar (Virchow-Robin)", cat: "Günlük Pratik", module: "neuro", url: "neurorad.html", id: "enlarged_pvs" },
-  { name: "Laküner İnfarkt", cat: "Günlük Pratik", module: "neuro", url: "neurorad.html", id: "lacunar_infarct" },
-  { name: "Subdural Hematom ve Higrom", cat: "Günlük Pratik", module: "neuro", url: "neurorad.html", id: "subdural_hematoma" },
-  { name: "Araknoid Kist", cat: "Günlük Pratik", module: "neuro", url: "neurorad.html", id: "arachnoid_cyst" },
-  { name: "Pineal Kist", cat: "Günlük Pratik", module: "neuro", url: "neurorad.html", id: "pineal_cyst" },
-  { name: "Serebral Atrofi ve Yaşlanma", cat: "Günlük Pratik", module: "neuro", url: "neurorad.html", id: "brain_atrophy_aging" },
-  { name: "Sinüzit (İnsidental)", cat: "Günlük Pratik", module: "neuro", url: "neurorad.html", id: "chronic_sinusitis" },
-
+  {n:"Glioblastom (GBM)",c:"Tümör",m:"neuro",u:"neurorad.html",id:"gbm"},
+  {n:"Menenjiyom",c:"Tümör",m:"neuro",u:"neurorad.html",id:"meningioma"},
+  {n:"Düşük Dereceli Gliom (Grade 2)",c:"Tümör",m:"neuro",u:"neurorad.html",id:"low_grade_glioma"},
+  {n:"Beyin Metastazı",c:"Tümör",m:"neuro",u:"neurorad.html",id:"metastasis"},
+  {n:"Primer CNS Lenfoma (PCNSL)",c:"Tümör",m:"neuro",u:"neurorad.html",id:"lymphoma"},
+  {n:"Vestibüler Schwannom",c:"Tümör",m:"neuro",u:"neurorad.html",id:"schwannoma"},
+  {n:"Medulloblastom",c:"Tümör",m:"neuro",u:"neurorad.html",id:"medulloblastoma"},
+  {n:"Hipofiz Adenomu",c:"Tümör",m:"neuro",u:"neurorad.html",id:"pituitary_adenoma"},
+  {n:"Kraniofarenjiom",c:"Tümör",m:"neuro",u:"neurorad.html",id:"craniopharyngioma"},
+  {n:"Ependimom",c:"Tümör",m:"neuro",u:"neurorad.html",id:"ependymoma"},
+  {n:"Oligodendrogliom",c:"Tümör",m:"neuro",u:"neurorad.html",id:"oligodendroglioma"},
+  {n:"Hemanjioblastom",c:"Tümör",m:"neuro",u:"neurorad.html",id:"hemangioblastoma"},
+  {n:"Germinoma (SSS)",c:"Tümör",m:"neuro",u:"neurorad.html",id:"germinoma"},
+  {n:"DNET",c:"Tümör",m:"neuro",u:"neurorad.html",id:"dnet"},
+  {n:"Santral Nörositom",c:"Tümör",m:"neuro",u:"neurorad.html",id:"central_neurocytoma"},
+  {n:"Gangliogliom",c:"Tümör",m:"neuro",u:"neurorad.html",id:"ganglioglioma"},
+  {n:"Koroid Pleksus Papillomu",c:"Tümör",m:"neuro",u:"neurorad.html",id:"choroid_plexus_pap"},
+  {n:"Multipl Skleroz (MS)",c:"Demiyelinizan",m:"neuro",u:"neurorad.html",id:"ms"},
+  {n:"Neuromyelitis Optica (NMO/Devic)",c:"Demiyelinizan",m:"neuro",u:"neurorad.html",id:"nmo"},
+  {n:"ADEM",c:"Demiyelinizan",m:"neuro",u:"neurorad.html",id:"adem"},
+  {n:"Tümefaktif Demyelinizasyon",c:"Demiyelinizan",m:"neuro",u:"neurorad.html",id:"tumefactive_ms"},
+  {n:"Ozmotik Demyelinizasyon (ODS)",c:"Demiyelinizan",m:"neuro",u:"neurorad.html",id:"osmotic_demyelination"},
+  {n:"MOGAD",c:"Demiyelinizan",m:"neuro",u:"neurorad.html",id:"mog"},
+  {n:"Akut İskemik İnme",c:"Vasküler",m:"neuro",u:"neurorad.html",id:"acute_ischemic"},
+  {n:"İntraparenkimal Kanama Evreleri",c:"Vasküler",m:"neuro",u:"neurorad.html",id:"hemorrhage_stages"},
+  {n:"CVST (Venöz Sinüs Trombozu)",c:"Vasküler",m:"neuro",u:"neurorad.html",id:"cvst"},
+  {n:"Subaraknoid Kanama (SAK)",c:"Vasküler",m:"neuro",u:"neurorad.html",id:"sak"},
+  {n:"AVM",c:"Vasküler",m:"neuro",u:"neurorad.html",id:"avm"},
+  {n:"Kavernöz Malformasyon",c:"Vasküler",m:"neuro",u:"neurorad.html",id:"cavernoma"},
+  {n:"DVA (Gelişimsel Venöz Anomali)",c:"Vasküler",m:"neuro",u:"neurorad.html",id:"dva"},
+  {n:"PRES",c:"Vasküler",m:"neuro",u:"neurorad.html",id:"pres"},
+  {n:"Dural AV Fistül",c:"Vasküler",m:"neuro",u:"neurorad.html",id:"dural_avf"},
+  {n:"Moyamoya Hastalığı",c:"Vasküler",m:"neuro",u:"neurorad.html",id:"moyamoya"},
+  {n:"Serebral Amiloid Anjiyopati (CAA)",c:"Vasküler",m:"neuro",u:"neurorad.html",id:"caa"},
+  {n:"Hipertansif Kanama",c:"Vasküler",m:"neuro",u:"neurorad.html",id:"hypertensive_hemorrhage"},
+  {n:"SSS Vasküliti (PACNS)",c:"İnflamatuar",m:"neuro",u:"neurorad.html",id:"cns_vasculitis"},
+  {n:"Beyin Absesi",c:"Enfeksiyon",m:"neuro",u:"neurorad.html",id:"brain_abscess"},
+  {n:"HSV Ensefaliti",c:"Enfeksiyon",m:"neuro",u:"neurorad.html",id:"hsv_encephalitis"},
+  {n:"Tüberküloz Menenjiti",c:"Enfeksiyon",m:"neuro",u:"neurorad.html",id:"tbc_meningitis"},
+  {n:"Toksoplazmoz",c:"Enfeksiyon",m:"neuro",u:"neurorad.html",id:"toxoplasmosis"},
+  {n:"PML",c:"Enfeksiyon",m:"neuro",u:"neurorad.html",id:"pml"},
+  {n:"Nörosistiserkoz",c:"Enfeksiyon",m:"neuro",u:"neurorad.html",id:"neurocysticercosis"},
+  {n:"Kriptokokoz Menenjit",c:"Enfeksiyon",m:"neuro",u:"neurorad.html",id:"cryptococcosis"},
+  {n:"Nörosarkoidoz",c:"İnflamatuar",m:"neuro",u:"neurorad.html",id:"neurosarcoidosis"},
+  {n:"Susac Sendromu",c:"İnflamatuar",m:"neuro",u:"neurorad.html",id:"susac_syndrome"},
+  {n:"Chiari Tip 1 Malformasyonu",c:"Konjenital",m:"neuro",u:"neurorad.html",id:"chiari1"},
+  {n:"Dandy-Walker Malformasyonu",c:"Konjenital",m:"neuro",u:"neurorad.html",id:"dandy_walker"},
+  {n:"Korpus Kallozum Agenezisi",c:"Konjenital",m:"neuro",u:"neurorad.html",id:"corpus_callosum_agenesis"},
+  {n:"Holoprozensefali",c:"Konjenital",m:"neuro",u:"neurorad.html",id:"holoprosencephaly"},
+  {n:"Kortikal Malformasyonlar",c:"Konjenital",m:"neuro",u:"neurorad.html",id:"cortical_malformations"},
+  {n:"Alzheimer Hastalığı",c:"Dejeneratif",m:"neuro",u:"neurorad.html",id:"alzheimer"},
+  {n:"Parkinson Hastalığı",c:"Dejeneratif",m:"neuro",u:"neurorad.html",id:"parkinson"},
+  {n:"Huntington Hastalığı",c:"Dejeneratif",m:"neuro",u:"neurorad.html",id:"huntington"},
+  {n:"Normal Basınçlı Hidrosefali (NPH)",c:"Dejeneratif",m:"neuro",u:"neurorad.html",id:"nph"},
+  {n:"Frontotemporal Demans",c:"Dejeneratif",m:"neuro",u:"neurorad.html",id:"ftd"},
+  {n:"Creutzfeldt-Jakob (CJD)",c:"Dejeneratif",m:"neuro",u:"neurorad.html",id:"cjd"},
+  {n:"Wernicke Ensefalopatisi",c:"Dejeneratif",m:"neuro",u:"neurorad.html",id:"wernicke"},
+  {n:"Servikal Spondilotik Miyelopati",c:"Spinal",m:"neuro",u:"neurorad.html",id:"cervical_spondylotic_myelopathy"},
+  {n:"Disk Herniasyonu",c:"Spinal",m:"neuro",u:"neurorad.html",id:"disc_herniation"},
+  {n:"Spinal Kord İnfarktı",c:"Spinal",m:"neuro",u:"neurorad.html",id:"spinal_cord_infarct"},
+  {n:"Spinal Dural AV Fistül",c:"Spinal",m:"neuro",u:"neurorad.html",id:"spinal_davf"},
+  {n:"İntramedüller Tümörler",c:"Spinal",m:"neuro",u:"neurorad.html",id:"intramedullary_tumor"},
+  {n:"Siringomyeli",c:"Spinal",m:"neuro",u:"neurorad.html",id:"syringomyelia"},
+  {n:"B12 Eksikliği",c:"Spinal",m:"neuro",u:"neurorad.html",id:"b12_deficiency"},
+  {n:"Spinal Epidural Abse",c:"Spinal",m:"neuro",u:"neurorad.html",id:"spinal_epidural_abscess"},
+  {n:"Spinal Menenjiyom ve Schwannom",c:"Spinal",m:"neuro",u:"neurorad.html",id:"spinal_meningioma_schwannoma"},
+  {n:"Küçük Damar Hastalığı (Fazekas)",c:"Günlük Pratik",m:"neuro",u:"neurorad.html",id:"small_vessel_disease"},
+  {n:"Perivasküler Boşluklar (Virchow-Robin)",c:"Günlük Pratik",m:"neuro",u:"neurorad.html",id:"enlarged_pvs"},
+  {n:"Laküner İnfarkt",c:"Günlük Pratik",m:"neuro",u:"neurorad.html",id:"lacunar_infarct"},
+  {n:"Subdural Hematom ve Higrom",c:"Günlük Pratik",m:"neuro",u:"neurorad.html",id:"subdural_hematoma"},
+  {n:"Araknoid Kist",c:"Günlük Pratik",m:"neuro",u:"neurorad.html",id:"arachnoid_cyst"},
+  {n:"Pineal Kist",c:"Günlük Pratik",m:"neuro",u:"neurorad.html",id:"pineal_cyst"},
+  {n:"Serebral Atrofi ve Yaşlanma",c:"Günlük Pratik",m:"neuro",u:"neurorad.html",id:"brain_atrophy_aging"},
+  {n:"Sinüzit (İnsidental)",c:"Günlük Pratik",m:"neuro",u:"neurorad.html",id:"chronic_sinusitis"},
   // AbdomenRad diseases (83)
-  { name: "Hepatosellüler Karsinom (HCC)", cat: "Karaciğer", module: "abdomen", url: "abdomenrad.html", id: "hcc" },
-  { name: "Karaciğer Hemanjiom", cat: "Karaciğer", module: "abdomen", url: "abdomenrad.html", id: "hemangioma" },
-  { name: "Fokal Nodüler Hiperplazi (FNH)", cat: "Karaciğer", module: "abdomen", url: "abdomenrad.html", id: "fnh" },
-  { name: "Hepatik Adenom (HCA)", cat: "Karaciğer", module: "abdomen", url: "abdomenrad.html", id: "hepatic_adenoma" },
-  { name: "Karaciğer Metastazı", cat: "Karaciğer", module: "abdomen", url: "abdomenrad.html", id: "metastasis_liver" },
-  { name: "Basit Hepatik Kist", cat: "Karaciğer", module: "abdomen", url: "abdomenrad.html", id: "hepatic_cyst" },
-  { name: "Kolanjiokarsinom", cat: "Karaciğer", module: "abdomen", url: "abdomenrad.html", id: "cholangiocarcinoma" },
-  { name: "Kist Hidatik", cat: "Karaciğer", module: "abdomen", url: "abdomenrad.html", id: "hydatid_cyst" },
-  { name: "Karaciğer Absesi", cat: "Karaciğer", module: "abdomen", url: "abdomenrad.html", id: "liver_abscess" },
-  { name: "Budd-Chiari Sendromu", cat: "Karaciğer", module: "abdomen", url: "abdomenrad.html", id: "budd_chiari" },
-  { name: "Hepatik Steatoz / NAFLD", cat: "Karaciğer", module: "abdomen", url: "abdomenrad.html", id: "hepatic_steatosis" },
-  { name: "Fibrolamellar HCC", cat: "Karaciğer", module: "abdomen", url: "abdomenrad.html", id: "fibrolamellar_hcc" },
-  { name: "Siroz & Portal Hipertansiyon", cat: "Karaciğer", module: "abdomen", url: "abdomenrad.html", id: "hepatic_cirrhosis" },
-  { name: "Safra Taşı & Kolesistit", cat: "Biliyer", module: "abdomen", url: "abdomenrad.html", id: "cholelithiasis" },
-  { name: "Koledokolitiyazis & Kolanjit", cat: "Biliyer", module: "abdomen", url: "abdomenrad.html", id: "choledocholithiasis" },
-  { name: "Safra Kesesi Karsinomu", cat: "Biliyer", module: "abdomen", url: "abdomenrad.html", id: "gb_carcinoma" },
-  { name: "Primer Sklerozan Kolanjit (PSC)", cat: "Biliyer", module: "abdomen", url: "abdomenrad.html", id: "psc" },
-  { name: "Koledok Kisti", cat: "Biliyer", module: "abdomen", url: "abdomenrad.html", id: "choledochal_cyst" },
-  { name: "Pankreas Duktal Adenokarsinom (PDAC)", cat: "Pankreas", module: "abdomen", url: "abdomenrad.html", id: "pancreatic_adenoca" },
-  { name: "Pankreatik NET (pNET)", cat: "Pankreas", module: "abdomen", url: "abdomenrad.html", id: "pancreatic_net" },
-  { name: "Akut Pankreatit", cat: "Pankreas", module: "abdomen", url: "abdomenrad.html", id: "acute_pancreatitis" },
-  { name: "IPMN", cat: "Pankreas", module: "abdomen", url: "abdomenrad.html", id: "ipmn" },
-  { name: "Solid Psödopapiller Neoplazi (SPN)", cat: "Pankreas", module: "abdomen", url: "abdomenrad.html", id: "spn_frantz" },
-  { name: "Seröz Kistadenom", cat: "Pankreas", module: "abdomen", url: "abdomenrad.html", id: "serous_cystadenoma" },
-  { name: "Otoimmün Pankreatit", cat: "Pankreas", module: "abdomen", url: "abdomenrad.html", id: "autoimmune_pancreatitis" },
-  { name: "Renal Hücreli Karsinom (RCC)", cat: "Böbrek", module: "abdomen", url: "abdomenrad.html", id: "rcc" },
-  { name: "Renal Anjiyomyolipom (AML)", cat: "Böbrek", module: "abdomen", url: "abdomenrad.html", id: "aml" },
-  { name: "Bosniak Kist Sınıflaması", cat: "Böbrek", module: "abdomen", url: "abdomenrad.html", id: "bosniak_cysts" },
-  { name: "Renal Onkositom", cat: "Böbrek", module: "abdomen", url: "abdomenrad.html", id: "oncocytoma" },
-  { name: "Ksantogranülomatöz Piyelonefrit", cat: "Böbrek", module: "abdomen", url: "abdomenrad.html", id: "xgp" },
-  { name: "Renal İnfarkt", cat: "Böbrek", module: "abdomen", url: "abdomenrad.html", id: "renal_infarct" },
-  { name: "Ürotelyel Karsinom (TCC)", cat: "Böbrek", module: "abdomen", url: "abdomenrad.html", id: "urothelial_ca" },
-  { name: "Akut Apandisit", cat: "Barsak", module: "abdomen", url: "abdomenrad.html", id: "appendicitis" },
-  { name: "Crohn Hastalığı", cat: "Barsak", module: "abdomen", url: "abdomenrad.html", id: "crohn" },
-  { name: "Mezenter İskemisi", cat: "Barsak", module: "abdomen", url: "abdomenrad.html", id: "mesenteric_ischemia" },
-  { name: "Kolorektal Karsinom", cat: "Barsak", module: "abdomen", url: "abdomenrad.html", id: "colon_cancer" },
-  { name: "Ülseratif Kolit", cat: "Barsak", module: "abdomen", url: "abdomenrad.html", id: "ulcerative_colitis" },
-  { name: "Akut Divertikülit", cat: "Barsak", module: "abdomen", url: "abdomenrad.html", id: "diverticulitis" },
-  { name: "GIST", cat: "Barsak", module: "abdomen", url: "abdomenrad.html", id: "gist" },
-  { name: "Abdominal Aort Anevrizması (AAA)", cat: "Vasküler", module: "abdomen", url: "abdomenrad.html", id: "aortic_aneurysm" },
-  { name: "Portal Ven Trombozu", cat: "Vasküler", module: "abdomen", url: "abdomenrad.html", id: "portal_vein_thrombosis" },
-  { name: "SMA Trombozu", cat: "Vasküler", module: "abdomen", url: "abdomenrad.html", id: "sma_thrombosis" },
-  { name: "Splenik Patolojiler", cat: "Dalak", module: "abdomen", url: "abdomenrad.html", id: "splenic_pathology" },
-  { name: "Peritoneal Karsinomatozis", cat: "Periton", module: "abdomen", url: "abdomenrad.html", id: "peritoneal_carcinomatosis" },
-  { name: "Retroperitoneal Lenfadenopati", cat: "Periton", module: "abdomen", url: "abdomenrad.html", id: "retroperitoneal_lymphadenopathy" },
-  { name: "Retroperitoneal Fibrozis", cat: "Periton", module: "abdomen", url: "abdomenrad.html", id: "retroperitoneal_fibrosis" },
-  { name: "Retroperitoneal Sarkom", cat: "Periton", module: "abdomen", url: "abdomenrad.html", id: "retroperitoneal_sarcoma" },
-  { name: "Peritoneal Mezotelyoma", cat: "Periton", module: "abdomen", url: "abdomenrad.html", id: "peritoneal_mesothelioma" },
-  { name: "Adrenal Adenom", cat: "Adrenal", module: "abdomen", url: "abdomenrad.html", id: "adrenal_adenoma" },
-  { name: "Feokromositoma", cat: "Adrenal", module: "abdomen", url: "abdomenrad.html", id: "pheochromocytoma" },
-  { name: "Adrenal Metastaz", cat: "Adrenal", module: "abdomen", url: "abdomenrad.html", id: "adrenal_metastasis" },
-  { name: "Adrenokortikal Karsinom", cat: "Adrenal", module: "abdomen", url: "abdomenrad.html", id: "adrenocortical_ca" },
-  { name: "Adrenal Miyelolipom", cat: "Adrenal", module: "abdomen", url: "abdomenrad.html", id: "adrenal_myelolipoma" },
-  { name: "Splenomegali", cat: "Dalak", module: "abdomen", url: "abdomenrad.html", id: "splenomegaly" },
-  { name: "Splenik İnfarkt", cat: "Dalak", module: "abdomen", url: "abdomenrad.html", id: "splenic_infarct" },
-  { name: "Dalak Lezyonları", cat: "Dalak", module: "abdomen", url: "abdomenrad.html", id: "splenic_lesions" },
-  { name: "Aksesuar Dalak", cat: "Dalak", module: "abdomen", url: "abdomenrad.html", id: "accessory_spleen" },
-  { name: "Uterin Fibroid", cat: "Jinekolojik", module: "abdomen", url: "abdomenrad.html", id: "uterine_fibroid" },
-  { name: "Endometrial Kanser", cat: "Jinekolojik", module: "abdomen", url: "abdomenrad.html", id: "endometrial_ca" },
-  { name: "Servikal Kanser", cat: "Jinekolojik", module: "abdomen", url: "abdomenrad.html", id: "cervical_ca" },
-  { name: "Over Kisti & Torsiyon", cat: "Jinekolojik", module: "abdomen", url: "abdomenrad.html", id: "ovarian_cyst_torsion" },
-  { name: "Over Kanseri", cat: "Jinekolojik", module: "abdomen", url: "abdomenrad.html", id: "ovarian_ca" },
-  { name: "Endometriozis", cat: "Jinekolojik", module: "abdomen", url: "abdomenrad.html", id: "endometriosis" },
-  { name: "Prostat Kanseri (PI-RADS)", cat: "Pelvik", module: "abdomen", url: "abdomenrad.html", id: "prostate_ca" },
-  { name: "Mesane Kanseri", cat: "Pelvik", module: "abdomen", url: "abdomenrad.html", id: "bladder_ca" },
-  { name: "Rektal Kanser (MR)", cat: "Pelvik", module: "abdomen", url: "abdomenrad.html", id: "rectal_ca" },
-  { name: "Testis Tümörü", cat: "Pelvik", module: "abdomen", url: "abdomenrad.html", id: "testicular_tumor" },
-  { name: "Akut Kolesistit (USG)", cat: "USG", module: "abdomen", url: "abdomenrad.html", id: "acute_cholecystitis" },
-  { name: "Akut Apandisit (USG)", cat: "USG", module: "abdomen", url: "abdomenrad.html", id: "acute_appendicitis" },
-  { name: "Ektopik Gebelik", cat: "USG", module: "abdomen", url: "abdomenrad.html", id: "ectopic_pregnancy" },
-  { name: "Tubo-Ovarian Abse (TOA)", cat: "USG", module: "abdomen", url: "abdomenrad.html", id: "tubo_ovarian_abscess" },
-  { name: "İntususepsiyon", cat: "USG", module: "abdomen", url: "abdomenrad.html", id: "intussusception" },
-  { name: "Derin Ven Trombozu (DVT)", cat: "USG", module: "abdomen", url: "abdomenrad.html", id: "dvt" },
-  { name: "Hidronefroz (USG)", cat: "USG", module: "abdomen", url: "abdomenrad.html", id: "hydronephrosis" },
-  { name: "Wilms Tümörü", cat: "Pediatrik", module: "abdomen", url: "abdomenrad.html", id: "wilms_tumor" },
-  { name: "Nöroblastom", cat: "Pediatrik", module: "abdomen", url: "abdomenrad.html", id: "neuroblastoma" },
-  { name: "Bilier Atrezi", cat: "Pediatrik", module: "abdomen", url: "abdomenrad.html", id: "biliary_atresia" },
-  { name: "Nekrotizan Enterokolit (NEK)", cat: "Pediatrik", module: "abdomen", url: "abdomenrad.html", id: "nec" },
-  { name: "Malrotasyon & Volvulus", cat: "Pediatrik", module: "abdomen", url: "abdomenrad.html", id: "malrotation_volvulus" },
-  { name: "Hipertrofik Pilor Stenozu", cat: "Pediatrik", module: "abdomen", url: "abdomenrad.html", id: "hypertrophic_pyloric_stenosis" },
-  { name: "Over Dermoid Kisti", cat: "Pelvik", module: "abdomen", url: "abdomenrad.html", id: "ovarian_teratoma" },
-  { name: "Safra Kesesi Karsinomu (İleri)", cat: "Biliyer", module: "abdomen", url: "abdomenrad.html", id: "gallbladder_ca" },
-  { name: "Renal AML (Detaylı)", cat: "Böbrek", module: "abdomen", url: "abdomenrad.html", id: "renal_angiomyolipoma" }
+  {n:"Hepatosellüler Karsinom (HCC)",c:"Karaciğer",m:"abdomen",u:"abdomenrad.html",id:"hcc"},
+  {n:"Karaciğer Hemanjiom",c:"Karaciğer",m:"abdomen",u:"abdomenrad.html",id:"hemangioma"},
+  {n:"Fokal Nodüler Hiperplazi (FNH)",c:"Karaciğer",m:"abdomen",u:"abdomenrad.html",id:"fnh"},
+  {n:"Hepatik Adenom (HCA)",c:"Karaciğer",m:"abdomen",u:"abdomenrad.html",id:"hepatic_adenoma"},
+  {n:"Karaciğer Metastazı",c:"Karaciğer",m:"abdomen",u:"abdomenrad.html",id:"metastasis_liver"},
+  {n:"Basit Hepatik Kist",c:"Karaciğer",m:"abdomen",u:"abdomenrad.html",id:"hepatic_cyst"},
+  {n:"Kolanjiokarsinom",c:"Karaciğer",m:"abdomen",u:"abdomenrad.html",id:"cholangiocarcinoma"},
+  {n:"Kist Hidatik",c:"Karaciğer",m:"abdomen",u:"abdomenrad.html",id:"hydatid_cyst"},
+  {n:"Karaciğer Absesi",c:"Karaciğer",m:"abdomen",u:"abdomenrad.html",id:"liver_abscess"},
+  {n:"Budd-Chiari Sendromu",c:"Karaciğer",m:"abdomen",u:"abdomenrad.html",id:"budd_chiari"},
+  {n:"Hepatik Steatoz / NAFLD",c:"Karaciğer",m:"abdomen",u:"abdomenrad.html",id:"hepatic_steatosis"},
+  {n:"Fibrolamellar HCC",c:"Karaciğer",m:"abdomen",u:"abdomenrad.html",id:"fibrolamellar_hcc"},
+  {n:"Siroz & Portal Hipertansiyon",c:"Karaciğer",m:"abdomen",u:"abdomenrad.html",id:"hepatic_cirrhosis"},
+  {n:"Safra Taşı & Kolesistit",c:"Biliyer",m:"abdomen",u:"abdomenrad.html",id:"cholelithiasis"},
+  {n:"Koledokolitiyazis & Kolanjit",c:"Biliyer",m:"abdomen",u:"abdomenrad.html",id:"choledocholithiasis"},
+  {n:"Safra Kesesi Karsinomu",c:"Biliyer",m:"abdomen",u:"abdomenrad.html",id:"gb_carcinoma"},
+  {n:"Primer Sklerozan Kolanjit (PSC)",c:"Biliyer",m:"abdomen",u:"abdomenrad.html",id:"psc"},
+  {n:"Koledok Kisti",c:"Biliyer",m:"abdomen",u:"abdomenrad.html",id:"choledochal_cyst"},
+  {n:"Pankreas Duktal Adenokarsinom (PDAC)",c:"Pankreas",m:"abdomen",u:"abdomenrad.html",id:"pancreatic_adenoca"},
+  {n:"Pankreatik NET (pNET)",c:"Pankreas",m:"abdomen",u:"abdomenrad.html",id:"pancreatic_net"},
+  {n:"Akut Pankreatit",c:"Pankreas",m:"abdomen",u:"abdomenrad.html",id:"acute_pancreatitis"},
+  {n:"IPMN",c:"Pankreas",m:"abdomen",u:"abdomenrad.html",id:"ipmn"},
+  {n:"Solid Psödopapiller Neoplazi (SPN)",c:"Pankreas",m:"abdomen",u:"abdomenrad.html",id:"spn_frantz"},
+  {n:"Seröz Kistadenom",c:"Pankreas",m:"abdomen",u:"abdomenrad.html",id:"serous_cystadenoma"},
+  {n:"Otoimmün Pankreatit",c:"Pankreas",m:"abdomen",u:"abdomenrad.html",id:"autoimmune_pancreatitis"},
+  {n:"Renal Hücreli Karsinom (RCC)",c:"Böbrek",m:"abdomen",u:"abdomenrad.html",id:"rcc"},
+  {n:"Renal Anjiyomyolipom (AML)",c:"Böbrek",m:"abdomen",u:"abdomenrad.html",id:"aml"},
+  {n:"Bosniak Kist Sınıflaması",c:"Böbrek",m:"abdomen",u:"abdomenrad.html",id:"bosniak_cysts"},
+  {n:"Renal Onkositom",c:"Böbrek",m:"abdomen",u:"abdomenrad.html",id:"oncocytoma"},
+  {n:"Ksantogranülomatöz Piyelonefrit",c:"Böbrek",m:"abdomen",u:"abdomenrad.html",id:"xgp"},
+  {n:"Renal İnfarkt",c:"Böbrek",m:"abdomen",u:"abdomenrad.html",id:"renal_infarct"},
+  {n:"Ürotelyel Karsinom (TCC)",c:"Böbrek",m:"abdomen",u:"abdomenrad.html",id:"urothelial_ca"},
+  {n:"Akut Apandisit",c:"Barsak",m:"abdomen",u:"abdomenrad.html",id:"appendicitis"},
+  {n:"Crohn Hastalığı",c:"Barsak",m:"abdomen",u:"abdomenrad.html",id:"crohn"},
+  {n:"Mezenter İskemisi",c:"Barsak",m:"abdomen",u:"abdomenrad.html",id:"mesenteric_ischemia"},
+  {n:"Kolorektal Karsinom",c:"Barsak",m:"abdomen",u:"abdomenrad.html",id:"colon_cancer"},
+  {n:"Ülseratif Kolit",c:"Barsak",m:"abdomen",u:"abdomenrad.html",id:"ulcerative_colitis"},
+  {n:"Akut Divertikülit",c:"Barsak",m:"abdomen",u:"abdomenrad.html",id:"diverticulitis"},
+  {n:"GIST",c:"Barsak",m:"abdomen",u:"abdomenrad.html",id:"gist"},
+  {n:"Abdominal Aort Anevrizması (AAA)",c:"Vasküler",m:"abdomen",u:"abdomenrad.html",id:"aortic_aneurysm"},
+  {n:"Portal Ven Trombozu",c:"Vasküler",m:"abdomen",u:"abdomenrad.html",id:"portal_vein_thrombosis"},
+  {n:"SMA Trombozu",c:"Vasküler",m:"abdomen",u:"abdomenrad.html",id:"sma_thrombosis"},
+  {n:"Splenik Patolojiler",c:"Dalak",m:"abdomen",u:"abdomenrad.html",id:"splenic_pathology"},
+  {n:"Peritoneal Karsinomatozis",c:"Periton",m:"abdomen",u:"abdomenrad.html",id:"peritoneal_carcinomatosis"},
+  {n:"Retroperitoneal Lenfadenopati",c:"Periton",m:"abdomen",u:"abdomenrad.html",id:"retroperitoneal_lymphadenopathy"},
+  {n:"Retroperitoneal Fibrozis",c:"Periton",m:"abdomen",u:"abdomenrad.html",id:"retroperitoneal_fibrosis"},
+  {n:"Retroperitoneal Sarkom",c:"Periton",m:"abdomen",u:"abdomenrad.html",id:"retroperitoneal_sarcoma"},
+  {n:"Peritoneal Mezotelyoma",c:"Periton",m:"abdomen",u:"abdomenrad.html",id:"peritoneal_mesothelioma"},
+  {n:"Adrenal Adenom",c:"Adrenal",m:"abdomen",u:"abdomenrad.html",id:"adrenal_adenoma"},
+  {n:"Feokromositoma",c:"Adrenal",m:"abdomen",u:"abdomenrad.html",id:"pheochromocytoma"},
+  {n:"Adrenal Metastaz",c:"Adrenal",m:"abdomen",u:"abdomenrad.html",id:"adrenal_metastasis"},
+  {n:"Adrenokortikal Karsinom",c:"Adrenal",m:"abdomen",u:"abdomenrad.html",id:"adrenocortical_ca"},
+  {n:"Adrenal Miyelolipom",c:"Adrenal",m:"abdomen",u:"abdomenrad.html",id:"adrenal_myelolipoma"},
+  {n:"Splenomegali",c:"Dalak",m:"abdomen",u:"abdomenrad.html",id:"splenomegaly"},
+  {n:"Splenik İnfarkt",c:"Dalak",m:"abdomen",u:"abdomenrad.html",id:"splenic_infarct"},
+  {n:"Dalak Lezyonları",c:"Dalak",m:"abdomen",u:"abdomenrad.html",id:"splenic_lesions"},
+  {n:"Aksesuar Dalak",c:"Dalak",m:"abdomen",u:"abdomenrad.html",id:"accessory_spleen"},
+  {n:"Uterin Fibroid",c:"Jinekolojik",m:"abdomen",u:"abdomenrad.html",id:"uterine_fibroid"},
+  {n:"Endometrial Kanser",c:"Jinekolojik",m:"abdomen",u:"abdomenrad.html",id:"endometrial_ca"},
+  {n:"Servikal Kanser",c:"Jinekolojik",m:"abdomen",u:"abdomenrad.html",id:"cervical_ca"},
+  {n:"Over Kisti & Torsiyon",c:"Jinekolojik",m:"abdomen",u:"abdomenrad.html",id:"ovarian_cyst_torsion"},
+  {n:"Over Kanseri",c:"Jinekolojik",m:"abdomen",u:"abdomenrad.html",id:"ovarian_ca"},
+  {n:"Endometriozis",c:"Jinekolojik",m:"abdomen",u:"abdomenrad.html",id:"endometriosis"},
+  {n:"Prostat Kanseri (PI-RADS)",c:"Pelvik",m:"abdomen",u:"abdomenrad.html",id:"prostate_ca"},
+  {n:"Mesane Kanseri",c:"Pelvik",m:"abdomen",u:"abdomenrad.html",id:"bladder_ca"},
+  {n:"Rektal Kanser (MR)",c:"Pelvik",m:"abdomen",u:"abdomenrad.html",id:"rectal_ca"},
+  {n:"Testis Tümörü",c:"Pelvik",m:"abdomen",u:"abdomenrad.html",id:"testicular_tumor"},
+  {n:"Akut Kolesistit (USG)",c:"USG",m:"abdomen",u:"abdomenrad.html",id:"acute_cholecystitis"},
+  {n:"Akut Apandisit (USG)",c:"USG",m:"abdomen",u:"abdomenrad.html",id:"acute_appendicitis"},
+  {n:"Ektopik Gebelik",c:"USG",m:"abdomen",u:"abdomenrad.html",id:"ectopic_pregnancy"},
+  {n:"Tubo-Ovarian Abse (TOA)",c:"USG",m:"abdomen",u:"abdomenrad.html",id:"tubo_ovarian_abscess"},
+  {n:"İntususepsiyon",c:"USG",m:"abdomen",u:"abdomenrad.html",id:"intussusception"},
+  {n:"Derin Ven Trombozu (DVT)",c:"USG",m:"abdomen",u:"abdomenrad.html",id:"dvt"},
+  {n:"Hidronefroz (USG)",c:"USG",m:"abdomen",u:"abdomenrad.html",id:"hydronephrosis"},
+  {n:"Wilms Tümörü",c:"Pediatrik",m:"abdomen",u:"abdomenrad.html",id:"wilms_tumor"},
+  {n:"Nöroblastom",c:"Pediatrik",m:"abdomen",u:"abdomenrad.html",id:"neuroblastoma"},
+  {n:"Bilier Atrezi",c:"Pediatrik",m:"abdomen",u:"abdomenrad.html",id:"biliary_atresia"},
+  {n:"Nekrotizan Enterokolit (NEK)",c:"Pediatrik",m:"abdomen",u:"abdomenrad.html",id:"nec"},
+  {n:"Malrotasyon & Volvulus",c:"Pediatrik",m:"abdomen",u:"abdomenrad.html",id:"malrotation_volvulus"},
+  {n:"Hipertrofik Pilor Stenozu",c:"Pediatrik",m:"abdomen",u:"abdomenrad.html",id:"hypertrophic_pyloric_stenosis"},
+  {n:"Over Dermoid Kisti",c:"Pelvik",m:"abdomen",u:"abdomenrad.html",id:"ovarian_teratoma"},
+  {n:"Safra Kesesi Karsinomu (İleri)",c:"Biliyer",m:"abdomen",u:"abdomenrad.html",id:"gallbladder_ca"},
+  {n:"Renal AML (Detaylı)",c:"Böbrek",m:"abdomen",u:"abdomenrad.html",id:"renal_angiomyolipoma"}
 ];
 
-function handleSearch(query) {
-  const results = document.getElementById('searchResults');
-  if (!query || query.length < 2) { results.classList.remove('active'); return; }
-  const q = query.toLowerCase();
-  const matches = searchIndex.filter(item =>
-    item.name.toLowerCase().includes(q) || item.cat.toLowerCase().includes(q) || item.id.toLowerCase().includes(q)
-  ).slice(0, 10);
+// Search state
+var currentFilter = 'all';
+var allResults = [];
+var kbIndex = -1;
+var searchTimeout = null;
 
-  if (matches.length === 0) {
-    results.innerHTML = '<div style="padding:16px;text-align:center;color:var(--text3)">Sonuç bulunamadı</div>';
-  } else {
-    results.innerHTML = matches.map(m => `
-      <div class="sr-item" onclick="window.location.href='${m.url}'">
-        <span class="sr-badge ${m.module}">${m.module === 'neuro' ? 'NEURO' : 'ABDOMEN'}</span>
-        <div><div class="sr-name">${m.name}</div><div class="sr-cat">${m.cat}</div></div>
-      </div>
-    `).join('');
-  }
-  results.classList.add('active');
+// Escape HTML to prevent XSS
+function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// Find context snippet around match
+function findContext(text, query) {
+  if (!text) return '';
+  var idx = text.toLowerCase().indexOf(query.toLowerCase());
+  if (idx === -1) return '';
+  var start = Math.max(0, idx - 30);
+  var end = Math.min(text.length, idx + query.length + 50);
+  var snippet = (start > 0 ? '...' : '') + text.substring(start, end) + (end < text.length ? '...' : '');
+  // Highlight match
+  var re = new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+  return escHtml(snippet).replace(re, '<mark>$1</mark>');
 }
 
+// Main search function
+function handleSearch(query) {
+  clearTimeout(searchTimeout);
+  var resultsEl = document.getElementById('searchResults');
+  var filtersEl = document.getElementById('searchFilters');
+  var footerEl = document.getElementById('searchFooter');
+
+  if (!query || query.length < 2) {
+    resultsEl.classList.remove('active');
+    filtersEl.classList.remove('active');
+    footerEl.classList.remove('active');
+    document.getElementById('searchShortcut').style.display = '';
+    allResults = [];
+    kbIndex = -1;
+    return;
+  }
+  document.getElementById('searchShortcut').style.display = 'none';
+
+  searchTimeout = setTimeout(function() { executeSearch(query); }, 80);
+}
+
+function executeSearch(query) {
+  var q = query.toLowerCase().trim();
+  var words = q.split(/\s+/).filter(function(w) { return w.length > 0; });
+  allResults = [];
+
+  // 1. Search diseases
+  searchIndex.forEach(function(item) {
+    var nameL = item.n.toLowerCase();
+    var catL = item.c.toLowerCase();
+    var idL = item.id.toLowerCase();
+    var score = 0;
+    var matchField = '';
+    var context = '';
+
+    words.forEach(function(w) {
+      if (nameL.includes(w)) { score += 10; matchField = 'name'; }
+      if (catL.includes(w)) { score += 5; matchField = matchField || 'cat'; }
+      if (idL.includes(w)) { score += 3; matchField = matchField || 'id'; }
+    });
+
+    // Search extended data (keyPoints, differentials, pathways)
+    var ext = (typeof searchExtended !== 'undefined') ? searchExtended[item.id] : '';
+    if (ext && score === 0) {
+      var extL = ext.toLowerCase();
+      var extMatch = words.every(function(w) { return extL.includes(w); });
+      if (extMatch) {
+        score += 2;
+        matchField = 'content';
+        context = findContext(ext, q);
+      }
+    } else if (ext && score > 0 && matchField !== 'name') {
+      context = findContext(ext, q);
+    }
+
+    if (score > 0) {
+      allResults.push({
+        type: 'disease', score: score, name: item.n, cat: item.c,
+        module: item.m, url: item.u, id: item.id, context: context
+      });
+    }
+  });
+
+  // 2. Search duels
+  if (typeof duelEntries !== 'undefined') {
+    duelEntries.forEach(function(d) {
+      var searchText = [d[1], d[2], d[3], d[4]].join(' ').toLowerCase();
+      var matched = words.every(function(w) { return searchText.includes(w); });
+      if (matched) {
+        var title = d[1] || (d[2] + ' vs ' + d[3]);
+        allResults.push({
+          type: 'duel', score: 4, name: title,
+          cat: d[2] + ' vs ' + d[3],
+          module: d[0] === 'n' ? 'neuro' : 'abdomen',
+          url: (d[0] === 'n' ? 'neurorad.html' : 'abdomenrad.html') + '#duel',
+          context: findContext(d[4], q)
+        });
+      }
+    });
+  }
+
+  // 3. Search signals
+  if (typeof signalEntries !== 'undefined') {
+    signalEntries.forEach(function(s) {
+      var searchText = [s[1], s[2], s[3]].join(' ').toLowerCase();
+      var matched = words.every(function(w) { return searchText.includes(w); });
+      if (matched) {
+        allResults.push({
+          type: 'signal', score: 3, name: s[2] || s[1].substring(0, 60),
+          cat: s[1].substring(0, 70),
+          module: s[0] === 'n' ? 'neuro' : 'abdomen',
+          url: (s[0] === 'n' ? 'neurorad.html' : 'abdomenrad.html') + '#signal',
+          context: findContext(s[1] + ' ' + s[3], q)
+        });
+      }
+    });
+  }
+
+  // Sort by score descending
+  allResults.sort(function(a, b) { return b.score - a.score; });
+
+  // Update filter counts
+  var counts = { all: allResults.length, disease: 0, duel: 0, signal: 0 };
+  allResults.forEach(function(r) { counts[r.type]++; });
+  document.getElementById('sfAll').textContent = counts.all ? ' (' + counts.all + ')' : '';
+  document.getElementById('sfDisease').textContent = counts.disease ? ' (' + counts.disease + ')' : '';
+  document.getElementById('sfDuel').textContent = counts.duel ? ' (' + counts.duel + ')' : '';
+  document.getElementById('sfSignal').textContent = counts.signal ? ' (' + counts.signal + ')' : '';
+
+  kbIndex = -1;
+  renderResults();
+}
+
+function setSearchFilter(filter) {
+  currentFilter = filter;
+  document.querySelectorAll('.sf-btn').forEach(function(b) {
+    b.classList.toggle('active', b.getAttribute('data-filter') === filter);
+  });
+  kbIndex = -1;
+  renderResults();
+}
+
+function renderResults() {
+  var resultsEl = document.getElementById('searchResults');
+  var filtersEl = document.getElementById('searchFilters');
+  var footerEl = document.getElementById('searchFooter');
+
+  var filtered = currentFilter === 'all' ? allResults : allResults.filter(function(r) { return r.type === currentFilter; });
+  var shown = filtered.slice(0, 15);
+  var hasMore = filtered.length > 15;
+
+  if (allResults.length === 0) {
+    filtersEl.classList.remove('active');
+    resultsEl.classList.add('active', 'no-filters');
+    resultsEl.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text3)"><div style="font-size:20px;margin-bottom:6px">Sonuç bulunamadı</div><div style="font-size:12px">Farklı terimlerle aramayı deneyin</div></div>';
+    footerEl.classList.remove('active');
+    return;
+  }
+
+  filtersEl.classList.add('active');
+  resultsEl.classList.remove('no-filters');
+  resultsEl.classList.add('active');
+
+  resultsEl.innerHTML = shown.map(function(r, i) {
+    var moduleBadge = r.module === 'neuro' ? 'NEURO' : 'ABDOMEN';
+    var typeLabel = r.type === 'disease' ? '' : r.type === 'duel' ? 'DUEL' : 'SİNYAL';
+    var typeBadge = typeLabel ? '<span class="sr-badge ' + r.type + '">' + typeLabel + '</span>' : '';
+    var contextHtml = r.context ? '<div class="sr-context">' + r.context + '</div>' : '';
+    return '<div class="sr-item' + (i === kbIndex ? ' kb-active' : '') + '" data-idx="' + i + '" onclick="navigateResult(' + i + ')">' +
+      '<div class="sr-badges"><span class="sr-badge ' + r.module + '">' + moduleBadge + '</span>' + typeBadge + '</div>' +
+      '<div class="sr-info"><div class="sr-name">' + escHtml(r.name) + '</div>' +
+      '<div class="sr-cat">' + escHtml(r.cat) + '</div>' + contextHtml + '</div></div>';
+  }).join('');
+
+  if (hasMore) {
+    footerEl.textContent = (filtered.length - 15) + ' sonuç daha...';
+    footerEl.classList.add('active');
+  } else {
+    footerEl.classList.remove('active');
+  }
+}
+
+function navigateResult(idx) {
+  var filtered = currentFilter === 'all' ? allResults : allResults.filter(function(r) { return r.type === currentFilter; });
+  var shown = filtered.slice(0, 15);
+  if (idx >= 0 && idx < shown.length) {
+    window.location.href = shown[idx].url;
+  }
+}
+
+// Keyboard navigation
+function handleSearchKeys(e) {
+  var filtered = currentFilter === 'all' ? allResults : allResults.filter(function(r) { return r.type === currentFilter; });
+  var shown = filtered.slice(0, 15);
+  if (shown.length === 0) return;
+
+  if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    kbIndex = Math.min(kbIndex + 1, shown.length - 1);
+    updateKbHighlight();
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    kbIndex = Math.max(kbIndex - 1, -1);
+    updateKbHighlight();
+  } else if (e.key === 'Enter' && kbIndex >= 0) {
+    e.preventDefault();
+    navigateResult(kbIndex);
+  } else if (e.key === 'Escape') {
+    document.getElementById('globalSearch').blur();
+    document.getElementById('searchResults').classList.remove('active');
+    document.getElementById('searchFilters').classList.remove('active');
+    document.getElementById('searchFooter').classList.remove('active');
+  }
+}
+
+function updateKbHighlight() {
+  document.querySelectorAll('.sr-item').forEach(function(el, i) {
+    el.classList.toggle('kb-active', i === kbIndex);
+    if (i === kbIndex) el.scrollIntoView({ block: 'nearest' });
+  });
+}
+
+// Global "/" shortcut to focus search
+document.addEventListener('keydown', function(e) {
+  if (e.key === '/' && !e.ctrlKey && !e.metaKey && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+    e.preventDefault();
+    document.getElementById('globalSearch').focus();
+  }
+});
+
 // Close search on outside click
-document.addEventListener('click', (e) => {
+document.addEventListener('click', function(e) {
   if (!e.target.closest('.search-section')) {
     document.getElementById('searchResults').classList.remove('active');
+    document.getElementById('searchFilters').classList.remove('active');
+    document.getElementById('searchFooter').classList.remove('active');
+    document.getElementById('searchShortcut').style.display = '';
   }
 });
 
