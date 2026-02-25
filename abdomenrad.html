@@ -814,7 +814,9 @@ body {
       <div class="grid-menu-btn" data-page="emergency"><span>🚨</span>Acil</div>
       <div class="grid-menu-btn" data-page="calc"><span>🧮</span>Hesapla</div>
       <div class="grid-menu-btn" data-page="report"><span>📝</span>Rapor</div>
+      <div class="grid-menu-btn" data-page="reportquiz"><span>🏋️</span>Rapor Antrenman</div>
       <div class="grid-menu-btn" data-page="concepts"><span>🧬</span>Bağlantılar</div>
+      <div class="grid-menu-btn" data-page="graph"><span>🕸️</span>Bağlantı Haritası</div>
       <div class="grid-menu-btn" data-page="variant"><span>🔀</span>Varyant</div>
       <div class="grid-menu-btn" data-page="learn"><span>🗺️</span>Öğrenme Yolu</div>
     </div>
@@ -4750,6 +4752,8 @@ function render() {
   if (currentPage === "duel") { renderDuelPage(main); return; }
   if (currentPage === "finder") { renderFinder(main); return; }
   if (currentPage === "concepts") { renderConceptMap(main); return; }
+  if (currentPage === "graph") { renderAbdDiseaseGraph(main); return; }
+  if (currentPage === "reportquiz") { renderAbdReportQuiz(main); return; }
   if (currentPage === "signal") { renderSignalAtlas(main); return; }
   if (currentPage === "variant") { renderVariantPage(main); return; }
   if (currentPage === "emergency") { renderEmergencyPage(main); return; }
@@ -5252,6 +5256,255 @@ function renderConceptMap(main) {
 
     html += '</div></div></div>';
   });
+
+  html += '</div>';
+  main.innerHTML = html;
+}
+
+// ===== INTERACTIVE DISEASE CONNECTION GRAPH (Abdomen) =====
+function renderAbdDiseaseGraph(main) {
+  var selId = window._graphCenter || null;
+  var filterType = window._graphFilter || 'all';
+  var html = '<div style="padding:20px 4px;">';
+  html += '<h2 style="font-family:Playfair Display,serif; font-size:22px; margin-bottom:4px;">🕸️ Hastalık Bağlantı Haritası</h2>';
+  html += '<p style="color:var(--text-muted); font-size:12px; margin-bottom:14px;">Bir hastalık seç → tüm bağlantılarını gör</p>';
+
+  var filters = [{k:'all',l:'Tümü',c:'#64748b'},{k:'confused',l:'⚠️ Karışır',c:'#ef4444'},{k:'mechanism',l:'🧬 Mekanizma',c:'#8b5cf6'},{k:'location',l:'📍 Lokalizasyon',c:'#f59e0b'}];
+  html += '<div style="display:flex; gap:6px; margin-bottom:12px; flex-wrap:wrap;">';
+  filters.forEach(function(f) {
+    var act = filterType === f.k;
+    html += '<div class="graph-filter-btn" data-gfilter="' + f.k + '" style="padding:6px 12px; border-radius:20px; font-size:11px; font-weight:600; cursor:pointer; border:1px solid ' + (act ? f.c : 'var(--border)') + '; background:' + (act ? f.c + '18' : 'var(--bg-accent)') + '; color:' + (act ? f.c : 'var(--text-muted)') + ';">' + f.l + '</div>';
+  });
+  html += '</div>';
+
+  html += '<input type="text" id="graphSearch" placeholder="Hastalık ara..." style="width:100%; padding:10px 14px; border-radius:var(--radius); border:1px solid var(--border); background:var(--bg-accent); color:var(--text-primary); font-size:13px; outline:none; margin-bottom:14px;" value="' + (window._graphSearchVal || '') + '">';
+
+  var searchVal = (window._graphSearchVal || '').toLowerCase();
+  var filtered = diseases.filter(function(d) {
+    return diseaseConnections[d.id] && (!searchVal || d.name.toLowerCase().indexOf(searchVal) >= 0);
+  });
+  if (!selId && filtered.length > 0) selId = filtered[0].id;
+
+  html += '<div style="display:flex; flex-wrap:wrap; gap:4px; margin-bottom:16px; max-height:120px; overflow-y:auto;">';
+  filtered.slice(0, 40).forEach(function(d) {
+    var act = selId === d.id;
+    html += '<div class="graph-disease-chip" data-gdis="' + d.id + '" style="padding:4px 10px; border-radius:14px; font-size:10px; cursor:pointer; border:1px solid ' + (act ? 'var(--accent)' : 'var(--border)') + '; background:' + (act ? 'var(--accent)18' : 'var(--bg-accent)') + '; color:' + (act ? 'var(--accent)' : 'var(--text-muted)') + '; font-weight:' + (act ? '700' : '400') + ';">' + d.name.replace(/ \(.*\)/, '').substring(0, 25) + '</div>';
+  });
+  html += '</div>';
+
+  if (selId && diseaseConnections[selId]) {
+    var conn = diseaseConnections[selId];
+    var centerD = diseases.find(function(x) { return x.id === selId; });
+    if (!centerD) { main.innerHTML = html + '</div>'; return; }
+
+    var nodes = [];
+    var types = {confused: {arr: conn.confusedWith || [], color: '#ef4444', label: '⚠️ Karışır'}, mechanism: {arr: conn.sameMechanism || [], color: '#8b5cf6', label: '🧬 Benzer Mekanizma'}, location: {arr: conn.sameLocation || [], color: '#f59e0b', label: '📍 Aynı Lokalizasyon'}};
+    var seen = {};
+    Object.keys(types).forEach(function(tk) {
+      if (filterType !== 'all' && filterType !== tk) return;
+      types[tk].arr.forEach(function(nid) {
+        if (seen[nid]) { seen[nid].types.push(tk); return; }
+        var nd = diseases.find(function(x) { return x.id === nid; });
+        if (nd) { seen[nid] = {id: nid, name: nd.name, types: [tk]}; nodes.push(seen[nid]); }
+      });
+    });
+
+    var svgW = 360, svgH = Math.max(300, nodes.length * 18 + 100);
+    var cx = svgW / 2, cy = svgH / 2;
+    var radius = Math.min(svgW, svgH) / 2 - 50;
+
+    html += '<div style="background:var(--bg-accent); border-radius:var(--radius); border:1px solid var(--border); overflow:hidden;">';
+    html += '<svg viewBox="0 0 ' + svgW + ' ' + svgH + '" style="width:100%; height:auto;">';
+
+    nodes.forEach(function(n, i) {
+      var angle = (2 * Math.PI * i / nodes.length) - Math.PI / 2;
+      var nx = cx + radius * Math.cos(angle);
+      var ny = cy + radius * Math.sin(angle);
+      n._x = nx; n._y = ny;
+      n.types.forEach(function(tk, ti) {
+        var c = types[tk].color;
+        var offset = (ti - (n.types.length - 1) / 2) * 2;
+        html += '<line x1="' + cx + '" y1="' + cy + '" x2="' + nx + '" y2="' + ny + '" stroke="' + c + '" stroke-width="2" stroke-opacity="0.4" transform="translate(' + offset + ',' + offset + ')"/>';
+      });
+    });
+
+    html += '<circle cx="' + cx + '" cy="' + cy + '" r="28" fill="var(--accent)" opacity="0.15"/>';
+    html += '<circle cx="' + cx + '" cy="' + cy + '" r="24" fill="var(--accent)" opacity="0.9"/>';
+    html += '<text x="' + cx + '" y="' + (cy + 1) + '" text-anchor="middle" dominant-baseline="middle" fill="white" font-size="7" font-weight="700">' + centerD.name.replace(/ \(.*\)/, '').substring(0, 14) + '</text>';
+
+    nodes.forEach(function(n) {
+      var mainColor = types[n.types[0]].color;
+      html += '<circle class="graph-node" data-gdis="' + n.id + '" cx="' + n._x + '" cy="' + n._y + '" r="18" fill="' + mainColor + '" opacity="0.12" style="cursor:pointer;"/>';
+      html += '<circle class="graph-node" data-gdis="' + n.id + '" cx="' + n._x + '" cy="' + n._y + '" r="15" fill="' + mainColor + '" opacity="0.85" style="cursor:pointer;"/>';
+      html += '<text class="graph-node" data-gdis="' + n.id + '" x="' + n._x + '" y="' + n._y + '" text-anchor="middle" dominant-baseline="middle" fill="white" font-size="5.5" font-weight="600" style="pointer-events:none;">' + n.name.replace(/ \(.*\)/, '').substring(0, 12) + '</text>';
+    });
+
+    html += '</svg>';
+    html += '<div style="display:flex; gap:12px; padding:10px 14px; flex-wrap:wrap;">';
+    Object.keys(types).forEach(function(tk) {
+      if (filterType !== 'all' && filterType !== tk) return;
+      html += '<div style="display:flex; align-items:center; gap:4px;"><div style="width:10px; height:10px; border-radius:50%; background:' + types[tk].color + ';"></div><span style="font-size:10px; color:var(--text-muted);">' + types[tk].label + '</span></div>';
+    });
+    html += '</div></div>';
+
+    if (conn.mechanismTag) {
+      html += '<div style="margin-top:10px; padding:10px 14px; background:rgba(139,92,246,0.06); border:1px solid rgba(139,92,246,0.15); border-radius:var(--radius); font-size:12px; color:var(--text-secondary); line-height:1.6;">🔑 <strong>' + centerD.name.replace(/ \(.*\)/, '') + ':</strong> ' + conn.mechanismTag + '</div>';
+    }
+
+    html += '<div style="margin-top:12px;">';
+    Object.keys(types).forEach(function(tk) {
+      if (filterType !== 'all' && filterType !== tk) return;
+      var items = types[tk].arr;
+      if (items.length === 0) return;
+      html += '<div style="margin-bottom:10px;">';
+      html += '<div style="font-size:11px; font-weight:700; color:' + types[tk].color + '; margin-bottom:6px;">' + types[tk].label + ' (' + items.length + ')</div>';
+      html += '<div style="display:flex; flex-wrap:wrap; gap:4px;">';
+      items.forEach(function(nid) {
+        var nd = diseases.find(function(x) { return x.id === nid; });
+        if (nd) html += '<div class="graph-disease-chip" data-gdis="' + nid + '" style="padding:4px 10px; border-radius:14px; font-size:10px; cursor:pointer; border:1px solid ' + types[tk].color + '44; background:' + types[tk].color + '10; color:' + types[tk].color + ';">' + nd.name.replace(/ \(.*\)/, '').substring(0, 25) + '</div>';
+      });
+      html += '</div></div>';
+    });
+    html += '</div>';
+  }
+
+  html += '</div>';
+  main.innerHTML = html;
+
+  var searchInput = document.getElementById('graphSearch');
+  if (searchInput) {
+    searchInput.addEventListener('input', function() {
+      window._graphSearchVal = this.value;
+      renderAbdDiseaseGraph(document.getElementById('mainContent'));
+    });
+    searchInput.focus();
+    searchInput.setSelectionRange(searchInput.value.length, searchInput.value.length);
+  }
+}
+
+// ===== REPORT WRITING QUIZ (Abdomen) =====
+var abdReportQuizzes = [
+  { id: 0, title: "Sirotik KC'de Fokal Lezyon",
+    scenario: "58 yaşında erkek, HCV sirozu, rutin takip USG'de yeni 2.5cm fokal lezyon saptanmış. Dinamik MR isteniyor.",
+    findings: "Arteryel faz: APHE (arteryel fazda belirgin parlaklaşma). Portal faz: Wash-out (çevre KC'den hipointens). Gecikmeli faz: Kapsül kontrastlanması. T2: Hafif hiperintens. DWI: Hafif kısıtlanma. Hepatobilier faz (Gd-EOB): Hipointens.",
+    fields: [
+      { key: "lirads", label: "LI-RADS Kategori", options: ["LR-5 (Kesin HCC)", "LR-4 (Olası HCC)", "LR-3 (Belirsiz)", "LR-M (Non-HCC malignite)"], correct: 0 },
+      { key: "features", label: "Major Features (LR-5 için)", options: ["APHE + Wash-out + Kapsül (3 major → LR-5)", "Sadece APHE yeterli", "Sadece wash-out yeterli", "DWI gerekli"], correct: 0 },
+      { key: "hepatobiliary", label: "Hepatobilier Faz Anlamı", options: ["OATP kaybı → hepatosit fonksiyon kaybı → malignite", "Normal hepatosit → FNH", "Vasküler lezyon → hemanjiom", "Kistik lezyon"], correct: 0 },
+      { key: "report", label: "Raporda Olması Gereken", options: ["LI-RADS kategori + tüm major/ancillary features + boyut", "Sadece 'HCC ile uyumlu'", "Sadece lezyon boyutu", "Sadece kontrastlanma paterni"], correct: 0 }
+    ],
+    explanation: "Sirotik KC + APHE + Wash-out + Kapsül = LI-RADS 5 = kesin HCC. Biyopsiye GEREK YOK. Raporda LI-RADS kategori + tüm major features tek tek belirtilmeli. Hepatobilier hipointensite = OATP kaybı (ancillary feature)."
+  },
+  { id: 1, title: "Pankreas Başı Kitlesi + İkter",
+    scenario: "65 yaşında kadın, 3 haftadır ilerleyici sarılık + 8 kg kilo kaybı. CA 19-9: 450 U/mL.",
+    findings: "BT: Pankreas başında 3cm hipodens kitle (pankreas fazında). CBD + Wirsung kanalı dilate (double duct sign). SMA'ya 180° temas (abutment). SMV'de fokal daralma. Peritoneal implant veya uzak metastaz yok.",
+    fields: [
+      { key: "diagnosis", label: "En Olası Tanı", options: ["PDAC (Pankreatik Duktal Adenokarsinom)", "pNET (Nöroendokrin Tümör)", "Otoimmün pankreatit", "Kronik pankreatit"], correct: 0 },
+      { key: "vascularity", label: "Neden Hipovasküler?", options: ["Desmoplastik stroma → damar yatağı yok → arteryelde koyu", "Nekroz → vaskülarite kaybı", "Kistik yapı → kontrast almaz", "Teknik artefakt"], correct: 0 },
+      { key: "resectability", label: "Rezektabilite Değerlendirmesi", options: ["Borderline rezektabl (SMA abutment + SMV daralma)", "Kesinlikle rezektabl", "Unrezektabl (SMA encasement)", "Metastatik → cerrahi dışı"], correct: 0 },
+      { key: "report", label: "Raporda Kritik Bilgi", options: ["Kitle boyut/lokalizasyon + SMA/SMV ilişkisi + double duct + M durumu", "Sadece kitle boyutu", "Sadece CA 19-9 değeri", "Sadece safra yolu dilatasyonu"], correct: 0 }
+    ],
+    explanation: "PDAC hipovaskülerdir (pNET'in tersi!). Double duct sign = pankreas başı kitlesi. Rezektabilite: SMA >180° encasement = unrezektabl. SMA ≤180° abutment = borderline. SMV daralma + rekonstrüksiyon olasılığı = borderline."
+  },
+  { id: 2, title: "Adrenal İnsidentaloma",
+    scenario: "52 yaşında kadın, BT toraks'ta insidental sol adrenal 3cm nodül saptanmış. Bilinen kanser öyküsü yok.",
+    findings: "Non-kontrast BT: 8 HU. Kontrastlı BT: 60 HU (60. saniye), 22 HU (15. dakika). Homojen, düzgün sınırlı. Chemical shift MR: Opposed-phase'de belirgin sinyal kaybı (%35 kayıp).",
+    fields: [
+      { key: "diagnosis", label: "En Olası Tanı", options: ["Lipid-rich Adrenal Adenom", "Feokromositoma", "Adrenal metastaz", "Adrenokortikal karsinom"], correct: 0 },
+      { key: "hu_value", label: "<10 HU Ne Söylüyor?", options: ["İntrasellüler lipid → TANI KOYUCU adenom", "Kistik lezyon", "Nekroz", "Kalsifikasyon"], correct: 0 },
+      { key: "washout", label: "APW Hesaplaması", options: ["APW = (60-22)/(60-8) × 100 = %73 → >60% = adenom", "APW = %50 → belirsiz", "Wash-out hesaplanamaz", "RPW kullanılmalı"], correct: 0 },
+      { key: "report", label: "Rapor Kararı", options: ["Benign adenom ile uyumlu - takip/biyopsi gereksiz", "Biyopsi öner", "PET-BT öner", "Cerrahi öner"], correct: 0 }
+    ],
+    explanation: "<10 HU = lipid-rich adenom → KESİN TANI. Chemical shift sinyal kaybı doğrular. APW >60% = ek destek. Kanser hastasında bile <10 HU = adenom! Biyopsi ve ek tetkik gereksiz."
+  },
+  { id: 3, title: "Over Kisti T1 Parlak - Endometrioma mı Dermoid mi?",
+    scenario: "34 yaşında kadın, pelvik ağrı, infertilite. USG'de sol overde 5cm kistik lezyon. MR isteniyor.",
+    findings: "T1: Homojen HİPERİNTENS kist. T1 yağ baskılı: Hâlâ HİPERİNTENS (sinyal düşmedi!). T2: Periferal shading (kenar hipointens). DWI: Hafif parlak (T2 shine-through). Kontrastlanma: Yok.",
+    fields: [
+      { key: "diagnosis", label: "En Olası Tanı", options: ["Endometrioma", "Dermoid (matür teratom)", "Hemorajik kist", "Müsinöz kistadenom"], correct: 0 },
+      { key: "fat_sat", label: "Yağ Baskılama Neden Kritik?", options: ["T1 parlak + yağ baskıda parlak = KAN (endometrioma)", "T1 parlak + yağ baskıda söner = YAĞ (dermoid)", "Her ikisinde de aynı", "Yağ baskılama gereksiz"], correct: 0 },
+      { key: "shading", label: "T2 Shading Ne Anlama Geliyor?", options: ["Hemosiderin birikimi → kronik kan → patognomonik endometrioma", "Kalsifikasyon", "Fibröz doku", "Mukoid içerik"], correct: 0 },
+      { key: "report", label: "Raporda Belirtilecek", options: ["T1 yağ baskılama davranışı + T2 shading + boyut + DIE taraması öner", "Sadece kist boyutu", "Sadece T1 sinyali", "Cerrahi öner"], correct: 0 }
+    ],
+    explanation: "T1 parlak + yağ baskıda parlak = KAN (dermoidde yağ baskıda söner). T2 shading = hemosiderin birikimi = endometriomaya patognomonik. Dermoid: T1 parlak + yağ baskıda SÖNER + Rokitansky nodülü + kalsifikasyon."
+  },
+  { id: 4, title: "Böbrek Kitlesi - Berrak Hücreli mi Papiller mi?",
+    scenario: "48 yaşında erkek, insidental sol böbrek 4cm solid kitle. Nefrektomi planlanıyor, preop MR.",
+    findings: "T2: Hiperintens (parlak). DWI: Kısıtlanma mevcut. Chemical shift: Opposed-phase'de sinyal kaybı var. Arteryel faz: Hipervasküler (belirgin kontrastlanma). Portal faz: Wash-out.",
+    fields: [
+      { key: "diagnosis", label: "En Olası Tanı", options: ["Berrak Hücreli RCC", "Papiller RCC", "Kromofob RCC", "Onkositom"], correct: 0 },
+      { key: "cs_meaning", label: "Chemical Shift Kaybı Ne Söylüyor?", options: ["İntrasellüler lipid → berrak hücreli RCC (%60)", "Makroskopik yağ → AML", "Kalsifikasyon", "Hemosiderin"], correct: 0 },
+      { key: "papillary_diff", label: "Papiller RCC Nasıl Farklı Olurdu?", options: ["T2 HİPO + CS kaybı YOK + HİPOVASKÜLER", "T2 parlak + hipervasküler", "Aynı bulgular", "Sadece boyut fark eder"], correct: 0 },
+      { key: "report", label: "Rapor Stratejisi", options: ["T2 sinyal + CS davranış + vaskülarite + ven invazyonu değerlendir", "Sadece boyut", "Sadece Bosniak sınıflama", "Sadece nefrektomi öner"], correct: 0 }
+    ],
+    explanation: "Berrak hücreli RCC: T2 parlak + CS kaybı (%60 intrasellüler lipid) + hipervasküler + wash-out. Papiller RCC: T2 HİPO + CS kaybı YOK + HİPOVASKÜLER → TAM TERSİ. Bu ayrım preop planlamayı etkiler."
+  }
+];
+
+function renderAbdReportQuiz(main) {
+  var caseIdx = window._rqCurrent || 0;
+  var quiz = abdReportQuizzes[caseIdx];
+  var answers = (window._rqAnswers || {})[caseIdx] || {};
+  var checked = window._rqChecked;
+  var html = '<div style="padding:20px 4px;">';
+  html += '<h2 style="font-family:Playfair Display,serif; font-size:22px; margin-bottom:4px;">🏋️ Rapor Yazma Antrenmanı</h2>';
+  html += '<p style="color:var(--text-muted); font-size:12px; margin-bottom:14px;">Klinik senaryo oku → doğru rapor kararlarını ver</p>';
+
+  html += '<div style="display:flex; gap:6px; margin-bottom:14px; flex-wrap:wrap;">';
+  abdReportQuizzes.forEach(function(q, qi) {
+    var act = caseIdx === qi;
+    var done = window._rqAnswers && window._rqAnswers[qi] && Object.keys(window._rqAnswers[qi]).length >= q.fields.length;
+    html += '<div data-rq-next="' + qi + '" style="padding:6px 12px; border-radius:20px; font-size:11px; font-weight:' + (act ? '700' : '400') + '; cursor:pointer; border:1px solid ' + (act ? 'var(--accent)' : 'var(--border)') + '; background:' + (act ? 'var(--accent)18' : done ? 'rgba(16,185,129,0.08)' : 'var(--bg-accent)') + '; color:' + (act ? 'var(--accent)' : done ? '#10b981' : 'var(--text-muted)') + ';">' + (done ? '✓ ' : '') + 'Vaka ' + (qi + 1) + '</div>';
+  });
+  html += '</div>';
+
+  if (!quiz) { main.innerHTML = html + '</div>'; return; }
+
+  html += '<div style="background:var(--bg-accent); border-radius:var(--radius); border:1px solid var(--border); padding:14px; margin-bottom:12px;">';
+  html += '<div style="font-size:13px; font-weight:700; color:var(--text-primary); margin-bottom:6px;">📋 ' + quiz.title + '</div>';
+  html += '<div style="font-size:12px; color:var(--text-secondary); line-height:1.7; margin-bottom:10px;"><strong>Klinik:</strong> ' + quiz.scenario + '</div>';
+  html += '<div style="font-size:12px; color:var(--text-secondary); line-height:1.7;"><strong>Bulgular:</strong> ' + quiz.findings + '</div>';
+  html += '</div>';
+
+  var allAnswered = true;
+  quiz.fields.forEach(function(f) {
+    var userAns = answers[f.key];
+    if (userAns === undefined) allAnswered = false;
+    html += '<div style="margin-bottom:14px;">';
+    html += '<div style="font-size:12px; font-weight:700; color:var(--text-primary); margin-bottom:6px;">' + f.label + '</div>';
+    f.options.forEach(function(opt, oi) {
+      var selected = userAns === oi;
+      var isCorrect = oi === f.correct;
+      var bgColor = 'var(--bg-accent)', borderColor = 'var(--border)', textColor = 'var(--text-secondary)';
+      if (selected && checked === caseIdx) {
+        bgColor = isCorrect ? 'rgba(16,185,129,0.12)' : 'rgba(244,63,94,0.12)';
+        borderColor = isCorrect ? '#10b981' : '#f43f5e';
+        textColor = isCorrect ? '#10b981' : '#f43f5e';
+      } else if (!selected && checked === caseIdx && isCorrect) {
+        bgColor = 'rgba(16,185,129,0.06)'; borderColor = '#10b98155'; textColor = '#10b981';
+      } else if (selected) {
+        bgColor = 'var(--accent)12'; borderColor = 'var(--accent)'; textColor = 'var(--accent)';
+      }
+      var prefix = checked === caseIdx ? (isCorrect ? '✓ ' : selected ? '✗ ' : '○ ') : (selected ? '● ' : '○ ');
+      html += '<div data-rq-case="' + caseIdx + '" data-rq-field="' + f.key + '" data-rq-opt="' + oi + '" style="display:block; padding:8px 12px; margin-bottom:4px; border-radius:8px; font-size:12px; cursor:' + (checked === caseIdx ? 'default' : 'pointer') + '; border:1px solid ' + borderColor + '; background:' + bgColor + '; color:' + textColor + '; ' + (checked === caseIdx ? 'pointer-events:none;' : '') + '">' + prefix + opt + '</div>';
+    });
+    html += '</div>';
+  });
+
+  if (allAnswered && checked !== caseIdx) {
+    html += '<div data-rq-check="' + caseIdx + '" style="padding:12px; text-align:center; background:var(--accent); color:white; border-radius:var(--radius); font-size:14px; font-weight:700; cursor:pointer; margin-bottom:12px;">✅ Kontrol Et</div>';
+  }
+
+  if (checked === caseIdx) {
+    var correct = 0;
+    quiz.fields.forEach(function(f) { if (answers[f.key] === f.correct) correct++; });
+    var pct = Math.round(correct / quiz.fields.length * 100);
+    var resColor = pct >= 75 ? '#10b981' : pct >= 50 ? '#f59e0b' : '#ef4444';
+    html += '<div style="padding:14px; background:' + resColor + '10; border:1px solid ' + resColor + '33; border-radius:var(--radius); margin-bottom:12px;">';
+    html += '<div style="font-size:16px; font-weight:700; color:' + resColor + '; margin-bottom:4px;">' + (pct >= 75 ? '🎉' : pct >= 50 ? '💪' : '📚') + ' ' + correct + '/' + quiz.fields.length + ' Doğru (%' + pct + ')</div>';
+    html += '<div style="font-size:12px; color:var(--text-secondary); line-height:1.7; margin-top:8px;"><strong>Açıklama:</strong> ' + quiz.explanation + '</div>';
+    html += '</div>';
+  }
 
   html += '</div>';
   main.innerHTML = html;
@@ -8527,6 +8780,41 @@ function initApp() {
     if (t.classList.contains('conn-link')) { var ci=t.getAttribute('data-conn-id'); if(ci) goToDisease(ci); return; }
     // Concept disease links
     if (t.classList.contains('concept-disease-link')) { var cdid=t.getAttribute('data-id'); if(cdid) goToDisease(cdid); return; }
+    // Graph events
+    if (t.classList.contains('graph-filter-btn') || t.hasAttribute('data-gfilter')) {
+      var gf = t.getAttribute('data-gfilter');
+      if (gf) { window._graphFilter = gf; renderAbdDiseaseGraph(document.getElementById('mainContent')); }
+      return;
+    }
+    if (t.classList.contains('graph-disease-chip') || t.classList.contains('graph-node') || t.hasAttribute('data-gdis')) {
+      var gd = t.getAttribute('data-gdis');
+      if (gd) { window._graphCenter = gd; if (currentPage !== 'graph') { currentPage = 'graph'; updateBottomNav(); } renderAbdDiseaseGraph(document.getElementById('mainContent')); }
+      return;
+    }
+    // Report quiz events
+    if (t.hasAttribute('data-rq-opt')) {
+      var rqIdx = parseInt(t.getAttribute('data-rq-case'));
+      var rqField = t.getAttribute('data-rq-field');
+      var rqOpt = parseInt(t.getAttribute('data-rq-opt'));
+      if (!window._rqAnswers) window._rqAnswers = {};
+      if (!window._rqAnswers[rqIdx]) window._rqAnswers[rqIdx] = {};
+      window._rqAnswers[rqIdx][rqField] = rqOpt;
+      renderAbdReportQuiz(document.getElementById('mainContent'));
+      return;
+    }
+    if (t.hasAttribute('data-rq-check')) {
+      window._rqChecked = parseInt(t.getAttribute('data-rq-check'));
+      renderAbdReportQuiz(document.getElementById('mainContent'));
+      return;
+    }
+    if (t.hasAttribute('data-rq-next')) {
+      window._rqCurrent = parseInt(t.getAttribute('data-rq-next'));
+      window._rqChecked = null;
+      window._rqAnswers = window._rqAnswers || {};
+      window._rqAnswers[window._rqCurrent] = {};
+      renderAbdReportQuiz(document.getElementById('mainContent'));
+      return;
+    }
     // Learning path actions
     if (t.classList.contains('abd-learn-action') || t.closest('.abd-learn-action')) {
       var la = t.classList.contains('abd-learn-action') ? t : t.closest('.abd-learn-action');

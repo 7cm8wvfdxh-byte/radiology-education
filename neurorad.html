@@ -800,7 +800,9 @@ body {
       <div class="grid-menu-btn" data-page="staging"><span>📋</span>Evreleme</div>
       <div class="grid-menu-btn" data-page="calc"><span>🧮</span>Hesapla</div>
       <div class="grid-menu-btn" data-page="report"><span>📝</span>Rapor</div>
+      <div class="grid-menu-btn" data-page="reportquiz"><span>🏋️</span>Rapor Antrenman</div>
       <div class="grid-menu-btn" data-page="concepts"><span>🧬</span>Bağlantılar</div>
+      <div class="grid-menu-btn" data-page="graph"><span>🕸️</span>Bağlantı Haritası</div>
       <div class="grid-menu-btn" data-page="variant"><span>🔀</span>Varyant</div>
       <div class="grid-menu-btn" data-page="learn"><span>🗺️</span>Öğrenme Yolu</div>
       <div class="grid-menu-btn" data-page="pitfalls"><span>⚠️</span>Tuzaklar</div>
@@ -6476,6 +6478,8 @@ function render() {
   if (currentPage === "advanced") { renderAdvancedMR(main); return; }
   if (currentPage === "learn") { renderLearningPath(main); return; }
   if (currentPage === "concepts") { renderConceptMap(main); return; }
+  if (currentPage === "graph") { renderDiseaseGraph(main); return; }
+  if (currentPage === "reportquiz") { renderReportQuiz(main); return; }
   if (currentPage === "variant") { renderVariantPage(main); return; }
   if (currentPage === "calc") { renderNeuroCalcPage(main); return; }
   if (currentPage === "emergency") { renderNeuroEmergencyPage(main); return; }
@@ -8308,6 +8312,143 @@ function renderReportTemplates(main) {
   // Report events handled by global click delegation
 }
 
+// ===== REPORT WRITING QUIZ =====
+var neuroReportQuizzes = [
+  { id: 0, title: "Akut İnme - Acil MR",
+    scenario: "68 yaşında erkek, ani başlayan sol kol güçsüzlüğü, 2 saat önce başlamış. NIHSS: 12. Acil beyin MR çekildi.",
+    findings: "DWI: Sağ MCA sulama alanında belirgin kısıtlanma. FLAIR: Henüz belirgin sinyal değişikliği yok. MRA: Sağ MCA M1 segmentinde oklüzyon. Perfüzyon: DWI alanından daha geniş hipoperfüzyon alanı.",
+    fields: [
+      { key: "diagnosis", label: "Tanı", options: ["Akut iskemik inme (sağ MCA alanı)", "Geçici iskemik atak", "Hemorajik inme", "PRES"], correct: 0 },
+      { key: "mismatch", label: "DWI-FLAIR Mismatch", options: ["Var → <4.5 saat (trombolitik uygun)", "Yok → >4.5 saat", "Değerlendirilemez"], correct: 0 },
+      { key: "perfusion", label: "Perfüzyon-DWI Mismatch", options: ["Var → kurtarılabilir doku mevcut", "Yok → core = penumbra", "DWI negatif → perfüzyon dominant"], correct: 0 },
+      { key: "action", label: "Önerilen Yaklaşım", options: ["IV tPA + mekanik trombektomi değerlendirmesi", "Sadece antikoagülan", "Acil dekompresif kraniotomi", "Takip MR 24 saat sonra"], correct: 0 }
+    ],
+    explanation: "DWI-FLAIR mismatch = lezyonun <4.5 saat olduğunu gösterir. Perfüzyon-DWI mismatch = kurtarılabilir penumbra var. M1 oklüzyon + NIHSS >6 → trombektomi endikasyonu."
+  },
+  { id: 1, title: "Ring Enhancement - Abse mi Tümör mü?",
+    scenario: "45 yaşında kadın, 2 haftalık baş ağrısı + ateş. Diş çekimi öyküsü 3 hafta önce.",
+    findings: "T1+Gd: Sol frontal lobda ince düzgün ring enhancement gösteren lezyon (~3cm). DWI: Merkez çok parlak (ADC çok düşük). T2: Merkez hiperintens, çevre vazojenik ödem. SWI: Dual rim sign.",
+    fields: [
+      { key: "diagnosis", label: "En Olası Tanı", options: ["Beyin absesi", "GBM", "Metastaz", "Tümefaktif MS"], correct: 0 },
+      { key: "dwi_key", label: "DWI Neden Kritik?", options: ["Merkez parlak = viskoz pü (ADC↓↓)", "Merkez parlak = yüksek selülarite", "Merkez parlak = akut kanama", "DWI kritiğ değil"], correct: 0 },
+      { key: "ring", label: "Ring Enhancement Karakteri", options: ["İnce düzgün ring → abse lehine", "Kalın irregüler ring → GBM lehine", "Açık ring → demyelinizasyon lehine", "Nodüler ring → metastaz lehine"], correct: 0 },
+      { key: "report", label: "Raporda Belirtilmesi Gereken", options: ["DWI kısıtlanma + ring tipi + dual rim + klinik korelasyon", "Sadece boyut ve lokalizasyon", "Sadece kontrastlanma paterni", "Perfüzyon değerleri"], correct: 0 }
+    ],
+    explanation: "Abse vs GBM ayrımında DWI altın standarttır. Abse: merkez DWI çok parlak (viskoz pü). GBM: merkez DWI serbest (nekrotik sıvı). Dual rim sign SWI'da abse destekler. Diş çekimi → hematojen yayılım."
+  },
+  { id: 2, title: "Genç Kadında Multiple Beyaz Cevher Lezyonları",
+    scenario: "28 yaşında kadın, 3 gün önce başlayan çift görme. 6 ay önce 1 haftalık uyuşukluk öyküsü (kendiliğinden düzelmiş).",
+    findings: "FLAIR: Periventriküler, jukstakortikal ve infratentoryel çok sayıda hiperintens lezyon. Bazıları Dawson finger patterninde. T1+Gd: 2 lezyon open ring enhancement gösteriyor, diğerleri kontrastlanmıyor. Spinal MR: Servikal kordda 1 segment tutulumlu T2 hiperintens lezyon.",
+    fields: [
+      { key: "diagnosis", label: "En Olası Tanı", options: ["Multipl Skleroz", "NMO/NMOSD", "ADEM", "Vaskülit"], correct: 0 },
+      { key: "criteria", label: "Tanı Kriteri", options: ["McDonald: zamanda + mekanda yayılım karşılanıyor", "Sadece mekanda yayılım var", "Klinik izole sendrom", "Tanı kriterleri karşılanmıyor"], correct: 0 },
+      { key: "nmo_exclude", label: "NMO'yu Ekarte Eden", options: ["Kısa spinal lezyon + periventriküler dağılım", "Uzun spinal lezyon + santral tutulum", "Area postrema lezyonu", "AQP4 pozitifliği"], correct: 0 },
+      { key: "report_key", label: "Raporda Kritik Bilgi", options: ["Lezyon sayısı/dağılımı + aktif/inaktif ayrımı + DIS/DIT", "Sadece en büyük lezyonun boyutu", "Sadece kontrastlanan lezyon sayısı", "Genel beyaz cevher hastalığı"], correct: 0 }
+    ],
+    explanation: "Dawson fingers + open ring + relapsing klinik = MS. DIS: ≥2 farklı alan (periventriküler + jukstakortikal + infratentoryel + spinal). DIT: aktif (CE+) + inaktif (CE-) lezyonların birlikte olması. NMO'da spinal lezyon uzun (≥3 segment), MS'te kısa."
+  },
+  { id: 3, title: "Posterior Fossa Kitlesi - Çocuk",
+    scenario: "6 yaşında erkek çocuk, 3 haftadır artan baş ağrısı, sabah kusmaları, ataksik yürüyüş.",
+    findings: "T2: 4. ventrikül tabanında 4cm solid kitle. Kitle izointens-hafif hipointens. DWI: Çok belirgin kısıtlanma (ADC değerleri çok düşük). T1+Gd: Heterojen kontrastlanma. Hidrosefali mevcut.",
+    fields: [
+      { key: "diagnosis", label: "En Olası Tanı", options: ["Medulloblastom", "JPA (Pilositik Astrositom)", "Ependimom", "Beyin sapı gliomu"], correct: 0 },
+      { key: "dwi_role", label: "DWI Bulgusu Ne Söylüyor?", options: ["Çok yüksek selülarite → agresif tümör (small blue cell)", "Abse düşündürür", "Akut infarkt düşündürür", "DWI burada ayırıcı değil"], correct: 0 },
+      { key: "next_step", label: "Ek Görüntüleme", options: ["Tüm spinal MR (drop metastaz taraması)", "BT anjiyografi", "PET-BT", "Ek görüntüleme gerekmez"], correct: 0 },
+      { key: "report_must", label: "Raporda MUTLAKA Olması Gereken", options: ["Lokalizasyon + DWI + hidrosefali + metastaz riski + spinal MR önerisi", "Sadece kitle boyutu", "Sadece kontrastlanma paterni", "BOS akım çalışması önerisi"], correct: 0 }
+    ],
+    explanation: "4V tabanı + solid + DWI çok parlak + çocuk = medulloblastom (en sık malign PF tümörü). JPA: kistik + DWI serbest. Ependimom: foramenlere uzanır. Drop metastaz %30-40 → preop spinal MR ZORUNLU."
+  },
+  { id: 4, title: "Hızlı Progresif Demans",
+    scenario: "62 yaşında kadın, 2 ayda hızla ilerleyen kognitif bozulma, miyoklonik jerkler, görsel halüsinasyonlar.",
+    findings: "DWI: Bilateral kortikal ribboning (özellikle parieto-oksipital) + bilateral kaudat ve putamen kısıtlanma. FLAIR: Kaudat ve putamende hafif hiperintensite. T1+Gd: Kontrastlanma YOK. MR normal gibi görünüyor ama DWI çok anormal.",
+    fields: [
+      { key: "diagnosis", label: "En Olası Tanı", options: ["CJD (Creutzfeldt-Jakob Hastalığı)", "Alzheimer (hızlı varyant)", "Limbik ensefalit", "Vaskülit"], correct: 0 },
+      { key: "key_finding", label: "Patognomonik Bulgu", options: ["Kortikal ribboning + striatal DWI kısıtlanma", "Hipokampal atrofi", "Temporal FLAIR hiperintensite", "Periventriküler WM lezyonları"], correct: 0 },
+      { key: "why_dwi", label: "Neden Sadece DWI'da Görünür?", options: ["Spongiform değişiklik → vakuolizasyon → DWI en duyarlı", "Ödem → T2 etkisi", "Kanama → susceptibility", "Kontrastlanma → BBB yıkımı"], correct: 0 },
+      { key: "report_tip", label: "Rapor Tavsiyesi", options: ["DWI/ADC haritalarını ön plana koy + kortikal + striatal tutulum belirt", "T2/FLAIR ağırlıklı rapor yaz", "Kontrastlanma paterni vurgula", "Atrofi paternini tanımla"], correct: 0 }
+    ],
+    explanation: "Hızlı demans + miyoklonus + kortikal ribboning DWI = CJD güçlü düşündürür. DWI en duyarlı sekans (%91). FLAIR/T2 daha az duyarlı. Konvansiyonel MR normal görünebilir → DWI dikkatle değerlendirilmeli."
+  }
+];
+
+function renderReportQuiz(main) {
+  var caseIdx = window._rqCurrent || 0;
+  var quiz = neuroReportQuizzes[caseIdx];
+  var answers = (window._rqAnswers || {})[caseIdx] || {};
+  var checked = window._rqChecked;
+  var html = '<div style="padding:20px 4px;">';
+  html += '<h2 style="font-family:Playfair Display,serif; font-size:22px; margin-bottom:4px;">🏋️ Rapor Yazma Antrenmanı</h2>';
+  html += '<p style="color:var(--text-muted); font-size:12px; margin-bottom:14px;">Klinik senaryo oku → doğru rapor kararlarını ver</p>';
+
+  // Case selector
+  html += '<div style="display:flex; gap:6px; margin-bottom:14px; flex-wrap:wrap;">';
+  neuroReportQuizzes.forEach(function(q, qi) {
+    var act = caseIdx === qi;
+    var done = window._rqAnswers && window._rqAnswers[qi] && Object.keys(window._rqAnswers[qi]).length >= q.fields.length;
+    html += '<div data-rq-next="' + qi + '" style="padding:6px 12px; border-radius:20px; font-size:11px; font-weight:' + (act ? '700' : '400') + '; cursor:pointer; border:1px solid ' + (act ? 'var(--accent)' : 'var(--border)') + '; background:' + (act ? 'var(--accent)18' : done ? 'rgba(16,185,129,0.08)' : 'var(--bg-accent)') + '; color:' + (act ? 'var(--accent)' : done ? '#10b981' : 'var(--text-muted)') + ';">' + (done ? '✓ ' : '') + 'Vaka ' + (qi + 1) + '</div>';
+  });
+  html += '</div>';
+
+  if (!quiz) { main.innerHTML = html + '</div>'; return; }
+
+  // Scenario
+  html += '<div style="background:var(--bg-accent); border-radius:var(--radius); border:1px solid var(--border); padding:14px; margin-bottom:12px;">';
+  html += '<div style="font-size:13px; font-weight:700; color:var(--text-primary); margin-bottom:6px;">📋 ' + quiz.title + '</div>';
+  html += '<div style="font-size:12px; color:var(--text-secondary); line-height:1.7; margin-bottom:10px;"><strong>Klinik:</strong> ' + quiz.scenario + '</div>';
+  html += '<div style="font-size:12px; color:var(--text-secondary); line-height:1.7;"><strong>Bulgular:</strong> ' + quiz.findings + '</div>';
+  html += '</div>';
+
+  // Questions
+  var allAnswered = true;
+  quiz.fields.forEach(function(f) {
+    var userAns = answers[f.key];
+    if (userAns === undefined) allAnswered = false;
+    html += '<div style="margin-bottom:14px;">';
+    html += '<div style="font-size:12px; font-weight:700; color:var(--text-primary); margin-bottom:6px;">' + f.label + '</div>';
+    f.options.forEach(function(opt, oi) {
+      var selected = userAns === oi;
+      var isCorrect = oi === f.correct;
+      var bgColor = 'var(--bg-accent)';
+      var borderColor = 'var(--border)';
+      var textColor = 'var(--text-secondary)';
+      if (selected && checked === caseIdx) {
+        bgColor = isCorrect ? 'rgba(16,185,129,0.12)' : 'rgba(244,63,94,0.12)';
+        borderColor = isCorrect ? '#10b981' : '#f43f5e';
+        textColor = isCorrect ? '#10b981' : '#f43f5e';
+      } else if (!selected && checked === caseIdx && isCorrect) {
+        bgColor = 'rgba(16,185,129,0.06)';
+        borderColor = '#10b98155';
+        textColor = '#10b981';
+      } else if (selected) {
+        bgColor = 'var(--accent)12'; borderColor = 'var(--accent)'; textColor = 'var(--accent)';
+      }
+      var prefix = checked === caseIdx ? (isCorrect ? '✓ ' : selected ? '✗ ' : '○ ') : (selected ? '● ' : '○ ');
+      html += '<div data-rq-case="' + caseIdx + '" data-rq-field="' + f.key + '" data-rq-opt="' + oi + '" style="display:block; padding:8px 12px; margin-bottom:4px; border-radius:8px; font-size:12px; cursor:' + (checked === caseIdx ? 'default' : 'pointer') + '; border:1px solid ' + borderColor + '; background:' + bgColor + '; color:' + textColor + '; ' + (checked === caseIdx ? 'pointer-events:none;' : '') + '">' + prefix + opt + '</div>';
+    });
+    html += '</div>';
+  });
+
+  // Check button
+  if (allAnswered && checked !== caseIdx) {
+    html += '<div data-rq-check="' + caseIdx + '" style="padding:12px; text-align:center; background:var(--accent); color:white; border-radius:var(--radius); font-size:14px; font-weight:700; cursor:pointer; margin-bottom:12px;">✅ Kontrol Et</div>';
+  }
+
+  // Results
+  if (checked === caseIdx) {
+    var correct = 0;
+    quiz.fields.forEach(function(f) { if (answers[f.key] === f.correct) correct++; });
+    var pct = Math.round(correct / quiz.fields.length * 100);
+    var resColor = pct >= 75 ? '#10b981' : pct >= 50 ? '#f59e0b' : '#ef4444';
+    html += '<div style="padding:14px; background:' + resColor + '10; border:1px solid ' + resColor + '33; border-radius:var(--radius); margin-bottom:12px;">';
+    html += '<div style="font-size:16px; font-weight:700; color:' + resColor + '; margin-bottom:4px;">' + (pct >= 75 ? '🎉' : pct >= 50 ? '💪' : '📚') + ' ' + correct + '/' + quiz.fields.length + ' Doğru (%' + pct + ')</div>';
+    html += '<div style="font-size:12px; color:var(--text-secondary); line-height:1.7; margin-top:8px;"><strong>Açıklama:</strong> ' + quiz.explanation + '</div>';
+    html += '</div>';
+  }
+
+  html += '</div>';
+  main.innerHTML = html;
+}
+
 // ===== ADVANCED MR DATA =====
 const advancedMR = [
   {
@@ -8938,6 +9079,143 @@ function renderConceptMap(main) {
   main.innerHTML = html;
 
   // Events handled by global click delegation
+}
+
+// ===== INTERACTIVE DISEASE CONNECTION GRAPH =====
+function renderDiseaseGraph(main) {
+  var selId = window._graphCenter || null;
+  var filterType = window._graphFilter || 'all';
+  var html = '<div style="padding:20px 4px;">';
+  html += '<h2 style="font-family:Playfair Display,serif; font-size:22px; margin-bottom:4px;">🕸️ Hastalık Bağlantı Haritası</h2>';
+  html += '<p style="color:var(--text-muted); font-size:12px; margin-bottom:14px;">Bir hastalık seç → tüm bağlantılarını gör</p>';
+
+  // Filter buttons
+  html += '<div style="display:flex; gap:6px; margin-bottom:12px; flex-wrap:wrap;">';
+  var filters = [{k:'all',l:'Tümü',c:'#64748b'},{k:'confused',l:'⚠️ Karışır',c:'#ef4444'},{k:'mechanism',l:'🧬 Mekanizma',c:'#8b5cf6'},{k:'location',l:'📍 Lokalizasyon',c:'#f59e0b'}];
+  filters.forEach(function(f) {
+    var act = filterType === f.k;
+    html += '<div class="graph-filter-btn" data-gfilter="' + f.k + '" style="padding:6px 12px; border-radius:20px; font-size:11px; font-weight:600; cursor:pointer; border:1px solid ' + (act ? f.c : 'var(--border)') + '; background:' + (act ? f.c + '18' : 'var(--bg-accent)') + '; color:' + (act ? f.c : 'var(--text-muted)') + ';">' + f.l + '</div>';
+  });
+  html += '</div>';
+
+  // Search/select
+  html += '<div style="margin-bottom:14px;">';
+  html += '<input type="text" id="graphSearch" placeholder="Hastalık ara..." style="width:100%; padding:10px 14px; border-radius:var(--radius); border:1px solid var(--border); background:var(--bg-accent); color:var(--text-primary); font-size:13px; outline:none;" value="' + (window._graphSearchVal || '') + '">';
+  html += '</div>';
+
+  // Disease chips
+  var searchVal = (window._graphSearchVal || '').toLowerCase();
+  var filtered = diseases.filter(function(d) {
+    return diseaseConnections[d.id] && (!searchVal || d.name.toLowerCase().indexOf(searchVal) >= 0);
+  });
+  if (!selId && filtered.length > 0) selId = filtered[0].id;
+
+  html += '<div style="display:flex; flex-wrap:wrap; gap:4px; margin-bottom:16px; max-height:120px; overflow-y:auto;">';
+  filtered.slice(0, 40).forEach(function(d) {
+    var act = selId === d.id;
+    html += '<div class="graph-disease-chip" data-gdis="' + d.id + '" style="padding:4px 10px; border-radius:14px; font-size:10px; cursor:pointer; border:1px solid ' + (act ? 'var(--accent)' : 'var(--border)') + '; background:' + (act ? 'var(--accent)' + '18' : 'var(--bg-accent)') + '; color:' + (act ? 'var(--accent)' : 'var(--text-muted)') + '; font-weight:' + (act ? '700' : '400') + ';">' + d.name.replace(/ \(.*\)/, '').substring(0, 25) + '</div>';
+  });
+  html += '</div>';
+
+  // Graph visualization
+  if (selId && diseaseConnections[selId]) {
+    var conn = diseaseConnections[selId];
+    var centerD = diseases.find(function(x) { return x.id === selId; });
+    if (!centerD) { main.innerHTML = html + '</div>'; return; }
+
+    // Collect connected nodes
+    var nodes = [];
+    var types = {confused: {arr: conn.confusedWith || [], color: '#ef4444', label: '⚠️ Karışır'}, mechanism: {arr: conn.sameMechanism || [], color: '#8b5cf6', label: '🧬 Benzer Mekanizma'}, location: {arr: conn.sameLocation || [], color: '#f59e0b', label: '📍 Aynı Lokalizasyon'}};
+    var seen = {};
+    Object.keys(types).forEach(function(tk) {
+      if (filterType !== 'all' && filterType !== tk) return;
+      types[tk].arr.forEach(function(nid) {
+        if (seen[nid]) { seen[nid].types.push(tk); return; }
+        var nd = diseases.find(function(x) { return x.id === nid; });
+        if (nd) { seen[nid] = {id: nid, name: nd.name, types: [tk]}; nodes.push(seen[nid]); }
+      });
+    });
+
+    var svgW = 360, svgH = Math.max(300, nodes.length * 18 + 100);
+    var cx = svgW / 2, cy = svgH / 2;
+    var radius = Math.min(svgW, svgH) / 2 - 50;
+
+    html += '<div style="background:var(--bg-accent); border-radius:var(--radius); border:1px solid var(--border); overflow:hidden; position:relative;">';
+    html += '<svg viewBox="0 0 ' + svgW + ' ' + svgH + '" style="width:100%; height:auto;">';
+
+    // Draw connections
+    nodes.forEach(function(n, i) {
+      var angle = (2 * Math.PI * i / nodes.length) - Math.PI / 2;
+      var nx = cx + radius * Math.cos(angle);
+      var ny = cy + radius * Math.sin(angle);
+      n._x = nx; n._y = ny;
+      n.types.forEach(function(tk, ti) {
+        var c = types[tk].color;
+        var offset = (ti - (n.types.length - 1) / 2) * 2;
+        html += '<line x1="' + cx + '" y1="' + cy + '" x2="' + nx + '" y2="' + ny + '" stroke="' + c + '" stroke-width="2" stroke-opacity="0.4" transform="translate(' + offset + ',' + offset + ')"/>';
+      });
+    });
+
+    // Center node
+    html += '<circle cx="' + cx + '" cy="' + cy + '" r="28" fill="var(--accent)" opacity="0.15"/>';
+    html += '<circle cx="' + cx + '" cy="' + cy + '" r="24" fill="var(--accent)" opacity="0.9"/>';
+    html += '<text x="' + cx + '" y="' + (cy + 1) + '" text-anchor="middle" dominant-baseline="middle" fill="white" font-size="7" font-weight="700">' + centerD.name.replace(/ \(.*\)/, '').substring(0, 14) + '</text>';
+
+    // Outer nodes
+    nodes.forEach(function(n) {
+      var mainColor = types[n.types[0]].color;
+      html += '<circle class="graph-node" data-gdis="' + n.id + '" cx="' + n._x + '" cy="' + n._y + '" r="18" fill="' + mainColor + '" opacity="0.12" style="cursor:pointer;"/>';
+      html += '<circle class="graph-node" data-gdis="' + n.id + '" cx="' + n._x + '" cy="' + n._y + '" r="15" fill="' + mainColor + '" opacity="0.85" style="cursor:pointer;"/>';
+      html += '<text class="graph-node" data-gdis="' + n.id + '" x="' + n._x + '" y="' + n._y + '" text-anchor="middle" dominant-baseline="middle" fill="white" font-size="5.5" font-weight="600" style="cursor:pointer; pointer-events:none;">' + n.name.replace(/ \(.*\)/, '').substring(0, 12) + '</text>';
+    });
+
+    html += '</svg>';
+
+    // Legend
+    html += '<div style="display:flex; gap:12px; padding:10px 14px; flex-wrap:wrap;">';
+    Object.keys(types).forEach(function(tk) {
+      if (filterType !== 'all' && filterType !== tk) return;
+      html += '<div style="display:flex; align-items:center; gap:4px;"><div style="width:10px; height:10px; border-radius:50%; background:' + types[tk].color + ';"></div><span style="font-size:10px; color:var(--text-muted);">' + types[tk].label + '</span></div>';
+    });
+    html += '</div>';
+    html += '</div>';
+
+    // Mechanism tag
+    if (conn.mechanismTag) {
+      html += '<div style="margin-top:10px; padding:10px 14px; background:rgba(139,92,246,0.06); border:1px solid rgba(139,92,246,0.15); border-radius:var(--radius); font-size:12px; color:var(--text-secondary); line-height:1.6;">🔑 <strong>' + centerD.name.replace(/ \(.*\)/, '') + ':</strong> ' + conn.mechanismTag + '</div>';
+    }
+
+    // Connection list
+    html += '<div style="margin-top:12px;">';
+    Object.keys(types).forEach(function(tk) {
+      if (filterType !== 'all' && filterType !== tk) return;
+      var items = types[tk].arr;
+      if (items.length === 0) return;
+      html += '<div style="margin-bottom:10px;">';
+      html += '<div style="font-size:11px; font-weight:700; color:' + types[tk].color + '; margin-bottom:6px;">' + types[tk].label + ' (' + items.length + ')</div>';
+      html += '<div style="display:flex; flex-wrap:wrap; gap:4px;">';
+      items.forEach(function(nid) {
+        var nd = diseases.find(function(x) { return x.id === nid; });
+        if (nd) html += '<div class="graph-disease-chip" data-gdis="' + nid + '" style="padding:4px 10px; border-radius:14px; font-size:10px; cursor:pointer; border:1px solid ' + types[tk].color + '44; background:' + types[tk].color + '10; color:' + types[tk].color + ';">' + nd.name.replace(/ \(.*\)/, '').substring(0, 25) + '</div>';
+      });
+      html += '</div></div>';
+    });
+    html += '</div>';
+  }
+
+  html += '</div>';
+  main.innerHTML = html;
+
+  // Search event
+  var searchInput = document.getElementById('graphSearch');
+  if (searchInput) {
+    searchInput.addEventListener('input', function() {
+      window._graphSearchVal = this.value;
+      renderDiseaseGraph(document.getElementById('mainContent'));
+    });
+    searchInput.focus();
+    searchInput.setSelectionRange(searchInput.value.length, searchInput.value.length);
+  }
 }
 
 function hexToRgb(hex) {
@@ -11199,6 +11477,41 @@ function initApp() {
     }
     // Concept disease links
     if (t.classList.contains('concept-disease-link')) { var cdid=t.getAttribute('data-id'); if(cdid) goToDisease(cdid); return; }
+    // Graph events
+    if (t.classList.contains('graph-filter-btn') || t.hasAttribute('data-gfilter')) {
+      var gf = t.getAttribute('data-gfilter');
+      if (gf) { window._graphFilter = gf; renderDiseaseGraph(document.getElementById('mainContent')); }
+      return;
+    }
+    if (t.classList.contains('graph-disease-chip') || t.classList.contains('graph-node') || t.hasAttribute('data-gdis')) {
+      var gd = t.getAttribute('data-gdis');
+      if (gd) { window._graphCenter = gd; if (currentPage !== 'graph') { currentPage = 'graph'; updateBottomNav(); } renderDiseaseGraph(document.getElementById('mainContent')); }
+      return;
+    }
+    // Report quiz events
+    if (t.hasAttribute('data-rq-opt')) {
+      var rqIdx = parseInt(t.getAttribute('data-rq-case'));
+      var rqField = t.getAttribute('data-rq-field');
+      var rqOpt = parseInt(t.getAttribute('data-rq-opt'));
+      if (!window._rqAnswers) window._rqAnswers = {};
+      if (!window._rqAnswers[rqIdx]) window._rqAnswers[rqIdx] = {};
+      window._rqAnswers[rqIdx][rqField] = rqOpt;
+      renderReportQuiz(document.getElementById('mainContent'));
+      return;
+    }
+    if (t.hasAttribute('data-rq-check')) {
+      window._rqChecked = parseInt(t.getAttribute('data-rq-check'));
+      renderReportQuiz(document.getElementById('mainContent'));
+      return;
+    }
+    if (t.hasAttribute('data-rq-next')) {
+      window._rqCurrent = parseInt(t.getAttribute('data-rq-next'));
+      window._rqChecked = null;
+      window._rqAnswers = window._rqAnswers || {};
+      window._rqAnswers[window._rqCurrent] = {};
+      renderReportQuiz(document.getElementById('mainContent'));
+      return;
+    }
     // Report field options
     // Report field options (also handle via class)
     if (t.classList.contains('report-option')) {
