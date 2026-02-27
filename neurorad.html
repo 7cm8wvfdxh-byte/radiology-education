@@ -11526,7 +11526,8 @@ function renderProfilePage(main) {
 // Global error handler
 window.onerror = function(msg, url, line, col, error) {
   var main = document.getElementById('mainContent');
-  if (main) main.innerHTML = '<div style="padding:20px;color:#f43f5e;font-size:13px;"><b>Hata:</b> ' + msg + '<br>Satır: ' + line + '</div>';
+  var safeMsg = String(msg || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  if (main) main.innerHTML = '<div style="padding:20px;color:#f43f5e;font-size:13px;"><b>Hata:</b> ' + safeMsg + '<br>Satır: ' + line + '</div>';
 };
 
 var toolPages = ['duel','finder','signal','emergency','staging','calc','report','concepts','variant','learn'];
