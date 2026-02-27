@@ -60,6 +60,7 @@ body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#6474
 .sr-badge{background:var(--bg);padding:3px 8px;border-radius:6px;font-size:10px;font-weight:700;text-transform:uppercase;white-space:nowrap;text-align:center;}
 .sr-badge.neuro{color:#8b5cf6;border:1px solid rgba(139,92,246,0.3);}
 .sr-badge.abdomen{color:#f59e0b;border:1px solid rgba(245,158,11,0.3);}
+.sr-badge.thorax{color:#10b981;border:1px solid rgba(16,185,129,0.3);}
 .sr-badge.duel{color:#f43f5e;border:1px solid rgba(244,63,94,0.3);}
 .sr-badge.signal{color:#06b6d4;border:1px solid rgba(6,182,212,0.3);}
 .sr-badge.finding{color:#8b5cf6;border:1px solid rgba(139,92,246,0.3);}
@@ -83,15 +84,17 @@ body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#6474
 .stat-label{font-size:11px;color:var(--text2);margin-top:4px;text-transform:uppercase;letter-spacing:0.5px;}
 
 /* Module Cards */
-.module-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px;}
+.module-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px;}
 .module-card{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--radius);padding:20px;text-decoration:none;display:block;transition:all 0.3s;cursor:pointer;position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent;}
 .module-card:active{transform:scale(0.98);opacity:0.9;}
 .module-card.neuro{border-left:3px solid #8b5cf6;}
 .module-card.abdomen{border-left:3px solid #f59e0b;}
+.module-card.thorax{border-left:3px solid #10b981;}
 @media(hover:hover){
 .module-card:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,0.3);}
 .module-card.neuro:hover{border-color:#8b5cf6;box-shadow:0 12px 40px rgba(139,92,246,0.15);}
 .module-card.abdomen:hover{border-color:#f59e0b;box-shadow:0 12px 40px rgba(245,158,11,0.15);}
+.module-card.thorax:hover{border-color:#10b981;box-shadow:0 12px 40px rgba(16,185,129,0.15);}
 }
 .mc-icon{font-size:40px;margin-bottom:10px;}
 .mc-title{font-size:18px;font-weight:700;color:var(--text);margin-bottom:4px;}
@@ -103,6 +106,7 @@ body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#6474
 .mc-progress-fill{height:100%;border-radius:4px;transition:width 0.5s;}
 .mc-progress-fill.neuro{background:linear-gradient(90deg,#8b5cf6,#a78bfa);}
 .mc-progress-fill.abdomen{background:linear-gradient(90deg,#f59e0b,#fbbf24);}
+.mc-progress-fill.thorax{background:linear-gradient(90deg,#10b981,#34d399);}
 .mc-progress-text{font-size:10px;color:var(--text3);margin-top:4px;display:flex;justify-content:space-between;}
 
 /* Profile Section */
@@ -259,6 +263,20 @@ body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#6474
         <div class="mc-progress-text"><span id="abdomenProgressText">Başlamadın</span><span id="abdomenProgressPct">0%</span></div>
       </div>
     </a>
+    <a class="module-card thorax" href="thoraxrad.html">
+      <div class="mc-icon">🫁</div>
+      <div class="mc-title">ThoraxRad</div>
+      <div class="mc-desc">Toraks radyolojisi — akciğer, mediasten, plevra, kardiyak, vasküler</div>
+      <div class="mc-stats">
+        <span class="mc-stat" id="thoraxDiseaseCnt">-- hastalık</span>
+        <span class="mc-stat" id="thoraxDuelCnt">-- duel</span>
+        <span class="mc-stat" id="thoraxSignalCnt">-- sinyal profili</span>
+      </div>
+      <div class="mc-progress">
+        <div class="mc-progress-bar"><div class="mc-progress-fill thorax" id="thoraxProgress" style="width:0%"></div></div>
+        <div class="mc-progress-text"><span id="thoraxProgressText">Başlamadın</span><span id="thoraxProgressPct">0%</span></div>
+      </div>
+    </a>
   </div>
 
   <!-- Profile Section -->
@@ -296,6 +314,8 @@ body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#6474
       <a class="quick-btn" href="neurorad.html?page=anatomy"><div class="qb-icon">🧠</div><div class="qb-text">Anatomi</div></a>
       <a class="quick-btn" href="neurorad.html?page=graph"><div class="qb-icon">🕸️</div><div class="qb-text">Bağlantı Haritası</div></a>
       <a class="quick-btn" href="neurorad.html?page=reportquiz"><div class="qb-icon">🏋️</div><div class="qb-text">Rapor Antrenman</div></a>
+      <a class="quick-btn" href="thoraxrad.html?page=quiz"><div class="qb-icon">🫁</div><div class="qb-text">Thorax Quiz</div></a>
+      <a class="quick-btn" href="thoraxrad.html?page=duel"><div class="qb-icon">⚔️</div><div class="qb-text">Thorax Duel</div></a>
     </div>
   </div>
 </main>
@@ -305,6 +325,7 @@ body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#6474
   <div class="footer-links">
     <a href="neurorad.html">NeuroRad</a>
     <a href="abdomenrad.html">AbdomenRad</a>
+    <a href="thoraxrad.html">ThoraxRad</a>
   </div>
   <p id="footerStats">Toplam: -- hastalık · -- duel · -- sinyal profili</p>
   <p style="margin-top:4px;">Radyoloji asistanları için tasarlandı</p>
@@ -950,7 +971,7 @@ document.addEventListener('click', function(e) {
 // ===== PROFILE & STATS =====
 function loadCrossModuleStats() {
   var totalStudied = 0, totalMastered = 0, totalQuizSessions = 0;
-  var neuroStudied = 0, abdStudied = 0, neuroMastered = 0, abdMastered = 0;
+  var neuroStudied = 0, abdStudied = 0, thoraxStudied = 0, neuroMastered = 0, abdMastered = 0, thoraxMastered = 0;
 
   // NeuroRad: read actual module keys (neurorad_ prefix with underscore)
   try {
@@ -972,6 +993,17 @@ function loadCrossModuleStats() {
     totalStudied += abdStudied;
     totalMastered += abdMastered;
     totalQuizSessions += parseInt(localStorage.getItem('abdrad_quiz_session') || '0');
+  } catch(e) {}
+
+  // ThoraxRad: read actual module keys (thoraxrad_ prefix)
+  try {
+    var thoraxScores = JSON.parse(localStorage.getItem('thoraxrad_quiz_scores') || '{}');
+    var thoraxStudiedArr = JSON.parse(localStorage.getItem('thoraxrad_studied') || '[]');
+    thoraxStudied = thoraxStudiedArr.length;
+    thoraxMastered = Object.values(thoraxScores).filter(function(v) { return v >= 3; }).length;
+    totalStudied += thoraxStudied;
+    totalMastered += thoraxMastered;
+    totalQuizSessions += parseInt(localStorage.getItem('thoraxrad_quiz_session') || '0');
   } catch(e) {}
 
   document.getElementById('totalStudied').textContent = totalStudied;
@@ -1008,17 +1040,20 @@ function loadCrossModuleStats() {
   // Dinamik sayılar: searchIndex dizisinden hesapla
   var neuroDiseaseCount = searchIndex.filter(function(s) { return s.m === 'neuro'; }).length;
   var abdDiseaseCount = searchIndex.filter(function(s) { return s.m === 'abdomen'; }).length;
+  var thoraxDiseaseCount = searchIndex.filter(function(s) { return s.m === 'thorax'; }).length;
   var totalDiseaseCount = searchIndex.length;
 
   // Duel ve sinyal sayıları
-  var neuroDuelCount = 0, abdDuelCount = 0, neuroSignalCount = 0, abdSignalCount = 0;
+  var neuroDuelCount = 0, abdDuelCount = 0, thoraxDuelCount = 0, neuroSignalCount = 0, abdSignalCount = 0, thoraxSignalCount = 0;
   if (typeof duelEntries !== 'undefined') {
     neuroDuelCount = duelEntries.filter(function(d) { return d[0] === 'n'; }).length;
     abdDuelCount = duelEntries.filter(function(d) { return d[0] === 'a'; }).length;
+    thoraxDuelCount = duelEntries.filter(function(d) { return d[0] === 't'; }).length;
   }
   if (typeof signalEntries !== 'undefined') {
     neuroSignalCount = signalEntries.filter(function(s) { return s[0] === 'n'; }).length;
     abdSignalCount = signalEntries.filter(function(s) { return s[0] === 'a'; }).length;
+    thoraxSignalCount = signalEntries.filter(function(s) { return s[0] === 't'; }).length;
   }
 
   // İstatistikleri güncelle
@@ -1029,15 +1064,19 @@ function loadCrossModuleStats() {
   document.getElementById('abdDiseaseCnt').textContent = abdDiseaseCount + ' hastalık';
   document.getElementById('abdDuelCnt').textContent = abdDuelCount + ' duel';
   document.getElementById('abdSignalCnt').textContent = abdSignalCount + ' sinyal quiz';
+  document.getElementById('thoraxDiseaseCnt').textContent = thoraxDiseaseCount + ' hastalık';
+  document.getElementById('thoraxDuelCnt').textContent = thoraxDuelCount + ' duel';
+  document.getElementById('thoraxSignalCnt').textContent = thoraxSignalCount + ' sinyal quiz';
 
   // Footer
-  var totalDuels = neuroDuelCount + abdDuelCount;
-  var totalSignals = neuroSignalCount + abdSignalCount;
+  var totalDuels = neuroDuelCount + abdDuelCount + thoraxDuelCount;
+  var totalSignals = neuroSignalCount + abdSignalCount + thoraxSignalCount;
   document.getElementById('footerStats').textContent = 'Toplam: ' + totalDiseaseCount + ' hastalık · ' + totalDuels + ' duel · ' + totalSignals + ' sinyal quiz';
 
   // Progress bars
   updateModuleProgress('neuro', neuroDiseaseCount, neuroStudied);
   updateModuleProgress('abdomen', abdDiseaseCount, abdStudied);
+  updateModuleProgress('thorax', thoraxDiseaseCount, thoraxStudied);
 }
 
 function updateModuleProgress(module, totalDiseases, studiedCount) {

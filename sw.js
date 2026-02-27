@@ -7,6 +7,7 @@ const ASSETS = [
   '/index.html',
   '/neurorad.html',
   '/abdomenrad.html',
+  '/thoraxrad.html',
   '/search-data.js',
   '/manifest.json'
 ];
@@ -14,7 +15,8 @@ const ASSETS = [
 // Clean URL → .html mapping for cache fallback
 const CLEAN_URL_MAP = {
   '/neurorad': '/neurorad.html',
-  '/abdomenrad': '/abdomenrad.html'
+  '/abdomenrad': '/abdomenrad.html',
+  '/thoraxrad': '/thoraxrad.html'
 };
 
 // Install — cache core assets
