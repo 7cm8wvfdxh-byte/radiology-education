@@ -4707,24 +4707,53 @@ const quickSearchTags = [
 
 function smartSearch(term) {
   if (!term) return diseases;
-  var words = term.toLowerCase().split(/\s+/);
-  var expandedWords = [];
-  words.forEach(function(w) {
-    expandedWords.push(w);
+  var lterm = term.toLowerCase();
+  var words = lterm.split(/\s+/);
+  var isMultiWord = words.length > 1;
+
+  // Build per-word synonym expansions
+  var wordExpansions = words.map(function(w) {
+    var expanded = [w];
     Object.keys(searchSynonyms).forEach(function(key) {
       if (key.includes(w) || w.includes(key)) {
-        searchSynonyms[key].forEach(function(syn) { expandedWords.push(syn); });
+        searchSynonyms[key].forEach(function(syn) { expanded.push(syn); });
       }
     });
+    return expanded;
   });
+
+  // Also expand the full phrase for multi-word semantic matching
+  var phraseExpansions = [lterm];
+  if (isMultiWord) {
+    Object.keys(searchSynonyms).forEach(function(key) {
+      if (key.includes(lterm) || lterm.includes(key)) {
+        searchSynonyms[key].forEach(function(syn) { phraseExpansions.push(syn); });
+      }
+    });
+  }
+
+  // Flat list for single-word fallback
+  var allExpanded = [];
+  wordExpansions.forEach(function(exp) { exp.forEach(function(w) { allExpanded.push(w); }); });
+
   return diseases.filter(function(d) {
     var searchIn = [
-      d.name||'', d.keyPoint||'', d.id||'',
-      (d.pathway||[]).map(function(p){return (p.text||'')+' '+(p.detail||'');}).join(' '),
-      (d.differential||[]).join(' '), d.protocol||'', d.usg||'',
-      (d.quiz ? d.quiz.q+' '+d.quiz.a : ''), d.tagText||'', d.category||''
+      d.name || '', d.keyPoint || '', d.id || '',
+      (d.pathway || []).map(function(p) { return (p.text||'') + ' ' + (p.detail||''); }).join(' '),
+      (d.differential || []).join(' '), d.protocol || '', d.usg || '',
+      (d.quiz ? d.quiz.q + ' ' + d.quiz.a : ''), d.tagText || '', d.category || ''
     ].join(' ').toLowerCase();
-    return expandedWords.some(function(ew) { return searchIn.includes(ew); });
+
+    if (isMultiWord) {
+      // 1. Full phrase match (exact or synonym)
+      if (phraseExpansions.some(function(p) { return searchIn.includes(p); })) return true;
+      // 2. All words must match (each word via its own synonyms)
+      return wordExpansions.every(function(expansion) {
+        return expansion.some(function(ew) { return searchIn.includes(ew); });
+      });
+    }
+    // Single word: match any expanded word
+    return allExpanded.some(function(ew) { return searchIn.includes(ew); });
   });
 }
 
@@ -4770,12 +4799,25 @@ function showSearchSuggestions(term) {
 
   // Search across all content types
   var extraSections = [];
+  var searchWords = lterm.split(/\s+/);
+  var isMultiWord = searchWords.length > 1;
+
+  // Helper: match multi-word queries across combined text fields
+  function textsMatch(texts) {
+    var combined = texts.join(' ').toLowerCase();
+    if (combined.includes(lterm)) return true;
+    if (isMultiWord) {
+      return searchWords.every(function(w) { return combined.includes(w); });
+    }
+    return false;
+  }
 
   // Findings
   var foundInFindings = [];
   if (typeof findings !== 'undefined') { foundInFindings = findings.filter(function(f) {
-    return (f.finding || '').toLowerCase().includes(lterm) || (f.description || '').toLowerCase().includes(lterm) ||
-      (f.causes || f.diseases || []).some(function(fd) { return (fd.name || '').toLowerCase().includes(lterm) || (fd.clue || fd.key || '').toLowerCase().includes(lterm); });
+    var texts = [f.finding || '', f.description || ''];
+    (f.causes || f.diseases || []).forEach(function(fd) { texts.push(fd.name || '', fd.clue || fd.key || ''); });
+    return textsMatch(texts);
   }); }
   if (foundInFindings.length > 0) {
     extraSections.push({ title: '🔍 Bulgu Ara', page: 'finder', color: 'var(--accent-purple)', items: foundInFindings.slice(0, 2).map(function(f) { return '🔍 ' + f.finding + ' (' + (f.causes || f.diseases || []).length + ' neden)'; }) });
@@ -4784,7 +4826,7 @@ function showSearchSuggestions(term) {
   // Duels
   var foundInDuels = [];
   if (typeof duels !== 'undefined') { foundInDuels = duels.filter(function(du) {
-    return (du.title || '').toLowerCase().includes(lterm) || (du.a && du.a.name && du.a.name.toLowerCase().includes(lterm)) || (du.b && du.b.name && du.b.name.toLowerCase().includes(lterm));
+    return textsMatch([du.title || '', (du.a && du.a.name) || '', (du.b && du.b.name) || '']);
   }); }
   if (foundInDuels.length > 0) {
     extraSections.push({ title: '⚔️ Düello', page: 'duel', color: 'var(--accent-amber)', items: foundInDuels.slice(0, 2).map(function(du) { return '⚔️ ' + du.title; }) });
@@ -4794,7 +4836,7 @@ function showSearchSuggestions(term) {
   var foundSignal = [];
   if (typeof signalAtlas !== 'undefined') { signalAtlas.forEach(function(s) {
     (s.items || []).forEach(function(it) {
-      if ((it.name || '').toLowerCase().includes(lterm) || (it.reason || '').toLowerCase().includes(lterm) || (s.signal || '').toLowerCase().includes(lterm)) foundSignal.push(s.signal + ' → ' + it.name);
+      if (textsMatch([it.name || '', it.reason || '', s.signal || ''])) foundSignal.push(s.signal + ' → ' + it.name);
     });
   }); }
   if (foundSignal.length > 0) {
@@ -4804,7 +4846,7 @@ function showSearchSuggestions(term) {
   // Signal Quizzes
   var foundSQuiz = [];
   if (typeof signalQuizzes !== 'undefined') { foundSQuiz = signalQuizzes.filter(function(q) {
-    return (q.combo || '').toLowerCase().includes(lterm) || (q.answer || '').toLowerCase().includes(lterm);
+    return textsMatch([q.combo || '', q.answer || '']);
   }); }
   if (foundSQuiz.length > 0) {
     extraSections.push({ title: '🎯 Sinyal Quiz', page: 'signal', color: 'var(--accent-teal)', items: foundSQuiz.slice(0, 2).map(function(q) { return '🎯 ' + (q.combo || '').substring(0, 50); }) });
@@ -4814,7 +4856,7 @@ function showSearchSuggestions(term) {
   var foundEmergency = [];
   if (typeof emergencyFindings !== 'undefined') { emergencyFindings.forEach(function(cat) {
     (cat.items || []).forEach(function(it) {
-      if ((it.finding || '').toLowerCase().includes(lterm) || (it.action || '').toLowerCase().includes(lterm) || (it.look || '').toLowerCase().includes(lterm) || (cat.category || '').toLowerCase().includes(lterm)) foundEmergency.push('🚨 ' + it.finding);
+      if (textsMatch([it.finding || '', it.action || '', it.look || '', cat.category || ''])) foundEmergency.push('🚨 ' + it.finding);
     });
   }); }
   if (foundEmergency.length > 0) {
@@ -4825,7 +4867,7 @@ function showSearchSuggestions(term) {
   var foundMeas = [];
   if (typeof measurements !== 'undefined') { measurements.forEach(function(cat) {
     (cat.items || []).forEach(function(it) {
-      if ((it.name || '').toLowerCase().includes(lterm) || (it.where || '').toLowerCase().includes(lterm) || (it.clinical || '').toLowerCase().includes(lterm) || (cat.category || '').toLowerCase().includes(lterm)) foundMeas.push('📏 ' + it.name);
+      if (textsMatch([it.name || '', it.where || '', it.clinical || '', cat.category || ''])) foundMeas.push('📏 ' + it.name);
     });
   }); }
   if (foundMeas.length > 0) {
@@ -4835,7 +4877,7 @@ function showSearchSuggestions(term) {
   // Calculators
   var foundCalc = [];
   if (typeof abdCalcs !== 'undefined') { foundCalc = abdCalcs.filter(function(c) {
-    return (c.name || '').toLowerCase().includes(lterm) || (c.desc || '').toLowerCase().includes(lterm);
+    return textsMatch([c.name || '', c.desc || '']);
   }); }
   if (foundCalc.length > 0) {
     extraSections.push({ title: '🔢 Hesaplayıcılar', page: 'calc', color: 'var(--accent-green)', items: foundCalc.slice(0, 2).map(function(c) { return '🔢 ' + c.name; }) });
@@ -4844,7 +4886,7 @@ function showSearchSuggestions(term) {
   // Physics
   var foundPhysics = [];
   if (typeof abdPhysicsTopics !== 'undefined') { foundPhysics = abdPhysicsTopics.filter(function(t) {
-    return (t.title || '').toLowerCase().includes(lterm) || (t.concept || '').toLowerCase().includes(lterm) || (t.clinicalPearl || '').toLowerCase().includes(lterm);
+    return textsMatch([t.title || '', t.concept || '', t.clinicalPearl || '']);
   }); }
   if (foundPhysics.length > 0) {
     extraSections.push({ title: '⚛️ MR Fizik', page: 'physics', color: 'var(--accent-indigo)', items: foundPhysics.slice(0, 2).map(function(t) { return '⚛️ ' + t.title; }) });
@@ -4853,7 +4895,9 @@ function showSearchSuggestions(term) {
   // Enhancement Patterns
   var foundEnhance = [];
   if (typeof enhancePatterns !== 'undefined') { foundEnhance = enhancePatterns.filter(function(p) {
-    return (p.pattern || '').toLowerCase().includes(lterm) || (p.keyRule || '').toLowerCase().includes(lterm) || (p.lesions || []).some(function(l) { return (l.name || '').toLowerCase().includes(lterm); });
+    var texts = [p.pattern || '', p.keyRule || ''];
+    (p.lesions || []).forEach(function(l) { texts.push(l.name || ''); });
+    return textsMatch(texts);
   }); }
   if (foundEnhance.length > 0) {
     extraSections.push({ title: '💉 Kontrastlanma', page: 'enhance', color: 'var(--accent-pink)', items: foundEnhance.slice(0, 2).map(function(p) { return '💉 ' + p.pattern; }) });
@@ -4862,7 +4906,7 @@ function showSearchSuggestions(term) {
   // Concept Map
   var foundConcept = [];
   if (typeof conceptMap !== 'undefined') { foundConcept = conceptMap.filter(function(c) {
-    return (c.title || '').toLowerCase().includes(lterm) || (c.whyItMatters || '').toLowerCase().includes(lterm) || (c.keyInsight || '').toLowerCase().includes(lterm);
+    return textsMatch([c.title || '', c.whyItMatters || '', c.keyInsight || '']);
   }); }
   if (foundConcept.length > 0) {
     extraSections.push({ title: '🧠 Kavram Haritası', page: 'concepts', color: 'var(--accent-orange)', items: foundConcept.slice(0, 2).map(function(c) { return '🧠 ' + c.title; }) });
@@ -4871,7 +4915,7 @@ function showSearchSuggestions(term) {
   // Report Templates
   var foundReport = [];
   if (typeof abdReportTemplates !== 'undefined') { foundReport = abdReportTemplates.filter(function(r) {
-    return (r.name || r.title || '').toLowerCase().includes(lterm) || (r.description || '').toLowerCase().includes(lterm);
+    return textsMatch([r.name || r.title || '', r.description || '']);
   }); }
   if (foundReport.length > 0) {
     extraSections.push({ title: '📝 Rapor Şablonu', page: 'report', color: 'var(--text-muted)', items: foundReport.slice(0, 2).map(function(r) { return '📝 ' + (r.name || r.title); }) });
@@ -4881,7 +4925,7 @@ function showSearchSuggestions(term) {
   var foundVariant = [];
   if (typeof abdomenVariants !== 'undefined') { abdomenVariants.forEach(function(reg) {
     (reg.variants || []).forEach(function(v) {
-      if ((v.name || '').toLowerCase().includes(lterm) || (v.what || '').toLowerCase().includes(lterm) || (v.mimic || '').toLowerCase().includes(lterm) || (reg.region || '').toLowerCase().includes(lterm)) foundVariant.push('🔀 ' + v.name);
+      if (textsMatch([v.name || '', v.what || '', v.mimic || '', reg.region || ''])) foundVariant.push('🔀 ' + v.name);
     });
   }); }
   if (foundVariant.length > 0) {
@@ -4891,7 +4935,7 @@ function showSearchSuggestions(term) {
   // Staging Systems
   var foundStaging = [];
   if (typeof stagingSystems !== 'undefined') { foundStaging = stagingSystems.filter(function(s) {
-    return (s.name || '').toLowerCase().includes(lterm) || (s.organ || '').toLowerCase().includes(lterm) || (s.indication || '').toLowerCase().includes(lterm);
+    return textsMatch([s.name || '', s.organ || '', s.indication || '']);
   }); }
   if (foundStaging.length > 0) {
     extraSections.push({ title: '📊 Evreleme', page: 'staging', color: 'var(--accent-amber)', items: foundStaging.slice(0, 2).map(function(s) { return '📊 ' + s.name; }) });
@@ -4901,7 +4945,7 @@ function showSearchSuggestions(term) {
   var foundPitfall = [];
   if (typeof pitfallsData !== 'undefined') { pitfallsData.forEach(function(cat) {
     (cat.pitfalls || []).forEach(function(p) {
-      if ((p.title || '').toLowerCase().includes(lterm) || (p.trap || '').toLowerCase().includes(lterm) || (p.truth || '').toLowerCase().includes(lterm) || (cat.organ || '').toLowerCase().includes(lterm)) foundPitfall.push('⚠️ ' + p.title);
+      if (textsMatch([p.title || '', p.trap || '', p.truth || '', cat.organ || ''])) foundPitfall.push('⚠️ ' + p.title);
     });
   }); }
   if (foundPitfall.length > 0) {
@@ -4912,7 +4956,7 @@ function showSearchSuggestions(term) {
   var foundProtocol = [];
   if (typeof protocolData !== 'undefined') { protocolData.forEach(function(cat) {
     (cat.protocols || []).forEach(function(p) {
-      if ((p.scenario || '').toLowerCase().includes(lterm) || (p.protocol || '').toLowerCase().includes(lterm) || (p.pearl || '').toLowerCase().includes(lterm) || (cat.category || '').toLowerCase().includes(lterm)) foundProtocol.push('📋 ' + p.scenario);
+      if (textsMatch([p.scenario || '', p.protocol || '', p.pearl || '', cat.category || ''])) foundProtocol.push('📋 ' + p.scenario);
     });
   }); }
   if (foundProtocol.length > 0) {
@@ -4922,7 +4966,7 @@ function showSearchSuggestions(term) {
   // Postop
   var foundPostop = [];
   if (typeof postopData !== 'undefined') { foundPostop = postopData.filter(function(p) {
-    return (p.surgery || '').toLowerCase().includes(lterm) || (p.indication || '').toLowerCase().includes(lterm) || (p.normalFindings || '').toLowerCase().includes(lterm) || (p.alarmFindings || '').toLowerCase().includes(lterm);
+    return textsMatch([p.surgery || '', p.indication || '', p.normalFindings || '', p.alarmFindings || '']);
   }); }
   if (foundPostop.length > 0) {
     extraSections.push({ title: '🏥 Postop', page: 'postop', color: 'var(--accent-green)', items: foundPostop.slice(0, 2).map(function(p) { return '🏥 ' + p.surgery; }) });
@@ -4931,7 +4975,7 @@ function showSearchSuggestions(term) {
   // Cases
   var foundCases = [];
   if (typeof casesData !== 'undefined') { foundCases = casesData.filter(function(c) {
-    return (c.title || '').toLowerCase().includes(lterm) || (c.presentation || '').toLowerCase().includes(lterm) || (c.finalDiagnosis || '').toLowerCase().includes(lterm);
+    return textsMatch([c.title || '', c.presentation || '', c.finalDiagnosis || '']);
   }); }
   if (foundCases.length > 0) {
     extraSections.push({ title: '📚 Vakalar', page: 'cases', color: 'var(--accent-purple)', items: foundCases.slice(0, 2).map(function(c) { return '📚 ' + c.title; }) });
@@ -4940,7 +4984,7 @@ function showSearchSuggestions(term) {
   // Anatomy Atlas
   var foundAnatomy = [];
   if (typeof anatomyAtlas !== 'undefined') { foundAnatomy = anatomyAtlas.filter(function(a) {
-    return (a.organ || '').toLowerCase().includes(lterm) || (a.segments || '').toLowerCase().includes(lterm) || (a.landmarks || '').toLowerCase().includes(lterm) || (a.keyPearl || '').toLowerCase().includes(lterm);
+    return textsMatch([a.organ || '', a.segments || '', a.landmarks || '', a.keyPearl || '']);
   }); }
   if (foundAnatomy.length > 0) {
     extraSections.push({ title: '🫀 Anatomi', page: 'anatomy', color: 'var(--accent-cyan)', items: foundAnatomy.slice(0, 2).map(function(a) { return '🫀 ' + a.organ; }) });
