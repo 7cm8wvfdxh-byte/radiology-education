@@ -8179,8 +8179,12 @@ function renderAnatomy(main) {
 function goToDisease(id) {
   if (!id) return;
   currentPage = 'home';
+  currentTab = 'all';
+  document.querySelectorAll('.nav-tab').forEach(function(t) { t.classList.toggle('active', t.dataset.tab === 'all'); });
   window._anatomyRegion = null;
   updateBottomNav();
+  var searchInput = document.getElementById('searchInput');
+  if (searchInput) searchInput.value = '';
   render();
   setTimeout(function() {
     var el = document.getElementById('card-' + id);
@@ -8753,7 +8757,7 @@ function smartSearch(term) {
 function showSearchSuggestions(term) {
   var sugBox = document.getElementById('searchSuggestions');
   if (!sugBox) return;
-  
+  try {
   if (!term || term.length < 1) {
     // Show quick tags
     var html = '<div style="padding:8px 12px;">';
@@ -8832,13 +8836,16 @@ function showSearchSuggestions(term) {
   for (var j = 0; j < suggs.length; j++) {
     (function(el) {
       el.addEventListener('click', function() {
+        var diseaseId = el.getAttribute('data-id');
         sugBox.style.display = 'none';
         document.getElementById('searchInput').value = '';
         currentPage = 'home';
+        currentTab = 'all';
+        document.querySelectorAll('.nav-tab').forEach(function(t) { t.classList.toggle('active', t.dataset.tab === 'all'); });
         updateBottomNav();
         render();
         setTimeout(function() {
-          var card = document.getElementById('card-' + el.getAttribute('data-id'));
+          var card = document.getElementById('card-' + diseaseId);
           if (card) {
             card.classList.add('open');
             card.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -8868,6 +8875,10 @@ function showSearchSuggestions(term) {
       updateBottomNav();
       render();
     });
+  }
+  } catch(e) {
+    console.error('Search suggestions error:', e);
+    if (sugBox) sugBox.style.display = 'none';
   }
 }
 
@@ -11462,7 +11473,24 @@ function initApp() {
     });
   }
 
+  // Handle URL parameters from global search (index.html)
+  var urlParams = new URLSearchParams(window.location.search);
+  var diseaseParam = urlParams.get('disease');
+  var pageParam = urlParams.get('page');
+  if (pageParam) {
+    currentPage = pageParam;
+    updateBottomNav();
+  }
+
   render();
+
+  if (diseaseParam) {
+    // Clean URL without reloading
+    window.history.replaceState({}, '', window.location.pathname);
+    goToDisease(diseaseParam);
+  } else if (pageParam) {
+    window.history.replaceState({}, '', window.location.pathname);
+  }
 
   function generateReportText() {
     var main = document.getElementById('mainContent');
