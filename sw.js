@@ -1,6 +1,6 @@
 // Cache versiyon yönetimi: CACHE_VERSION her deploy'da güncellenmeli.
 // Build script (scripts/bump-cache.js) bunu otomatik yapar.
-const CACHE_VERSION = 3;
+const CACHE_VERSION = 4;
 const CACHE_NAME = 'radiology-edu-v' + CACHE_VERSION;
 const ASSETS = [
   '/',
@@ -10,6 +10,12 @@ const ASSETS = [
   '/search-data.js',
   '/manifest.json'
 ];
+
+// Clean URL → .html mapping for cache fallback
+const CLEAN_URL_MAP = {
+  '/neurorad': '/neurorad.html',
+  '/abdomenrad': '/abdomenrad.html'
+};
 
 // Install — cache core assets
 self.addEventListener('install', (event) => {
@@ -31,6 +37,20 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
+// Try to match a request in cache, with clean URL fallback
+function matchWithFallback(cache, request) {
+  const url = new URL(request.url);
+  return cache.match(request).then((cached) => {
+    if (cached) return cached;
+    // If clean URL (e.g. /neurorad), try .html variant (e.g. /neurorad.html)
+    const htmlPath = CLEAN_URL_MAP[url.pathname];
+    if (htmlPath) {
+      return cache.match(new Request(url.origin + htmlPath));
+    }
+    return undefined;
+  });
+}
+
 // Fetch — stale-while-revalidate for HTML, network-first for others
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
@@ -38,12 +58,16 @@ self.addEventListener('fetch', (event) => {
   // Only handle same-origin requests
   if (url.origin !== location.origin) return;
 
-  // For HTML files and search-data.js: stale-while-revalidate
-  // Serve cache immediately, then update cache from network in background
-  if (event.request.destination === 'document' || url.pathname.endsWith('.html') || url.pathname.endsWith('.js')) {
+  // For HTML files, clean URLs and JS: stale-while-revalidate
+  const isDocument = event.request.destination === 'document';
+  const isHtml = url.pathname.endsWith('.html');
+  const isJs = url.pathname.endsWith('.js');
+  const isCleanUrl = CLEAN_URL_MAP.hasOwnProperty(url.pathname);
+
+  if (isDocument || isHtml || isJs || isCleanUrl) {
     event.respondWith(
       caches.open(CACHE_NAME).then((cache) =>
-        cache.match(event.request).then((cached) => {
+        matchWithFallback(cache, event.request).then((cached) => {
           const fetchPromise = fetch(event.request).then((response) => {
             if (response.ok) {
               cache.put(event.request, response.clone());
