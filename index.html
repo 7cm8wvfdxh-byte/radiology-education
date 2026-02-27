@@ -62,6 +62,10 @@ body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#6474
 .sr-badge.abdomen{color:#f59e0b;border:1px solid rgba(245,158,11,0.3);}
 .sr-badge.duel{color:#f43f5e;border:1px solid rgba(244,63,94,0.3);}
 .sr-badge.signal{color:#06b6d4;border:1px solid rgba(6,182,212,0.3);}
+.sr-badge.finding{color:#8b5cf6;border:1px solid rgba(139,92,246,0.3);}
+.sr-badge.emergency{color:#ef4444;border:1px solid rgba(239,68,68,0.3);}
+.sr-badge.measurement{color:#10b981;border:1px solid rgba(16,185,129,0.3);}
+.sr-badge.tool{color:#06b6d4;border:1px solid rgba(6,182,212,0.3);}
 .sr-type{font-size:9px;color:var(--text3);text-align:center;}
 .sr-info{flex:1;min-width:0;}
 .sr-name{font-size:14px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
@@ -206,8 +210,11 @@ body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#6474
     <div class="search-filters" id="searchFilters">
       <button class="sf-btn active" data-filter="all" onclick="setSearchFilter('all')">Tümü<span class="sf-count" id="sfAll"></span></button>
       <button class="sf-btn" data-filter="disease" onclick="setSearchFilter('disease')">Hastalık<span class="sf-count" id="sfDisease"></span></button>
+      <button class="sf-btn" data-filter="finding" onclick="setSearchFilter('finding')">Bulgu<span class="sf-count" id="sfFinding"></span></button>
       <button class="sf-btn" data-filter="duel" onclick="setSearchFilter('duel')">Duel<span class="sf-count" id="sfDuel"></span></button>
-      <button class="sf-btn" data-filter="signal" onclick="setSearchFilter('signal')">Sinyal<span class="sf-count" id="sfSignal"></span></button>
+      <button class="sf-btn" data-filter="emergency" onclick="setSearchFilter('emergency')">Acil<span class="sf-count" id="sfEmergency"></span></button>
+      <button class="sf-btn" data-filter="measurement" onclick="setSearchFilter('measurement')">Ölçüm<span class="sf-count" id="sfMeasurement"></span></button>
+      <button class="sf-btn" data-filter="tool" onclick="setSearchFilter('tool')">Araç<span class="sf-count" id="sfTool"></span></button>
     </div>
     <div class="search-results" id="searchResults"></div>
     <div class="sr-footer" id="searchFooter"></div>
@@ -600,7 +607,7 @@ function executeSearch(query) {
           type: 'duel', score: 4, name: title,
           cat: d[2] + ' vs ' + d[3],
           module: d[0] === 'n' ? 'neuro' : 'abdomen',
-          url: (d[0] === 'n' ? 'neurorad.html' : 'abdomenrad.html') + '#duel',
+          url: (d[0] === 'n' ? 'neurorad.html' : 'abdomenrad.html') + '?page=duel',
           context: findContext(d[4], q)
         });
       }
@@ -614,11 +621,113 @@ function executeSearch(query) {
       var matched = words.every(function(w) { return searchText.includes(w); });
       if (matched) {
         allResults.push({
-          type: 'signal', score: 3, name: s[2] || s[1].substring(0, 60),
-          cat: s[1].substring(0, 70),
+          type: 'tool', score: 3, name: s[2] || s[1].substring(0, 60),
+          cat: '🎯 Sinyal • ' + s[1].substring(0, 50),
           module: s[0] === 'n' ? 'neuro' : 'abdomen',
-          url: (s[0] === 'n' ? 'neurorad.html' : 'abdomenrad.html') + '#signal',
+          url: (s[0] === 'n' ? 'neurorad.html' : 'abdomenrad.html') + '?page=signal',
           context: findContext(s[1] + ' ' + s[3], q)
+        });
+      }
+    });
+  }
+
+  // 4. Search findings
+  if (typeof findingEntries !== 'undefined') {
+    findingEntries.forEach(function(f) {
+      var searchText = [f[1], f[2], f[3]].join(' ').toLowerCase();
+      var matched = words.every(function(w) { return searchText.includes(w); });
+      if (matched) {
+        allResults.push({
+          type: 'finding', score: 6, name: f[1],
+          cat: '🔍 Bulgu Ayırıcı Tanı',
+          module: f[0] === 'n' ? 'neuro' : 'abdomen',
+          url: (f[0] === 'n' ? 'neurorad.html' : 'abdomenrad.html') + '?page=finder',
+          context: findContext(f[2], q)
+        });
+      }
+    });
+  }
+
+  // 5. Search emergency findings
+  if (typeof emergencyEntries !== 'undefined') {
+    emergencyEntries.forEach(function(e) {
+      var searchText = [e[1], e[2], e[3], e[4]].join(' ').toLowerCase();
+      var matched = words.every(function(w) { return searchText.includes(w); });
+      if (matched) {
+        allResults.push({
+          type: 'emergency', score: 5, name: e[2],
+          cat: '🚨 ' + e[1],
+          module: e[0] === 'n' ? 'neuro' : 'abdomen',
+          url: (e[0] === 'n' ? 'neurorad.html' : 'abdomenrad.html') + '?page=emergency',
+          context: findContext(e[3] + ' ' + e[4], q)
+        });
+      }
+    });
+  }
+
+  // 6. Search measurements
+  if (typeof measurementEntries !== 'undefined') {
+    measurementEntries.forEach(function(m) {
+      var searchText = [m[1], m[2], m[3]].join(' ').toLowerCase();
+      var matched = words.every(function(w) { return searchText.includes(w); });
+      if (matched) {
+        allResults.push({
+          type: 'measurement', score: 4, name: m[2],
+          cat: '📏 ' + m[1],
+          module: m[0] === 'n' ? 'neuro' : 'abdomen',
+          url: (m[0] === 'n' ? 'neurorad.html' : 'abdomenrad.html') + '?page=measurements',
+          context: findContext(m[3], q)
+        });
+      }
+    });
+  }
+
+  // 7. Search calculators
+  if (typeof calcEntries !== 'undefined') {
+    calcEntries.forEach(function(c) {
+      var searchText = [c[1], c[2]].join(' ').toLowerCase();
+      var matched = words.every(function(w) { return searchText.includes(w); });
+      if (matched) {
+        allResults.push({
+          type: 'tool', score: 4, name: c[1],
+          cat: '🧮 Hesaplayıcı',
+          module: c[0] === 'n' ? 'neuro' : 'abdomen',
+          url: (c[0] === 'n' ? 'neurorad.html' : 'abdomenrad.html') + '?page=calc',
+          context: findContext(c[2], q)
+        });
+      }
+    });
+  }
+
+  // 8. Search physics topics
+  if (typeof physicsEntries !== 'undefined') {
+    physicsEntries.forEach(function(p) {
+      var searchText = [p[1], p[2]].join(' ').toLowerCase();
+      var matched = words.every(function(w) { return searchText.includes(w); });
+      if (matched) {
+        allResults.push({
+          type: 'tool', score: 3, name: p[1],
+          cat: '⚛️ MR Fizik',
+          module: p[0] === 'n' ? 'neuro' : 'abdomen',
+          url: (p[0] === 'n' ? 'neurorad.html' : 'abdomenrad.html') + '?page=physics',
+          context: findContext(p[2], q)
+        });
+      }
+    });
+  }
+
+  // 9. Search enhancement patterns
+  if (typeof enhanceEntries !== 'undefined') {
+    enhanceEntries.forEach(function(e) {
+      var searchText = [e[1], e[2]].join(' ').toLowerCase();
+      var matched = words.every(function(w) { return searchText.includes(w); });
+      if (matched) {
+        allResults.push({
+          type: 'finding', score: 5, name: e[1],
+          cat: '💉 Kontrastlanma Paterni',
+          module: e[0] === 'n' ? 'neuro' : 'abdomen',
+          url: (e[0] === 'n' ? 'neurorad.html' : 'abdomenrad.html') + '?page=enhance',
+          context: findContext(e[2], q)
         });
       }
     });
@@ -628,12 +737,15 @@ function executeSearch(query) {
   allResults.sort(function(a, b) { return b.score - a.score; });
 
   // Update filter counts
-  var counts = { all: allResults.length, disease: 0, duel: 0, signal: 0 };
-  allResults.forEach(function(r) { counts[r.type]++; });
+  var counts = { all: allResults.length, disease: 0, duel: 0, finding: 0, emergency: 0, measurement: 0, tool: 0 };
+  allResults.forEach(function(r) { if (counts[r.type] !== undefined) counts[r.type]++; });
   document.getElementById('sfAll').textContent = counts.all ? ' (' + counts.all + ')' : '';
   document.getElementById('sfDisease').textContent = counts.disease ? ' (' + counts.disease + ')' : '';
+  document.getElementById('sfFinding').textContent = counts.finding ? ' (' + counts.finding + ')' : '';
   document.getElementById('sfDuel').textContent = counts.duel ? ' (' + counts.duel + ')' : '';
-  document.getElementById('sfSignal').textContent = counts.signal ? ' (' + counts.signal + ')' : '';
+  document.getElementById('sfEmergency').textContent = counts.emergency ? ' (' + counts.emergency + ')' : '';
+  document.getElementById('sfMeasurement').textContent = counts.measurement ? ' (' + counts.measurement + ')' : '';
+  document.getElementById('sfTool').textContent = counts.tool ? ' (' + counts.tool + ')' : '';
 
   kbIndex = -1;
   renderResults();
@@ -658,8 +770,8 @@ function renderResults() {
   var footerEl = document.getElementById('searchFooter');
 
   var filtered = currentFilter === 'all' ? allResults : allResults.filter(function(r) { return r.type === currentFilter; });
-  var shown = filtered.slice(0, 15);
-  var hasMore = filtered.length > 15;
+  var shown = filtered.slice(0, 20);
+  var hasMore = filtered.length > 20;
 
   if (allResults.length === 0) {
     filtersEl.classList.remove('active');
@@ -675,7 +787,8 @@ function renderResults() {
 
   resultsEl.innerHTML = shown.map(function(r, i) {
     var moduleBadge = r.module === 'neuro' ? 'NEURO' : 'ABDOMEN';
-    var typeLabel = r.type === 'disease' ? '' : r.type === 'duel' ? 'DUEL' : 'SİNYAL';
+    var typeLabels = { disease: '', duel: 'DUEL', finding: 'BULGU', emergency: 'ACİL', measurement: 'ÖLÇÜM', tool: 'ARAÇ' };
+    var typeLabel = typeLabels[r.type] || r.type.toUpperCase();
     var typeBadge = typeLabel ? '<span class="sr-badge ' + r.type + '">' + typeLabel + '</span>' : '';
     var contextHtml = r.context ? '<div class="sr-context">' + r.context + '</div>' : '';
     return '<div class="sr-item' + (i === kbIndex ? ' kb-active' : '') + '" data-idx="' + i + '" onclick="navigateResult(' + i + ')">' +
@@ -685,7 +798,7 @@ function renderResults() {
   }).join('');
 
   if (hasMore) {
-    footerEl.textContent = (filtered.length - 15) + ' sonuç daha...';
+    footerEl.textContent = (filtered.length - 20) + ' sonuç daha...';
     footerEl.classList.add('active');
   } else {
     footerEl.classList.remove('active');
@@ -694,7 +807,7 @@ function renderResults() {
 
 function navigateResult(idx) {
   var filtered = currentFilter === 'all' ? allResults : allResults.filter(function(r) { return r.type === currentFilter; });
-  var shown = filtered.slice(0, 15);
+  var shown = filtered.slice(0, 20);
   if (idx >= 0 && idx < shown.length) {
     var result = shown[idx];
     var url = result.url;
@@ -712,7 +825,7 @@ function navigateResult(idx) {
 // Keyboard navigation
 function handleSearchKeys(e) {
   var filtered = currentFilter === 'all' ? allResults : allResults.filter(function(r) { return r.type === currentFilter; });
-  var shown = filtered.slice(0, 15);
+  var shown = filtered.slice(0, 20);
   if (shown.length === 0) return;
 
   if (e.key === 'ArrowDown') {

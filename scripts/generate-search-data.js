@@ -46,8 +46,7 @@ function safeEval(code) {
 function extractDiseases(html) {
   const block = extractArrayBlock(html, 'const diseases = [');
   if (!block) { console.error('diseases dizisi bulunamadı'); return []; }
-  const arr = safeEval(block);
-  return arr || [];
+  return safeEval(block) || [];
 }
 
 function extractDuels(html) {
@@ -62,22 +61,52 @@ function extractSignalQuizzes(html) {
   return safeEval(block) || [];
 }
 
+function extractFindings(html) {
+  const block = extractArrayBlock(html, 'const findings = [');
+  if (!block) return [];
+  return safeEval(block) || [];
+}
+
+function extractEmergency(html, varName) {
+  const block = extractArrayBlock(html, 'const ' + varName + ' = [');
+  if (!block) return [];
+  return safeEval(block) || [];
+}
+
+function extractMeasurements(html, varName) {
+  const block = extractArrayBlock(html, 'const ' + varName + ' = [');
+  if (!block) return [];
+  return safeEval(block) || [];
+}
+
+function extractCalcs(html, varName) {
+  const block = extractArrayBlock(html, 'const ' + varName + ' = [');
+  if (!block) return [];
+  return safeEval(block) || [];
+}
+
+function extractPhysics(html, varName) {
+  const block = extractArrayBlock(html, 'const ' + varName + ' = [');
+  if (!block) return [];
+  return safeEval(block) || [];
+}
+
+function extractEnhancePatterns(html, varName) {
+  const block = extractArrayBlock(html, 'const ' + varName + ' = [');
+  if (!block) return [];
+  return safeEval(block) || [];
+}
+
 function buildSearchExtended(diseases) {
   const result = {};
   diseases.forEach(d => {
     if (!d.id) return;
     const parts = [];
-    // keyPoint
     parts.push(d.keyPoint || '');
-    // differentials
     parts.push((d.differential || []).join(','));
-    // pathway (text + detail)
     parts.push((d.pathway || []).map(p => (p.text || '') + ',' + (p.detail || '')).join('|'));
-    // quiz
     if (d.quiz) parts.push(d.quiz.q || '');
-    // tag
     parts.push(d.tagText || '');
-    // protocol
     parts.push(d.protocol || '');
     result[d.id] = parts.join('|');
   });
@@ -103,6 +132,94 @@ function buildSignalEntries(quizzes, modulePrefix) {
   });
 }
 
+// Build finding entries: [modulePrefix, findingName, diseasesText, decisionTree]
+function buildFindingEntries(findings, modulePrefix) {
+  return findings.map(f => {
+    const name = f.finding || '';
+    const diseasesText = (f.diseases || f.causes || []).map(d => {
+      return (d.name || '') + ' ' + (d.key || d.clue || '');
+    }).join(', ');
+    const extra = f.decisionTree || f.description || '';
+    return [modulePrefix, name, diseasesText, extra];
+  });
+}
+
+// Build emergency entries: [modulePrefix, category, finding, action, look]
+function buildEmergencyEntries(emergencyData, modulePrefix) {
+  const entries = [];
+  emergencyData.forEach(cat => {
+    const category = cat.category || '';
+    (cat.items || []).forEach(item => {
+      entries.push([
+        modulePrefix,
+        category,
+        item.finding || '',
+        item.action || '',
+        (item.look || '') + ' ' + (item.tip || '')
+      ]);
+    });
+  });
+  return entries;
+}
+
+// Build measurement entries: [modulePrefix, category, name, searchText]
+function buildMeasurementEntries(measData, modulePrefix) {
+  const entries = [];
+  measData.forEach(cat => {
+    const category = cat.category || '';
+    (cat.items || []).forEach(item => {
+      const searchText = [
+        item.name || '',
+        item.where || '',
+        item.how || '',
+        item.normal || '',
+        item.abnormal || '',
+        item.clinical || ''
+      ].join(' ');
+      entries.push([modulePrefix, category, item.name || '', searchText]);
+    });
+  });
+  return entries;
+}
+
+// Build calculator entries: [modulePrefix, name, description]
+function buildCalcEntries(calcs, modulePrefix) {
+  return calcs.map(c => {
+    return [modulePrefix, c.name || c.id || '', c.desc || c.description || ''];
+  });
+}
+
+// Build physics entries: [modulePrefix, title, searchText]
+function buildPhysicsEntries(topics, modulePrefix) {
+  return topics.map(t => {
+    const rulesText = (t.rules || []).map(r => {
+      return (r.signal || '') + ' ' + (r.examples || '') + ' ' + (r.mechanism || '');
+    }).join(' ');
+    const searchText = [
+      t.concept || '',
+      rulesText,
+      t.clinicalPearl || ''
+    ].join(' ');
+    return [modulePrefix, t.title || '', searchText];
+  });
+}
+
+// Build enhance pattern entries: [modulePrefix, pattern, searchText]
+function buildEnhanceEntries(patterns, modulePrefix) {
+  return patterns.map(p => {
+    const lesionsText = (p.lesions || []).map(l => {
+      return (l.name || '') + ' ' + (l.detail || '');
+    }).join(' ');
+    const searchText = [
+      p.curve || '',
+      lesionsText,
+      p.keyRule || '',
+      p.pitfall || ''
+    ].join(' ');
+    return [modulePrefix, p.pattern || '', searchText];
+  });
+}
+
 // Ana fonksiyon
 function main() {
   console.log('search-data.js oluşturuluyor...');
@@ -110,18 +227,17 @@ function main() {
   const neuroHtml = fs.readFileSync(NEURO_FILE, 'utf8');
   const abdHtml = fs.readFileSync(ABD_FILE, 'utf8');
 
-  // Hastalıkları çıkar
+  // === Hastalıklar ===
   const neuroDiseases = extractDiseases(neuroHtml);
   const abdDiseases = extractDiseases(abdHtml);
   console.log(`  NeuroRad: ${neuroDiseases.length} hastalık`);
   console.log(`  AbdomenRad: ${abdDiseases.length} hastalık`);
 
-  // searchExtended oluştur
   const extended = {};
   Object.assign(extended, buildSearchExtended(neuroDiseases));
   Object.assign(extended, buildSearchExtended(abdDiseases));
 
-  // Düelloları çıkar
+  // === Düellolar ===
   const neuroDuels = extractDuels(neuroHtml);
   const abdDuels = extractDuels(abdHtml);
   console.log(`  NeuroRad: ${neuroDuels.length} duel`);
@@ -131,7 +247,7 @@ function main() {
     ...buildDuelEntries(abdDuels, 'a')
   ];
 
-  // Sinyal quizlerini çıkar
+  // === Sinyal Quizleri ===
   const neuroSignalQ = extractSignalQuizzes(neuroHtml);
   const abdSignalQ = extractSignalQuizzes(abdHtml);
   console.log(`  NeuroRad: ${neuroSignalQ.length} sinyal quiz`);
@@ -141,7 +257,62 @@ function main() {
     ...buildSignalEntries(abdSignalQ, 'a')
   ];
 
-  // Dosyayı yaz
+  // === Bulgular (Findings) ===
+  const neuroFindings = extractFindings(neuroHtml);
+  const abdFindings = extractFindings(abdHtml);
+  console.log(`  NeuroRad: ${neuroFindings.length} bulgu`);
+  console.log(`  AbdomenRad: ${abdFindings.length} bulgu`);
+  const findingEntries = [
+    ...buildFindingEntries(neuroFindings, 'n'),
+    ...buildFindingEntries(abdFindings, 'a')
+  ];
+
+  // === Acil Bulgular ===
+  const neuroEmergency = extractEmergency(neuroHtml, 'neuroEmergencyFindings');
+  const abdEmergency = extractEmergency(abdHtml, 'emergencyFindings');
+  const emergencyEntries = [
+    ...buildEmergencyEntries(neuroEmergency, 'n'),
+    ...buildEmergencyEntries(abdEmergency, 'a')
+  ];
+  console.log(`  Acil bulgular: ${emergencyEntries.length}`);
+
+  // === Ölçümler ===
+  const neuroMeas = extractMeasurements(neuroHtml, 'measurements');
+  const abdMeas = extractMeasurements(abdHtml, 'measurements');
+  const measurementEntries = [
+    ...buildMeasurementEntries(neuroMeas, 'n'),
+    ...buildMeasurementEntries(abdMeas, 'a')
+  ];
+  console.log(`  Ölçümler: ${measurementEntries.length}`);
+
+  // === Hesaplayıcılar ===
+  const neuroCalcs = extractCalcs(neuroHtml, 'neuroCalcs');
+  const abdCalcs = extractCalcs(abdHtml, 'abdCalcs');
+  const calcEntries = [
+    ...buildCalcEntries(neuroCalcs, 'n'),
+    ...buildCalcEntries(abdCalcs, 'a')
+  ];
+  console.log(`  Hesaplayıcılar: ${calcEntries.length}`);
+
+  // === Fizik Konuları ===
+  const neuroPhysics = extractPhysics(neuroHtml, 'mrPhysicsTopics');
+  const abdPhysics = extractPhysics(abdHtml, 'abdPhysicsTopics');
+  const physicsEntries = [
+    ...buildPhysicsEntries(neuroPhysics, 'n'),
+    ...buildPhysicsEntries(abdPhysics, 'a')
+  ];
+  console.log(`  Fizik konuları: ${physicsEntries.length}`);
+
+  // === Kontrastlanma Paternleri ===
+  const neuroEnhance = extractEnhancePatterns(neuroHtml, 'neuroEnhancePatterns');
+  const abdEnhance = extractEnhancePatterns(abdHtml, 'enhancePatterns');
+  const enhanceEntries = [
+    ...buildEnhanceEntries(neuroEnhance, 'n'),
+    ...buildEnhanceEntries(abdEnhance, 'a')
+  ];
+  console.log(`  Kontrastlanma paternleri: ${enhanceEntries.length}`);
+
+  // === Dosyayı yaz ===
   const output = [
     '// Global Search Data - Auto-generated by scripts/generate-search-data.js',
     '// Bu dosya otomatik oluşturulmuştur.',
@@ -151,16 +322,38 @@ function main() {
     'var duelEntries = ' + JSON.stringify(duelEntries) + ';',
     '',
     'var signalEntries = ' + JSON.stringify(signalEntries) + ';',
+    '',
+    'var findingEntries = ' + JSON.stringify(findingEntries) + ';',
+    '',
+    'var emergencyEntries = ' + JSON.stringify(emergencyEntries) + ';',
+    '',
+    'var measurementEntries = ' + JSON.stringify(measurementEntries) + ';',
+    '',
+    'var calcEntries = ' + JSON.stringify(calcEntries) + ';',
+    '',
+    'var physicsEntries = ' + JSON.stringify(physicsEntries) + ';',
+    '',
+    'var enhanceEntries = ' + JSON.stringify(enhanceEntries) + ';',
     ''
   ].join('\n');
 
   fs.writeFileSync(OUTPUT_FILE, output, 'utf8');
 
   const sizeKB = Math.round(output.length / 1024);
+  const totalEntries = Object.keys(extended).length + duelEntries.length + signalEntries.length +
+    findingEntries.length + emergencyEntries.length + measurementEntries.length +
+    calcEntries.length + physicsEntries.length + enhanceEntries.length;
   console.log(`\nsearch-data.js oluşturuldu (${sizeKB} KB)`);
   console.log(`  ${Object.keys(extended).length} hastalık arama verisi`);
   console.log(`  ${duelEntries.length} duel girişi`);
   console.log(`  ${signalEntries.length} sinyal quiz girişi`);
+  console.log(`  ${findingEntries.length} bulgu girişi`);
+  console.log(`  ${emergencyEntries.length} acil bulgu girişi`);
+  console.log(`  ${measurementEntries.length} ölçüm girişi`);
+  console.log(`  ${calcEntries.length} hesaplayıcı girişi`);
+  console.log(`  ${physicsEntries.length} fizik konusu girişi`);
+  console.log(`  ${enhanceEntries.length} kontrastlanma paterni girişi`);
+  console.log(`  TOPLAM: ${totalEntries} arama girişi`);
 }
 
 main();
