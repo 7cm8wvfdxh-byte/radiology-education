@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Radiology Education Platform</title>
 <meta name="description" content="İnteraktif Radyoloji Eğitim Platformu — Nöroradyoloji ve Abdomen Radyoloji">
 <meta name="theme-color" content="#0f172a">
@@ -19,8 +19,9 @@ body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#6474
 .logo{display:flex;align-items:center;gap:10px;}
 .logo h1{font-family:'Playfair Display',Georgia,serif;font-size:22px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 .header-actions{display:flex;gap:8px;}
-.header-btn{background:var(--bg);border:1px solid var(--bg3);border-radius:10px;padding:8px 12px;color:var(--text2);font-size:13px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all 0.2s;}
-.header-btn:hover{border-color:var(--accent);color:var(--accent);}
+.header-btn{background:var(--bg);border:1px solid var(--bg3);border-radius:10px;padding:10px 14px;min-height:44px;color:var(--text2);font-size:13px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all 0.2s;-webkit-tap-highlight-color:transparent;}
+.header-btn:active{opacity:0.7;}
+@media(hover:hover){.header-btn:hover{border-color:var(--accent);color:var(--accent);}}
 
 /* Main */
 .main{max-width:800px;margin:0 auto;padding:20px;}
@@ -28,21 +29,24 @@ body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#6474
 /* Search */
 .search-section{margin-bottom:24px;position:relative;}
 .search-box{position:relative;}
-.search-box input{width:100%;background:var(--bg2);border:1px solid var(--bg3);border-radius:12px;padding:14px 16px 14px 44px;color:var(--text);font-size:15px;outline:none;transition:border-color 0.2s;}
+.search-box input{width:100%;background:var(--bg2);border:1px solid var(--bg3);border-radius:12px;padding:14px 16px 14px 44px;color:var(--text);font-size:16px;outline:none;transition:border-color 0.2s;}
 .search-box input:focus{border-color:var(--accent);}
 .search-box .search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:18px;}
 .search-box .search-shortcut{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:11px;background:var(--bg);border:1px solid var(--bg3);border-radius:4px;padding:2px 6px;pointer-events:none;}
 .search-filters{display:none;background:var(--bg2);border:1px solid var(--bg3);border-bottom:none;border-radius:12px 12px 0 0;margin-top:8px;padding:6px 8px;gap:4px;flex-wrap:wrap;}
 .search-filters.active{display:flex;}
-.sf-btn{background:var(--bg);border:1px solid var(--bg3);border-radius:8px;padding:4px 10px;font-size:11px;font-weight:600;color:var(--text2);cursor:pointer;transition:all 0.15s;white-space:nowrap;}
-.sf-btn:hover{border-color:var(--accent);color:var(--accent);}
+.sf-btn{background:var(--bg);border:1px solid var(--bg3);border-radius:8px;padding:8px 12px;min-height:36px;font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;transition:all 0.15s;white-space:nowrap;-webkit-tap-highlight-color:transparent;}
+.sf-btn:active{opacity:0.7;}
+@media(hover:hover){.sf-btn:hover{border-color:var(--accent);color:var(--accent);}}
 .sf-btn.active{background:var(--accent);border-color:var(--accent);color:white;}
 .sf-count{font-size:10px;opacity:0.7;margin-left:3px;}
-.search-results{background:var(--bg2);border:1px solid var(--bg3);border-radius:0 0 12px 12px;max-height:420px;overflow-y:auto;display:none;}
+.search-results{background:var(--bg2);border:1px solid var(--bg3);border-radius:0 0 12px 12px;max-height:min(420px,50vh);overflow-y:auto;display:none;-webkit-overflow-scrolling:touch;}
 .search-results.no-filters{border-radius:12px;margin-top:8px;}
 .search-results.active{display:block;}
-.sr-item{padding:10px 16px;border-bottom:1px solid var(--bg3);cursor:pointer;display:flex;align-items:flex-start;gap:10px;transition:background 0.15s;}
-.sr-item:hover,.sr-item.kb-active{background:var(--bg);}
+.sr-item{padding:12px 16px;min-height:48px;border-bottom:1px solid var(--bg3);cursor:pointer;display:flex;align-items:flex-start;gap:10px;transition:background 0.15s;-webkit-tap-highlight-color:transparent;}
+.sr-item:active{background:var(--bg);}
+@media(hover:hover){.sr-item:hover{background:var(--bg);}}
+.sr-item.kb-active{background:var(--bg);}
 .sr-item:last-child{border-bottom:none;}
 .sr-badges{display:flex;flex-direction:column;gap:3px;flex-shrink:0;padding-top:2px;}
 .sr-badge{background:var(--bg);padding:3px 8px;border-radius:6px;font-size:10px;font-weight:700;text-transform:uppercase;white-space:nowrap;text-align:center;}
@@ -62,18 +66,21 @@ body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#6474
 /* Stats Overview */
 .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:24px;}
 .stat-card{background:var(--bg2);border:1px solid var(--bg3);border-radius:12px;padding:14px 10px;text-align:center;transition:all 0.2s;}
-.stat-card:hover{border-color:var(--accent2);}
+@media(hover:hover){.stat-card:hover{border-color:var(--accent2);}}
 .stat-val{font-size:22px;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.stat-label{font-size:10px;color:var(--text3);margin-top:4px;text-transform:uppercase;letter-spacing:0.5px;}
+.stat-label{font-size:11px;color:var(--text2);margin-top:4px;text-transform:uppercase;letter-spacing:0.5px;}
 
 /* Module Cards */
 .module-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px;}
-.module-card{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--radius);padding:20px;text-decoration:none;display:block;transition:all 0.3s;cursor:pointer;position:relative;overflow:hidden;}
-.module-card:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,0.3);}
+.module-card{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--radius);padding:20px;text-decoration:none;display:block;transition:all 0.3s;cursor:pointer;position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent;}
+.module-card:active{transform:scale(0.98);opacity:0.9;}
 .module-card.neuro{border-left:3px solid #8b5cf6;}
-.module-card.neuro:hover{border-color:#8b5cf6;box-shadow:0 12px 40px rgba(139,92,246,0.15);}
 .module-card.abdomen{border-left:3px solid #f59e0b;}
+@media(hover:hover){
+.module-card:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,0.3);}
+.module-card.neuro:hover{border-color:#8b5cf6;box-shadow:0 12px 40px rgba(139,92,246,0.15);}
 .module-card.abdomen:hover{border-color:#f59e0b;box-shadow:0 12px 40px rgba(245,158,11,0.15);}
+}
 .mc-icon{font-size:40px;margin-bottom:10px;}
 .mc-title{font-size:18px;font-weight:700;color:var(--text);margin-bottom:4px;}
 .mc-desc{font-size:12px;color:var(--text2);line-height:1.5;margin-bottom:12px;}
@@ -91,13 +98,13 @@ body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#6474
 .profile-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
 .profile-title{font-size:16px;font-weight:700;}
 .profile-actions{display:flex;gap:6px;}
-.profile-btn{background:var(--bg);border:1px solid var(--bg3);border-radius:8px;padding:6px 12px;color:var(--text2);font-size:11px;cursor:pointer;display:flex;align-items:center;gap:4px;transition:all 0.2s;}
-.profile-btn:hover{border-color:var(--accent);color:var(--accent);}
-.profile-btn.danger:hover{border-color:var(--danger);color:var(--danger);}
+.profile-btn{background:var(--bg);border:1px solid var(--bg3);border-radius:8px;padding:10px 14px;min-height:44px;color:var(--text2);font-size:12px;cursor:pointer;display:flex;align-items:center;gap:4px;transition:all 0.2s;-webkit-tap-highlight-color:transparent;}
+.profile-btn:active{opacity:0.7;}
+@media(hover:hover){.profile-btn:hover{border-color:var(--accent);color:var(--accent);}.profile-btn.danger:hover{border-color:var(--danger);color:var(--danger);}}
 .profile-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;}
 .ps-item{text-align:center;padding:10px;background:var(--bg);border-radius:10px;}
 .ps-val{font-size:18px;font-weight:700;color:var(--accent2);}
-.ps-label{font-size:10px;color:var(--text3);margin-top:2px;}
+.ps-label{font-size:11px;color:var(--text2);margin-top:2px;}
 .streak-info{background:var(--bg);border-radius:10px;padding:12px;display:flex;align-items:center;gap:10px;}
 .streak-fire{font-size:28px;}
 .streak-text{flex:1;}
@@ -108,43 +115,53 @@ body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#6474
 .quick-section{margin-bottom:24px;}
 .quick-title{font-size:14px;font-weight:700;color:var(--text2);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.5px;}
 .quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
-.quick-btn{background:var(--bg2);border:1px solid var(--bg3);border-radius:10px;padding:12px 8px;text-align:center;cursor:pointer;transition:all 0.2s;text-decoration:none;}
-.quick-btn:hover{border-color:var(--accent);transform:translateY(-1px);}
+.quick-btn{background:var(--bg2);border:1px solid var(--bg3);border-radius:10px;padding:14px 8px;min-height:44px;text-align:center;cursor:pointer;transition:all 0.2s;text-decoration:none;-webkit-tap-highlight-color:transparent;}
+.quick-btn:active{opacity:0.7;transform:scale(0.97);}
+@media(hover:hover){.quick-btn:hover{border-color:var(--accent);transform:translateY(-1px);}}
 .quick-btn .qb-icon{font-size:22px;margin-bottom:4px;}
-.quick-btn .qb-text{font-size:10px;color:var(--text2);font-weight:600;}
+.quick-btn .qb-text{font-size:11px;color:var(--text2);font-weight:600;}
 
 /* Footer */
-.footer{text-align:center;padding:20px;color:var(--text3);font-size:12px;border-top:1px solid var(--bg3);}
-.footer-links{display:flex;gap:16px;justify-content:center;margin-bottom:8px;}
-.footer-links a{color:var(--text2);text-decoration:none;font-size:11px;transition:color 0.2s;}
-.footer-links a:hover{color:var(--accent);}
+.footer{text-align:center;padding:20px;color:var(--text2);font-size:12px;border-top:1px solid var(--bg3);}
+.footer-links{display:flex;gap:8px;justify-content:center;margin-bottom:8px;}
+.footer-links a{color:var(--text2);text-decoration:none;font-size:12px;padding:10px 12px;min-height:44px;display:inline-flex;align-items:center;border-radius:8px;transition:color 0.2s;-webkit-tap-highlight-color:transparent;}
+.footer-links a:active{opacity:0.7;}
+@media(hover:hover){.footer-links a:hover{color:var(--accent);}}
 
 /* Import/Export Modal */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;align-items:center;justify-content:center;padding:20px;}
-.modal-overlay.active{display:flex;}
-.modal{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--radius);padding:24px;max-width:480px;width:100%;max-height:80vh;overflow-y:auto;}
+.modal{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--radius);padding:20px;max-width:480px;width:100%;max-height:85vh;overflow-y:auto;-webkit-overflow-scrolling:touch;}
 .modal h3{font-size:18px;margin-bottom:16px;}
-.modal textarea{width:100%;background:var(--bg);border:1px solid var(--bg3);border-radius:8px;padding:12px;color:var(--text);font-size:12px;font-family:monospace;min-height:200px;resize:vertical;margin-bottom:12px;}
+.modal textarea{width:100%;background:var(--bg);border:1px solid var(--bg3);border-radius:8px;padding:12px;color:var(--text);font-size:16px;font-family:monospace;min-height:180px;resize:vertical;margin-bottom:12px;}
 .modal-btns{display:flex;gap:8px;justify-content:flex-end;}
-.btn{padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all 0.2s;}
+.btn{padding:10px 18px;min-height:44px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all 0.2s;-webkit-tap-highlight-color:transparent;}
+.btn:active{opacity:0.7;}
 .btn-primary{background:var(--accent);color:white;}
-.btn-primary:hover{opacity:0.9;}
 .btn-secondary{background:var(--bg);color:var(--text2);border:1px solid var(--bg3);}
-.btn-secondary:hover{border-color:var(--accent);}
 .btn-danger{background:var(--danger);color:white;}
-.btn-danger:hover{opacity:0.9;}
 .btn-success{background:var(--success);color:white;}
-.btn-success:hover{opacity:0.9;}
+@media(hover:hover){.btn-primary:hover{opacity:0.9;}.btn-secondary:hover{border-color:var(--accent);}.btn-danger:hover{opacity:0.9;}.btn-success:hover{opacity:0.9;}}
 
 /* Toast */
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--success);color:white;padding:10px 20px;border-radius:10px;font-size:13px;font-weight:600;z-index:300;opacity:0;transition:opacity 0.3s;pointer-events:none;}
 .toast.show{opacity:1;}
 
 @media(max-width:600px){
+  .header{padding:12px 16px;}
+  .logo h1{font-size:18px;}
   .stats-grid{grid-template-columns:repeat(2,1fr);}
   .module-cards{grid-template-columns:1fr;}
-  .quick-grid{grid-template-columns:repeat(4,1fr);}
+  .quick-grid{grid-template-columns:repeat(2,1fr);gap:10px;}
   .profile-stats{grid-template-columns:repeat(3,1fr);}
+  .modal{padding:16px;border-radius:12px;}
+  .modal textarea{min-height:150px;}
+}
+@media(max-width:380px){
+  .main{padding:14px 12px;}
+  .header-btn{padding:8px 10px;font-size:12px;}
+  .mc-title{font-size:16px;}
+  .mc-desc{font-size:11px;}
+  .ps-label{font-size:10px;}
 }
 </style>
 </head>
@@ -187,7 +204,7 @@ body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#6474
 
   <!-- Global Stats -->
   <div class="stats-grid" id="statsGrid">
-    <div class="stat-card"><div class="stat-val" id="totalDiseases">157</div><div class="stat-label">Hastalık</div></div>
+    <div class="stat-card"><div class="stat-val" id="totalDiseases">--</div><div class="stat-label">Hastalık</div></div>
     <div class="stat-card"><div class="stat-val" id="totalStudied">0</div><div class="stat-label">Çalışılan</div></div>
     <div class="stat-card"><div class="stat-val" id="totalMasteredStat">0</div><div class="stat-label">Öğrenildi</div></div>
     <div class="stat-card"><div class="stat-val" id="totalQuizSessions">0</div><div class="stat-label">Quiz Oturum</div></div>
@@ -200,9 +217,9 @@ body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#6474
       <div class="mc-title">NeuroRad</div>
       <div class="mc-desc">Nöroradyoloji — beyin, spinal, baş-boyun patolojileri</div>
       <div class="mc-stats">
-        <span class="mc-stat" id="neuroDiseaseCnt">74 hastalık</span>
-        <span class="mc-stat">58 duel</span>
-        <span class="mc-stat">37 sinyal profili</span>
+        <span class="mc-stat" id="neuroDiseaseCnt">-- hastalık</span>
+        <span class="mc-stat" id="neuroDuelCnt">-- duel</span>
+        <span class="mc-stat" id="neuroSignalCnt">-- sinyal profili</span>
       </div>
       <div class="mc-progress">
         <div class="mc-progress-bar"><div class="mc-progress-fill neuro" id="neuroProgress" style="width:0%"></div></div>
@@ -214,9 +231,9 @@ body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#6474
       <div class="mc-title">AbdomenRad</div>
       <div class="mc-desc">Abdominopelvik radyoloji — KC, pankreas, böbrek, barsak, pelvik</div>
       <div class="mc-stats">
-        <span class="mc-stat" id="abdDiseaseCnt">83 hastalık</span>
-        <span class="mc-stat">49 duel</span>
-        <span class="mc-stat">36 sinyal profili</span>
+        <span class="mc-stat" id="abdDiseaseCnt">-- hastalık</span>
+        <span class="mc-stat" id="abdDuelCnt">-- duel</span>
+        <span class="mc-stat" id="abdSignalCnt">-- sinyal profili</span>
       </div>
       <div class="mc-progress">
         <div class="mc-progress-bar"><div class="mc-progress-fill abdomen" id="abdomenProgress" style="width:0%"></div></div>
@@ -270,7 +287,7 @@ body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#6474
     <a href="neurorad.html">NeuroRad</a>
     <a href="abdomenrad.html">AbdomenRad</a>
   </div>
-  <p>Toplam: 157 hastalık · 107 duel · 73 sinyal profili · 1.6MB+</p>
+  <p id="footerStats">Toplam: -- hastalık · -- duel · -- sinyal profili</p>
   <p style="margin-top:4px;">Radyoloji asistanları için tasarlandı</p>
 </div>
 
@@ -775,9 +792,39 @@ function loadCrossModuleStats() {
   document.getElementById('streakDays').textContent = streak + ' günlük seri';
   document.getElementById('streakSub').textContent = streak > 0 ? 'Harika gidiyorsun!' : 'Bugün çalışmaya başla!';
 
+  // Dinamik sayılar: searchIndex dizisinden hesapla
+  var neuroDiseaseCount = searchIndex.filter(function(s) { return s.m === 'neuro'; }).length;
+  var abdDiseaseCount = searchIndex.filter(function(s) { return s.m === 'abdomen'; }).length;
+  var totalDiseaseCount = searchIndex.length;
+
+  // Duel ve sinyal sayıları
+  var neuroDuelCount = 0, abdDuelCount = 0, neuroSignalCount = 0, abdSignalCount = 0;
+  if (typeof duelEntries !== 'undefined') {
+    neuroDuelCount = duelEntries.filter(function(d) { return d[0] === 'n'; }).length;
+    abdDuelCount = duelEntries.filter(function(d) { return d[0] === 'a'; }).length;
+  }
+  if (typeof signalEntries !== 'undefined') {
+    neuroSignalCount = signalEntries.filter(function(s) { return s[0] === 'n'; }).length;
+    abdSignalCount = signalEntries.filter(function(s) { return s[0] === 'a'; }).length;
+  }
+
+  // İstatistikleri güncelle
+  document.getElementById('totalDiseases').textContent = totalDiseaseCount;
+  document.getElementById('neuroDiseaseCnt').textContent = neuroDiseaseCount + ' hastalık';
+  document.getElementById('neuroDuelCnt').textContent = neuroDuelCount + ' duel';
+  document.getElementById('neuroSignalCnt').textContent = neuroSignalCount + ' sinyal quiz';
+  document.getElementById('abdDiseaseCnt').textContent = abdDiseaseCount + ' hastalık';
+  document.getElementById('abdDuelCnt').textContent = abdDuelCount + ' duel';
+  document.getElementById('abdSignalCnt').textContent = abdSignalCount + ' sinyal quiz';
+
+  // Footer
+  var totalDuels = neuroDuelCount + abdDuelCount;
+  var totalSignals = neuroSignalCount + abdSignalCount;
+  document.getElementById('footerStats').textContent = 'Toplam: ' + totalDiseaseCount + ' hastalık · ' + totalDuels + ' duel · ' + totalSignals + ' sinyal quiz';
+
   // Progress bars
-  updateModuleProgress('neuro', 74, neuroStudied);
-  updateModuleProgress('abdomen', 83, abdStudied);
+  updateModuleProgress('neuro', neuroDiseaseCount, neuroStudied);
+  updateModuleProgress('abdomen', abdDiseaseCount, abdStudied);
 }
 
 function updateModuleProgress(module, totalDiseases, studiedCount) {
@@ -848,6 +895,16 @@ function showToast(msg) {
   toast.textContent = msg;
   toast.classList.add('show');
   setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+// ===== MODAL DISMISS ON OVERLAY TAP =====
+document.getElementById('importModal').addEventListener('click', function(e) {
+  if (e.target === this) closeImportModal();
+});
+
+// ===== SERVICE WORKER =====
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').catch(function() {});
 }
 
 // ===== INIT =====

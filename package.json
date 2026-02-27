@@ -6,7 +6,12 @@
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "build:search": "node scripts/generate-search-data.js",
+    "build:cache": "node scripts/bump-cache.js",
+    "build": "npm run build:search && npm run build:cache",
+    "validate": "node scripts/validate-data.js",
+    "prebuild": "npm run validate"
   },
   "devDependencies": {
     "vitest": "^3.0.0",

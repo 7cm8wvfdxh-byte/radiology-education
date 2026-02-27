@@ -17,7 +17,7 @@
   --bg-accent: #0f1a2e;
   --text-primary: #e8ecf4;
   --text-secondary: #8b95a8;
-  --text-muted: #5a6478;
+  --text-muted: #7a8599;
   --accent-blue: #3b82f6;
   --accent-cyan: #06b6d4;
   --accent-purple: #8b5cf6;
@@ -148,7 +148,7 @@ body {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   color: var(--text-primary);
-  font-size: 15px;
+  font-size: 16px;
   font-family: 'DM Sans', sans-serif;
   outline: none;
   transition: border-color 0.2s;
@@ -180,7 +180,8 @@ body {
 
 .nav-tab {
   flex-shrink: 0;
-  padding: 8px 16px;
+  padding: 10px 16px;
+  min-height: 44px;
   border-radius: 20px;
   font-size: 13px;
   font-weight: 600;
@@ -190,6 +191,8 @@ body {
   cursor: pointer;
   transition: all 0.25s;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
 }
 
 .nav-tab.active {
@@ -198,10 +201,11 @@ body {
   border-color: var(--accent-blue);
 }
 
-.nav-tab:not(.active):hover {
+.nav-tab:active:not(.active) { opacity: 0.7; }
+@media(hover:hover){.nav-tab:not(.active):hover {
   background: var(--bg-card);
   border-color: var(--border-light);
-}
+}}
 
 /* ===== MAIN CONTENT ===== */
 .main { padding: 0 14px 100px; }
@@ -526,16 +530,18 @@ body {
 
 .quiz-toggle {
   display: inline-block;
-  padding: 6px 14px;
-  font-size: 12px;
+  padding: 10px 18px;
+  min-height: 44px;
+  font-size: 13px;
   font-weight: 600;
   background: rgba(249,115,22,0.12);
   color: var(--accent-orange);
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   font-family: 'DM Sans', sans-serif;
 }
+.quiz-toggle:active { opacity: 0.7; }
 
 /* ===== PROGRESS TRACKER ===== */
 .progress-bar {
@@ -545,12 +551,21 @@ body {
 }
 
 .progress-dot {
-  height: 4px;
-  border-radius: 2px;
+  height: 8px;
+  border-radius: 4px;
   flex: 1;
   background: var(--border);
   transition: background 0.3s;
   cursor: pointer;
+  position: relative;
+}
+.progress-dot::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  bottom: -10px;
+  left: 0;
+  right: 0;
 }
 
 .progress-dot.studied {
@@ -583,10 +598,11 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 2px;
-  padding: 6px 0;
+  padding: 8px 0;
+  min-height: 48px;
   flex: 1;
   color: var(--text-muted);
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
@@ -595,6 +611,7 @@ body {
   font-family: 'DM Sans', sans-serif;
   position: relative;
 }
+.bottom-nav-item:active { opacity: 0.7; }
 .bottom-nav-item.active { color: var(--accent-blue); }
 .bottom-nav-item.active::after { content:''; position:absolute; top:0; left:25%; right:25%; height:2px; background:var(--accent-blue); border-radius:1px; }
 .bottom-nav-item span { font-size: 20px; }
@@ -606,7 +623,8 @@ body {
 .grid-menu-title { font-family:'Playfair Display',serif; font-size:18px; color:var(--text-primary); margin-bottom:14px; text-align:center; }
 .grid-menu-items { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
 .grid-menu-btn { display:flex; flex-direction:column; align-items:center; gap:6px; padding:14px 8px; background:var(--bg-accent); border:1px solid var(--border); border-radius:14px; cursor:pointer; transition:all 0.2s; font-family:'DM Sans',sans-serif; color:var(--text-secondary); font-size:11px; font-weight:600; text-align:center; }
-.grid-menu-btn:hover,.grid-menu-btn:active { background:var(--bg-card-hover); border-color:var(--accent-blue); transform:scale(0.97); }
+.grid-menu-btn:active { transform:scale(0.97); opacity:0.8; }
+@media(hover:hover){.grid-menu-btn:hover { background:var(--bg-card-hover); border-color:var(--accent-blue); }}
 .grid-menu-btn span { font-size:24px; }
 
 .light-mode { --bg-primary:#f8fafc; --bg-secondary:#f1f5f9; --bg-card:#ffffff; --bg-card-hover:#f8fafc; --bg-accent:#f1f5f9; --text-primary:#0f172a; --text-secondary:#334155; --text-muted:#64748b; --border:#e2e8f0; }
@@ -615,7 +633,7 @@ body {
 .light-mode .nav-tabs { background:rgba(255,255,255,0.9); }
 .light-mode .header { background:rgba(248,250,252,0.9); }
 
-.fav-btn { background:none; border:none; cursor:pointer; font-size:16px; padding:2px 4px; transition:transform 0.2s; }
+.fav-btn { background:none; border:none; cursor:pointer; font-size:18px; padding:10px; min-width:44px; min-height:44px; display:inline-flex; align-items:center; justify-content:center; transition:transform 0.2s; }
 .fav-btn:active { transform:scale(1.3); }
 @keyframes favPop { 0%{transform:scale(1)} 50%{transform:scale(1.4)} 100%{transform:scale(1)} }
 
@@ -660,18 +678,19 @@ body {
   position: absolute;
   top: 16px;
   right: 16px;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: var(--bg-card);
   border: 1px solid var(--border);
   color: var(--text-secondary);
-  font-size: 18px;
+  font-size: 20px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+.overlay-close:active { opacity: 0.7; }
 
 /* ===== STATS PAGE ===== */
 .stats-grid {
@@ -707,6 +726,43 @@ body {
 /* ===== RESPONSIVE ===== */
 @media (min-width: 768px) {
   .main { padding: 0 24px 100px; max-width: 700px; margin: 0 auto; }
+}
+
+@media (max-width: 480px) {
+  .header { padding: 12px 14px; }
+  .logo-text { font-size: 18px; }
+  .logo-sub { font-size: 9px; }
+  .header-stats { gap: 6px; }
+  .stat-badge { padding: 4px 8px; font-size: 10px; }
+  .search-container { padding: 10px 14px 6px; }
+  .nav-tabs { padding: 6px 14px 10px; }
+  .main { padding: 0 10px 100px; }
+  .category-title { font-size: 18px; }
+  .grid-menu-items { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .grid-menu-btn { font-size: 11px; padding: 12px 6px; }
+  .stats-grid { gap: 8px; }
+  .dash-grid { gap: 6px; }
+}
+
+@media (max-width: 360px) {
+  .logo-text { font-size: 16px; }
+  .header-stats { display: none; }
+  .grid-menu-items { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ===== REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  html { scroll-behavior: auto; }
+}
+
+/* ===== INLINE-STYLED TOUCH TARGET OVERRIDES ===== */
+.duel-diff-btn, .duel-cat-btn, .anatomy-disease-btn, .quick-search-tag, .learn-disease-link, .concept-disease-link {
+  min-height: 36px !important;
+  padding: 8px 12px !important;
+  font-size: 11px !important;
+  display: inline-flex !important;
+  align-items: center !important;
 }
 
 /* ===== EMPTY STATE ===== */
@@ -6604,7 +6660,7 @@ const signalBadges = {
   // VASCULAR
   acute_ischemic:      { t1:'⬛', t2:'💧', flair:'💧', dwi:'🔒', ce:'❌', extra:'DWI çok parlak + ADC⬇️' },
   hemorrhage_stages:   { t1:'☀️?', t2:'⬛→💧', flair:'💧', dwi:'⚪', extra:'Evreye göre değişir' },
-  svt:                 { t1:'☀️', t2:'⬛', flair:'💧', dwi:'🔒?', extra:'Venöz trombüs + ödem' },
+  cvst:                { t1:'☀️', t2:'⬛', flair:'💧', dwi:'🔒?', extra:'Venöz trombüs + ödem' },
   sak:                 { t1:'⚪', t2:'⚪', flair:'💧', dwi:'⚪', extra:'FLAIR sistern hiperintens' },
   avm:                 { t1:'⬛', t2:'⬛', flair:'⬛', dwi:'⚪', extra:'Flow void kümesi' },
   cavernoma:           { t1:'⚪', t2:'⬛', flair:'⬛', dwi:'⚪', extra:'Popcorn + hemosiderin halo' },
@@ -6754,25 +6810,25 @@ const diseaseConnections = {
     mechanismTag: 'Hızlı Na düzeltme → ozmotik stres → pons santral miyelinoliz'
   },
   acute_ischemic: {
-    confusedWith: ['low_grade_glioma', 'pres', 'svt'],
+    confusedWith: ['low_grade_glioma', 'pres', 'cvst'],
     sameMechanism: ['lacunar_infarct'], // iskemi
     sameLocation: ['lacunar_infarct'],
     mechanismTag: 'Sitotoksik ödem → hücre şişmesi → DWI kısıtlanma (Na/K-ATPaz çökmesi)'
   },
   hemorrhage_stages: {
-    confusedWith: ['svt', 'cavernoma'],
+    confusedWith: ['cvst', 'cavernoma'],
     sameMechanism: ['subdural_hematoma'], // hemoglobin degradasyonu
     sameLocation: [],
     mechanismTag: 'OksiHb → deoksiHb → metHb → hemosiderin (paramanyetik evreleme)'
   },
-  svt: {
+  cvst: {
     confusedWith: ['acute_ischemic', 'hemorrhage_stages'],
     sameMechanism: ['dural_avf'], // venöz patoli
     sameLocation: [],
     mechanismTag: 'Venöz tıkanıklık → vazojenik ödem → hemorajik infarkt (arteriyel dağılıma UYMAZ)'
   },
   pres: {
-    confusedWith: ['acute_ischemic', 'svt'],
+    confusedWith: ['acute_ischemic', 'cvst'],
     sameMechanism: [], // özgün: posterior BBB zayıflığı
     sameLocation: [],
     mechanismTag: 'Posterior sempatik inervasyon zayıf → BBB yıkımı → vazojenik ödem (REVERSİBL)'
@@ -6875,8 +6931,8 @@ const diseaseConnections = {
     mechanismTag: 'Tekrarlayan mikro kanamalar → hemosiderin halo (popcorn paterni) → SWI ile çok sayıda'
   },
   dural_avf: {
-    confusedWith: ['svt', 'avm'],
-    sameMechanism: ['avm', 'svt'],
+    confusedWith: ['cvst', 'avm'],
+    sameMechanism: ['avm', 'cvst'],
     sameLocation: [],
     mechanismTag: 'Edinilmiş AV şant dural arterlerde → venöz konjesyon → ödem/kanama'
   },
@@ -6887,7 +6943,7 @@ const diseaseConnections = {
     mechanismTag: 'İCA terminal oklüzyon → bazal ganglia-talamus kollateraller (puff of smoke)'
   },
   sak: {
-    confusedWith: ['svt'],
+    confusedWith: ['cvst'],
     sameMechanism: [],
     sameLocation: [],
     mechanismTag: 'Anevrizma rüptürü → BOS\'ta kan → FLAIR sisternlerde hiperintens (BT\'de hiperdens)'
@@ -7110,7 +7166,7 @@ const learningPath = [
     modules: [
       { type: 'concept', title: 'Sistematik Yaklaşım: Bulgu → Tanı', desc: '1) Lokalizasyon (intra/ekstra-aksiyel) 2) Sinyal karakteri (DWI, FLAIR, T1) 3) Kontrastlanma paterni 4) Yaş/klinik 5) Ayırıcı tanı listesi. Bu sırayı her vakada uygula!', action: 'finder', label: 'Tüm Karar Ağaçlarını Gör' },
       { type: 'concept', title: 'İleri MR Ne Zaman Gerekli?', desc: 'Perfüzyon: tümör grade + rekürren vs nekroz. MRS: tümör tip + abse ayrımı. DTI: cerrahi planlama + fiber haritası.', action: 'advanced', label: 'İleri MR Atlasını Aç' },
-      { type: 'study', ids: ['svt', 'sak', 'avm', 'cavernoma', 'moyamoya', 'nph', 'small_vessel_disease'], title: 'Çalışılacak Hastalıklar', desc: 'Vasküler patolojiler + günlük pratik — entegrasyon.' },
+      { type: 'study', ids: ['cvst', 'sak', 'avm', 'cavernoma', 'moyamoya', 'nph', 'small_vessel_disease'], title: 'Çalışılacak Hastalıklar', desc: 'Vasküler patolojiler + günlük pratik — entegrasyon.' },
       { type: 'concept', title: 'Spinal Kord — Temel İlkeler', desc: 'İntramedüller (kord şiş) vs ekstramedüller (kord itilmiş) vs ekstradural (dura itilmiş). Bu üçlü ayrım spinalde HER ŞEYİN başlangıç noktası.', action: 'disease', id: 'intramedullary_tumor', label: 'Spinal Tümör Kartını Aç' }
     ]
   }
