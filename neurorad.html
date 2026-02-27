@@ -8802,27 +8802,181 @@ function showSearchSuggestions(term) {
     html += '</div>';
   });
 
-  // Also search in findings, duels, signal profiles
-  var foundInFindings = findings.filter(function(f) {
-    return f.finding.toLowerCase().includes(term) || 
-      f.diseases.some(function(fd) { return fd.name.toLowerCase().includes(term) || fd.key.toLowerCase().includes(term); });
-  });
-  var foundInDuels = duels.filter(function(du) {
-    return du.title.toLowerCase().includes(term);
-  });
+  // Search across all content types
+  var extraSections = [];
+  var lterm = term.toLowerCase();
 
+  // Findings
+  var foundInFindings = findings.filter(function(f) {
+    return f.finding.toLowerCase().includes(lterm) ||
+      (f.diseases || []).some(function(fd) { return (fd.name || '').toLowerCase().includes(lterm) || (fd.key || '').toLowerCase().includes(lterm); });
+  });
   if (foundInFindings.length > 0) {
-    html += '<div style="padding:6px 14px; font-size:10px; color:var(--accent-purple); text-transform:uppercase; letter-spacing:1px; background:var(--bg-accent);">🔍 Bulgu Ara\'da</div>';
-    foundInFindings.slice(0, 3).forEach(function(f) {
-      html += '<div class="search-go-finder" style="padding:6px 14px; cursor:pointer; font-size:12px; color:var(--text-secondary);">' + f.icon + ' ' + f.finding + ' (' + f.diseases.length + ' neden)</div>';
-    });
+    extraSections.push({ title: '🔍 Bulgu Ara', page: 'finder', color: 'var(--accent-purple)', items: foundInFindings.slice(0, 2).map(function(f) { return f.icon + ' ' + f.finding + ' (' + (f.diseases || []).length + ' neden)'; }) });
   }
+
+  // Duels
+  var foundInDuels = duels.filter(function(du) {
+    return du.title.toLowerCase().includes(lterm) || (du.a && du.a.name && du.a.name.toLowerCase().includes(lterm)) || (du.b && du.b.name && du.b.name.toLowerCase().includes(lterm));
+  });
   if (foundInDuels.length > 0) {
-    html += '<div style="padding:6px 14px; font-size:10px; color:var(--accent-amber); text-transform:uppercase; letter-spacing:1px; background:var(--bg-accent);">⚔️ Düello\'da</div>';
-    foundInDuels.slice(0, 3).forEach(function(du) {
-      html += '<div class="search-go-duel" style="padding:6px 14px; cursor:pointer; font-size:12px; color:var(--text-secondary);">⚔️ ' + du.title + '</div>';
-    });
+    extraSections.push({ title: '⚔️ Düello', page: 'duel', color: 'var(--accent-amber)', items: foundInDuels.slice(0, 2).map(function(du) { return '⚔️ ' + du.title; }) });
   }
+
+  // Signal Atlas
+  var foundSignal = [];
+  if (typeof signalAtlas !== 'undefined') { signalAtlas.forEach(function(s) {
+    (s.items || []).forEach(function(it) {
+      if ((it.name || '').toLowerCase().includes(lterm) || (it.reason || '').toLowerCase().includes(lterm) || (s.signal || '').toLowerCase().includes(lterm)) foundSignal.push(s.signal + ' → ' + it.name);
+    });
+  }); }
+  if (foundSignal.length > 0) {
+    extraSections.push({ title: '🧲 Sinyal Atlas', page: 'signal', color: 'var(--accent-cyan)', items: foundSignal.slice(0, 2) });
+  }
+
+  // Signal Quizzes
+  var foundSQuiz = [];
+  if (typeof signalQuizzes !== 'undefined') { foundSQuiz = signalQuizzes.filter(function(q) {
+    return (q.combo || '').toLowerCase().includes(lterm) || (q.answer || '').toLowerCase().includes(lterm);
+  }); }
+  if (foundSQuiz.length > 0) {
+    extraSections.push({ title: '🎯 Sinyal Quiz', page: 'signal', color: 'var(--accent-teal)', items: foundSQuiz.slice(0, 2).map(function(q) { return '🎯 ' + (q.combo || '').substring(0, 50); }) });
+  }
+
+  // Emergency
+  var foundEmergency = [];
+  if (typeof neuroEmergencyFindings !== 'undefined') { neuroEmergencyFindings.forEach(function(cat) {
+    (cat.items || []).forEach(function(it) {
+      if ((it.finding || '').toLowerCase().includes(lterm) || (it.action || '').toLowerCase().includes(lterm) || (it.look || '').toLowerCase().includes(lterm) || (cat.category || '').toLowerCase().includes(lterm)) foundEmergency.push('🚨 ' + it.finding);
+    });
+  }); }
+  if (foundEmergency.length > 0) {
+    extraSections.push({ title: '🚨 Acil Bulgular', page: 'emergency', color: 'var(--accent-red)', items: foundEmergency.slice(0, 2) });
+  }
+
+  // Measurements
+  var foundMeas = [];
+  if (typeof measurements !== 'undefined') { measurements.forEach(function(cat) {
+    (cat.items || []).forEach(function(it) {
+      if ((it.name || '').toLowerCase().includes(lterm) || (it.where || '').toLowerCase().includes(lterm) || (it.clinical || '').toLowerCase().includes(lterm) || (cat.category || '').toLowerCase().includes(lterm)) foundMeas.push('📏 ' + it.name);
+    });
+  }); }
+  if (foundMeas.length > 0) {
+    extraSections.push({ title: '📏 Ölçümler', page: 'measurements', color: 'var(--accent-blue)', items: foundMeas.slice(0, 2) });
+  }
+
+  // Calculators
+  var foundCalc = [];
+  if (typeof neuroCalcs !== 'undefined') { foundCalc = neuroCalcs.filter(function(c) {
+    return (c.name || '').toLowerCase().includes(lterm) || (c.desc || '').toLowerCase().includes(lterm);
+  }); }
+  if (foundCalc.length > 0) {
+    extraSections.push({ title: '🔢 Hesaplayıcılar', page: 'calc', color: 'var(--accent-green)', items: foundCalc.slice(0, 2).map(function(c) { return '🔢 ' + c.name; }) });
+  }
+
+  // Physics
+  var foundPhysics = [];
+  if (typeof mrPhysicsTopics !== 'undefined') { foundPhysics = mrPhysicsTopics.filter(function(t) {
+    return (t.title || '').toLowerCase().includes(lterm) || (t.concept || '').toLowerCase().includes(lterm) || (t.clinicalPearl || '').toLowerCase().includes(lterm);
+  }); }
+  if (foundPhysics.length > 0) {
+    extraSections.push({ title: '⚛️ MR Fizik', page: 'physics', color: 'var(--accent-indigo)', items: foundPhysics.slice(0, 2).map(function(t) { return '⚛️ ' + t.title; }) });
+  }
+
+  // Enhancement Patterns
+  var foundEnhance = [];
+  if (typeof neuroEnhancePatterns !== 'undefined') { foundEnhance = neuroEnhancePatterns.filter(function(p) {
+    return (p.pattern || '').toLowerCase().includes(lterm) || (p.keyRule || '').toLowerCase().includes(lterm) || (p.lesions || []).some(function(l) { return (l.name || '').toLowerCase().includes(lterm); });
+  }); }
+  if (foundEnhance.length > 0) {
+    extraSections.push({ title: '💉 Kontrastlanma', page: 'enhance', color: 'var(--accent-pink)', items: foundEnhance.slice(0, 2).map(function(p) { return '💉 ' + p.pattern; }) });
+  }
+
+  // Concept Map
+  var foundConcept = [];
+  if (typeof conceptMap !== 'undefined') { foundConcept = conceptMap.filter(function(c) {
+    return (c.title || '').toLowerCase().includes(lterm) || (c.whyItMatters || '').toLowerCase().includes(lterm) || (c.keyInsight || '').toLowerCase().includes(lterm);
+  }); }
+  if (foundConcept.length > 0) {
+    extraSections.push({ title: '🧠 Kavram Haritası', page: 'concepts', color: 'var(--accent-orange)', items: foundConcept.slice(0, 2).map(function(c) { return '🧠 ' + c.title; }) });
+  }
+
+  // Report Templates
+  var foundReport = [];
+  if (typeof reportTemplates !== 'undefined') { foundReport = reportTemplates.filter(function(r) {
+    return (r.title || '').toLowerCase().includes(lterm) || (r.description || '').toLowerCase().includes(lterm);
+  }); }
+  if (foundReport.length > 0) {
+    extraSections.push({ title: '📝 Rapor Şablonu', page: 'report', color: 'var(--text-muted)', items: foundReport.slice(0, 2).map(function(r) { return '📝 ' + r.title; }) });
+  }
+
+  // Variants
+  var foundVariant = [];
+  if (typeof neuroVariants !== 'undefined') { neuroVariants.forEach(function(reg) {
+    (reg.variants || []).forEach(function(v) {
+      if ((v.name || '').toLowerCase().includes(lterm) || (v.what || '').toLowerCase().includes(lterm) || (v.mimic || '').toLowerCase().includes(lterm) || (reg.region || '').toLowerCase().includes(lterm)) foundVariant.push('🔀 ' + v.name);
+    });
+  }); }
+  if (foundVariant.length > 0) {
+    extraSections.push({ title: '🔀 Varyantlar', page: 'variant', color: 'var(--accent-teal)', items: foundVariant.slice(0, 2) });
+  }
+
+  // Staging Systems
+  var foundStaging = [];
+  if (typeof neuroStagingSystems !== 'undefined') { foundStaging = neuroStagingSystems.filter(function(s) {
+    return (s.name || '').toLowerCase().includes(lterm) || (s.organ || '').toLowerCase().includes(lterm) || (s.indication || '').toLowerCase().includes(lterm);
+  }); }
+  if (foundStaging.length > 0) {
+    extraSections.push({ title: '📊 Evreleme', page: 'staging', color: 'var(--accent-amber)', items: foundStaging.slice(0, 2).map(function(s) { return '📊 ' + s.name; }) });
+  }
+
+  // Pitfalls
+  var foundPitfall = [];
+  if (typeof neuroPitfallsData !== 'undefined') { neuroPitfallsData.forEach(function(cat) {
+    (cat.pitfalls || []).forEach(function(p) {
+      if ((p.title || '').toLowerCase().includes(lterm) || (p.trap || '').toLowerCase().includes(lterm) || (p.truth || '').toLowerCase().includes(lterm) || (cat.organ || '').toLowerCase().includes(lterm)) foundPitfall.push('⚠️ ' + p.title);
+    });
+  }); }
+  if (foundPitfall.length > 0) {
+    extraSections.push({ title: '⚠️ Tuzaklar', page: 'pitfalls', color: 'var(--accent-red)', items: foundPitfall.slice(0, 2) });
+  }
+
+  // Protocols
+  var foundProtocol = [];
+  if (typeof neuroProtocolData !== 'undefined') { neuroProtocolData.forEach(function(cat) {
+    (cat.protocols || []).forEach(function(p) {
+      if ((p.scenario || '').toLowerCase().includes(lterm) || (p.protocol || '').toLowerCase().includes(lterm) || (p.pearl || '').toLowerCase().includes(lterm) || (cat.category || '').toLowerCase().includes(lterm)) foundProtocol.push('📋 ' + p.scenario);
+    });
+  }); }
+  if (foundProtocol.length > 0) {
+    extraSections.push({ title: '📋 Protokoller', page: 'protocol', color: 'var(--accent-blue)', items: foundProtocol.slice(0, 2) });
+  }
+
+  // Postop
+  var foundPostop = [];
+  if (typeof neuroPostopData !== 'undefined') { foundPostop = neuroPostopData.filter(function(p) {
+    return (p.surgery || '').toLowerCase().includes(lterm) || (p.indication || '').toLowerCase().includes(lterm) || (p.normalFindings || '').toLowerCase().includes(lterm) || (p.alarmFindings || '').toLowerCase().includes(lterm);
+  }); }
+  if (foundPostop.length > 0) {
+    extraSections.push({ title: '🏥 Postop', page: 'postop', color: 'var(--accent-green)', items: foundPostop.slice(0, 2).map(function(p) { return '🏥 ' + p.surgery; }) });
+  }
+
+  // Cases
+  var foundCases = [];
+  if (typeof neuroCasesData !== 'undefined') { foundCases = neuroCasesData.filter(function(c) {
+    return (c.title || '').toLowerCase().includes(lterm) || (c.presentation || '').toLowerCase().includes(lterm) || (c.finalDiagnosis || '').toLowerCase().includes(lterm);
+  }); }
+  if (foundCases.length > 0) {
+    extraSections.push({ title: '📚 Vakalar', page: 'cases', color: 'var(--accent-purple)', items: foundCases.slice(0, 2).map(function(c) { return '📚 ' + c.title; }) });
+  }
+
+  // Render extra sections
+  extraSections.forEach(function(sec) {
+    html += '<div style="padding:6px 14px; font-size:10px; color:' + sec.color + '; text-transform:uppercase; letter-spacing:1px; background:var(--bg-accent);">' + sec.title + '</div>';
+    sec.items.forEach(function(item) {
+      html += '<div class="search-go-page" data-page="' + sec.page + '" style="padding:6px 14px; cursor:pointer; font-size:12px; color:var(--text-secondary);">' + item + '</div>';
+    });
+  });
 
   if (results.length > 6) {
     html += '<div style="padding:8px 14px; font-size:11px; color:var(--text-muted); text-align:center;">+ ' + (results.length - 6) + ' sonuç daha (Enter ile ara)</div>';
@@ -8854,27 +9008,18 @@ function showSearchSuggestions(term) {
       });
     })(suggs[j]);
   }
-  // Bind finder navigation
-  var finderLinks = sugBox.querySelectorAll('.search-go-finder');
-  for (var k = 0; k < finderLinks.length; k++) {
-    finderLinks[k].addEventListener('click', function() {
-      sugBox.style.display = 'none';
-      document.getElementById('searchInput').value = '';
-      currentPage = 'finder';
-      updateBottomNav();
-      render();
-    });
-  }
-  // Bind duel navigation
-  var duelLinks = sugBox.querySelectorAll('.search-go-duel');
-  for (var m = 0; m < duelLinks.length; m++) {
-    duelLinks[m].addEventListener('click', function() {
-      sugBox.style.display = 'none';
-      document.getElementById('searchInput').value = '';
-      currentPage = 'duel';
-      updateBottomNav();
-      render();
-    });
+  // Bind page navigation for all content types
+  var pageLinks = sugBox.querySelectorAll('.search-go-page');
+  for (var k = 0; k < pageLinks.length; k++) {
+    (function(el) {
+      el.addEventListener('click', function() {
+        sugBox.style.display = 'none';
+        document.getElementById('searchInput').value = '';
+        currentPage = el.getAttribute('data-page');
+        updateBottomNav();
+        render();
+      });
+    })(pageLinks[k]);
   }
   } catch(e) {
     console.error('Search suggestions error:', e);
