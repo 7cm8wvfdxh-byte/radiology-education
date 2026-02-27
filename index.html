@@ -547,6 +547,7 @@ function handleSearch(query) {
 }
 
 function executeSearch(query) {
+  try {
   var q = query.toLowerCase().trim();
   var words = q.split(/\s+/).filter(function(w) { return w.length > 0; });
   allResults = [];
@@ -636,6 +637,10 @@ function executeSearch(query) {
 
   kbIndex = -1;
   renderResults();
+  } catch(e) {
+    console.error('Search error:', e);
+    allResults = [];
+  }
 }
 
 function setSearchFilter(filter) {
@@ -691,7 +696,16 @@ function navigateResult(idx) {
   var filtered = currentFilter === 'all' ? allResults : allResults.filter(function(r) { return r.type === currentFilter; });
   var shown = filtered.slice(0, 15);
   if (idx >= 0 && idx < shown.length) {
-    window.location.href = shown[idx].url;
+    var result = shown[idx];
+    var url = result.url;
+    if (result.type === 'disease' && result.id) {
+      url += (url.indexOf('?') === -1 ? '?' : '&') + 'disease=' + encodeURIComponent(result.id);
+    } else if (result.type === 'duel') {
+      url = url.replace(/#.*$/, '') + '?page=duel';
+    } else if (result.type === 'signal') {
+      url = url.replace(/#.*$/, '') + '?page=signal';
+    }
+    window.location.href = url;
   }
 }
 
