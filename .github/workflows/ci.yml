@@ -1,0 +1,37 @@
+name: CI — Test & Validate
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Node.js kurulumu
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Bağımlılıkları yükle
+        run: npm ci
+
+      - name: Unit testler
+        run: npm test
+
+      - name: Veri bütünlüğü doğrulama
+        run: npm run validate
+
+      - name: search-data.js güncelliğini kontrol et
+        run: |
+          npm run build:search
+          if ! git diff --quiet search-data.js; then
+            echo "::error::search-data.js güncel değil! 'npm run build:search' çalıştırıp commit edin."
+            git diff --stat search-data.js
+            exit 1
+          fi

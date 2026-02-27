@@ -187,7 +187,7 @@ body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#6474
 
   <!-- Global Stats -->
   <div class="stats-grid" id="statsGrid">
-    <div class="stat-card"><div class="stat-val" id="totalDiseases">157</div><div class="stat-label">Hastalık</div></div>
+    <div class="stat-card"><div class="stat-val" id="totalDiseases">--</div><div class="stat-label">Hastalık</div></div>
     <div class="stat-card"><div class="stat-val" id="totalStudied">0</div><div class="stat-label">Çalışılan</div></div>
     <div class="stat-card"><div class="stat-val" id="totalMasteredStat">0</div><div class="stat-label">Öğrenildi</div></div>
     <div class="stat-card"><div class="stat-val" id="totalQuizSessions">0</div><div class="stat-label">Quiz Oturum</div></div>
@@ -200,9 +200,9 @@ body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#6474
       <div class="mc-title">NeuroRad</div>
       <div class="mc-desc">Nöroradyoloji — beyin, spinal, baş-boyun patolojileri</div>
       <div class="mc-stats">
-        <span class="mc-stat" id="neuroDiseaseCnt">74 hastalık</span>
-        <span class="mc-stat">58 duel</span>
-        <span class="mc-stat">37 sinyal profili</span>
+        <span class="mc-stat" id="neuroDiseaseCnt">-- hastalık</span>
+        <span class="mc-stat" id="neuroDuelCnt">-- duel</span>
+        <span class="mc-stat" id="neuroSignalCnt">-- sinyal profili</span>
       </div>
       <div class="mc-progress">
         <div class="mc-progress-bar"><div class="mc-progress-fill neuro" id="neuroProgress" style="width:0%"></div></div>
@@ -214,9 +214,9 @@ body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#6474
       <div class="mc-title">AbdomenRad</div>
       <div class="mc-desc">Abdominopelvik radyoloji — KC, pankreas, böbrek, barsak, pelvik</div>
       <div class="mc-stats">
-        <span class="mc-stat" id="abdDiseaseCnt">83 hastalık</span>
-        <span class="mc-stat">49 duel</span>
-        <span class="mc-stat">36 sinyal profili</span>
+        <span class="mc-stat" id="abdDiseaseCnt">-- hastalık</span>
+        <span class="mc-stat" id="abdDuelCnt">-- duel</span>
+        <span class="mc-stat" id="abdSignalCnt">-- sinyal profili</span>
       </div>
       <div class="mc-progress">
         <div class="mc-progress-bar"><div class="mc-progress-fill abdomen" id="abdomenProgress" style="width:0%"></div></div>
@@ -270,7 +270,7 @@ body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#6474
     <a href="neurorad.html">NeuroRad</a>
     <a href="abdomenrad.html">AbdomenRad</a>
   </div>
-  <p>Toplam: 157 hastalık · 107 duel · 73 sinyal profili · 1.6MB+</p>
+  <p id="footerStats">Toplam: -- hastalık · -- duel · -- sinyal profili</p>
   <p style="margin-top:4px;">Radyoloji asistanları için tasarlandı</p>
 </div>
 
@@ -775,9 +775,39 @@ function loadCrossModuleStats() {
   document.getElementById('streakDays').textContent = streak + ' günlük seri';
   document.getElementById('streakSub').textContent = streak > 0 ? 'Harika gidiyorsun!' : 'Bugün çalışmaya başla!';
 
+  // Dinamik sayılar: searchIndex dizisinden hesapla
+  var neuroDiseaseCount = searchIndex.filter(function(s) { return s.m === 'neuro'; }).length;
+  var abdDiseaseCount = searchIndex.filter(function(s) { return s.m === 'abdomen'; }).length;
+  var totalDiseaseCount = searchIndex.length;
+
+  // Duel ve sinyal sayıları
+  var neuroDuelCount = 0, abdDuelCount = 0, neuroSignalCount = 0, abdSignalCount = 0;
+  if (typeof duelEntries !== 'undefined') {
+    neuroDuelCount = duelEntries.filter(function(d) { return d[0] === 'n'; }).length;
+    abdDuelCount = duelEntries.filter(function(d) { return d[0] === 'a'; }).length;
+  }
+  if (typeof signalEntries !== 'undefined') {
+    neuroSignalCount = signalEntries.filter(function(s) { return s[0] === 'n'; }).length;
+    abdSignalCount = signalEntries.filter(function(s) { return s[0] === 'a'; }).length;
+  }
+
+  // İstatistikleri güncelle
+  document.getElementById('totalDiseases').textContent = totalDiseaseCount;
+  document.getElementById('neuroDiseaseCnt').textContent = neuroDiseaseCount + ' hastalık';
+  document.getElementById('neuroDuelCnt').textContent = neuroDuelCount + ' duel';
+  document.getElementById('neuroSignalCnt').textContent = neuroSignalCount + ' sinyal quiz';
+  document.getElementById('abdDiseaseCnt').textContent = abdDiseaseCount + ' hastalık';
+  document.getElementById('abdDuelCnt').textContent = abdDuelCount + ' duel';
+  document.getElementById('abdSignalCnt').textContent = abdSignalCount + ' sinyal quiz';
+
+  // Footer
+  var totalDuels = neuroDuelCount + abdDuelCount;
+  var totalSignals = neuroSignalCount + abdSignalCount;
+  document.getElementById('footerStats').textContent = 'Toplam: ' + totalDiseaseCount + ' hastalık · ' + totalDuels + ' duel · ' + totalSignals + ' sinyal quiz';
+
   // Progress bars
-  updateModuleProgress('neuro', 74, neuroStudied);
-  updateModuleProgress('abdomen', 83, abdStudied);
+  updateModuleProgress('neuro', neuroDiseaseCount, neuroStudied);
+  updateModuleProgress('abdomen', abdDiseaseCount, abdStudied);
 }
 
 function updateModuleProgress(module, totalDiseases, studiedCount) {
