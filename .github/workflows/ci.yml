@@ -2,7 +2,7 @@ name: CI — Test & Validate
 
 on:
   push:
-    branches: [master, main]
+    branches: ['*']
   pull_request:
     branches: [master, main]
 
