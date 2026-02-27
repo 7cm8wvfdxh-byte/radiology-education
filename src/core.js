@@ -71,20 +71,34 @@ function createQuizManager(storagePrefix) {
 function createSmartSearch(diseases, searchSynonyms) {
   return function smartSearch(term) {
     if (!term) return diseases;
-    var words = term.toLowerCase().split(/\s+/);
+    var lterm = term.toLowerCase();
+    var words = lterm.split(/\s+/);
+    var isMultiWord = words.length > 1;
 
-    // Expand each word with synonyms
-    var expandedWords = [];
-    words.forEach(function (w) {
-      expandedWords.push(w);
+    // Build per-word synonym expansions
+    var wordExpansions = words.map(function (w) {
+      var expanded = [w];
       Object.keys(searchSynonyms).forEach(function (key) {
         if (key.includes(w) || w.includes(key)) {
-          searchSynonyms[key].forEach(function (syn) {
-            expandedWords.push(syn);
-          });
+          searchSynonyms[key].forEach(function (syn) { expanded.push(syn); });
         }
       });
+      return expanded;
     });
+
+    // Also expand the full phrase for multi-word semantic matching
+    var phraseExpansions = [lterm];
+    if (isMultiWord) {
+      Object.keys(searchSynonyms).forEach(function (key) {
+        if (key.includes(lterm) || lterm.includes(key)) {
+          searchSynonyms[key].forEach(function (syn) { phraseExpansions.push(syn); });
+        }
+      });
+    }
+
+    // Flat list for single-word fallback
+    var allExpanded = [];
+    wordExpansions.forEach(function (exp) { exp.forEach(function (w) { allExpanded.push(w); }); });
 
     return diseases.filter(function (d) {
       var searchIn = [
@@ -96,7 +110,16 @@ function createSmartSearch(diseases, searchSynonyms) {
         d.tagText || '', d.category || ''
       ].join(' ').toLowerCase();
 
-      return expandedWords.some(function (ew) { return searchIn.includes(ew); });
+      if (isMultiWord) {
+        // 1. Full phrase match (exact or synonym)
+        if (phraseExpansions.some(function (p) { return searchIn.includes(p); })) return true;
+        // 2. All words must match (each word via its own synonyms)
+        return wordExpansions.every(function (expansion) {
+          return expansion.some(function (ew) { return searchIn.includes(ew); });
+        });
+      }
+      // Single word: match any expanded word
+      return allExpanded.some(function (ew) { return searchIn.includes(ew); });
     });
   };
 }

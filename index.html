@@ -517,13 +517,77 @@ var allResults = [];
 var kbIndex = -1;
 var searchTimeout = null;
 
+// Phrase synonyms for semantic multi-word search
+var phraseSynonyms = {
+  'ring enhancement': ['halka kontrastlanma', 'halka tarzı', 'periferal kontrastlanma', 'rim enhancement'],
+  'halka kontrastlanma': ['ring enhancement', 'rim enhancement', 'halka tarzı'],
+  'beyaz cevher': ['white matter', 'ak madde', 'periventriküler lezyon'],
+  'white matter': ['beyaz cevher', 'ak madde'],
+  'beyin tümörü': ['intrakraniyal kitle', 'serebral neoplazm', 'beyin kitlesi'],
+  'beyin kitlesi': ['intrakraniyal kitle', 'beyin tümörü', 'serebral neoplazm'],
+  'karaciğer kitlesi': ['hepatik lezyon', 'hepatik kitle', 'kc kitlesi', 'kc lezyonu'],
+  'kc kitlesi': ['karaciğer kitlesi', 'hepatik kitle', 'hepatik lezyon'],
+  'akut batın': ['akut karın', 'acute abdomen', 'cerrahi karın'],
+  'akut karın': ['akut batın', 'acute abdomen'],
+  'difüzyon kısıtlanması': ['dwi kısıtlanma', 'restricted diffusion', 'dwi pozitif', 'difüzyon kısıtlılığı'],
+  'spinal kord': ['omurilik', 'medulla spinalis', 'spinal cord'],
+  'portal hipertansiyon': ['portal ht', 'variks', 'asit', 'splenomegali'],
+  'safra yolu': ['biliyer', 'koledok', 'safra kanalı', 'biliary'],
+  'böbrek kitlesi': ['renal kitle', 'renal lezyon', 'böbrek lezyonu'],
+  'renal kitle': ['böbrek kitlesi', 'böbrek lezyonu', 'renal lezyon'],
+  'over kisti': ['ovaryan kist', 'over kist', 'adneksiyal kist'],
+  'baş ağrısı': ['sefalji', 'headache', 'baş ağrı'],
+  'demyelinizan hastalık': ['demyelinizasyon', 'ms', 'multipl skleroz', 'demyelinating'],
+  'vasküler patoloji': ['vasküler lezyon', 'damarsal patoloji', 'serebrovasküler'],
+  'konjenital anomali': ['doğumsal anomali', 'gelişimsel anomali', 'malformasyon'],
+  'dejeneratif hastalık': ['nörodejenerasyon', 'dejeneratif', 'demans'],
+  'spinal patoloji': ['omurga hastalığı', 'vertebral patoloji', 'spinal lezyon'],
+  'küçük damar hastalığı': ['small vessel disease', 'periventriküler', 'fazekas'],
+  'sinyal değişikliği': ['sinyal artışı', 'sinyal azalması', 'hiperintens', 'hipointens'],
+  'kontrastlanma paterni': ['enhancement pattern', 'boyanma paterni', 'kontrast paterni'],
+  'ayırıcı tanı': ['diferansiyel tanı', 'differential diagnosis', 'ayırıcı'],
+  'kafa travması': ['kafa travma', 'tbi', 'traumatic brain'],
+  'kemik iliği': ['bone marrow', 'kemik iliği sinyal'],
+  'pelvik kitle': ['pelvik lezyon', 'pelvis kitlesi'],
+  'adrenal kitle': ['adrenal lezyon', 'sürrenal kitle', 'adrenal nodül'],
+  'pankreas kitlesi': ['pankreatik kitle', 'pankreas lezyonu', 'pankreatik lezyon']
+};
+
+// Semantic search helper: check if multi-word query matches text
+function semanticMatch(text, query, words) {
+  if (!text) return { matched: false, phrase: false };
+  var textL = text.toLowerCase();
+  // 1. Full phrase match
+  if (textL.includes(query)) return { matched: true, phrase: true };
+  // 2. Phrase synonym match
+  var synonyms = phraseSynonyms[query];
+  if (synonyms) {
+    for (var i = 0; i < synonyms.length; i++) {
+      if (textL.includes(synonyms[i])) return { matched: true, phrase: true };
+    }
+  }
+  // 3. All words must be present
+  if (words.length > 1 && words.every(function(w) { return textL.includes(w); })) {
+    return { matched: true, phrase: false };
+  }
+  return { matched: false, phrase: false };
+}
+
 // Escape HTML to prevent XSS
 function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
 // Find context snippet around match
 function findContext(text, query) {
   if (!text) return '';
+  // Try full phrase first, then individual words
   var idx = text.toLowerCase().indexOf(query.toLowerCase());
+  if (idx === -1) {
+    var words = query.toLowerCase().split(/\s+/);
+    for (var i = 0; i < words.length; i++) {
+      idx = text.toLowerCase().indexOf(words[i]);
+      if (idx !== -1) break;
+    }
+  }
   if (idx === -1) return '';
   var start = Math.max(0, idx - 30);
   var end = Math.min(text.length, idx + query.length + 50);
@@ -558,6 +622,7 @@ function executeSearch(query) {
   try {
   var q = query.toLowerCase().trim();
   var words = q.split(/\s+/).filter(function(w) { return w.length > 0; });
+  var isMultiWord = words.length > 1;
   allResults = [];
 
   // 1. Search diseases
@@ -569,19 +634,32 @@ function executeSearch(query) {
     var matchField = '';
     var context = '';
 
-    words.forEach(function(w) {
-      if (nameL.includes(w)) { score += 10; matchField = 'name'; }
-      if (catL.includes(w)) { score += 5; matchField = matchField || 'cat'; }
-      if (idL.includes(w)) { score += 3; matchField = matchField || 'id'; }
-    });
+    if (isMultiWord) {
+      // Multi-word: semantic whole-phrase matching
+      var nameMatch = semanticMatch(nameL, q, words);
+      var catMatch = semanticMatch(catL, q, words);
+      var combinedBasic = nameL + ' ' + catL + ' ' + idL;
+      var combinedMatch = semanticMatch(combinedBasic, q, words);
+
+      if (nameMatch.matched && nameMatch.phrase) { score += 25; matchField = 'name'; }
+      else if (nameMatch.matched) { score += 15; matchField = 'name'; }
+      else if (catMatch.matched && catMatch.phrase) { score += 12; matchField = 'cat'; }
+      else if (combinedMatch.matched) { score += 8; matchField = 'name'; }
+    } else {
+      // Single word: per-word scoring
+      words.forEach(function(w) {
+        if (nameL.includes(w)) { score += 10; matchField = 'name'; }
+        if (catL.includes(w)) { score += 5; matchField = matchField || 'cat'; }
+        if (idL.includes(w)) { score += 3; matchField = matchField || 'id'; }
+      });
+    }
 
     // Search extended data (keyPoints, differentials, pathways)
     var ext = (typeof searchExtended !== 'undefined') ? searchExtended[item.id] : '';
     if (ext && score === 0) {
-      var extL = ext.toLowerCase();
-      var extMatch = words.every(function(w) { return extL.includes(w); });
-      if (extMatch) {
-        score += 2;
+      var extMatch = semanticMatch(ext, q, words);
+      if (extMatch.matched) {
+        score += extMatch.phrase ? 5 : 2;
         matchField = 'content';
         context = findContext(ext, q);
       }
@@ -601,11 +679,11 @@ function executeSearch(query) {
   if (typeof duelEntries !== 'undefined') {
     duelEntries.forEach(function(d) {
       var searchText = [d[1], d[2], d[3], d[4]].join(' ').toLowerCase();
-      var matched = words.every(function(w) { return searchText.includes(w); });
-      if (matched) {
+      var m = semanticMatch(searchText, q, words);
+      if (m.matched) {
         var title = d[1] || (d[2] + ' vs ' + d[3]);
         allResults.push({
-          type: 'duel', score: 4, name: title,
+          type: 'duel', score: m.phrase ? 6 : 4, name: title,
           cat: d[2] + ' vs ' + d[3],
           module: d[0] === 'n' ? 'neuro' : 'abdomen',
           url: (d[0] === 'n' ? 'neurorad.html' : 'abdomenrad.html') + '?page=duel',
@@ -619,10 +697,10 @@ function executeSearch(query) {
   if (typeof signalEntries !== 'undefined') {
     signalEntries.forEach(function(s) {
       var searchText = [s[1], s[2], s[3]].join(' ').toLowerCase();
-      var matched = words.every(function(w) { return searchText.includes(w); });
-      if (matched) {
+      var sm = semanticMatch(searchText, q, words);
+      if (sm.matched) {
         allResults.push({
-          type: 'tool', score: 3, name: s[2] || s[1].substring(0, 60),
+          type: 'tool', score: sm.phrase ? 5 : 3, name: s[2] || s[1].substring(0, 60),
           cat: '🎯 Sinyal • ' + s[1].substring(0, 50),
           module: s[0] === 'n' ? 'neuro' : 'abdomen',
           url: (s[0] === 'n' ? 'neurorad.html' : 'abdomenrad.html') + '?page=signal',
@@ -636,10 +714,10 @@ function executeSearch(query) {
   if (typeof findingEntries !== 'undefined') {
     findingEntries.forEach(function(f) {
       var searchText = [f[1], f[2], f[3]].join(' ').toLowerCase();
-      var matched = words.every(function(w) { return searchText.includes(w); });
-      if (matched) {
+      var sm = semanticMatch(searchText, q, words);
+      if (sm.matched) {
         allResults.push({
-          type: 'finding', score: 6, name: f[1],
+          type: 'finding', score: sm.phrase ? 8 : 6, name: f[1],
           cat: '🔍 Bulgu Ayırıcı Tanı',
           module: f[0] === 'n' ? 'neuro' : 'abdomen',
           url: (f[0] === 'n' ? 'neurorad.html' : 'abdomenrad.html') + '?page=finder',
@@ -653,10 +731,10 @@ function executeSearch(query) {
   if (typeof emergencyEntries !== 'undefined') {
     emergencyEntries.forEach(function(e) {
       var searchText = [e[1], e[2], e[3], e[4]].join(' ').toLowerCase();
-      var matched = words.every(function(w) { return searchText.includes(w); });
-      if (matched) {
+      var sm = semanticMatch(searchText, q, words);
+      if (sm.matched) {
         allResults.push({
-          type: 'emergency', score: 5, name: e[2],
+          type: 'emergency', score: sm.phrase ? 7 : 5, name: e[2],
           cat: '🚨 ' + e[1],
           module: e[0] === 'n' ? 'neuro' : 'abdomen',
           url: (e[0] === 'n' ? 'neurorad.html' : 'abdomenrad.html') + '?page=emergency',
@@ -670,10 +748,10 @@ function executeSearch(query) {
   if (typeof measurementEntries !== 'undefined') {
     measurementEntries.forEach(function(m) {
       var searchText = [m[1], m[2], m[3]].join(' ').toLowerCase();
-      var matched = words.every(function(w) { return searchText.includes(w); });
-      if (matched) {
+      var sm = semanticMatch(searchText, q, words);
+      if (sm.matched) {
         allResults.push({
-          type: 'measurement', score: 4, name: m[2],
+          type: 'measurement', score: sm.phrase ? 6 : 4, name: m[2],
           cat: '📏 ' + m[1],
           module: m[0] === 'n' ? 'neuro' : 'abdomen',
           url: (m[0] === 'n' ? 'neurorad.html' : 'abdomenrad.html') + '?page=measurements',
@@ -687,10 +765,10 @@ function executeSearch(query) {
   if (typeof calcEntries !== 'undefined') {
     calcEntries.forEach(function(c) {
       var searchText = [c[1], c[2]].join(' ').toLowerCase();
-      var matched = words.every(function(w) { return searchText.includes(w); });
-      if (matched) {
+      var sm = semanticMatch(searchText, q, words);
+      if (sm.matched) {
         allResults.push({
-          type: 'tool', score: 4, name: c[1],
+          type: 'tool', score: sm.phrase ? 6 : 4, name: c[1],
           cat: '🧮 Hesaplayıcı',
           module: c[0] === 'n' ? 'neuro' : 'abdomen',
           url: (c[0] === 'n' ? 'neurorad.html' : 'abdomenrad.html') + '?page=calc',
@@ -704,10 +782,10 @@ function executeSearch(query) {
   if (typeof physicsEntries !== 'undefined') {
     physicsEntries.forEach(function(p) {
       var searchText = [p[1], p[2]].join(' ').toLowerCase();
-      var matched = words.every(function(w) { return searchText.includes(w); });
-      if (matched) {
+      var sm = semanticMatch(searchText, q, words);
+      if (sm.matched) {
         allResults.push({
-          type: 'tool', score: 3, name: p[1],
+          type: 'tool', score: sm.phrase ? 5 : 3, name: p[1],
           cat: '⚛️ MR Fizik',
           module: p[0] === 'n' ? 'neuro' : 'abdomen',
           url: (p[0] === 'n' ? 'neurorad.html' : 'abdomenrad.html') + '?page=physics',
@@ -721,10 +799,10 @@ function executeSearch(query) {
   if (typeof enhanceEntries !== 'undefined') {
     enhanceEntries.forEach(function(e) {
       var searchText = [e[1], e[2]].join(' ').toLowerCase();
-      var matched = words.every(function(w) { return searchText.includes(w); });
-      if (matched) {
+      var sm = semanticMatch(searchText, q, words);
+      if (sm.matched) {
         allResults.push({
-          type: 'finding', score: 5, name: e[1],
+          type: 'finding', score: sm.phrase ? 7 : 5, name: e[1],
           cat: '💉 Kontrastlanma Paterni',
           module: e[0] === 'n' ? 'neuro' : 'abdomen',
           url: (e[0] === 'n' ? 'neurorad.html' : 'abdomenrad.html') + '?page=enhance',
