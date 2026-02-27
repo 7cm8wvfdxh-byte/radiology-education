@@ -814,10 +814,6 @@ function navigateResult(idx) {
     var url = result.url;
     if (result.type === 'disease' && result.id) {
       url += (url.indexOf('?') === -1 ? '?' : '&') + 'disease=' + encodeURIComponent(result.id);
-    } else if (result.type === 'duel') {
-      url = url.replace(/#.*$/, '') + '?page=duel';
-    } else if (result.type === 'signal') {
-      url = url.replace(/#.*$/, '') + '?page=signal';
     }
     window.location.href = url;
   }
