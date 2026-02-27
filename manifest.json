@@ -3,6 +3,8 @@
   "short_name": "RadEdu",
   "description": "İnteraktif Radyoloji Eğitim Platformu — Nöroradyoloji ve Abdomen Radyoloji",
   "start_url": "/index.html",
+  "scope": "/",
+  "lang": "tr",
   "display": "standalone",
   "background_color": "#0f172a",
   "theme_color": "#0f172a",

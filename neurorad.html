@@ -4,9 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>NeuroRad Patho-Imaging</title>
+<meta name="description" content="Nöroradyoloji eğitim modülü — 74 hastalık, MR sinyal profilleri, ayırıcı tanı düelloları ve interaktif quiz">
 <meta name="theme-color" content="#0f172a">
+<meta property="og:title" content="NeuroRad Patho-Imaging">
+<meta property="og:description" content="Nöroradyoloji eğitim modülü — 74 hastalık, MR sinyal profilleri, ayırıcı tanı düelloları">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
 <link rel="manifest" href="manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -6631,7 +6637,9 @@ function render() {
     window._showDiseaseId = null;
   }
   } catch(e) {
-    main.innerHTML = '<div style="padding:20px;color:#f43f5e;font-size:12px;"><b>Render Hatası:</b> ' + e.message + '<br><pre style="font-size:10px;margin-top:8px;color:#999;overflow:auto;">' + (e.stack||'').substring(0,300) + '</pre></div>';
+    var safeMsg = (e.message||'').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    var safeStack = (e.stack||'').substring(0,300).replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    main.innerHTML = '<div style="padding:20px;color:#f43f5e;font-size:12px;"><b>Render Hatası:</b> ' + safeMsg + '<br><pre style="font-size:10px;margin-top:8px;color:#999;overflow:auto;">' + safeStack + '</pre></div>';
   }
 }
 
@@ -6712,7 +6720,6 @@ const signalBadges = {
   b12_deficiency:      { t1:'⚪', t2:'💧', flair:'💧', dwi:'⚪', extra:'Dorsal kolon inverted V' },
   germinoma: { t1: 'iso-↓', t2: 'iso-↓', flair: '↑', dwi: '↑(kısıtlanma)', ce: 'homojen++' },
   dva: { t1: '↓(flow void)', t2: '↓(flow void)', flair: '-', swi: 'belirgin', ce: 'medusa head' },
-  cvst: { t1: 'değişken', t2: 'değişken', flair: '↑', dwi: 'değişken', ce: 'dolma defekti' },
   neurosarcoidosis: { t1: 'iso', t2: '↑', flair: '↑', dwi: 'değişken', ce: 'leptomeningeal/nodüler' },
   dnet: { t1: '↓', t2: '↑', flair: '↑(bright rim)', dwi: '-', ce: 'genellikle(-)' },
   central_neurocytoma: { t1: 'iso', t2: 'iso-↑', flair: '↑', dwi: '↑', ce: 'heterojen+' },
@@ -7115,6 +7122,60 @@ const diseaseConnections = {
     sameMechanism: [],
     sameLocation: [],
     mechanismTag: 'Posterior kolon (dorsal) T2 hiperintens → inverted V sign → myelin sentez bozukluğu'
+  },
+  germinoma: {
+    confusedWith: ['pineal_cyst'],
+    sameMechanism: ['lymphoma'],
+    sameLocation: [],
+    mechanismTag: 'Pineal/suprasellar homojen kitle → DWI kısıtlanma (yoğun hücreler) → homojen kontrastlanma → AFP/HCG kontrol'
+  },
+  dva: {
+    confusedWith: ['avm', 'cavernoma'],
+    sameMechanism: [],
+    sameLocation: ['cavernoma'],
+    mechanismTag: 'Medusa başı venöz drenaj → gelişimsel varyant → cavernomla birliktelik olabilir → tedavi YAPMA'
+  },
+  neurosarcoidosis: {
+    confusedWith: ['tbc_meningitis', 'lymphoma', 'ms'],
+    sameMechanism: ['ms'],
+    sameLocation: ['tbc_meningitis'],
+    mechanismTag: 'Non-kazeifiye granülom → leptomeningeal/dural kontrastlanma + kranial sinir tutulumu + hipotalamus'
+  },
+  dnet: {
+    confusedWith: ['ganglioglioma', 'low_grade_glioma', 'oligodendroglioma'],
+    sameMechanism: ['ganglioglioma'],
+    sameLocation: ['ganglioglioma'],
+    mechanismTag: 'Kortikal bubbly kitle → kontrastlanma YOK → FLAIR bright rim → genç + epilepsi → iyi prognoz'
+  },
+  central_neurocytoma: {
+    confusedWith: ['ependymoma', 'oligodendroglioma', 'choroid_plexus_pap'],
+    sameMechanism: [],
+    sameLocation: ['ependymoma', 'choroid_plexus_pap'],
+    mechanismTag: 'Lateral ventrikül + septum pellucidum kökenli → bubbly heterojen kitle → genç erişkin'
+  },
+  cns_vasculitis: {
+    confusedWith: ['acute_ischemic', 'moyamoya', 'ms'],
+    sameMechanism: [],
+    sameLocation: [],
+    mechanismTag: 'Multifokal infarkt + segmental damar düzensizliği (beading) → multiteritoryel → biopsi/angio'
+  },
+  ganglioglioma: {
+    confusedWith: ['dnet', 'low_grade_glioma'],
+    sameMechanism: ['dnet'],
+    sameLocation: ['dnet'],
+    mechanismTag: 'Temporal lob kortikal kitle → kistik + kalsifiye mural nodül → genç + epilepsi → cerrahi kür'
+  },
+  choroid_plexus_pap: {
+    confusedWith: ['central_neurocytoma', 'ependymoma', 'meningioma'],
+    sameMechanism: [],
+    sameLocation: ['central_neurocytoma', 'ependymoma'],
+    mechanismTag: 'Lobüle karnabahar kitle → intraventriküler → yoğun homojen kontrastlanma → çocuk lateral V, erişkin 4V'
+  },
+  susac_syndrome: {
+    confusedWith: ['ms', 'adem', 'cns_vasculitis'],
+    sameMechanism: [],
+    sameLocation: ['ms'],
+    mechanismTag: 'Snowball lezyonlar → korpus kallozum ALT lifleri (MS üst lifler) + retinal arter oklüzyon + işitme kaybı triadı'
   }
 };
 
@@ -8914,11 +8975,11 @@ const conceptMap = [
     ],
     patterns: [
       { pattern: 'Ring enhancement', meaning: 'Merkez nekrotik/avesküler (Gd ulaşamaz) + çevre canlı doku (Gd sızar)', diseases: ['gbm', 'brain_abscess', 'metastasis', 'toxoplasmosis'], color: '#ef4444' },
-      { pattern: 'Homojen enhancement', meaning: 'Tüm lezyon vasküler + BBB yıkık', diseases: ['meningioma', 'lymphoma', 'schwannoma'], color: '#3b82f6' },
+      { pattern: 'Homojen enhancement', meaning: 'Tüm lezyon vasküler + BBB yıkık', diseases: ['meningioma', 'lymphoma', 'schwannoma', 'germinoma', 'choroid_plexus_pap'], color: '#3b82f6' },
       { pattern: 'Open ring enhancement', meaning: 'Demyelinizasyonda: açık taraf sağlam beyaz cevhere (korteks tarafı korunmuş)', diseases: ['tumefactive_ms', 'adem'], color: '#8b5cf6' },
-      { pattern: 'Kontrastlanma YOK', meaning: 'BBB sağlam VEYA avesküler lezyon', diseases: ['low_grade_glioma', 'arachnoid_cyst', 'enlarged_pvs', 'pml'], color: '#10b981' },
+      { pattern: 'Kontrastlanma YOK', meaning: 'BBB sağlam VEYA avesküler lezyon', diseases: ['low_grade_glioma', 'arachnoid_cyst', 'enlarged_pvs', 'pml', 'dnet'], color: '#10b981' },
       { pattern: 'Dural tail', meaning: 'Ekstra-aksiyel kitle → komşu dura reaktif kontrastlanması', diseases: ['meningioma'], color: '#f59e0b' },
-      { pattern: 'Leptomeningeal', meaning: 'Pia-araknoid tutulumu → ince lineer, sulkusları takip eder', diseases: ['tbc_meningitis', 'metastasis'], color: '#06b6d4' }
+      { pattern: 'Leptomeningeal', meaning: 'Pia-araknoid tutulumu → ince lineer, sulkusları takip eder', diseases: ['tbc_meningitis', 'metastasis', 'neurosarcoidosis'], color: '#06b6d4' }
     ],
     keyInsight: 'Tümörde kontrastlanma = grade DEĞİL! Düşük grade gliomda BBB sağlam → kontrastlanma YOK ama yine tümör. Menenjiyomda güçlü kontrastlanma var ama benign. KONTRASTLANMA = BBB DURUMU, malignite değil.'
   },
@@ -8959,6 +9020,7 @@ const conceptMap = [
       { pattern: 'Uzun segment spinal (≥3V)', meaning: 'NMO / MOGAD (spinal kord AQP4 yoğun)', diseases: ['nmo', 'mog'], color: '#ec4899' },
       { pattern: 'Open ring enhancement', meaning: 'Aktif demyelinizasyon (tümörden ayırt edici!)', diseases: ['tumefactive_ms', 'ms'], color: '#f43f5e' },
       { pattern: 'Büyük fluffy + çocuk', meaning: 'ADEM (monofazik, postinfeksiyöz)', diseases: ['adem'], color: '#f59e0b' },
+      { pattern: 'Snowball lezyonlar (alt kallozum)', meaning: 'Susac: kallozum ALT lifleri (MS\'te ÜST lifler) + retinal oklüzyon + işitme kaybı', diseases: ['susac_syndrome'], color: '#10b981' },
       { pattern: 'Pons santral lezyon', meaning: 'ODS: Ozmotik stres (hızlı Na düzeltme) → pons miyelinoliz', diseases: ['osmotic_demyelination'], color: '#06b6d4' }
     ],
     keyInsight: 'MS = perivenüler T hücre (ovoid Dawson fingers). NMO = astrositopati (uzun segment spinal). MOGAD = oligodendrosit (ADEM-benzeri). ADEM = postinfeksiyöz (monofazik). HEDEF HÜCRE FARKLI → TEDAVİ FARKLI.'
@@ -9001,7 +9063,7 @@ const conceptMap = [
     patterns: [
       { pattern: 'Arter alanında DWI(+)', meaning: 'Akut iskemik inme → ACİL', diseases: ['acute_ischemic'], color: '#ef4444' },
       { pattern: 'Ring merkezi DWI(+)', meaning: 'Abse (pü viskozitesi) → GBM\'de merkez DWI(−)', diseases: ['brain_abscess'], color: '#f59e0b' },
-      { pattern: 'Homojen lezyon DWI(+)', meaning: 'Yüksek selülarite: lenfoma, medulloblastom', diseases: ['lymphoma', 'medulloblastoma'], color: '#8b5cf6' },
+      { pattern: 'Homojen lezyon DWI(+)', meaning: 'Yüksek selülarite: lenfoma, medulloblastom, germinoma', diseases: ['lymphoma', 'medulloblastoma', 'germinoma', 'central_neurocytoma'], color: '#8b5cf6' },
       { pattern: 'BOS-benzeri + DWI(+)', meaning: 'Epidermoid kist (keratin) → araknoid kistte DWI(−)', diseases: [], color: '#06b6d4' },
       { pattern: 'Kortikal ribboning DWI(+)', meaning: 'CJD (prion) veya hipoksik hasar → kortikal sitotoksik ödem', diseases: ['cjd'], color: '#dc2626' }
     ],
