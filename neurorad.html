@@ -11623,6 +11623,10 @@ function initApp() {
   var urlParams = new URLSearchParams(window.location.search);
   var diseaseParam = urlParams.get('disease');
   var pageParam = urlParams.get('page');
+  // Fallback: hash-based routing (#quiz, #duel etc.)
+  if (!pageParam && window.location.hash) {
+    pageParam = window.location.hash.substring(1);
+  }
   if (pageParam) {
     currentPage = pageParam;
     updateBottomNav();

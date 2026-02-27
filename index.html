@@ -142,6 +142,7 @@ body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#6474
 
 /* Import/Export Modal */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.active{display:flex;}
 .modal{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--radius);padding:20px;max-width:480px;width:100%;max-height:85vh;overflow-y:auto;-webkit-overflow-scrolling:touch;}
 .modal h3{font-size:18px;margin-bottom:16px;}
 .modal textarea{width:100%;background:var(--bg);border:1px solid var(--bg3);border-radius:8px;padding:12px;color:var(--text);font-size:16px;font-family:monospace;min-height:180px;resize:vertical;margin-bottom:12px;}
@@ -287,14 +288,14 @@ body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#6474
   <div class="quick-section">
     <div class="quick-title">Hızlı Erişim</div>
     <div class="quick-grid">
-      <a class="quick-btn" href="neurorad.html#quiz"><div class="qb-icon">🧩</div><div class="qb-text">Neuro Quiz</div></a>
-      <a class="quick-btn" href="abdomenrad.html#quiz"><div class="qb-icon">🧩</div><div class="qb-text">Abdomen Quiz</div></a>
-      <a class="quick-btn" href="neurorad.html#duel"><div class="qb-icon">⚔️</div><div class="qb-text">Neuro Duel</div></a>
-      <a class="quick-btn" href="abdomenrad.html#duel"><div class="qb-icon">⚔️</div><div class="qb-text">Abdomen Duel</div></a>
-      <a class="quick-btn" href="neurorad.html#signal"><div class="qb-icon">🧲</div><div class="qb-text">Sinyal Atlas</div></a>
-      <a class="quick-btn" href="neurorad.html#anatomy"><div class="qb-icon">🧠</div><div class="qb-text">Anatomi</div></a>
-      <a class="quick-btn" href="neurorad.html#graph"><div class="qb-icon">🕸️</div><div class="qb-text">Bağlantı Haritası</div></a>
-      <a class="quick-btn" href="neurorad.html#reportquiz"><div class="qb-icon">🏋️</div><div class="qb-text">Rapor Antrenman</div></a>
+      <a class="quick-btn" href="neurorad.html?page=quiz"><div class="qb-icon">🧩</div><div class="qb-text">Neuro Quiz</div></a>
+      <a class="quick-btn" href="abdomenrad.html?page=quiz"><div class="qb-icon">🧩</div><div class="qb-text">Abdomen Quiz</div></a>
+      <a class="quick-btn" href="neurorad.html?page=duel"><div class="qb-icon">⚔️</div><div class="qb-text">Neuro Duel</div></a>
+      <a class="quick-btn" href="abdomenrad.html?page=duel"><div class="qb-icon">⚔️</div><div class="qb-text">Abdomen Duel</div></a>
+      <a class="quick-btn" href="neurorad.html?page=signal"><div class="qb-icon">🧲</div><div class="qb-text">Sinyal Atlas</div></a>
+      <a class="quick-btn" href="neurorad.html?page=anatomy"><div class="qb-icon">🧠</div><div class="qb-text">Anatomi</div></a>
+      <a class="quick-btn" href="neurorad.html?page=graph"><div class="qb-icon">🕸️</div><div class="qb-text">Bağlantı Haritası</div></a>
+      <a class="quick-btn" href="neurorad.html?page=reportquiz"><div class="qb-icon">🏋️</div><div class="qb-text">Rapor Antrenman</div></a>
     </div>
   </div>
 </main>
