@@ -1670,10 +1670,107 @@ const measurements = [];
 const signalAtlas = [];
 
 // ===== SIGNAL PROFILES (Per Thorax Disease) =====
-const signalProfiles = [];
+const signalProfiles = [
+  { id: "lung_cancer", name: "Akciğer Kanseri (NSCLC)", cat: "lung",
+    signals: [
+      { seq: "BT (kontrastsız)", val: "⚪ Yumuşak doku", why: "Solid kitle, spikülasyon, korona radiata" },
+      { seq: "BT (kontrastlı)", val: "💉 Heterojen", why: "Nekrotik alanlar kontrastlanmaz, solid kısım kontrastlanır" },
+      { seq: "PET-BT", val: "☀️ FDG AVID", why: "Yüksek glikoz metabolizması (SUVmax >2.5)" },
+      { seq: "MR T2", val: "💧 Orta-yüksek", why: "Tümöral su içeriği artmış" },
+      { seq: "DWI", val: "🔒 Kısıtlanma", why: "Artmış selülarite → difüzyon kısıtlanması" }
+    ]},
+  { id: "tuberculosis", name: "Akciğer Tüberkülozu", cat: "lung",
+    signals: [
+      { seq: "BT (kontrastsız)", val: "🕳️ Kavite + nodül", why: "Apikal kavite + tree-in-bud + konsolidasyon" },
+      { seq: "BT (kontrastlı)", val: "💉 Rim enhancement", why: "Kavite duvarı kontrastlanır, nekrotik merkez (-)" },
+      { seq: "MR T2", val: "💧 Hiperintens", why: "Kazeöz nekroz sıvı içerir → T2 parlak" },
+      { seq: "DWI", val: "🔒 Kısıtlanma", why: "Kazeöz nekroz viskoz → DWI pozitif" },
+      { seq: "Tree-in-bud", val: "🌳 Endobronşiyal", why: "Centrilobüler nodüller + dallanma = endobronşiyal yayılım" }
+    ]},
+  { id: "sarcoidosis", name: "Sarkoidoz", cat: "lung",
+    signals: [
+      { seq: "BT", val: "⚫ Perilenfatik nodül", why: "Fissürler, bronkovasküler demetler, subplevral boyunca" },
+      { seq: "LAP", val: "🫁 Bilateral hiler", why: "Simetrik bilateral hiler + sağ paratrakeal (1-2-3 sign)" },
+      { seq: "PET-BT", val: "☀️ FDG tutulumu", why: "Aktif granülomatöz inflamasyon → FDG pozitif" },
+      { seq: "MR T2", val: "⬛ Düşük sinyal", why: "Fibröz granülomlar → T2 hipointens (önemli!)" },
+      { seq: "Evre", val: "📊 Scadding", why: "0: normal → I: LAP → II: LAP+nodül → III: nodül → IV: fibrozis" }
+    ]},
+  { id: "pulmonary_fibrosis", name: "İPF/UIP", cat: "lung",
+    signals: [
+      { seq: "BT (HRCT)", val: "🐝 Honeycombing", why: "Bazal subplevral kümelenmiş kistler (3-10 mm)" },
+      { seq: "Traksiyon", val: "📏 Bronşektazi", why: "Fibrozis çevre bronşları çeker → düzensiz genişleme" },
+      { seq: "Buzlu cam", val: "🌫️ Minimal", why: "UIP'de buzlu cam az → varsa NSIP düşün" },
+      { seq: "Dağılım", val: "⬇️ Bazal + periferal", why: "Alt loblar + subplevral baskın (kranyokaudal gradient)" },
+      { seq: "Temporal", val: "🔀 Heterojen", why: "Eski fibrozis + yeni lezyonlar bir arada → UIP'ye özgü" }
+    ]},
+  { id: "thymoma", name: "Timoma", cat: "mediastinum",
+    signals: [
+      { seq: "BT (kontrastsız)", val: "⚪ Homojen solid", why: "İyi sınırlı, anterior mediasten, kapsüllü" },
+      { seq: "BT (kontrastlı)", val: "💉 Orta kontrastlanma", why: "Homojen veya hafif heterojen kontrastlanma" },
+      { seq: "MR T1", val: "⚪ İzointens (kasa)", why: "Solid tümör, kas benzeri sinyal" },
+      { seq: "MR T2", val: "💧 Orta hiperintens", why: "Solid komponent + bazen kistik alanlar" },
+      { seq: "Kapsül", val: "📦 Kapsüllü", why: "İnce fibröz kapsül → iyi sınırlı (invazif tipte bozulur)" }
+    ]},
+  { id: "thoracic_lymphoma", name: "Torasik Lenfoma", cat: "mediastinum",
+    signals: [
+      { seq: "BT", val: "⚪ Homojen kitle", why: "Homojen yumuşak doku, anterior mediasten + LAP" },
+      { seq: "PET-BT", val: "☀️☀️ Çok yüksek FDG", why: "SUVmax genellikle >10, Deauville skorlama" },
+      { seq: "MR T2", val: "💧 Orta-yüksek", why: "Sellüler tümör → T2 parlak" },
+      { seq: "DWI", val: "🔒 Kısıtlanma", why: "Yoğun sellülarite → belirgin difüzyon kısıtlanması" },
+      { seq: "Tedavi yanıtı", val: "📉 PET Deauville", why: "1-3: tam yanıt, 4-5: rezidüel hastalık" }
+    ]},
+  { id: "hcm", name: "HCM", cat: "cardiac",
+    signals: [
+      { seq: "Cine MR", val: "📏 Asimetrik septum", why: "Septum ≥15 mm + SAM + LVOT obstrüksiyonu" },
+      { seq: "LGE", val: "🔴 Mid-wall", why: "Mid-wall pattern + RV insertion point tutulumu" },
+      { seq: "T1 mapping", val: "⬆️ Artmış native T1", why: "İnterstisyel fibrozis → T1 uzar" },
+      { seq: "T2 mapping", val: "💧 Normal/hafif artmış", why: "Akut fazda ödem varsa artabilir" },
+      { seq: "Strain", val: "⬇️ Azalmış GLS", why: "Longitudinal strain azalması → subklinik disfonksiyon" }
+    ]},
+  { id: "myocarditis", name: "Miyokardit", cat: "cardiac",
+    signals: [
+      { seq: "T2/STIR", val: "💧💧 Ödem!", why: "Miyokardiyal ödem → T2 hiperintens (Lake Louise)" },
+      { seq: "LGE", val: "🔴 Subepikardial", why: "Subepikardial + mid-wall (MI'dan ayrım: MI = subendokardial)" },
+      { seq: "Native T1", val: "⬆️ Artmış", why: "İnflamasyon + ödem → T1 uzar" },
+      { seq: "ECV", val: "⬆️ Artmış", why: "İnterstisyel ödem + hasar → ECV artar" },
+      { seq: "Bölge", val: "↙️ İnferolateral", why: "İnferolateral duvar predileksiyonu (Parvovirus B19)" }
+    ]},
+  { id: "pulmonary_embolism", name: "Pulmoner Emboli", cat: "vascular",
+    signals: [
+      { seq: "BT anjiyo", val: "⬛ Dolma defekti", why: "PA lümeni içinde hipodens trombüs" },
+      { seq: "RV/LV oranı", val: "⬆️ >1 (RV strain)", why: "Sağ ventrikül genişleme = hemodinamik yük" },
+      { seq: "D-sign", val: "🔄 Septum sola deviye", why: "RV basınç yükü → septum sola bowing" },
+      { seq: "V/Q sintigrafi", val: "🔄 Mismatch", why: "Ventilasyon normal + perfüzyon defekti = PE" },
+      { seq: "Perikardiyal", val: "💧 Efüzyon", why: "Sağ kalp yetmezliği → perikardiyal efüzyon" }
+    ]},
+  { id: "aortic_dissection", name: "Aort Diseksiyonu", cat: "vascular",
+    signals: [
+      { seq: "BT anjiyo", val: "↗️ İntimal flep", why: "Gerçek + yalancı lümeni ayıran membran" },
+      { seq: "Gerçek lümen", val: "☀️ Erken opasifiye", why: "Daha küçük, daha erken kontrastlanır" },
+      { seq: "Yalancı lümen", val: "🌀 Geç/yavaş akış", why: "Daha geniş, geç opasifiye, trombüs olabilir" },
+      { seq: "Kontrastsız BT", val: "🌙 Mural hiperdens", why: "İMH'de hilal şekli yüksek dansite (≥60 HU)" },
+      { seq: "EKG-gated", val: "📏 Doğru ölçüm", why: "Hareket artefaktı azaltma → asendan aort doğru ölçüm" }
+    ]}
+];
 
 // ===== SIGNAL QUIZ DATA (Thorax) =====
-const signalQuizzes = [];
+const signalQuizzes = [
+  { combo: "Spikülasyon🌟 + PET SUVmax >2.5 ☀️ + Mediastinal LAP + Sigara", answer: "Akciğer Kanseri (NSCLC)", why: "Spikülasyon = malignite. Yüksek FDG = aktif tümör. Mediastinal LAP = N2/N3. Sigara = en güçlü risk faktörü." },
+  { combo: "Apikal kavite🕳️ + Tree-in-bud🌳 + Unilateral nekrotik LAP + ARB (+)", answer: "Akciğer Tüberkülozu", why: "Apikal kavite = reaktivasyon TB. Tree-in-bud = endobronşiyal yayılım. Nekrotik LAP = kazeöz granülom." },
+  { combo: "Bilateral simetrik hiler LAP🫁 + Perilenfatik nodül + T2 düşük sinyal⬛ + Non-kazeöz granülom", answer: "Sarkoidoz", why: "1-2-3 sign (bilateral hiler + sağ paratrakeal). Perilenfatik dağılım. T2 düşük = fibröz granülom. Non-kazeöz = TB'den ayrım." },
+  { combo: "Bazal honeycombing🐝 + Traksiyon bronşektazi + Heterojen temporal + Kötü prognoz", answer: "UIP/İPF", why: "Honeycombing = fibrozis son evre. Bazal + subplevral. Heterojen temporal = eski+yeni. Medyan sağkalım 3-5 yıl." },
+  { combo: "Buzlu cam🌫️ dominant + Subplevral sparing + Homojen temporal + Steroide yanıt", answer: "NSIP", why: "NSIP: buzlu cam > fibrozis. Subplevral sparing (UIP'den ayrım). Homojen temporal. İyi prognoz." },
+  { combo: "Anterior mediasten kapsüllü kitle📦 + Miyastenia gravis + Orta yaş + Drop metastaz", answer: "Timoma", why: "Kapsüllü anterior mediasten = timoma. Miyasteni %30-50. Drop metastaz = plevral implantlar. 4T kuralı." },
+  { combo: "Anterior mediasten homojen kitle + Bilateral LAP + PET SUVmax >10☀️ + Genç erişkin + B semptomları", answer: "Torasik Lenfoma (Hodgkin)", why: "Homojen + bilateral LAP + çok yüksek FDG = lenfoma. Genç (20-35). B semptomları: ateş, kilo kaybı, gece terlemesi." },
+  { combo: "Diffüz plevral kalınlaşma🧱 + Mediastinal plevra tutulumu + Volüm kaybı↓ + Asbest öyküsü", answer: "Malign Plevral Mezotelyoma", why: "Diffüz sirkümferansiyal + mediastinal plevra = mezotelyoma spesifik. Volüm kaybı (metastaz volüm artışı yapar). Asbest." },
+  { combo: "Lens şekli koleksiyon🔍 + Obtüz açı📐 + Split pleura sign + Septasyonlar + Ateş", answer: "Ampiyem", why: "Split pleura: visseral + parietal plevra ayrı kontrastlanır = patognomonik. Lens + obtüz açı = plevral. Abse = yuvarlak + akut açı." },
+  { combo: "Asimetrik septal hipertrofi📏 (≥15mm) + SAM + LVOT obstrüksiyon + Mid-wall LGE🔴 + RV insertion point", answer: "HCM", why: "Asimetrik septum + SAM + LVOT gradient = obstrüktif HCM. LGE mid-wall + RV insertion point neredeyse patognomonik." },
+  { combo: "Subepikardial LGE🔴 + T2 ödem💧 + İnferolateral duvar + Normal koroner + Genç hasta + Viral prodrom", answer: "Miyokardit", why: "SubEPİKARDİYAL LGE (MI subENDOKARDİYAL). Lake Louise: T2 ödem + T1 LGE. İnferolateral predileksiyon. Normal koroner." },
+  { combo: "PA dolma defekti⬛ + RV/LV >1 + D-sign🔄 + V/Q mismatch + Akut dispne", answer: "Pulmoner Emboli", why: "PA içinde hipodens trombüs. RV genişleme = hemodinamik yük. D-sign = septum sola deviye. Wells skoru + D-dimer." },
+  { combo: "İntimal flep↗️ + Çift lümen + Gerçek lümen küçük☀️ + Yalancı lümen geniş🌀 + Göğüs ağrısı", answer: "Aort Diseksiyonu", why: "İntimal flep = tanı koydurucu. Gerçek lümen: küçük, erken opasifiye. Yalancı: geniş, geç akış. Stanford Tip A: acil cerrahi." },
+  { combo: "Sol atriyum pediküllü kitle + T2 hiperintens💧 (miksoid) + Heterojen kontrastlanma + Emboli riski", answer: "Kardiyak Miksoma", why: "Sol atriyum #1 benign tümör. Fossa ovalis sapı. Miksoid = T2 parlak. Emboli → SVO. Kontrastlanma VAR (trombüsten ayrım)." },
+  { combo: "Ana PA ≥29mm + PA/Aorta oranı ≥1 + RV hipertrofi + Mozaik atenüasyon + Kronik organize trombüs", answer: "CTEPH (Grup 4 PH)", why: "PA genişleme + RV hipertrofi = kronik PH. Mozaik atenüasyon + organize trombüs + web/band = CTEPH. Endarterektomi ile kür potansiyeli." }
+];
 
 // ===== DISEASE CONNECTIONS MAP =====
 const diseaseConnections = {};
