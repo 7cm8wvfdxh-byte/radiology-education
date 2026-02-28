@@ -1037,6 +1037,72 @@ const diseases = [
   differential: ["Aort anevrizması — dilatasyon ama intimal flep YOK", "Penetran aterosklertotik ülser — fokal, lokalize, intimal flep yok", "Pulmoner emboli — pulmoner arterde filling defect, aort normal"],
   protocol: "BT anjiyografi: EKG-gated, aort protokolü (asendan → bifurkasyon). Nonkontrast BT: IMH tespiti. TEE: intraoperatif.",
   quiz: { q: "Aort diseksiyonunda gerçek lümeni yalancı lümenden nasıl ayırırsınız?", a: "GERÇEK LÜMEN: 1) Daha KÜÇÜK 2) Erken kontrastlanır (hızlı akım) 3) Aort duvarındaki kalsifikasyonlar gerçek lümen tarafında kalır (intima gerçek lümenin sınırı) 4) Ana dallar (çöliak, SMA, renal) genellikle gerçek lümenden çıkar. YALANCI LÜMEN: 1) Daha BÜYÜK 2) Geç kontrastlanır 3) Cobweb sign (rezidüel media lifleri) 4) Trombus daha sık." }
+},
+// ██ AKCİĞER — EK HASTALIKLAR ██
+{
+  id: "sarcoidosis", name: "Sarkoidoz", category: "lung", tag: "important", tagText: "Önemli",
+  pathway: [
+    { type: "histo", label: "Histopatoloji", text: "Non-kazeöz granülomatöz hastalık. Granülomlar: epiteloid histiyositler + dev hücreler (Langhans tipi) + lenfositler. Kazeöz nekroz YOKTUR (TB'den fark). Akciğer + lenf nodları en sık tutulan organlar.", detail: "Non-kazeöz granülom = sarkoidozun histolojik hallmark'ı — TB ve fungal enfeksiyonları ekarte et" },
+    { type: "tissue", label: "Doku Değişikliği", text: "Bilateral simetrik hiler + mediastinal LAP (en sık bulgu, %90). Perilenfatik mikronodüller (fissürler, bronkovasküler demet, subplevral). Üst lob dominant fibrozis (ileri evre). Alveolitis: buzlu cam.", detail: "Perilenfatik dağılım = sarkoidoz ipucu (random = milier TB, sentrilober = enfeksiyon)" },
+    { type: "signal", label: "Sinyal Karşılığı", text: "BT: bilateral simetrik hiler LAP + perilenfatik mikronodüller. Galaxy sign (birleşen granülomlar). Evre I: sadece LAP. Evre II: LAP + parankimal. Evre III: sadece parankimal. Evre IV: fibrozis. PET: aktif granülomlarda FDG uptake.", detail: "Sarkoidoz LAP'ı: NON-NEKROTIK, homojen kontrastlanır (TB LAP'ı rim enhancement = nekrotik)" },
+    { type: "finding", label: "Görüntüleme Bulgusu", text: "Bilateral simetrik hiler LAP (Lambda sign = bilateral hiler + sağ paratrakeal LAP). Perilenfatik nodüller (fissür boyunca dizilim). Galaxy sign. Üst lob fibrozis (ileri evre). Kardiyak sarkoidoz: LGE (bazal septum).", detail: "Lambda sign (1-2-3 sign) = bilateral hiler + sağ paratrakeal LAP = sarkoidoz patognomoniği" }
+  ],
+  keyPoint: "BİLATERAL SİMETRİK HİLER LAP + PERİLENFATİK MİKRONODÜLLER = sarkoidoz. Lambda sign (1-2-3): bilateral hiler + sağ paratrakeal. Galaxy sign: birleşen granülomlar. TB'den fark: sarkoidoz NON-NEKROTIK LAP + perilenfatik, TB NEKROTIK LAP + sentrilober tree-in-bud.",
+  differential: ["Lenfoma — asimetrik LAP, anterior mediasten kitlesi", "Tüberküloz — nekrotik LAP (rim enhancement), tree-in-bud, kavite", "Silikozis — yumurta kabuğu kalsifikasyonu, üst lob nodüller"],
+  protocol: "BT toraks ince kesit: LAP + parankimal patern. PET-BT: aktivite değerlendirme. MR kardiyak: kardiyak sarkoidoz şüphesinde LGE.",
+  quiz: { q: "Sarkoidozda nodüllerin perilenfatik dağılımı ne anlama gelir?", a: "Granülomlar lenfatik yollar boyunca birikir: 1) Bronkovasküler demet (hiler bölgeden perifere), 2) İnterlobar fissürler, 3) Subplevral yüzey. BT'de nodüller bu yapılar boyunca DİZİLİR. Bu perilenfatik patern sarkoidoz ve lenfanjitis karsinomatoza için karakteristiktir. TB'deki random (milier) veya sentrilober (tree-in-bud) dağılımdan farklıdır." }
+},
+{
+  id: "pulmonary_fibrosis", name: "İdiyopatik Pulmoner Fibrozis (IPF/UIP)", category: "lung", tag: "important", tagText: "Önemli",
+  pathway: [
+    { type: "histo", label: "Histopatoloji", text: "Usual Interstitial Pneumonia (UIP) paterni. Temporal heterojenite: eski fibrozis + aktif fibroblast odakları yan yana. Subplevral ve bazal dominant. Bal peteği (honeycombing): genişlemiş, fibrotik duvarlı kistik hava boşlukları.", detail: "UIP = IPF'nin histolojik karşılığı — temporal heterojenite = eski + yeni lezyon birlikte" },
+    { type: "tissue", label: "Doku Değişikliği", text: "Subplevral, bazal dominant retikülasyon + traksiyon bronşektazisi. Bal peteği: kümelenmiş kistler (3-10mm, paylaşılan duvarlar). Buzlu cam: minimal (varsa NSIP düşün). Volüm kaybı (alt loblar çekilir).", detail: "Bal peteği = irreversibl fibrozis = kötü prognoz (medyan sağkalım 3-5 yıl)" },
+    { type: "signal", label: "Sinyal Karşılığı", text: "YÇBT (HRCT): subplevral bazal retikülasyon + traksiyon bronşektazisi + bal peteği = KESİN UIP paterni (biyopsisiz tanı). Buzlu cam hakimse → NSIP düşün. Apikal dominant → kronik HP veya sarkoidoz düşün.", detail: "YÇBT'de KESİN UIP paterni = biyopsi GEREKMEZ (ATS/ERS 2018 kılavuzu)" },
+    { type: "finding", label: "Görüntüleme Bulgusu", text: "YÇBT: subplevral bazal bal peteği (EN ÖNEMLİ bulgu). Retikülasyon + traksiyon bronşektazisi. Minimal buzlu cam. Alt lob volüm kaybı. Mediastinal LAP olabilir (reaktif).", detail: "Bal peteği olmadan UIP = 'olası UIP' → klinik korelasyon veya biyopsi gerekir" }
+  ],
+  keyPoint: "SUBPLEVRAL BAZAL BAL PETEĞİ + RETİKÜLASYON + TRAKSİYON BRONŞEKTAZİSİ = KESİN UIP = BİYOPSİSİZ IPF tanısı. NSIP'ten fark: IPF'de bal peteği VAR + buzlu cam MİNİMAL, NSIP'te buzlu cam HAKİM + bal peteği YOK. Dağılım: IPF bazal, sarkoidoz apikal.",
+  differential: ["NSIP — buzlu cam hakim, bal peteği yok, subplevral koruma", "Kronik hipersensitivite pnömonisi — üst/orta lob, mozaik, hava hapsi", "Asbestozis — plevral plaklar eşlik eder, aynı UIP paterni"],
+  protocol: "YÇBT (HRCT): prone pozisyon (bazal atelektazi ekarte), ince kesit (1-1.25mm), ekspiratuar (hava hapsi). Biyopsi: sadece 'olası UIP' paterninde.",
+  quiz: { q: "IPF (UIP) ile NSIP'i YÇBT'de nasıl ayırırsınız?", a: "UIP (IPF): 1) BAL PETEĞİ var (kümelenmiş kistler, paylaşılan duvar) 2) Buzlu cam MİNİMAL 3) Heterojen dağılım (eski + yeni) 4) Subplevral + bazal dominant. NSIP: 1) Bal peteği YOK 2) BUZLU CAM HAKİM 3) Homojen dağılım 4) Subplevral KORUMA (ground glass subplevraya ulaşmaz). Prognoz: NSIP daha İYİ, IPF daha KÖTÜ." }
+},
+{
+  id: "lung_metastasis", name: "Akciğer Metastazları", category: "lung", tag: "critical", tagText: "Kritik",
+  pathway: [
+    { type: "histo", label: "Histopatoloji", text: "Hematojen yayılım (en sık): meme, kolon, böbrek, melanom, sarkom → pulmoner arterler → parankimal nodüller. Lenfanjitik yayılım: meme, mide, pankreas → lenfatik kanallar → interstisyel kalınlaşma.", detail: "Hematojen = yuvarlak nodüller (alt lob hakim), lenfanjitik = septal kalınlaşma + peribronşiyal" },
+    { type: "tissue", label: "Doku Değişikliği", text: "Hematojen: multipl düzgün sınırlı nodüller, alt lob hakim (kan akımı fazla). Kavitasyon: skuamöz met (baş-boyun, serviks). Kalsifikasyon: osteosarkom, kondrosarkom, tiroid papiller ca (psammom). Kanama: koriokarsinoma, melanom, RCC.", detail: "Alt lob hakimiyeti = hematojen yayılım (yerçekimi + kan akımı nedeniyle)" },
+    { type: "signal", label: "Sinyal Karşılığı", text: "BT: multipl düzgün sınırlı nodüller, değişken boyut (küçükten büyüğe). 'Cannonball' metastaz: büyük yuvarlak (RCC, koriokarsinoma). Milier metastaz: çok sayıda küçük (<5mm, tiroid, melanom). PET-BT: FDG pozitif (>8mm nodüller).", detail: "Feeding vessel sign: nodüle giden pulmoner arter dalı = hematojen yayılım kanıtı" },
+    { type: "finding", label: "Görüntüleme Bulgusu", text: "Hematojen: multipl, bilateral, alt lob hakim, düzgün sınırlı, değişken boyut. Lenfanjitik (LC): septal kalınlaşma (düzgün/nodüler), peribronşiyal kalınlaşma, plevral efüzyon, unilateral olabilir. Endobronşiyal met: atelektazi + endobronşiyal lezyon.", detail: "Lenfanjitis karsinomatoza: BT'de 'crazy paving' benzeri, ama septal kalınlaşma + nodülarite = malign" }
+  ],
+  keyPoint: "MULTİPL DÜZGÜN SINIRLI NODÜLLER + BİLİNEN PRİMER = metastaz düşün. Alt lob hakimiyeti (hematojen). Kavitasyon = skuamöz met. Kalsifikasyon = osteosarkom. Lenfanjitis karsinomatoza: septal kalınlaşma + plevral efüzyon + nefes darlığı → meme/mide ca.",
+  differential: ["Granülomlar — kalsifiye, stabil, düzgün", "Sepik emboli — kaviter, periferik, feeding vessel, ateş", "Sarkoidoz — perilenfatik, bilateral simetrik LAP"],
+  protocol: "BT toraks kontrastlı: ince kesit (nodül tespiti). PET-BT: >8mm nodüllerde metabolik değerlendirme. Takip BT: 3-6 aylık aralıklarla.",
+  quiz: { q: "Akciğer metastazlarında neden alt loblar daha çok tutulur?", a: "Hematojen yayılımda tümör hücreleri pulmoner arter ile gelir. Ayakta duran kişide yerçekimi nedeniyle pulmoner kan akımının %60-70'i ALT LOBLARA gider (West Zone 3 = en çok perfüzyon). Daha fazla kan akımı = daha fazla tümör embolisi = alt lob hakimiyeti. Milier TB'de ise arteriyel yayılım EŞİT olduğu için RANDOM dağılım görülür." }
+},
+{
+  id: "pneumothorax", name: "Pnömotoraks", category: "lung", tag: "critical", tagText: "Kritik",
+  pathway: [
+    { type: "histo", label: "Histopatoloji", text: "Plevral boşlukta hava birikimi. Primer spontan: subplevral bleb/bülla rüptürü (genç, uzun, ince erkek). Sekonder: KOAH, kistik fibrozis, LAM, Langerhans. Travmatik: penetran/künt travma. İyatrojenik: santral kateter, biyopsi, barotravma.", detail: "Tansiyon pnömotoraks: tek yönlü valv mekanizması → progresif hava birikimi → mediastinal shift → kardiyak kompresyon = ACİL" },
+    { type: "tissue", label: "Doku Değişikliği", text: "Visseral plevra ile parietal plevra arasında hava. AC kollapsı: parsiyel veya total. Tansiyon: mediastinal shift (kontralateral), diyafram düzleşmesi (ipsilateral), IVC kompresyonu → hipotansiyon.", detail: "Deep sulcus sign: supin grafide kostofrenik açıda derin radyolusen = supin pnömotoraks" },
+    { type: "signal", label: "Sinyal Karşılığı", text: "PA grafi (ayakta): apikal plevral çizgi + avasküler alan. Supin grafi: deep sulcus sign, bazal hiperlüsensi. BT: EN HASSAS (küçük pnömotoraks). Tansiyon bulguları: mediastinal shift, diyafram inversiyonu, IVC kollapsi.", detail: "BT'de anterior pnömotoraks: supin hastada hava en ÖNE (anterior) toplanır (hava hafif)" },
+    { type: "finding", label: "Görüntüleme Bulgusu", text: "Visseral plevral çizgi (ince beyaz hat). Plevral çizgi ötesinde akciğer markingleri YOK. Tansiyon: trakeal deviasyon (karşı tarafa), mediastinal shift, diyafram düzleşme/inversiyonu. Hidropnömotoraks: hava-sıvı seviyesi.", detail: "KOAH'ta bülla vs pnömotoraks: bülla konveks-iç (akciğere), pnömotoraks konveks-dış (duvara)" }
+  ],
+  keyPoint: "TANSİYON PNÖMOTORAKS = ACİL (mediastinal shift + hipotansiyon → iğne dekompresyonu). PA grafide: apikal plevral çizgi. Supin'de: deep sulcus sign. BT en hassas. Primer spontan: genç erkek, apikal bleb. Bülla vs pnömotoraks: büllanın iç kenarı konveks (AC'ye doğru), pnömotoraksın dış kenarı konveks.",
+  differential: ["Bülla — konveks iç yüzey, içinde ince septalar olabilir", "Cilt kıvrımı — akciğer markingleri çizginin ÖTESİNDE devam eder", "Pnömomediastinum — mediastinal hava, sürekli diyafram sign"],
+  protocol: "PA grafi ayakta: ilk değerlendirme. BT: küçük/lokülasyon şüphesi. Supin hasta: anteroposterior grafi (deep sulcus ara).",
+  quiz: { q: "Supin grafide pnömotoraks neden gözden kaçar ve deep sulcus sign nedir?", a: "Supin hastada serbest hava (hafif olduğu için) EN ÖNDEKÌ (ANTERİOR) ve EN ALTTAKİ (BAZAL) alana toplanır — apikal birikim OLMAZ. Bu yüzden ayakta grafideki klasik apikal plevral çizgi GÖRÜLMEZ. Deep sulcus sign: hava lateral kostofrenik açıda birikir → sulkus normalden DAHA DERİN ve daha radyolusen görünür. İpsilateral bazal hiperlüsensi ve keskin kardiyofrenik açı da supin pnömotoraks ipuçlarıdır." }
+},
+{
+  id: "lung_abscess", name: "Akciğer Absesi", category: "lung", tag: "important", tagText: "Önemli",
+  pathway: [
+    { type: "histo", label: "Histopatoloji", text: "Nekrotizan pnömoni → parankimal nekroz → kavite oluşumu → pürülan materyal birikimi. Aspirasyon en sık neden (alkolik, bilinç bozukluğu). Anaerob + aerob mikst flora. Sağ alt lob/posterior segment (aspirasyon pozisyonu).", detail: "Aspirasyon → sağ ana bronş daha dik + geniş → sağ alt lob posterior segment en sık" },
+    { type: "tissue", label: "Doku Değişikliği", text: "Kalın duvarlı kavite + hava-sıvı seviyesi (nekrotik materyal + hava). Duvar: düzensiz iç yüzey, kalın (>4mm). Çevre parankimde konsolidasyon. Plevral komplikasyon: ampiyem (rüptür).", detail: "Abse duvarı: düzensiz iç, kalın → kaviter tümörde daha düzgün iç yüzey olabilir" },
+    { type: "signal", label: "Sinyal Karşılığı", text: "BT: kalın duvarlı kavite + hava-sıvı seviyesi + çevre konsolidasyon. DWI: kavite içeriğinde kısıtlanma (viskoz pü). Kontrastlanma: düzenli duvar kontrastlanması. Akut açı ile göğüs duvarından ayrılır (ampiyem obtüz).", detail: "Abse: akciğer parankimini SIKIŞTIRMAZ (abse parankimden köken alır). Ampiyem: plevral boşlukta → AC'yi sıkıştırır" },
+    { type: "finding", label: "Görüntüleme Bulgusu", text: "Grafi: yuvarlak opasitede hava-sıvı seviyesi. BT: kalın düzensiz duvarlı kavite, hava-sıvı seviyesi, çevre konsolidasyon. Abse vs ampiyem: abse yuvarlak + akut açı, ampiyem lens şekli + obtüz açı + split pleura sign.", detail: "Tedavi yanıtı: kavite küçülmesi, duvar incelmesi, sıvı seviyesi kaybolması — tam rezolüsyon haftalarca sürebilir" }
+  ],
+  keyPoint: "KALIN DUVARLI KAVİTE + HAVA-SIVI SEVİYESİ + KONSOLİDASYON = akciğer absesi. Aspirasyon: sağ alt lob posterior segment. Abse vs ampiyem: ABSE yuvarlak + akut açı (parankimal), AMPİYEM lens şekli + obtüz açı + split pleura (plevral). Abse vs kaviter tümör: abse duvarı düzensiz iç + kalın, tümör daha düzgün iç yüzey.",
+  differential: ["Kaviter akciğer kanseri — düzensiz kalın duvar, spikülasyon, LAP", "Ampiyem — lens şekli, obtüz açı, split pleura sign", "Kaviter TB — apikal, tree-in-bud eşlik eder, kronik"],
+  protocol: "BT toraks kontrastlı: kavite karakterizasyonu + komplikasyon. DWI: abse (kısıtlanma +) vs nekrotik tümör.",
+  quiz: { q: "Akciğer absesini ampiyemden BT'de nasıl ayırırsınız?", a: "ABSE: 1) Yuvarlak şekil 2) Göğüs duvarı ile AKUT AÇI yapar 3) Çevre akciğeri SIKIŞTIRMAZ (parankimden köken alır) 4) DWI: kavite içeriğinde kısıtlanma. AMPİYEM: 1) LENS/hilal şekli (bikonveks/bikonkav) 2) Göğüs duvarı ile OBTÜZ AÇI yapar 3) Akciğeri SIKIŞTIRMAZ 4) Split pleura sign (visseral + parietal plevra ayrı ayrı kontrastlanır). Abse parankimal, ampiyem plevral hastalıktır." }
 }
 ];
 
