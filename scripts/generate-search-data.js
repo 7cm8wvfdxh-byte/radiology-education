@@ -12,6 +12,7 @@ const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const NEURO_FILE = path.join(ROOT, 'neurorad.html');
 const ABD_FILE = path.join(ROOT, 'abdomenrad.html');
+const THORAX_FILE = path.join(ROOT, 'thoraxrad.html');
 const OUTPUT_FILE = path.join(ROOT, 'search-data.js');
 
 function extractArrayBlock(html, pattern) {
@@ -226,89 +227,112 @@ function main() {
 
   const neuroHtml = fs.readFileSync(NEURO_FILE, 'utf8');
   const abdHtml = fs.readFileSync(ABD_FILE, 'utf8');
+  const thoraxHtml = fs.existsSync(THORAX_FILE) ? fs.readFileSync(THORAX_FILE, 'utf8') : '';
 
   // === Hastalıklar ===
   const neuroDiseases = extractDiseases(neuroHtml);
   const abdDiseases = extractDiseases(abdHtml);
+  const thoraxDiseases = thoraxHtml ? extractDiseases(thoraxHtml) : [];
   console.log(`  NeuroRad: ${neuroDiseases.length} hastalık`);
   console.log(`  AbdomenRad: ${abdDiseases.length} hastalık`);
+  console.log(`  ThoraxRad: ${thoraxDiseases.length} hastalık`);
 
   const extended = {};
   Object.assign(extended, buildSearchExtended(neuroDiseases));
   Object.assign(extended, buildSearchExtended(abdDiseases));
+  Object.assign(extended, buildSearchExtended(thoraxDiseases));
 
   // === Düellolar ===
   const neuroDuels = extractDuels(neuroHtml);
   const abdDuels = extractDuels(abdHtml);
+  const thoraxDuels = thoraxHtml ? extractDuels(thoraxHtml) : [];
   console.log(`  NeuroRad: ${neuroDuels.length} duel`);
   console.log(`  AbdomenRad: ${abdDuels.length} duel`);
+  console.log(`  ThoraxRad: ${thoraxDuels.length} duel`);
   const duelEntries = [
     ...buildDuelEntries(neuroDuels, 'n'),
-    ...buildDuelEntries(abdDuels, 'a')
+    ...buildDuelEntries(abdDuels, 'a'),
+    ...buildDuelEntries(thoraxDuels, 't')
   ];
 
   // === Sinyal Quizleri ===
   const neuroSignalQ = extractSignalQuizzes(neuroHtml);
   const abdSignalQ = extractSignalQuizzes(abdHtml);
+  const thoraxSignalQ = thoraxHtml ? extractSignalQuizzes(thoraxHtml) : [];
   console.log(`  NeuroRad: ${neuroSignalQ.length} sinyal quiz`);
   console.log(`  AbdomenRad: ${abdSignalQ.length} sinyal quiz`);
+  console.log(`  ThoraxRad: ${thoraxSignalQ.length} sinyal quiz`);
   const signalEntries = [
     ...buildSignalEntries(neuroSignalQ, 'n'),
-    ...buildSignalEntries(abdSignalQ, 'a')
+    ...buildSignalEntries(abdSignalQ, 'a'),
+    ...buildSignalEntries(thoraxSignalQ, 't')
   ];
 
   // === Bulgular (Findings) ===
   const neuroFindings = extractFindings(neuroHtml);
   const abdFindings = extractFindings(abdHtml);
+  const thoraxFindings = thoraxHtml ? extractFindings(thoraxHtml) : [];
   console.log(`  NeuroRad: ${neuroFindings.length} bulgu`);
   console.log(`  AbdomenRad: ${abdFindings.length} bulgu`);
+  console.log(`  ThoraxRad: ${thoraxFindings.length} bulgu`);
   const findingEntries = [
     ...buildFindingEntries(neuroFindings, 'n'),
-    ...buildFindingEntries(abdFindings, 'a')
+    ...buildFindingEntries(abdFindings, 'a'),
+    ...buildFindingEntries(thoraxFindings, 't')
   ];
 
   // === Acil Bulgular ===
   const neuroEmergency = extractEmergency(neuroHtml, 'neuroEmergencyFindings');
   const abdEmergency = extractEmergency(abdHtml, 'emergencyFindings');
+  const thoraxEmergency = thoraxHtml ? extractEmergency(thoraxHtml, 'emergencyFindings') : [];
   const emergencyEntries = [
     ...buildEmergencyEntries(neuroEmergency, 'n'),
-    ...buildEmergencyEntries(abdEmergency, 'a')
+    ...buildEmergencyEntries(abdEmergency, 'a'),
+    ...buildEmergencyEntries(thoraxEmergency, 't')
   ];
   console.log(`  Acil bulgular: ${emergencyEntries.length}`);
 
   // === Ölçümler ===
   const neuroMeas = extractMeasurements(neuroHtml, 'measurements');
   const abdMeas = extractMeasurements(abdHtml, 'measurements');
+  const thoraxMeas = thoraxHtml ? extractMeasurements(thoraxHtml, 'measurements') : [];
   const measurementEntries = [
     ...buildMeasurementEntries(neuroMeas, 'n'),
-    ...buildMeasurementEntries(abdMeas, 'a')
+    ...buildMeasurementEntries(abdMeas, 'a'),
+    ...buildMeasurementEntries(thoraxMeas, 't')
   ];
   console.log(`  Ölçümler: ${measurementEntries.length}`);
 
   // === Hesaplayıcılar ===
   const neuroCalcs = extractCalcs(neuroHtml, 'neuroCalcs');
   const abdCalcs = extractCalcs(abdHtml, 'abdCalcs');
+  const thoraxCalcs = thoraxHtml ? extractCalcs(thoraxHtml, 'thoraxCalcs') : [];
   const calcEntries = [
     ...buildCalcEntries(neuroCalcs, 'n'),
-    ...buildCalcEntries(abdCalcs, 'a')
+    ...buildCalcEntries(abdCalcs, 'a'),
+    ...buildCalcEntries(thoraxCalcs, 't')
   ];
   console.log(`  Hesaplayıcılar: ${calcEntries.length}`);
 
   // === Fizik Konuları ===
   const neuroPhysics = extractPhysics(neuroHtml, 'mrPhysicsTopics');
   const abdPhysics = extractPhysics(abdHtml, 'abdPhysicsTopics');
+  const thoraxPhysics = thoraxHtml ? extractPhysics(thoraxHtml, 'thoraxPhysicsTopics') : [];
   const physicsEntries = [
     ...buildPhysicsEntries(neuroPhysics, 'n'),
-    ...buildPhysicsEntries(abdPhysics, 'a')
+    ...buildPhysicsEntries(abdPhysics, 'a'),
+    ...buildPhysicsEntries(thoraxPhysics, 't')
   ];
   console.log(`  Fizik konuları: ${physicsEntries.length}`);
 
   // === Kontrastlanma Paternleri ===
   const neuroEnhance = extractEnhancePatterns(neuroHtml, 'neuroEnhancePatterns');
   const abdEnhance = extractEnhancePatterns(abdHtml, 'enhancePatterns');
+  const thoraxEnhance = thoraxHtml ? extractEnhancePatterns(thoraxHtml, 'enhancePatterns') : [];
   const enhanceEntries = [
     ...buildEnhanceEntries(neuroEnhance, 'n'),
-    ...buildEnhanceEntries(abdEnhance, 'a')
+    ...buildEnhanceEntries(abdEnhance, 'a'),
+    ...buildEnhanceEntries(thoraxEnhance, 't')
   ];
   console.log(`  Kontrastlanma paternleri: ${enhanceEntries.length}`);
 

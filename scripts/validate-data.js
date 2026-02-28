@@ -178,19 +178,31 @@ console.log('='.repeat(50));
 
 const neuro = validateModule('neurorad.html');
 const abd = validateModule('abdomenrad.html');
+const thorax = validateModule('thoraxrad.html');
 
 // Çapraz modül kontrolü
-if (neuro && abd) {
+const modules = [
+  { name: 'Neuro', result: neuro },
+  { name: 'Abdomen', result: abd },
+  { name: 'Thorax', result: thorax }
+].filter(m => m.result);
+
+if (modules.length >= 2) {
   console.log('\n📋 Çapraz modül kontrolleri...');
-  const overlap = [...neuro.diseaseIds].filter(id => abd.diseaseIds.has(id));
-  if (overlap.length > 0) {
-    warn(`Modüller arası ortak hastalık ID'leri: ${overlap.join(', ')}`);
-  } else {
-    ok('Modüller arası ID çakışması yok');
+  for (let i = 0; i < modules.length; i++) {
+    for (let j = i + 1; j < modules.length; j++) {
+      const overlap = [...modules[i].result.diseaseIds].filter(id => modules[j].result.diseaseIds.has(id));
+      if (overlap.length > 0) {
+        warn(`${modules[i].name} ↔ ${modules[j].name} ortak ID'ler: ${overlap.join(', ')}`);
+      } else {
+        ok(`${modules[i].name} ↔ ${modules[j].name} ID çakışması yok`);
+      }
+    }
   }
 
-  const total = neuro.diseaseCount + abd.diseaseCount;
-  ok(`Toplam: ${total} hastalık (Neuro: ${neuro.diseaseCount} + Abdomen: ${abd.diseaseCount})`);
+  const total = modules.reduce((sum, m) => sum + m.result.diseaseCount, 0);
+  const detail = modules.map(m => `${m.name}: ${m.result.diseaseCount}`).join(' + ');
+  ok(`Toplam: ${total} hastalık (${detail})`);
 }
 
 // Sonuç
