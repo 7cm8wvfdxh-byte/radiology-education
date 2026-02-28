@@ -529,7 +529,38 @@ const searchIndex = [
   {n:"Hipertrofik Pilor Stenozu",c:"Pediatrik",m:"abdomen",u:"abdomenrad.html",id:"hypertrophic_pyloric_stenosis"},
   {n:"Over Dermoid Kisti",c:"Pelvik",m:"abdomen",u:"abdomenrad.html",id:"ovarian_teratoma"},
   {n:"Safra Kesesi Karsinomu (İleri)",c:"Biliyer",m:"abdomen",u:"abdomenrad.html",id:"gallbladder_ca"},
-  {n:"Renal AML (Detaylı)",c:"Böbrek",m:"abdomen",u:"abdomenrad.html",id:"renal_angiomyolipoma"}
+  {n:"Renal AML (Detaylı)",c:"Böbrek",m:"abdomen",u:"abdomenrad.html",id:"renal_angiomyolipoma"},
+  // ThoraxRad diseases (30)
+  {n:"Akciğer Kanseri (NSCLC)",c:"Akciğer",m:"thorax",u:"thoraxrad.html",id:"lung_cancer"},
+  {n:"Toplum Kökenli Pnömoni",c:"Akciğer",m:"thorax",u:"thoraxrad.html",id:"pneumonia"},
+  {n:"Akciğer Tüberkülozu",c:"Akciğer",m:"thorax",u:"thoraxrad.html",id:"tuberculosis"},
+  {n:"Sarkoidoz",c:"Akciğer",m:"thorax",u:"thoraxrad.html",id:"sarcoidosis"},
+  {n:"İdiyopatik Pulmoner Fibrozis (IPF/UIP)",c:"Akciğer",m:"thorax",u:"thoraxrad.html",id:"pulmonary_fibrosis"},
+  {n:"Akciğer Metastazları",c:"Akciğer",m:"thorax",u:"thoraxrad.html",id:"lung_metastasis"},
+  {n:"Pnömotoraks",c:"Akciğer",m:"thorax",u:"thoraxrad.html",id:"pneumothorax"},
+  {n:"Akciğer Absesi",c:"Akciğer",m:"thorax",u:"thoraxrad.html",id:"lung_abscess"},
+  {n:"Timoma",c:"Mediasten",m:"thorax",u:"thoraxrad.html",id:"thymoma"},
+  {n:"Torasik Lenfoma",c:"Mediasten",m:"thorax",u:"thoraxrad.html",id:"thoracic_lymphoma"},
+  {n:"Nörojenik Tümör",c:"Mediasten",m:"thorax",u:"thoraxrad.html",id:"neurogenic_tumor"},
+  {n:"Bronkojenik Kist",c:"Mediasten",m:"thorax",u:"thoraxrad.html",id:"bronchogenic_cyst"},
+  {n:"Malign Plevral Mezotelyoma",c:"Plevra",m:"thorax",u:"thoraxrad.html",id:"mesothelioma"},
+  {n:"Plevral Efüzyon",c:"Plevra",m:"thorax",u:"thoraxrad.html",id:"pleural_effusion"},
+  {n:"Ampiyem",c:"Plevra",m:"thorax",u:"thoraxrad.html",id:"empyema"},
+  {n:"Soliter Fibröz Tümör (SFT)",c:"Plevra",m:"thorax",u:"thoraxrad.html",id:"solitary_fibrous_tumor"},
+  {n:"Perikardit",c:"Kardiyak",m:"thorax",u:"thoraxrad.html",id:"pericarditis"},
+  {n:"Dilate Kardiyomiyopati (DCM)",c:"Kardiyak",m:"thorax",u:"thoraxrad.html",id:"dcm"},
+  {n:"Hipertrofik Kardiyomiyopati (HCM)",c:"Kardiyak",m:"thorax",u:"thoraxrad.html",id:"hcm"},
+  {n:"Miyokardit",c:"Kardiyak",m:"thorax",u:"thoraxrad.html",id:"myocarditis"},
+  {n:"Kardiyak Kitle",c:"Kardiyak",m:"thorax",u:"thoraxrad.html",id:"cardiac_mass"},
+  {n:"Pulmoner Emboli (PE)",c:"Vasküler",m:"thorax",u:"thoraxrad.html",id:"pulmonary_embolism"},
+  {n:"Aort Diseksiyonu",c:"Vasküler",m:"thorax",u:"thoraxrad.html",id:"aortic_dissection"},
+  {n:"Torasik Aort Anevrizması",c:"Vasküler",m:"thorax",u:"thoraxrad.html",id:"thoracic_aortic_aneurysm"},
+  {n:"Pulmoner Hipertansiyon",c:"Vasküler",m:"thorax",u:"thoraxrad.html",id:"pulmonary_hypertension"},
+  {n:"Pancoast Tümörü (Superior Sulkus)",c:"Göğüs Duvarı",m:"thorax",u:"thoraxrad.html",id:"pancoast_tumor"},
+  {n:"Göğüs Duvarı Tümörü",c:"Göğüs Duvarı",m:"thorax",u:"thoraxrad.html",id:"chest_wall_tumor"},
+  {n:"Diyafragmatik Herni",c:"Göğüs Duvarı",m:"thorax",u:"thoraxrad.html",id:"diaphragmatic_hernia"},
+  {n:"Pulmoner Sekestrasyon",c:"Göğüs Duvarı",m:"thorax",u:"thoraxrad.html",id:"pulmonary_sequestration"},
+  {n:"Süperior Vena Kava (SVC) Sendromu",c:"Göğüs Duvarı",m:"thorax",u:"thoraxrad.html",id:"svc_syndrome"}
 ];
 
 // Search state
@@ -537,6 +568,9 @@ var currentFilter = 'all';
 var allResults = [];
 var kbIndex = -1;
 var searchTimeout = null;
+
+function prefixToModule(p) { return p === 'n' ? 'neuro' : (p === 'a' ? 'abdomen' : 'thorax'); }
+function prefixToUrl(p, page) { return (p === 'n' ? 'neurorad.html' : (p === 'a' ? 'abdomenrad.html' : 'thoraxrad.html')) + '?page=' + page; }
 
 // Phrase synonyms for semantic multi-word search
 var phraseSynonyms = {
@@ -706,8 +740,8 @@ function executeSearch(query) {
         allResults.push({
           type: 'duel', score: m.phrase ? 6 : 4, name: title,
           cat: d[2] + ' vs ' + d[3],
-          module: d[0] === 'n' ? 'neuro' : 'abdomen',
-          url: (d[0] === 'n' ? 'neurorad.html' : 'abdomenrad.html') + '?page=duel',
+          module: prefixToModule(d[0]),
+          url: prefixToUrl(d[0], 'duel'),
           context: findContext(d[4], q)
         });
       }
@@ -723,8 +757,8 @@ function executeSearch(query) {
         allResults.push({
           type: 'tool', score: sm.phrase ? 5 : 3, name: s[2] || s[1].substring(0, 60),
           cat: '🎯 Sinyal • ' + s[1].substring(0, 50),
-          module: s[0] === 'n' ? 'neuro' : 'abdomen',
-          url: (s[0] === 'n' ? 'neurorad.html' : 'abdomenrad.html') + '?page=signal',
+          module: prefixToModule(s[0]),
+          url: prefixToUrl(s[0], 'signal'),
           context: findContext(s[1] + ' ' + s[3], q)
         });
       }
@@ -740,8 +774,8 @@ function executeSearch(query) {
         allResults.push({
           type: 'finding', score: sm.phrase ? 8 : 6, name: f[1],
           cat: '🔍 Bulgu Ayırıcı Tanı',
-          module: f[0] === 'n' ? 'neuro' : 'abdomen',
-          url: (f[0] === 'n' ? 'neurorad.html' : 'abdomenrad.html') + '?page=finder',
+          module: prefixToModule(f[0]),
+          url: prefixToUrl(f[0], 'finder'),
           context: findContext(f[2], q)
         });
       }
@@ -757,8 +791,8 @@ function executeSearch(query) {
         allResults.push({
           type: 'emergency', score: sm.phrase ? 7 : 5, name: e[2],
           cat: '🚨 ' + e[1],
-          module: e[0] === 'n' ? 'neuro' : 'abdomen',
-          url: (e[0] === 'n' ? 'neurorad.html' : 'abdomenrad.html') + '?page=emergency',
+          module: prefixToModule(e[0]),
+          url: prefixToUrl(e[0], 'emergency'),
           context: findContext(e[3] + ' ' + e[4], q)
         });
       }
@@ -774,8 +808,8 @@ function executeSearch(query) {
         allResults.push({
           type: 'measurement', score: sm.phrase ? 6 : 4, name: m[2],
           cat: '📏 ' + m[1],
-          module: m[0] === 'n' ? 'neuro' : 'abdomen',
-          url: (m[0] === 'n' ? 'neurorad.html' : 'abdomenrad.html') + '?page=measurements',
+          module: prefixToModule(m[0]),
+          url: prefixToUrl(m[0], 'measurements'),
           context: findContext(m[3], q)
         });
       }
@@ -791,8 +825,8 @@ function executeSearch(query) {
         allResults.push({
           type: 'tool', score: sm.phrase ? 6 : 4, name: c[1],
           cat: '🧮 Hesaplayıcı',
-          module: c[0] === 'n' ? 'neuro' : 'abdomen',
-          url: (c[0] === 'n' ? 'neurorad.html' : 'abdomenrad.html') + '?page=calc',
+          module: prefixToModule(c[0]),
+          url: prefixToUrl(c[0], 'calc'),
           context: findContext(c[2], q)
         });
       }
@@ -808,8 +842,8 @@ function executeSearch(query) {
         allResults.push({
           type: 'tool', score: sm.phrase ? 5 : 3, name: p[1],
           cat: '⚛️ MR Fizik',
-          module: p[0] === 'n' ? 'neuro' : 'abdomen',
-          url: (p[0] === 'n' ? 'neurorad.html' : 'abdomenrad.html') + '?page=physics',
+          module: prefixToModule(p[0]),
+          url: prefixToUrl(p[0], 'physics'),
           context: findContext(p[2], q)
         });
       }
@@ -825,8 +859,8 @@ function executeSearch(query) {
         allResults.push({
           type: 'finding', score: sm.phrase ? 7 : 5, name: e[1],
           cat: '💉 Kontrastlanma Paterni',
-          module: e[0] === 'n' ? 'neuro' : 'abdomen',
-          url: (e[0] === 'n' ? 'neurorad.html' : 'abdomenrad.html') + '?page=enhance',
+          module: prefixToModule(e[0]),
+          url: prefixToUrl(e[0], 'enhance'),
           context: findContext(e[2], q)
         });
       }
@@ -886,7 +920,7 @@ function renderResults() {
   resultsEl.classList.add('active');
 
   resultsEl.innerHTML = shown.map(function(r, i) {
-    var moduleBadge = r.module === 'neuro' ? 'NEURO' : 'ABDOMEN';
+    var moduleBadge = r.module === 'neuro' ? 'NEURO' : (r.module === 'abdomen' ? 'ABDOMEN' : 'THORAX');
     var typeLabels = { disease: '', duel: 'DUEL', finding: 'BULGU', emergency: 'ACİL', measurement: 'ÖLÇÜM', tool: 'ARAÇ' };
     var typeLabel = typeLabels[r.type] || r.type.toUpperCase();
     var typeBadge = typeLabel ? '<span class="sr-badge ' + r.type + '">' + typeLabel + '</span>' : '';
@@ -1093,7 +1127,7 @@ function updateModuleProgress(module, totalDiseases, studiedCount) {
 function exportData() {
   var data = {};
   // Export all radiology-related localStorage keys
-  var allowedPrefixes = ['neurorad_', 'abdrad_', 'radiology-'];
+  var allowedPrefixes = ['neurorad_', 'abdrad_', 'thoraxrad_', 'radiology-'];
   for (var i = 0; i < localStorage.length; i++) {
     var key = localStorage.key(i);
     for (var j = 0; j < allowedPrefixes.length; j++) {
@@ -1122,7 +1156,7 @@ function importData() {
   try {
     var raw = document.getElementById('importData').value.trim();
     var data = JSON.parse(raw);
-    var allowedPrefixes = ['neurorad_', 'abdrad_', 'radiology-'];
+    var allowedPrefixes = ['neurorad_', 'abdrad_', 'thoraxrad_', 'radiology-'];
     var imported = 0;
     Object.keys(data).forEach(function(key) {
       var allowed = false;
