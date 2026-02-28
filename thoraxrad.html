@@ -1760,7 +1760,68 @@ const measurements = [
 ];
 
 // ===== SIGNAL ATLAS DATA (Thorax-specific) =====
-const signalAtlas = [];
+const signalAtlas = [
+  {
+    signal: "Yüksek FDG Tutulumu (PET-BT) — Toraks",
+    icon: "☀️",
+    color: "#f59e0b",
+    items: [
+      { name: "Akciğer kanseri (NSCLC)", reason: "Yüksek glikoz metabolizması → artmış hexokinase aktivitesi", examples: "Solid nodül SUVmax >2.5, spikülasyon, mediastinal LAP" },
+      { name: "Lenfoma (Hodgkin/NHL)", reason: "Yoğun lenfosit proliferasyonu → yüksek glikoliz", examples: "Anterior mediasten + bilateral LAP, SUVmax >10" },
+      { name: "Aktif TB/granülomatöz hastalık", reason: "Aktive makrofajlar ve granülom → glikoliz artışı", examples: "Kavite, tree-in-bud, nekrotik LAP — YALANCI POZİTİF!" },
+      { name: "Sarkoidoz", reason: "Aktif granülomatöz inflamasyon", examples: "Bilateral hiler LAP + perilenfatik nodül — YALANCI POZİTİF!" },
+      { name: "Pnömoni/apse", reason: "Nötrofil ve makrofaj aktivasyonu → inflamatuar glikoliz", examples: "Konsolidasyon alanı FDG (+) — YALANCI POZİTİF! 6 hafta sonra kontrol" },
+      { name: "Mezotelyoma", reason: "Tümör hücre proliferasyonu", examples: "Diffüz plevral kalınlaşma + FDG tutulumu → malign" }
+    ]
+  },
+  {
+    signal: "Düşük/Yok FDG Tutulumu — Toraks",
+    icon: "⬛",
+    color: "#64748b",
+    items: [
+      { name: "Karsinoid tümör (tipik)", reason: "Düşük proliferatif aktivite → düşük glikoliz", examples: "Santral endobronşiyal lezyon, yoğun kontrastlanma — PET YALANCI NEGATİF!" },
+      { name: "Lepidik adenokarsinom (AIS/MIA)", reason: "Düşük sellülarite, buzlu cam dominant", examples: "Saf GGN, yavaş büyüme — PET YALANCI NEGATİF!" },
+      { name: "Hamartom", reason: "Düşük metabolik aktivite, matür doku", examples: "Pop-corn kalsifikasyon + yağ, stabil" },
+      { name: "Bronkojenik kist", reason: "Avasküler, avital kist duvarı", examples: "Subkarinal homojen kitle, kontrastlanma yok" }
+    ]
+  },
+  {
+    signal: "Kalsifikasyon Paternleri — Toraks",
+    icon: "⚪",
+    color: "#06b6d4",
+    items: [
+      { name: "Santral/lamellar kalsifikasyon", reason: "Granülomatöz iyileşme → distrofik kalsiyum birikimi", examples: "Granülom (TB, histoplazmoz) — BENİGN" },
+      { name: "Pop-corn kalsifikasyon", reason: "Kondroid komponent kalsifiye olur", examples: "Hamartom — PATOGNOMONİK benign" },
+      { name: "Yumurta kabuğu LAP", reason: "Periferal kapsüler kalsifikasyon", examples: "Silikozis, sarkoidoz, tedavi edilmiş lenfoma" },
+      { name: "Distrofik (düzensiz) kalsifikasyon", reason: "Nekroz veya müsin içinde kalsiyum çökelti", examples: "Müsinöz adenokarsinom, tedavi sonrası, osteosarkom met" },
+      { name: "Plevral plak kalsifikasyonu", reason: "Kronik asbest maruziyeti → fibröz plak mineralizasyonu", examples: "Bilateral posterolateral plevral plaklar — asbest" }
+    ]
+  },
+  {
+    signal: "Honeycombing vs Buzlu Cam — İnterstisyel Paternler",
+    icon: "🐝",
+    color: "#f97316",
+    items: [
+      { name: "Honeycombing", reason: "Son evre fibrozis → alveol destrüksiyonu → kistik boşluklar", examples: "UIP/IPF: bazal, subplevral, kümelenmiş 3-10mm kistler" },
+      { name: "Buzlu cam (GGO)", reason: "Parsiyel alveolar dolum veya interstisyel kalınlaşma → vasküler yapılar görülür", examples: "NSIP, pnömoni, hemoraji, ödem, lepidik adenokarsinom" },
+      { name: "Crazy paving", reason: "GGO + üzerine binmiş retiküler kalınlaşma (septal)", examples: "PAP (pulmoner alveoler proteinoz), COVID-19, PCP, hemoraji" },
+      { name: "Traksiyon bronşektazi", reason: "Çevre fibrozis bronşu çeker → düzensiz genişleme", examples: "UIP, NSIP, radyasyon fibrozisi" },
+      { name: "Retiküler patern", reason: "İnterstisyel kalınlaşma → ağ benzeri çizgiler", examples: "Lenfanjitik karsinomatozis, pulmoner ödem, fibrozis" }
+    ]
+  },
+  {
+    signal: "Kontrastlanma Paternleri — Toraks BT",
+    icon: "💉",
+    color: "#8b5cf6",
+    items: [
+      { name: "Homojen yoğun kontrastlanma", reason: "Vasküler yapı veya hipervasküler tümör", examples: "Karsinoid, Castleman, AVM, hemanjiom" },
+      { name: "Heterojen kontrastlanma", reason: "Nekroz + solid alanlar karışık", examples: "NSCLC, metastaz, lenfoma (tedavi sonrası)" },
+      { name: "Rim/periferal kontrastlanma", reason: "Canlı periferi + nekrotik/apsifiye merkez", examples: "Akciğer absesi, nekrotik LAP, kaviter lezyon" },
+      { name: "Kontrastlanma yok (kistik)", reason: "Avasküler, sıvı dolu yapı", examples: "Bronkojenik kist, perikardiyal kist, hidatik kist" },
+      { name: "Dolma defekti (vasküler)", reason: "Lümen içi trombüs → kontrast geçişi engellenir", examples: "Pulmoner emboli, aort trombüs, SVC tromboz" }
+    ]
+  }
+];
 
 // ===== SIGNAL PROFILES (Per Thorax Disease) =====
 const signalProfiles = [
@@ -1866,7 +1927,84 @@ const signalQuizzes = [
 ];
 
 // ===== DISEASE CONNECTIONS MAP =====
-const diseaseConnections = {};
+const diseaseConnections = {
+  lung_cancer: [
+    { to: "pneumonia", label: "Konsolidasyon DDx", mechanismTag: "6 hafta gerilemeyen → biyopsi" },
+    { to: "tuberculosis", label: "Kaviter Lezyon DDx", mechanismTag: "Skar kanseri — TB zemininde" },
+    { to: "lung_metastasis", label: "Primer vs Metastaz", mechanismTag: "Soliter vs multipl nodül" },
+    { to: "thoracic_lymphoma", label: "Mediastinal LAP DDx", mechanismTag: "Staging vs primer lenfoma" },
+    { to: "pulmonary_embolism", label: "Paraneoplastik", mechanismTag: "Kanser → hiperkoagülabilite → PE" }
+  ],
+  pneumonia: [
+    { to: "lung_cancer", label: "Persistan Konsolidasyon", mechanismTag: "6 hafta gerilemeyen → malignite?" },
+    { to: "lung_abscess", label: "Komplikasyon", mechanismTag: "Pnömoni → abse gelişimi" },
+    { to: "empyema", label: "Parapnömonik", mechanismTag: "Pnömoni → efüzyon → ampiyem" },
+    { to: "tuberculosis", label: "Granülomatöz DDx", mechanismTag: "Apikal konsolidasyon → TB düşün" }
+  ],
+  tuberculosis: [
+    { to: "sarcoidosis", label: "Granülomatöz DDx", mechanismTag: "Kazeöz vs non-kazeöz granülom" },
+    { to: "lung_cancer", label: "Skar Kanseri", mechanismTag: "Eski TB skarında kanser gelişimi" },
+    { to: "lung_abscess", label: "Kavite DDx", mechanismTag: "TB kavite vs piyojenik abse" },
+    { to: "pneumonia", label: "Konsolidasyon DDx", mechanismTag: "Alt lob TB pnömoniye benzer" }
+  ],
+  sarcoidosis: [
+    { to: "tuberculosis", label: "Granülomatöz DDx", mechanismTag: "Non-kazeöz vs kazeöz" },
+    { to: "thoracic_lymphoma", label: "Bilateral Hiler LAP DDx", mechanismTag: "Simetrik vs asimetrik" },
+    { to: "pulmonary_fibrosis", label: "Evre IV Sarkoidoz", mechanismTag: "İleri evre → fibrozis" }
+  ],
+  pulmonary_fibrosis: [
+    { to: "sarcoidosis", label: "İnterstisyel DDx", mechanismTag: "Perilenfatik vs bazal" },
+    { to: "lung_cancer", label: "IPF + Kanser", mechanismTag: "IPF zemininde kanser riski artmış" },
+    { to: "pulmonary_hypertension", label: "Grup 3 PH", mechanismTag: "Fibrozis → hipoksik PH" }
+  ],
+  thymoma: [
+    { to: "thoracic_lymphoma", label: "Anterior Mediasten DDx", mechanismTag: "4T kuralı" },
+    { to: "bronchogenic_cyst", label: "Mediastinal Kitle DDx", mechanismTag: "Anterior vs orta mediasten" }
+  ],
+  thoracic_lymphoma: [
+    { to: "thymoma", label: "Anterior Mediasten DDx", mechanismTag: "4T kuralı" },
+    { to: "sarcoidosis", label: "Bilateral LAP DDx", mechanismTag: "Malign vs benign LAP" },
+    { to: "lung_cancer", label: "Mediastinal LAP DDx", mechanismTag: "Primer vs sekonder" }
+  ],
+  mesothelioma: [
+    { to: "pleural_metastasis", label: "Plevral Kalınlaşma DDx", mechanismTag: "Diffüz vs nodüler" },
+    { to: "pleural_effusion", label: "Malign Efüzyon", mechanismTag: "Asbest → mezotelyoma → efüzyon" }
+  ],
+  pleural_effusion: [
+    { to: "empyema", label: "Efüzyon Tipi", mechanismTag: "Transüda vs eksüda vs ampiyem" },
+    { to: "mesothelioma", label: "Malign Efüzyon", mechanismTag: "Plevral kalınlaşma ara" },
+    { to: "pericarditis", label: "Serozit", mechanismTag: "Plevral + perikardiyal efüzyon" }
+  ],
+  pulmonary_embolism: [
+    { to: "aortic_dissection", label: "Akut Göğüs Ağrısı DDx", mechanismTag: "PE vs diseksiyon vs MI" },
+    { to: "pulmonary_hypertension", label: "CTEPH → PH", mechanismTag: "Kronik PE → organize trombüs → PH" },
+    { to: "lung_cancer", label: "Paraneoplastik PE", mechanismTag: "Kanser + DVT/PE → tarama düşün" }
+  ],
+  aortic_dissection: [
+    { to: "aortic_aneurysm", label: "Aort Patolojisi", mechanismTag: "Anevrizma → diseksiyon riski" },
+    { to: "pulmonary_embolism", label: "Akut Göğüs Ağrısı DDx", mechanismTag: "Diseksiyon vs PE vs MI" },
+    { to: "pericarditis", label: "Tamponad", mechanismTag: "Tip A → perikardiyal kanama" }
+  ],
+  hcm: [
+    { to: "dcm", label: "Kardiyomiyopati DDx", mechanismTag: "Hipertrofik vs dilate" },
+    { to: "myocarditis", label: "Troponin Yüksekliği DDx", mechanismTag: "HCM akut faz vs miyokardit" },
+    { to: "pericarditis", label: "Göğüs Ağrısı DDx", mechanismTag: "Obstrüktif HCM vs perikardit" }
+  ],
+  myocarditis: [
+    { to: "dcm", label: "Kronik Miyokardit → DCM", mechanismTag: "İnflamasyon → dilatasyon" },
+    { to: "pericarditis", label: "Miyoperikardit", mechanismTag: "Sıklıkla birlikte" },
+    { to: "hcm", label: "LGE Patern DDx", mechanismTag: "Subepikardial vs mid-wall" }
+  ],
+  pancoast_tumor: [
+    { to: "lung_cancer", label: "Apikal NSCLC", mechanismTag: "Superior sulkus tümörü" },
+    { to: "chest_wall_tumor", label: "Apikal Kitle DDx", mechanismTag: "Pulmoner vs göğüs duvarı" }
+  ],
+  pulmonary_hypertension: [
+    { to: "pulmonary_embolism", label: "CTEPH (Grup 4)", mechanismTag: "Kronik PE → organize → PH" },
+    { to: "pulmonary_fibrosis", label: "Grup 3 PH", mechanismTag: "Fibrozis → hipoksik PH" },
+    { to: "dcm", label: "Sağ Kalp Yetmezliği", mechanismTag: "PH → RV yetmezliği" }
+  ]
+};
 
 // ===== SMART QUIZ SYSTEM (Leitner) =====
 let quizScores;
@@ -3775,113 +3913,114 @@ function renderStagingPage(main) {
 // ===== CALCULATOR DATA & RENDERER (Thorax) =====
 const thoraxCalcs = [
   {
-    id: "lung_rads", name: "Lung-RADS Sınıflama", icon: "🫁", color: "#3b82f6",
-    desc: "Akciğer BT taramada nodül yönetimi",
+    id: "wells_pe", name: "Wells PE Skoru", icon: "🫁", color: "#f43f5e",
+    desc: "Pulmoner emboli klinik olasılık değerlendirmesi",
     fields: [
-      { id: "aw_pre", label: "Non-kontras HU", placeholder: "ör: 8" },
-      { id: "aw_art", label: "Arteryel/60sn HU", placeholder: "ör: 70" },
-      { id: "aw_del", label: "Gecikmeli (15dk) HU", placeholder: "ör: 30" }
+      { id: "w_dvt", label: "DVT semptom/bulgusu (Evet=3, Hayır=0)", placeholder: "0 veya 3" },
+      { id: "w_alt", label: "PE, alternatif tanıdan daha olası (Evet=3, Hayır=0)", placeholder: "0 veya 3" },
+      { id: "w_hr", label: "Kalp hızı >100 (Evet=1.5, Hayır=0)", placeholder: "0 veya 1.5" },
+      { id: "w_imm", label: "İmmobilizasyon/cerrahi (son 4 hf) (Evet=1.5, Hayır=0)", placeholder: "0 veya 1.5" },
+      { id: "w_prev", label: "Önceki DVT/PE öyküsü (Evet=1.5, Hayır=0)", placeholder: "0 veya 1.5" },
+      { id: "w_hem", label: "Hemoptizi (Evet=1, Hayır=0)", placeholder: "0 veya 1" },
+      { id: "w_mal", label: "Malignite (son 6 ay) (Evet=1, Hayır=0)", placeholder: "0 veya 1" }
     ],
     calculate: function(v) {
-      var pre = parseFloat(v.aw_pre), art = parseFloat(v.aw_art), del = parseFloat(v.aw_del);
-      if (isNaN(pre) || isNaN(art) || isNaN(del)) return { result: "Tüm değerleri girin", color: "#64748b" };
-      if (art === pre) return { result: "Arteryel = Non-kontras → hesaplanamaz", color: "#f43f5e" };
-      var apw = ((art - del) / (art - pre)) * 100;
-      var rpw = ((art - del) / art) * 100;
-      var r = "APW = " + apw.toFixed(1) + "%  |  RPW = " + rpw.toFixed(1) + "%\n\n";
-      if (pre < 10) { r += "✅ Non-kontras <10 HU → LİPİD-RİCH ADENOM (wash-out hesaplamaya GEREK YOK)"; return { result: r, color: "#10b981" }; }
-      if (apw > 60 || rpw > 40) { r += "✅ ADENOM (APW >60% veya RPW >40%)"; return { result: r, color: "#10b981" }; }
-      r += "⚠️ Wash-out NEGATİF → Metastaz/Feokromositoma/ACC düşün → MR + PET-BT + biyokimya"; return { result: r, color: "#f43f5e" };
+      var s = parseFloat(v.w_dvt||0) + parseFloat(v.w_alt||0) + parseFloat(v.w_hr||0) + parseFloat(v.w_imm||0) + parseFloat(v.w_prev||0) + parseFloat(v.w_hem||0) + parseFloat(v.w_mal||0);
+      if (isNaN(s)) return { result: "Değerleri girin", color: "#64748b" };
+      var r = "Wells Skoru = " + s.toFixed(1) + "\n\n";
+      if (s <= 1) { r += "✅ DÜŞÜK olasılık (PE riski %1.3).\nD-dimer yap → negatifse PE ekarte.\nBT anjiyo gerekmez."; return { result: r, color: "#10b981" }; }
+      if (s <= 4) { r += "🟡 ORTA olasılık (PE riski %16.2).\nD-dimer yap → negatifse PE ekarte.\nPozitifse → BT Pulmoner Anjiyo."; return { result: r, color: "#f59e0b" }; }
+      r += "🔴 YÜKSEK olasılık (PE riski %37.5).\nD-dimer BEKLEME → direkt BT Pulmoner Anjiyo.\nD-dimer yüksek olasılıkta güvenilmez (yalancı negatif riski)."; return { result: r, color: "#f43f5e" };
     }
   },
   {
-    id: "hepatic_steatosis", name: "Hepatik Steatoz (KC-Dalak HU)", icon: "🫁", color: "#f43f5e",
-    desc: "Non-kontras BT'de KC yağlanması değerlendirmesi",
+    id: "fleischner", name: "Fleischner Kriterleri", icon: "⚫", color: "#8b5cf6",
+    desc: "İnsidental pulmoner nodül takip rehberi (2017)",
     fields: [
-      { id: "hs_liver", label: "KC HU (non-kontras)", placeholder: "ör: 45" },
-      { id: "hs_spleen", label: "Dalak HU (non-kontras)", placeholder: "ör: 55" }
+      { id: "fl_size", label: "Nodül boyutu (mm)", placeholder: "ör: 7" },
+      { id: "fl_type", label: "Tip (solid / subsolid / GGN)", placeholder: "solid, subsolid veya GGN" },
+      { id: "fl_risk", label: "Risk (düşük / yüksek)", placeholder: "düşük veya yüksek" },
+      { id: "fl_count", label: "Sayı (tek / multipl)", placeholder: "tek veya multipl" }
     ],
     calculate: function(v) {
-      var liver = parseFloat(v.hs_liver), spleen = parseFloat(v.hs_spleen);
-      if (isNaN(liver) || isNaN(spleen)) return { result: "Değerleri girin", color: "#64748b" };
-      var diff = liver - spleen;
-      var ratio = liver / spleen;
-      var r = "KC - Dalak = " + diff.toFixed(1) + " HU  |  KC/Dalak oranı = " + ratio.toFixed(2) + "\n\n";
-      if (diff >= 0) { r += "✅ NORMAL (KC ≥ Dalak)"; return { result: r, color: "#10b981" }; }
-      if (diff > -10) { r += "🟡 HAFİF STEATOZ (KC < Dalak, fark <10 HU)"; return { result: r, color: "#f59e0b" }; }
-      r += "🔴 BELİRGİN STEATOZ (KC << Dalak, fark ≥10 HU). KC <40 HU = ağır yağlanma"; return { result: r, color: "#f43f5e" };
+      var size = parseFloat(v.fl_size), type = (v.fl_type||"").toLowerCase().trim();
+      var risk = (v.fl_risk||"").toLowerCase().trim(), count = (v.fl_count||"").toLowerCase().trim();
+      if (isNaN(size) || !type) return { result: "Boyut ve tip girin", color: "#64748b" };
+      var r = "Nodül: " + size + "mm, " + type + ", " + (count||"tek") + ", " + (risk||"düşük") + " risk\n\n";
+      if (type === "solid") {
+        if (size < 6) { r += "✅ <6mm solid: TAKİP GEREKMEZ (düşük risk).\nYüksek riskli hastada opsiyonel 12 ay BT."; return { result: r, color: "#10b981" }; }
+        if (size < 8) { r += "🟡 6-8mm solid:\nDüşük risk: 6-12 ayda BT, sonra 18-24 ay.\nYüksek risk: 6-12 ayda BT, sonra 18-24 ay."; return { result: r, color: "#f59e0b" }; }
+        r += "🔴 ≥8mm solid:\nBT 3 ayda veya PET-BT veya biyopsi düşün.\nSpikülasyon, üst lob, büyüme → malignite riski yüksek."; return { result: r, color: "#f43f5e" };
+      }
+      if (type === "ggn" || type === "buzlu cam") {
+        if (size < 6) { r += "✅ <6mm GGN: TAKİP GEREKMEZ."; return { result: r, color: "#10b981" }; }
+        r += "🟡 ≥6mm GGN:\n6-12 ayda BT → her 2 yılda 5 yıla kadar.\nBüyüme veya solid komponent gelişirse → biyopsi/cerrahi."; return { result: r, color: "#f59e0b" };
+      }
+      if (size < 6) { r += "🟡 <6mm subsolid: TAKİP GEREKMEZ (düşük risk).\nYüksek risk: 3-6 ayda BT."; return { result: r, color: "#10b981" }; }
+      r += "🔴 ≥6mm subsolid (part-solid):\n3-6 ayda BT → solid komponent ≥6mm ise PET/biyopsi.\nSolid komponent büyüklüğü prognoz belirleyici."; return { result: r, color: "#f43f5e" };
     }
   },
   {
-    id: "renal_enhancement", name: "Renal Kitle Enhancement", icon: "🫘", color: "#8b5cf6",
-    desc: "Kistik vs solid renal kitle — Bosniak desteği",
+    id: "pa_ratio", name: "PA/Aorta Oranı (PH Değerlendirme)", icon: "🫀", color: "#f97316",
+    desc: "Pulmoner hipertansiyon taraması — BT ölçümleri",
     fields: [
-      { id: "re_pre", label: "Pre-kontras HU", placeholder: "ör: 25" },
-      { id: "re_post", label: "Post-kontras HU", placeholder: "ör: 60" }
+      { id: "par_pa", label: "Ana PA çapı (mm)", placeholder: "ör: 32" },
+      { id: "par_ao", label: "Asendan aort çapı (mm)", placeholder: "ör: 30" }
     ],
     calculate: function(v) {
-      var pre = parseFloat(v.re_pre), post = parseFloat(v.re_post);
-      if (isNaN(pre) || isNaN(post)) return { result: "Değerleri girin", color: "#64748b" };
-      var enh = post - pre;
-      var r = "Enhancement = " + enh.toFixed(1) + " HU\n\n";
-      if (enh < 10) { r += "✅ Enhancement YOK (<10 HU) → Basit kist / Bosniak I-II"; return { result: r, color: "#10b981" }; }
-      if (enh < 20) { r += "🟡 BELİRSİZ (10-20 HU) → Psödoenhancement olabilir → MR subtraksiyon öner"; return { result: r, color: "#f59e0b" }; }
-      r += "🔴 KESİN ENHANCEMENT (≥20 HU) → Neoplazi düşün. Solid: RCC/onkositom. Kistik komponent: Bosniak III-IV"; return { result: r, color: "#f43f5e" };
+      var pa = parseFloat(v.par_pa), ao = parseFloat(v.par_ao);
+      if (isNaN(pa) || isNaN(ao) || ao === 0) return { result: "Değerleri girin", color: "#64748b" };
+      var ratio = pa / ao;
+      var r = "PA = " + pa + "mm  |  Aort = " + ao + "mm  |  PA/Ao = " + ratio.toFixed(2) + "\n\n";
+      if (pa < 29 && ratio < 1) { r += "✅ NORMAL. PA <29mm ve PA/Ao <1.\nPulmoner hipertansiyon olasılığı düşük."; return { result: r, color: "#10b981" }; }
+      if (pa >= 29 || ratio >= 1) { r += "🔴 PH DÜŞÜN!\n"; }
+      if (pa >= 29) r += "PA ≥29mm → pulmoner hipertansiyon göstergesi.\n";
+      if (ratio >= 1) r += "PA/Ao ≥1 → PH için spesifik bulgu.\n";
+      r += "Eko ile RV basıncı doğrula. CTEPH için organize trombüs, web/band, mozaik ara.";
+      return { result: r, color: "#f43f5e" };
     }
   },
   {
-    id: "ctsi", name: "CTSI — Pankreatit Şiddet İndeksi", icon: "🟡", color: "#f59e0b",
-    desc: "Akut pankreatit BT şiddet değerlendirmesi",
+    id: "rvlv_ratio", name: "RV/LV Oranı (PE Şiddeti)", icon: "❤️", color: "#dc2626",
+    desc: "PE'de sağ ventrikül yükünü değerlendir",
     fields: [
-      { id: "ctsi_p", label: "Pankreas skoru (0-4)", placeholder: "0: N, 1: büyüme, 2: stranding, 3: 1koleks, 4: ≥2koleks" },
-      { id: "ctsi_n", label: "Nekroz skoru (0-6)", placeholder: "0: yok, 2: <%30, 4: %30-50, 6: >%50" }
+      { id: "rl_rv", label: "RV çapı (mm)", placeholder: "ör: 48" },
+      { id: "rl_lv", label: "LV çapı (mm)", placeholder: "ör: 40" }
     ],
     calculate: function(v) {
-      var p = parseInt(v.ctsi_p), n = parseInt(v.ctsi_n);
-      if (isNaN(p) || isNaN(n)) return { result: "Skorları girin", color: "#64748b" };
-      var ctsi = p + n;
-      var r = "CTSI = " + ctsi + "/10  (Pankreas: " + p + " + Nekroz: " + n + ")\n\n";
-      if (ctsi <= 3) { r += "✅ HAFİF → Mortalite %3, morbidite %8"; return { result: r, color: "#10b981" }; }
-      if (ctsi <= 6) { r += "🟡 ORTA → Mortalite %6, morbidite %35"; return { result: r, color: "#f59e0b" }; }
-      r += "🔴 AĞIR → Mortalite %17+, morbidite %92. Nekroz yönetimi + YBÜ"; return { result: r, color: "#f43f5e" };
+      var rv = parseFloat(v.rl_rv), lv = parseFloat(v.rl_lv);
+      if (isNaN(rv) || isNaN(lv) || lv === 0) return { result: "Değerleri girin", color: "#64748b" };
+      var ratio = rv / lv;
+      var r = "RV = " + rv + "mm  |  LV = " + lv + "mm  |  RV/LV = " + ratio.toFixed(2) + "\n\n";
+      if (ratio < 0.9) { r += "✅ NORMAL (RV/LV <0.9).\nSağ ventrikül yükü yok → düşük risk PE."; return { result: r, color: "#10b981" }; }
+      if (ratio < 1.0) { r += "🟡 SINIRDA (RV/LV 0.9-1.0).\nHafif RV genişleme → klinik korelasyon."; return { result: r, color: "#f59e0b" }; }
+      r += "🔴 RV STRAIN (RV/LV ≥1.0)!\nSubmasif/masif PE → mortalite riski artmış.\nD-sign (septum sola deviye) ara.\nTroponin + BNP kontrol → tromboliz değerlendir."; return { result: r, color: "#f43f5e" };
     }
   },
   {
-    id: "flr", name: "FLR — Future Liver Remnant (%)", icon: "🫁", color: "#f43f5e",
-    desc: "KC rezeksiyonu öncesi kalan KC hacmi yeterliliği",
+    id: "aorta_thoracic", name: "Torasik Aort Çapı Değerlendirme", icon: "🩸", color: "#dc2626",
+    desc: "Torasik aort anevrizması takip ve cerrahi karar",
     fields: [
-      { id: "flr_total", label: "Total KC hacmi (mL)", placeholder: "ör: 1500" },
-      { id: "flr_tumor", label: "Tümör hacmi (mL)", placeholder: "ör: 100" },
-      { id: "flr_remnant", label: "Kalan KC hacmi (mL)", placeholder: "ör: 600" }
+      { id: "at_loc", label: "Lokalizasyon (asendan / ark / desendan)", placeholder: "ör: asendan" },
+      { id: "at_diam", label: "Çap (mm)", placeholder: "ör: 48" },
+      { id: "at_marfan", label: "Marfan/biküspid (Evet/Hayır)", placeholder: "Evet veya Hayır" }
     ],
     calculate: function(v) {
-      var total = parseFloat(v.flr_total), tumor = parseFloat(v.flr_tumor), remnant = parseFloat(v.flr_remnant);
-      if (isNaN(total) || isNaN(tumor) || isNaN(remnant)) return { result: "Değerleri girin", color: "#64748b" };
-      var functional = total - tumor;
-      var flr = (remnant / functional) * 100;
-      var r = "FLR = " + flr.toFixed(1) + "%  (Kalan: " + remnant + " / Fonksiyonel: " + functional.toFixed(0) + " mL)\n\n";
-      if (flr >= 40) { r += "✅ YETERLİ (sirotik KC'de bile güvenli ≥40%)"; return { result: r, color: "#10b981" }; }
-      if (flr >= 30) { r += "🟡 SINIRDA — Sağlıklı KC'de yeterli (≥30%), sirotik/kemoterapili'de YETERSİZ (<40%)"; return { result: r, color: "#f59e0b" }; }
-      if (flr >= 25) { r += "🟡 SINIRDA — Sadece sağlıklı KC'de yeterli (≥25%). Portal ven embolizasyonu düşün."; return { result: r, color: "#f59e0b" }; }
-      r += "🔴 YETERSİZ — Postop KC yetmezliği riski YÜKSEK → Portal ven embolizasyonu ile hipertrofi sağla"; return { result: r, color: "#f43f5e" };
-    }
-  },
-  {
-    id: "aorta_eval", name: "Aort Çapı Değerlendirme", icon: "🩸", color: "#dc2626",
-    desc: "AAA takip ve cerrahi karar",
-    fields: [
-      { id: "ao_diam", label: "Aort çapı (mm)", placeholder: "ör: 52" },
-      { id: "ao_sex", label: "Cinsiyet (E/K)", placeholder: "E veya K" }
-    ],
-    calculate: function(v) {
-      var d = parseFloat(v.ao_diam), sex = (v.ao_sex || "").toUpperCase().trim();
-      if (isNaN(d)) return { result: "Çap girin", color: "#64748b" };
-      var threshold = sex === "K" ? 50 : 55;
-      var r = "Aort çapı: " + d + " mm  |  Cerrahi eşik: " + threshold + " mm (" + (sex === "K" ? "Kadın" : "Erkek") + ")\n\n";
-      if (d < 30) { r += "✅ NORMAL (<30mm)"; return { result: r, color: "#10b981" }; }
-      if (d < 40) { r += "🟡 HAFİF EKTAZİ (30-39mm) → 3 yılda kontrol"; return { result: r, color: "#f59e0b" }; }
-      if (d < threshold) { r += "🟡 ANEVRİZMA ama eşik altı → 6-12 ayda kontrol. Büyüme hızı >5mm/6ay ise cerrahi düşün"; return { result: r, color: "#f59e0b" }; }
-      r += "🔴 CERRAHİ SINIR (≥" + threshold + "mm) → EVAR veya açık cerrahi değerlendir. Rüptür riski: " + (d >= 70 ? "ÇOK YÜKSEK" : d >= 60 ? "%10-20/yıl" : "%3-15/yıl"); return { result: r, color: "#f43f5e" };
+      var loc = (v.at_loc||"").toLowerCase().trim(), d = parseFloat(v.at_diam);
+      var marfan = (v.at_marfan||"").toLowerCase().trim();
+      if (isNaN(d) || !loc) return { result: "Lokalizasyon ve çap girin", color: "#64748b" };
+      var isMarfan = marfan === "evet" || marfan === "e";
+      var threshold;
+      if (loc === "asendan") threshold = isMarfan ? 50 : 55;
+      else if (loc === "ark") threshold = 55;
+      else threshold = isMarfan ? 50 : 60;
+      var r = loc.charAt(0).toUpperCase() + loc.slice(1) + " aort: " + d + "mm";
+      if (isMarfan) r += " (Marfan/biküspid)";
+      r += "\nCerrahi eşik: " + threshold + "mm\n\n";
+      if (d < 40) { r += "✅ NORMAL (<40mm). Rutin takip gerekmez."; return { result: r, color: "#10b981" }; }
+      if (d < 45) { r += "🟡 EKTAZİ (40-44mm). Yıllık BT/MR takip."; return { result: r, color: "#f59e0b" }; }
+      if (d < threshold) { r += "🟡 ANEVRİZMA ama eşik altı (" + d + "<" + threshold + "mm).\n6 ayda BT/MR.\nBüyüme >5mm/yıl ise cerrahi düşün."; return { result: r, color: "#f59e0b" }; }
+      r += "🔴 CERRAHİ SINIR (≥" + threshold + "mm)!\n" + (loc === "asendan" ? "Bentall/David operasyonu veya suprakoroner greft." : loc === "ark" ? "Total ark replasmanı (hibrid/açık)." : "TEVAR (endovasküler) veya açık cerrahi."); return { result: r, color: "#f43f5e" };
     }
   },
   {
@@ -3903,8 +4042,8 @@ const thoraxCalcs = [
       var egfr = 142 * Math.pow(Math.min(ckr, 1), alpha) * Math.pow(Math.max(ckr, 1), -1.200) * Math.pow(0.9938, age) * mult;
       var r = "eGFR = " + egfr.toFixed(0) + " mL/dk/1.73m²  (CKD-EPI 2021)\n\n";
       if (egfr >= 60) { r += "✅ eGFR ≥60 → İyotlu kontrast GÜVENLİ. Gadolinium GÜVENLİ."; return { result: r, color: "#10b981" }; }
-      if (egfr >= 30) { r += "🟡 eGFR 30-59 → İyotlu kontrast: IV hidrasyon öner. Gadolinium: grup II ajanlar güvenli (gadoterat, gadobutrol). Metformin: 48 saat kes."; return { result: r, color: "#f59e0b" }; }
-      r += "🔴 eGFR <30 → İyotlu kontrast: yüksek CI-AKI riski → risk-fayda değerlendir + IV hidrasyon + düşük hacim. Gadolinium: SADECE grup II ajanlar. Lineer Gd kontrendike (NSF riski)."; return { result: r, color: "#f43f5e" };
+      if (egfr >= 30) { r += "🟡 eGFR 30-59 → İyotlu kontrast: IV hidrasyon öner. Gadolinium: grup II ajanlar güvenli. Metformin: 48 saat kes."; return { result: r, color: "#f59e0b" }; }
+      r += "🔴 eGFR <30 → İyotlu kontrast: yüksek CI-AKI riski → risk-fayda değerlendir + IV hidrasyon. Gadolinium: SADECE grup II ajanlar."; return { result: r, color: "#f43f5e" };
     }
   },
   {
@@ -3927,99 +4066,48 @@ const thoraxCalcs = [
       else if (bmi < 35) r += "Obez Klas I. ";
       else if (bmi < 40) r += "Obez Klas II. ";
       else r += "Morbid obez. ";
-      if (bmi > 35) r += "⚠️ Obez hastada: BT gürültü artar, MR coil sınırı olabilir, kontrast hacmi artır (2 mL/kg düşün).";
+      if (bmi > 35) r += "BT gürültü artar, kontrast hacmi artır (2 mL/kg düşün).";
       var col = bmi < 25 ? "#10b981" : bmi < 30 ? "#f59e0b" : "#f43f5e";
       return { result: r, color: col };
     }
   },
   {
-    id: "child_pugh", name: "Child-Pugh Skoru", icon: "🫁", color: "#f59e0b",
-    desc: "Siroz şiddet sınıflaması — prognoz ve cerrahi risk değerlendirmesi",
+    id: "lung_staging", name: "Akciğer Kanseri TNM (8. Edisyon)", icon: "🫁", color: "#3b82f6",
+    desc: "NSCLC TNM evreleme — tümör boyutu bazlı T evresi",
     fields: [
-      { id: "cp_bil", label: "Bilirubin (mg/dL)", placeholder: "ör: 2.5" },
-      { id: "cp_alb", label: "Albümin (g/dL)", placeholder: "ör: 3.0" },
-      { id: "cp_inr", label: "INR", placeholder: "ör: 1.5" },
-      { id: "cp_ascites", label: "Asit (0=yok, 1=hafif, 2=orta-ağır)", placeholder: "0, 1 veya 2" },
-      { id: "cp_enc", label: "Ensefalopati (0=yok, 1=grade I-II, 2=grade III-IV)", placeholder: "0, 1 veya 2" }
+      { id: "ls_size", label: "Tümör boyutu (cm)", placeholder: "ör: 3.5" },
+      { id: "ls_invasion", label: "İnvazyon (yok / plevra / mediasten)", placeholder: "yok, plevra veya mediasten" },
+      { id: "ls_node", label: "N evresi (0 / 1 / 2 / 3)", placeholder: "0-3" },
+      { id: "ls_met", label: "Uzak metastaz (yok / var)", placeholder: "yok veya var" }
     ],
     calculate: function(v) {
-      var bil = parseFloat(v.cp_bil), alb = parseFloat(v.cp_alb), inr = parseFloat(v.cp_inr);
-      var asc = parseInt(v.cp_ascites), enc = parseInt(v.cp_enc);
-      if (isNaN(bil) || isNaN(alb) || isNaN(inr) || isNaN(asc) || isNaN(enc)) return { result: "Tüm değerleri girin", color: "#64748b" };
-      var score = 0;
-      // Bilirubin
-      if (bil < 2) score += 1; else if (bil <= 3) score += 2; else score += 3;
-      // Albumin
-      if (alb > 3.5) score += 1; else if (alb >= 2.8) score += 2; else score += 3;
-      // INR
-      if (inr < 1.7) score += 1; else if (inr <= 2.3) score += 2; else score += 3;
-      // Ascites
-      score += asc + 1;
-      // Encephalopathy
-      score += enc + 1;
-      var cls = score <= 6 ? "A" : score <= 9 ? "B" : "C";
-      var r = "Child-Pugh Skoru = " + score + "/15 → Sınıf " + cls + "\n\n";
-      if (cls === "A") { r += "✅ Sınıf A (5-6 puan): İyi kompanse siroz.\n1-yıllık sağkalım ~%100. Cerrahi genellikle güvenli.\nRadyolojik: KC morfolojisi korunmuş, minimal variks."; return { result: r, color: "#10b981" }; }
-      if (cls === "B") { r += "🟡 Sınıf B (7-9 puan): Orta dekompansasyon.\n1-yıllık sağkalım ~%80. Cerrahi YÜKSEK RİSK.\nRadyolojik: Lobüler kontur, splenomegali, asit, varisler.\nTransplant değerlendirmesi başlat."; return { result: r, color: "#f59e0b" }; }
-      r += "🔴 Sınıf C (10-15 puan): Ağır dekompansasyon.\n1-yıllık sağkalım ~%45. Cerrahi KONTRENDİKE.\nRadyolojik: Belirgin atrofi-hipertrofi, refrakter asit, portal HT bulguları.\nACİL transplant listesine al."; return { result: r, color: "#f43f5e" };
-    }
-  },
-  {
-    id: "meld_score", name: "MELD Skoru", icon: "🔴", color: "#dc2626",
-    desc: "Karaciğer transplant önceliklendirme — 90 günlük mortalite tahmini",
-    fields: [
-      { id: "meld_bil", label: "Bilirubin (mg/dL)", placeholder: "ör: 3.0" },
-      { id: "meld_inr", label: "INR", placeholder: "ör: 1.8" },
-      { id: "meld_cr", label: "Kreatinin (mg/dL)", placeholder: "ör: 1.2" }
-    ],
-    calculate: function(v) {
-      var bil = parseFloat(v.meld_bil), inr = parseFloat(v.meld_inr), cr = parseFloat(v.meld_cr);
-      if (isNaN(bil) || isNaN(inr) || isNaN(cr)) return { result: "Tüm değerleri girin", color: "#64748b" };
-      // MELD values capped at minimum 1.0
-      bil = Math.max(bil, 1.0);
-      inr = Math.max(inr, 1.0);
-      cr = Math.max(cr, 1.0);
-      cr = Math.min(cr, 4.0); // Cap creatinine at 4.0
-      var meld = 3.78 * Math.log(bil) + 11.2 * Math.log(inr) + 9.57 * Math.log(cr) + 6.43;
-      meld = Math.round(Math.min(meld, 40));
-      meld = Math.max(meld, 6);
-      var r = "MELD Skoru = " + meld + "\n\n";
-      if (meld < 10) { r += "✅ MELD <10: Düşük mortalite riski (%1.9 — 3 aylık).\nTransplant listesi önceliği düşük.\nRadyolojik: Portal HT bulguları hafif, KC morfolojisi nispeten korunmuş."; return { result: r, color: "#10b981" }; }
-      if (meld < 20) { r += "🟡 MELD 10-19: Orta mortalite riski (%6 — 3 aylık).\nTransplant değerlendirmesi.\nRadyolojik: Asit, splenomegali, varisler izlenebilir. HCC tarama 6 ayda bir."; return { result: r, color: "#f59e0b" }; }
-      if (meld < 30) { r += "🟠 MELD 20-29: Yüksek mortalite riski (%19.6 — 3 aylık).\nTransplant ÖNCELİKLİ.\nRadyolojik: Belirgin portal HT, refrakter asit, TIPS değerlendir."; return { result: r, color: "#f59e0b" }; }
-      r += "🔴 MELD ≥30: Çok yüksek mortalite riski (>%50 — 3 aylık).\nACİL transplant gerekli.\nRadyolojik: Ağır portal HT, multiorgan yetmezlik bulguları.\nMELD >40 = en yüksek öncelik."; return { result: r, color: "#f43f5e" };
-    }
-  },
-  {
-    id: "pirads_score", name: "PI-RADS v2.1 Skoru", icon: "🔵", color: "#3b82f6",
-    desc: "Prostat MR değerlendirme — klinik anlamlı kanser olasılığı",
-    fields: [
-      { id: "pi_zone", label: "Zon (PZ veya TZ)", placeholder: "PZ veya TZ" },
-      { id: "pi_t2", label: "T2W skoru (1-5)", placeholder: "1-5" },
-      { id: "pi_dwi", label: "DWI/ADC skoru (1-5)", placeholder: "1-5" },
-      { id: "pi_dce", label: "DCE (+ veya -)", placeholder: "+ veya -" }
-    ],
-    calculate: function(v) {
-      var zone = (v.pi_zone || "").toUpperCase().trim();
-      var t2 = parseInt(v.pi_t2), dwi = parseInt(v.pi_dwi);
-      var dce = (v.pi_dce || "").trim();
-      if (!zone || isNaN(t2) || isNaN(dwi) || !dce) return { result: "Tüm değerleri girin (Zon: PZ/TZ, T2: 1-5, DWI: 1-5, DCE: +/-)", color: "#64748b" };
-      var pirads = 0;
-      if (zone === "PZ") {
-        // PZ: DWI dominant
-        pirads = dwi;
-        if (dwi === 3 && dce === "+") pirads = 4;
-      } else {
-        // TZ: T2 dominant
-        pirads = t2;
-        if (t2 === 3 && dwi >= 4) pirads = 4;
+      var size = parseFloat(v.ls_size), inv = (v.ls_invasion||"").toLowerCase().trim();
+      var n = parseInt(v.ls_node||0), met = (v.ls_met||"").toLowerCase().trim();
+      if (isNaN(size)) return { result: "Tümör boyutu girin", color: "#64748b" };
+      var t = "";
+      if (inv === "mediasten") t = "T4";
+      else if (inv === "plevra") { t = size <= 3 ? "T2a" : size <= 4 ? "T2b" : size <= 5 ? "T3" : "T3"; }
+      else {
+        if (size <= 1) t = "T1a";
+        else if (size <= 2) t = "T1b";
+        else if (size <= 3) t = "T1c";
+        else if (size <= 4) t = "T2a";
+        else if (size <= 5) t = "T2b";
+        else if (size <= 7) t = "T3";
+        else t = "T4";
       }
-      var r = "PI-RADS v2.1 = Kategori " + pirads + "  (" + (zone === "PZ" ? "Periferik Zon — DWI dominant" : "Transizyonel Zon — T2 dominant") + ")\n\n";
-      if (pirads <= 1) { r += "✅ PI-RADS 1: Çok düşük (klinik anlamlı kanser olasılığı <%3).\nNormal görünüm. Biyopsi gerekmez."; return { result: r, color: "#10b981" }; }
-      if (pirads === 2) { r += "✅ PI-RADS 2: Düşük (klinik anlamlı kanser olasılığı <%10).\nBenign bulgu. Biyopsi gerekmez."; return { result: r, color: "#10b981" }; }
-      if (pirads === 3) { r += "🟡 PI-RADS 3: Ara (belirsiz — kanser olasılığı %10-20).\nKlinik korelasyon + PSA dansitesi değerlendir.\nPSAd >0.15: biyopsi düşün. PSAd ≤0.15: takip MR."; return { result: r, color: "#f59e0b" }; }
-      if (pirads === 4) { r += "🟠 PI-RADS 4: Yüksek (kanser olasılığı %25-50).\nMR-füzyon biyopsi ÖNERİLİR.\nPZ: DWI belirgin kısıtlanma (<1.5cm) veya DWI 3 + DCE(+).\nTZ: Lentiküler hipointens T2 lezyon."; return { result: r, color: "#f59e0b" }; }
-      r += "🔴 PI-RADS 5: Çok yüksek (kanser olasılığı >%60).\nBiyopsi KESİNLİKLE GEREKLİ.\n≥1.5cm lezyon veya ekstraprostratik uzanım.\nMR-füzyon + sistematik biyopsi + evreleme (kemik sintigrafisi)."; return { result: r, color: "#f43f5e" };
+      var nStr = "N" + (isNaN(n) ? 0 : n);
+      var mStr = met === "var" ? "M1" : "M0";
+      var r = t + " " + nStr + " " + mStr + "\n\n";
+      r += "T evresi: " + t + " (" + size + " cm";
+      if (inv && inv !== "yok") r += ", " + inv + " invazyonu";
+      r += ")\n";
+      if (met === "var") { r += "🔴 Evre IV (M1) — Uzak metastaz var.\nSistemik tedavi. Radyolojik: beyin MR + PET-BT ile staging."; return { result: r, color: "#f43f5e" }; }
+      if (n >= 3) { r += "🔴 Evre IIIC (N3) — Kontralateral mediastinal/hiler veya supraklaviküler LAP.\nKemoradyoterapi. Cerrahi genellikle uygun değil."; return { result: r, color: "#f43f5e" }; }
+      if (n >= 2) { r += "🟠 Evre III (N2) — İpsilateral mediastinal LAP.\nMultidisipliner karar: neoadjuvan + cerrahi veya definitif kemoRT."; return { result: r, color: "#f59e0b" }; }
+      if (n === 1) { r += "🟡 Evre II (N1) — İpsilateral hiler LAP.\nCerrahi + adjuvan kemoterapi."; return { result: r, color: "#f59e0b" }; }
+      if (size <= 3) { r += "✅ Evre I (T1N0M0) — Cerrahi (lobektomi/segmentektomi).\n5 yıllık sağkalım %73-90."; return { result: r, color: "#10b981" }; }
+      r += "🟡 Evre II (T2-3 N0M0) — Cerrahi + adjuvan tedavi değerlendir."; return { result: r, color: "#f59e0b" };
     }
   }
 ];
