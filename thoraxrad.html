@@ -1590,6 +1590,245 @@ const diseases = [
   differential: ["Gerçek kardiyomegali — lateral grafide normal sternum, eko'da dilate odacıklar", "Pektus karinatum — sternumun ANTERİOR protrüzyonu (güvercin göğsü), tersi", "Poland sendromu — unilateral pektoral kas yokluğu + kosta anomalileri"],
   protocol: "BT toraks: Haller indeksi + kardiyak kompresyon + atelektazi. PA + lateral grafi: deformitenin genel değerlendirmesi. Eko/MR: RV fonksiyonu (ciddi vakalarda). Marfan taraması: boy, parmak oranı, göz muayenesi, aort kökü ölçümü.",
   quiz: { q: "Pektus ekskavatum'un PA akciğer grafisinde yarattığı yanılgıları açıklayınız.", a: "PA GRAFİDE YANILGILAR: 1) PSÖDOKARDİYOMEGALİ: Daralmış AP çap → kalp sola deplase ve komprese → PA grafide kardiyotorasik oran artmış GİBİ görünür. GERÇEK kardiyomegali ile ayırım: lateral grafide sternum normal mi? (depresyon görülürse → pektus) 2) PSÖDO SAĞ HİLER GENİŞLEME: Kalbin sola rotasyonu → sağ kalp kenarlığı belirginleşir → hiler kitle/LAP sanılır 3) SAĞ ORTA LOB OPAKLAŞMASI: Kompresif atelektazi → pnömoni sanılır 4) SAĞ PARAKARDIYAK GÖLGELENMESİ: Kalp deplasyonu → sağ atriyum silueti değişir. ÇÖZÜM: Lateral grafi her zaman çekilmeli + klinik korelasyon + şüphede BT ile Haller indeksi ölçümü yapılmalıdır." }
+},
+// ===== WAVE 2 — BATCH C: +3 KARDİYAK =====
+{
+  id: "cardiac_thrombus", name: "Kardiyak Trombüs", category: "cardiac", tag: "common", tagText: "Sık",
+  pathway: [
+    { type: "histo", label: "Histopatoloji", text: "Kalp odacıklarında trombüs oluşumu. Sol ventrikül: miyokard infarktüsü sonrası (akinetik/diskinetik segment → staz), dilate KMP. Sol atriyum: atriyal fibrilasyon (%90+ AF ilişkili), mitral darlığı. Sağ kalp: santral venöz kateter, pacemaker lead. LAA (sol atriyum apendiksi): AF'de en sık trombüs yeri. Emboli riski: inme, sistemik emboli.", detail: "LAA trombüs: AF'de inme kaynağının %90+'ı → TEE veya kardiyak BT ile değerlendirme (TTE yetersiz)" },
+    { type: "tissue", label: "Doku Değişikliği", text: "Akut trombüs: yumuşak, kırmızı-mor, fibrin + eritrosit. Kronik trombüs: organize, sert, sarımsı, kalsifiye olabilir. Mural trombüs: duvar yapışıklı (akinetik segmentte). Pedünküllü trombüs: sapla tutunmuş → emboli riski yüksek. Trombüs vs tümör: trombüs kontrastlanmaz (avasküler), tümör kontrastlanır.", detail: "Pedünküllü (saplı) trombüs: hareketli + emboli riski çok yüksek → ACİL antikoagülasyon" },
+    { type: "signal", label: "Sinyal Karşılığı", text: "Eko (TTE/TEE): odacık içi ekojen kitle, hareket ile şekil değişimi (akut yumuşak trombüs). Kardiyak MR: LGE'de KONTRASTLANMAYAN dolma defekti (trombüs avasküler → gadolinyum almaz). T1 prekontrast: akut trombüs hiperintens (methemoglobin). Kardiyak BT: odacık içi düşük dansiteli dolma defekti. TEE: LAA trombüs için EN DUYARLI.", detail: "MR LGE: trombüs → SİYAH (kontrastlanmaz). Tümör → BEYAZ (kontrastlanır). Bu ayırım KRİTİK." },
+    { type: "finding", label: "Görüntüleme Bulgusu", text: "Eko: odacık içi ekojen kitle. BT: düşük dansiteli dolma defekti (trombüsten geçiş artefaktından ayırım: gecikmeli faz ile tekrar değerlendir). MR: LGE'de kontrastlanmayan alan (trombüs) vs kontrastlanan (tümör). Sol ventrikül apikal trombüs: en sık Mİ sonrası apikal akinezi. LAA trombüs: AF, TEE veya gecikmeli BT.", detail: "BT artefakt vs gerçek trombüs: gecikmeli faz (60-90 sn) → artefakt kaybolur, trombüs kalır" }
+  ],
+  keyPoint: "ODACIK İÇİ KONTRASTLANMAYAN DOLMA DEFEKTİ = trombüs. MR-LGE: trombüs SİYAH (kontrastlanmaz), tümör BEYAZ (kontrastlanır). Sol ventrikül apeks: Mİ sonrası. LAA: AF'de (TEE en duyarlı). BT: gecikmeli faz ile artefakttan ayır. Emboli riski: pedünküllü > mural.",
+  differential: ["Kardiyak tümör (miksoma) — kontrastlanır, pedünküllü, T2 hiperintens", "Papiller fibroelastom — küçük, kapak üzerinde, hareketli", "Akım artefaktı — gecikmeli fazda kaybolur, trombüs KALMAZ"],
+  protocol: "TTE: ilk değerlendirme. TEE: LAA trombüs (AF'de). Kardiyak MR + LGE: trombüs vs tümör ayırımı (altın standart). BT: gecikmeli faz (60-90 sn). Antikoagülasyon: trombüs saptanınca → kontrol görüntüleme.",
+  quiz: { q: "Kardiyak trombüsü tümörden MR ile nasıl ayırırsınız?", a: "MR İLE AYIRIM: 1) LGE (Late Gadolinium Enhancement): TROMBÜS → kontrastlanmaz (SİYAH kalır) çünkü avasküler. TÜMÖR → KONTRASTLANIR (BEYAZ) çünkü vasküler. Bu EN ÖNEMLİ ayırım kriteri 2) T1 PREKONTRAST: Akut trombüs → T1 HİPERİNTENS (methemoglobin). Tümör → değişken 3) T2: Trombüs → genellikle HİPOİNTENS (kronik). Miksoma → HİPERİNTENS (miksoid) 4) MOBİLİTE: Trombüs → cine'de şekil değişimi (yumuşak akut). Tümör → daha rijit 5) YERLEŞİM: Trombüs → akinetik segment üzerinde (LV apeks Mİ sonrası). Miksoma → interatriyal septum (fossa ovalis). ALTIN KURAL: LGE'de kararmayan (kontrastlanmayan) kitle = TROMBÜS." }
+},
+{
+  id: "fabry_disease", name: "Fabry Hastalığı (Kardiyak)", category: "cardiac", tag: "classic", tagText: "Klasik",
+  pathway: [
+    { type: "histo", label: "Histopatoloji", text: "X'e bağlı lizozomal depo hastalığı: alfa-galaktosidaz A eksikliği → globotriaozilseramid (Gb3) birikimi. Miyokard, böbrek, sinir sistemi, cilt tutulumu. Kardiyak: LVH (%40-60 erkek hastada). Erkeklerde ağır (hemizigot), kadınlarda değişken (heterozigot). Enzim replasman tedavisi (ERT) mevcut. Ortalama tanı yaşı: erkek 25-30, kadın 40+.", detail: "Fabry KMP: HCM mimiği — asimetrik LVH + LGE ama T1 ve ECV paterni farklı" },
+    { type: "tissue", label: "Doku Değişikliği", text: "Sfingolipid birikimi miyositlerde → konsantrik LVH (genellikle SİMETRİK, HCM'deki gibi asimetrik olabilir). Erken: LVH + normal fonksiyon. Geç: fibrozis → sistolik disfonksiyon. Bazolateral (inferolateral) duvar: fibrozis sıklıkla burada başlar. Kapak tutulumu: hafif MY/AY. Aritmojenik: ileti bozuklukları, VT.", detail: "İnferolateral bazal LGE: Fabry'nin KARDİYAK FİBROZİS imzası (amiloidozda diffüz subendokardiyal)" },
+    { type: "signal", label: "Sinyal Karşılığı", text: "Kardiyak MR: konsantrik LVH + DÜŞÜK NATİVE T1 (<900 ms @ 1.5T) — PATOGNOMONİK (sfingolipid birikimi T1 kısaltır). Amiloidozun tam tersi (amiloidozda T1 YÜKSEK). LGE: inferolateral bazal mid-wall (karakteristik). ECV: normal veya hafif yüksek (amiloidozda çok yüksek). T2: fibrozis alanında yüksek olabilir (inflamasyon). Eko: LVH (non-spesifik).", detail: "DÜŞÜK T1 + LVH = Fabry (başka hiçbir KMP'de T1 bu kadar düşük değil — yağ birikimi etkisi)" },
+    { type: "finding", label: "Görüntüleme Bulgusu", text: "MR: konsantrik LVH + düşük native T1 (patognomonik) + inferolateral bazal LGE. Eko: LVH (HCM'den ayırt edilemez). EKG: kısa PR, LVH paterni, repolarizasyon anomalileri. Genetik: GLA gen mutasyonu. Enzim: alfa-galaktosidaz A düşük (erkeklerde tanısal, kadınlarda yetersiz olabilir). Böbrek: proteinüri, KBY. Cilt: anjiyokeratom.", detail: "T1 haritalama: Fabry erken tanısında EN ÖNEMLİ — LVH gelişmeden ÖNCE bile T1 düşük olabilir" }
+  ],
+  keyPoint: "LVH + DÜŞÜK NATİVE T1 (<900 ms) = Fabry (patognomonik). Amiloidozun tersi (amiloidoz T1 yüksek). İnferolateral bazal mid-wall LGE. X'e bağlı (GLA gen). ERT mevcut → erken tanı kritik. HCM mimiği ama T1 mapping ile ayırt edilir.",
+  differential: ["HCM — asimetrik septum, T1 normal/hafif yüksek, RV insertion LGE", "Kardiyak amiloidoz — T1 YÜKSEK (>1100), diffüz LGE, düşük voltaj", "Hipertansif KMP — konsantrik LVH ama T1 normal, LGE minimal"],
+  protocol: "Kardiyak MR: cine + T1 mapping (native) + LGE + T2. Native T1 <900 ms (1.5T) → Fabry düşün. Alfa-galaktosidaz A enzim düzeyi. Genetik: GLA gen analizi. Böbrek fonksiyonu + proteinüri. Dermatolojik muayene (anjiyokeratom).",
+  quiz: { q: "T1 haritalama ile Fabry hastalığını diğer kardiyomiyopatilerden nasıl ayırırsınız?", a: "T1 HARİTALAMA İLE AYIRIM: 1) FABRY: Native T1 DÜŞÜK (<900 ms @ 1.5T) — sfingolipid birikimi (yağımsı materyal) T1 kısaltır. BU BİLGİ PATOGNOMONİKTİR 2) AMİLOİDOZ: Native T1 YÜKSEK (>1100 ms) — amiloid protein birikimi T1 uzatır 3) HCM: Native T1 NORMAL veya HAFİF YÜKSEK 4) HİPERTANSİF: Native T1 NORMAL 5) DEMİR BİRİKİMİ: T1 çok düşük (<800 ms) — demir hemokromatozda. FABRY vs DEMİR: T2* ile ayırım → demirde T2* çok düşük (<20 ms), Fabry'de T2* normal. KLİNİK ÖNEM: LVH olan hastada T1 mapping → düşük T1 → Fabry düşün → genetik test → ERT başla (geri dönüşümsüz hasar öncesi). T1 mapping LVH OLMADAN bile düşük olabilir → presemptomatik tanı." }
+},
+{
+  id: "infective_endocarditis", name: "İnfektif Endokardit", category: "cardiac", tag: "important", tagText: "Önemli",
+  pathway: [
+    { type: "histo", label: "Histopatoloji", text: "Kalp kapak endokardında enfeksiyon → vejetasyon (trombüs + bakteri + inflamatuar debri). Akut: Staphylococcus aureus (virülan, hızlı destrüksiyon). Subakut: Streptococcus viridans (yavaş, eski kapak hastalığı zemininde). Protez kapak: erken (<60 gün, staph) ve geç (>60 gün, strep). Risk: IV ilaç kullanımı (triküspit), protez kapak, konjenital kalp hastalığı.", detail: "Duke kriterleri: major (kan kültürü + görüntüleme) + minor (ateş, vasküler fenomen, immünolojik) → kesin/olası/reddedilmiş" },
+    { type: "tissue", label: "Doku Değişikliği", text: "Vejetasyon: kapak yaprakçığında düzensiz, hareketli, ekojen kitle. Komplikasyonlar: kapak destrüksiyonu/perforasyon (yetmezlik), periannüler abse (aort kapak çevresi en sık), psödoanevrizma, fistül. Emboli: serebral (inme), splenik (infarkt), renal, mikotik anevrizma. IV ilaç kullanıcılarında: triküspit kapak → septik pulmoner emboli.", detail: "Periannüler abse: aort kapak çevresinde en sık → BT/MR/TEE ile kalınlaşmış düşük dansiteli alan + rim kontrastlanması" },
+    { type: "signal", label: "Sinyal Karşılığı", text: "TEE: ALTIN STANDART (duyarlılık %90-100 native, %85-90 protez). Vejetasyon: hareketli ekojen kitle (kapağın atriyal yüzünde). TTE: duyarlılık düşük (%60-70). Kardiyak BT: büyük vejetasyon, periannüler abse, psödoanevrizma, protez kapak dehiscence. PET-FDG: protez kapak enfeksiyonunda → periprostetik FDG tutulumu. MR: vejetasyon + komplikasyon (abse), beyin MR (sessiz emboli).", detail: "PET-FDG: protez kapak endokarditinde ESC 2023 modifiye Duke kriterlerinde major kriter olarak eklendi" },
+    { type: "finding", label: "Görüntüleme Bulgusu", text: "TEE: kapak üzerinde hareketli ekojen kitle (vejetasyon), kapak yetmezliği jet, periannüler kalınlaşma/abse. BT: periannüler düşük dansiteli alan (abse), psödoanevrizma (kontrast dolu kese), protez kapak dehiscence (rocking motion). PET: periprostetik FDG tutulumu. Septik emboli bulguları: beyin MR (çoklu infarktlar), splenik infarkt, renal infarkt, septik pulmoner emboli (kaviter nodüller).", detail: "Septik pulmoner emboli: IV ilaç kullanıcısı + triküspit vejetasyon → çoklu periferal kaviter akciğer nodülleri" }
+  ],
+  keyPoint: "KAPAK VEJETASYONU (TEE) + KAN KÜLTÜRÜ + ATEŞ = endokardit (Duke kriterleri). TEE: altın standart (%90+ duyarlılık). Komplikasyon: periannüler abse, emboli (beyin, dalak). Protez kapak: PET-FDG (major kriter). IV ilaç: triküspit → septik pulmoner emboli (kaviter nodüller).",
+  differential: ["Libman-Sacks (SLE) — non-infektif vejetasyon, küçük, kapak kalınlaşması", "Papiller fibroelastom — küçük, kapak üzerinde, enfeksiyon bulgusu yok", "Marantic endokardit — kanser ilişkili steril vejetasyon, embolik olaylar"],
+  protocol: "TEE: vejetasyon + komplikasyon. BT toraks: septik emboli (kaviter nodüller). BT/MR beyin: sessiz emboli. PET-FDG: protez kapak endokarditi. Kan kültürü (3 set, farklı yerlerden). CRP/prokalsitonin.",
+  quiz: { q: "İnfektif endokarditte periannüler abse komplikasyonunun görüntüleme bulgularını açıklayınız.", a: "PERİANNÜLER ABSE: 1) TEE: Kapak anülüsü çevresinde kalınlaşmış hipoekoik alan, ± akım (fistül/psödoanevrizma). Aort kapak periannüler bölge en sık 2) BT: Annüler bölgede DÜŞÜK DANSİTELİ alan (abse kavitesi) + RİM KONTRASTLANMA (abse duvarı). Psödoanevrizma: kontrast dolu kese (aort kökü ile iletişimli) 3) MR: T2 hiperintens alan (inflamasyon/sıvı) + rim kontrastlanma. DWI: kısıtlanma (pü) 4) PET: periprostetik yoğun FDG tutulumu (aktif enfeksiyon). KLİNİK ÖNEM: Periannüler abse = KOMPLİKE endokardit → genellikle cerrahi endikasyonu (antibiyotik tek başına yetersiz). Aort kapak absesi → ileti bloğu (AV blok — his demeti komşuluğu) gelişebilir." }
+},
+// ===== BATCH C: +3 VASKÜLER =====
+{
+  id: "intramural_hematoma", name: "İntramural Hematom (İMH)", category: "vascular", tag: "critical", tagText: "Kritik",
+  pathway: [
+    { type: "histo", label: "Histopatoloji", text: "Aort duvarı medyasında kanama — intimal flep/yırtık OLMADAN (klasik diseksiyondan farkı). Vasa vasorum rüptürü → medyal hematom. Akut aort sendromu spektrumu: klasik diseksiyon, İMH, penetran aortik ülser (PAU). Tip A İMH (asendan): diseksiyona ilerleme riski yüksek (%30-40) → cerrahi düşün. Tip B İMH (desendan): genellikle medikal tedavi.", detail: "İMH → diseksiyon progresionu: %30-40 İMH vakası klasik diseksiyona ilerler → seri takip kritik" },
+    { type: "tissue", label: "Doku Değişikliği", text: "Aort medyasında hilal şeklinde (crescentic) hematom. İntimal flep/yırtık YOK (akım olan yalancı lümen YOK). Duvar kalınlaşması: hilal veya konsantrik. Uzunlamasına yayılım olabilir. İyileşme: rezorpsiyon (%50-60) veya progresyon: diseksiyon (%30-40), anevrizma, rüptür. PAU eşlik edebilir.", detail: "Hilal şekli: duvarda bir tarafta kalın, karşı tarafta ince (eksentrik) → İMH morfolojisi" },
+    { type: "signal", label: "Sinyal Karşılığı", text: "BT kontrastsız: aort duvarında HİLAL ŞEKLİ HİPERDENS (≥60 HU) kalınlaşma — PATOGNOMONİK. Kontrastlı BT: intimal flep/yalancı lümen YOK (diseksiyondan farkı). Duvar kalınlaşması (>5 mm). MR: T1 hiperintens (methemoglobin — akut/subakut kan). T2 değişken. EKG-gated BT: asendan aort değerlendirmesi için hareket artefaktı azaltma.", detail: "KONTRASTSIZ BT KRİTİK: İMH sadece kontrastsız görüntüde anlaşılır — kontrastlı BT'de gözden kaçabilir" },
+    { type: "finding", label: "Görüntüleme Bulgusu", text: "BT kontrastsız: aort duvarında hiperdens hilal (≥60 HU). BT kontrastlı: duvar kalınlaşması ama intimal flep/akım YOK. Tip A (asendan): acil cerrahi düşün. Tip B (desendan): medikal tedavi + seri BT takibi. Komplikasyon: diseksiyon progresionu, PAU gelişimi, anevrizma, rüptür. Plevral/perikardiyal efüzyon eşlik edebilir (kanama).", detail: "Perikardiyal efüzyon + Tip A İMH = tamponad riski → ACİL cerrahi endikasyonu" }
+  ],
+  keyPoint: "KONTRASTSIZ BT'DE AORT DUVARINDA HİPERDENS (≥60 HU) HİLAL + İNTİMAL FLEP YOK = İMH. Diseksiyondan farkı: flep/yalancı lümen YOK. Tip A: cerrahi düşün. Tip B: medikal + takip. Kontrastsız BT çekilmezse İMH GÖZDEN KAÇAR. %30-40 diseksiyona ilerler.",
+  differential: ["Klasik aort diseksiyonu — intimal flep + gerçek/yalancı lümen VAR", "Penetran aortik ülser — ülser krateri + İMH eşlik edebilir", "Aortik aterosklerotik plak — kalsifiye plak + duvar kalınlaşması ama akut değil"],
+  protocol: "BT toraks kontrastsız + kontrastlı (ÇİFT FAZ): kontrastsız → hiperdens hematom, kontrastlı → flep yok doğrulama. EKG-gated: asendan aort. Seri BT takibi: 1 hafta, 1 ay, 3 ay, 6 ay, 12 ay. MR: T1 hiperintens hematom (radyasyonsuz takip).",
+  quiz: { q: "İntramural hematomun tanısında neden kontrastsız BT şarttır?", a: "KONTRASTSIZ BT ŞART: 1) İMH = aort duvarında KAN (methemoglobin) → kontrastsız BT'de HİPERDENS (≥60 HU) hilal şeklinde görülür 2) KONTRASTLI BT'de: damar lümeni kontrast ile dolunca, duvar ile lümen arasındaki dansite farkı AZALIR → hematom İZODENS olabilir → GÖZDEN KAÇAR 3) İNTİMAL FLEP YOK: Diseksiyondaki gibi flep olmadığı için kontrastlı BT'de sadece 'hafif duvar kalınlaşması' olarak yorumlanabilir 4) PRATİK: Akut göğüs ağrısı + aort patolojisi şüphesi → ÖNCe kontrastsız + SONRA kontrastlı (çift faz protokol). Kontrastsız: İMH ara. Kontrastlı: diseksiyon/rüptür ara. BU YÜZDEN: Acil aort protokolü = KONTRASTSIZ + KONTRASTLI BT (tek faz çekmek İMH'yi kaçırabilir)." }
+},
+{
+  id: "penetrating_aortic_ulcer", name: "Penetran Aortik Ülser (PAU)", category: "vascular", tag: "important", tagText: "Önemli",
+  pathway: [
+    { type: "histo", label: "Histopatoloji", text: "Aterosklerotik plağın ülserasyonu → internal elastik lamina penetrasyonu → medya içine kanama. Akut aort sendromu spektrumunun bir parçası (diseksiyon, İMH, PAU). Yaşlı, hipertansif, yaygın aterosklerozlu hastalar. Desendan torasik aort en sık yerleşim (%90). Asendan aort nadir (ateroskleroz proksimalde az).", detail: "PAU: ateroskleroz zemininde 'ülser krateri' → lokal medyal hematom → psödoanevrizma/rüptür riski" },
+    { type: "tissue", label: "Doku Değişikliği", text: "Ülser krateri: aort lümeninden intima-medya içine uzanan fokal çıkıntı. Çevre İMH eşlik edebilir (lokal medyal kanama). Komplikasyonlar: psödoanevrizma (adventisya dışına sınırlı kanama), rüptür (adventisya yırtılması), diseksiyon (nadir). Yaygın aterosklerotik kalsifikasyon zemininde: kalsifiye intimanın ötesine uzanan kontrast dolu çıkıntı.", detail: "Psödoanevrizma: PAU intima + medyayı geçerse → adventisya ile sınırlı lokal genişleme (sakküler anevrizma benzeri)" },
+    { type: "signal", label: "Sinyal Karşılığı", text: "BT kontrastlı: aterosklerotik aortta fokal ÜLSER KRATERİ (kontrast dolu çıkıntı — lümen dışına uzanan). Kalsifiye intima ötesinde kontrast. Çevre İMH (kontrastsız BT'de hiperdens hematom). Psödoanevrizma: fokal sakküler genişleme. MR: ülser krateri + çevre hematom (T1 hiperintens). DSA: referans standart ama invaziv.", detail: "Ülser krateri: kalsifiye intimanın ÖTESİNE uzanan kontrast dolu 'divertikül' — PAU'nun patognomonik BT bulgusu" },
+    { type: "finding", label: "Görüntüleme Bulgusu", text: "BT: desendan aortta aterosklerotik plak zemininde fokal ülser krateri + çevre İMH ± psödoanevrizma. Kalsifiye intima ötesine kontrast uzanımı. Plevral efüzyon (kanama göstergesi). Diseksiyondan farkı: PAU lokal (ülser), diseksiyon lineer (flep). İMH'den farkı: PAU'da ülser krateri VAR. Tedavi: Tip B → medikal (komplikasyon yoksa), psödoanevrizma/büyüme → endovasküler.", detail: "Akut aort sendromu triadı: Diseksiyon (flep), İMH (hiperdens duvar), PAU (ülser krateri) — üçü birlikte olabilir" }
+  ],
+  keyPoint: "ATERSKLEROTİK AORTTA FOKAL ÜLSER KRATERİ + ÇEVRE İMH = PAU. Desendan aort (%90). Diseksiyondan farkı: PAU lokal ülser, diseksiyon lineer flep. İMH'den farkı: ülser krateri VAR. Psödoanevrizma/rüptür riski. Akut aort sendromu triadı: diseksiyon + İMH + PAU.",
+  differential: ["Klasik aort diseksiyonu — lineer intimal flep, uzun segment", "İntramural hematom — ülser krateri YOK, sadece duvar hematomu", "Aterosklerotik anevrizma — fusiform genişleme, ülser krateri değil"],
+  protocol: "BT kontrastsız + kontrastlı (çift faz): kontrastsız → İMH, kontrastlı → ülser krateri + psödoanevrizma. Seri takip: boyut artışı, psödoanevrizma gelişimi. Endovasküler tedavi: büyüme/komplikasyon durumunda stent-greft.",
+  quiz: { q: "Akut aort sendromu spektrumundaki üç antiteyi BT bulgularıyla karşılaştırınız.", a: "AKUT AORT SENDROMU SPEKTRUMUː 1) KLASİK DİSEKSİYON: İNTİMAL FLEP → gerçek + yalancı lümen. Kontrastlı BT: lineer hipodens flep ayırıcı. Uzun segment tutulumu. En sık 2) İNTRAMURAL HEMATOM: Flep YOK, yalancı lümen YOK. KONTRASTSIZ BT: hiperdens hilal (≥60 HU). Kontrastlı BT: sadece duvar kalınlaşması. KONTRASTSIZ ÇEKMEZSEN KAÇIRIRSIN 3) PENETRAN AORTİK ÜLSER: Aterosklerotik plakta FOKAL ÜLSER KRATERİ. Kontrastlı BT: kalsifiye intima ötesinde kontrast çıkıntısı. Çevre İMH eşlik edebilir. LOKAL (segmenter değil). ORTAK: Üçü de acil göğüs ağrısı + aort patolojisi. ÇİFT FAZ BT: kontrastsız (İMH) + kontrastlı (diseksiyon/PAU) → HEPSİNİ YAKALAR." }
+},
+{
+  id: "pulmonary_artery_aneurysm", name: "Pulmoner Arter Anevrizması", category: "vascular", tag: "classic", tagText: "Klasik",
+  pathway: [
+    { type: "histo", label: "Histopatoloji", text: "Pulmoner arterin fokal veya diffüz genişlemesi. Nedenler: pulmoner hipertansiyon (en sık — kronik yüksek basınç → duvar genişlemesi), konjenital kalp hastalığı (sol-sağ şant → artmış akım), vaskülit (Behçet en sık vaskülit nedeni — pulmoner arter anevrizması için neredeyse patognomonik), enfeksiyon (mikotik anevrizma), Marfan/Ehlers-Danlos (konnektif doku). Ana PA >29 mm genişleme.", detail: "Behçet + pulmoner arter anevrizması: hemoptizi + trombüs + anevrizma → Hughes-Stovin sendromu" },
+    { type: "tissue", label: "Doku Değişikliği", text: "Arteriyel duvar zayıflaması → fokal genişleme (sakküler veya fusiform). PH'ye bağlı: ana PA ve proksimal dallar (uzun süreli basınç artışı). Behçet: segmental dallar (vaskülit → duvar nekrozu → anevrizma + in-situ trombüs). Rüptür riski: hemoptizi (hayatı tehdit eden). İn-situ trombüs: anevrizma içinde (Behçet'te sık).", detail: "Behçet'te PA anevrizması: ANTİKOAGÜLASYON KONTRENDİKE — trombüs tedavisi için antikoagülan verilirse rüptür riski artar" },
+    { type: "signal", label: "Sinyal Karşılığı", text: "BT anjiyo: PA'da fokal veya diffüz genişleme. Ana PA >29 mm. Sakküler: fokal balon şeklinde genişleme (rüptür riski yüksek). Fusiform: diffüz tüm çapın genişlemesi. İçinde trombüs olabilir (hipodens dolma defekti). Behçet: segmental dalda anevrizma + trombüs + duvar kontrastlanması (aktif vaskülit). MR anjiyo: alternatif.", detail: "BT anjiyo: anevrizma boyutu + trombüs + duvar inflamasyonu + çevre parankim (hemoraji?) → tedavi planı" },
+    { type: "finding", label: "Görüntüleme Bulgusu", text: "BT anjiyo: PA genişlemesi (ana PA >29 mm veya segmental dal anevrizması). İçi trombüslü olabilir. Behçet: çoklu segmental anevrizmalar + trombüs + çevre buzlu cam (hemoraji). PH: ana PA + proksimal dallar genişlemiş + RV dilatasyonu. Rüptür: hemotoraks, hemoptizi, çevre konsolidasyon (parankimal hemoraji). Grafi: genişlemiş PA kontur.", detail: "Behçet'te PA anevrizması: trombüs → ANTİKOAGÜLAN verme (rüptür riski artırır) → immünsüpresyon + embolizasyon" }
+  ],
+  keyPoint: "PA GENİŞLEMESİ (>29 mm) + ALT NEDEN (PH, Behçet, konjenital) = PA anevrizması. BEHÇET + PA ANEVRİZMASI = Hughes-Stovin (vaskülit patognomonik). Antikoagülan KONTRENDİKE (Behçet'te rüptür riski). Rüptür: masif hemoptizi. PH: en sık neden (kronik basınç artışı).",
+  differential: ["PH ile dilate PA — diffüz genişleme, anevrizma yok (fokal değil)", "PA sarkomu — intralüminal kitle, kontrastlanma, genişleme", "Mediastinal vasküler anomali — aberran damar, konjenital"],
+  protocol: "BT anjiyo PA: anevrizma boyutu + trombüs + duvar inflamasyonu. Behçet taraması: oral ülser, genital ülser, üveit, paterji. Sağ kalp kateterizasyonu: PH hemodinamisi. MR anjiyo: takip (radyasyonsuz). Girişimsel: embolizasyon (rüptür/hemoptizi durumunda).",
+  quiz: { q: "Behçet hastalığında pulmoner arter anevrizmasının özelliklerini ve tedavi yaklaşımını açıklayınız.", a: "BEHÇET + PA ANEVRİZMASI: 1) PATOLOJİ: Vaskülit → PA duvar nekrozu → anevrizma oluşumu + in-situ trombüs 2) YERLEŞIM: Segmental dallar (proksimal değil). Çoklu olabilir 3) TROMBÜS: Anevrizma içinde SIK (in-situ trombüs — emboliden değil, yerinde oluşur) 4) KRİTİK UYARI: ANTİKOAGÜLAN KONTRENDİKE — trombüse rağmen antikoagülan verilirse zayıf anevrizma duvarı RÜPTÜRE olur → masif hemoptizi → ölüm 5) TEDAVİ: İmmünsüpresyon (steroid + siklofosfamid) → vaskülit kontrolü + embolizasyon (rüptür riski olan anevrizma). CERRAHİ: son seçenek 6) HUGHES-STOVİN: PA anevrizması + DVT kombinasyonu → Behçet'in vasküler formu. ALTIN KURAL: Genç hasta + PA anevrizması + trombüs → Behçet düşün → antikoagülan VERME." }
+},
+// ===== BATCH C: +2 GÖĞÜS DUVARI =====
+{
+  id: "rib_fracture", name: "Kosta Fraktürü", category: "chest_wall", tag: "common", tagText: "Sık",
+  pathway: [
+    { type: "histo", label: "Histopatoloji", text: "Kostal kemiğin kırığı. En sık toraks travması bulgusu. Nedenler: künt travma (trafik kazası, düşme), stres fraktürü (kronik öksürük, atletler), patolojik fraktür (metastaz, osteoporoz). En sık kırılan: 4.-9. kostalar (lateral ark). 1.-3. kosta fraktürü: yüksek enerjili travma → vasküler yaralanma taraması. 10.-12. kosta: KC/dalak yaralanması riski.", detail: "1.-3. kosta fraktürü: yüksek enerjili travma göstergesi → subklavian arter/ven yaralanması + brakiyal pleksus hasarı ara" },
+    { type: "tissue", label: "Doku Değişikliği", text: "Kortikal kırık hattı + periosteal kanama. Flail chest: ≥3 ardışık kosta her birinin 2 yerinden kırık → segment paradoks hareket (inspirasyonda içe çöker). Pnömotoraks eşlik (%30-50 olguda). Hemotoraks: interkostal arter veya plevral yaralanma. Stres fraktürü: posterior 4.-8. kosta (golf, kürek çekme, kronik öksürük).", detail: "Flail chest: paradoks hareket → solunum yetmezliği → mekanik ventilasyon gerekebilir" },
+    { type: "signal", label: "Sinyal Karşılığı", text: "PA grafi: kosta çizgisinde kortikal bozulma (hassasiyeti düşük %50-70 — okkült fraktürler kaçar). BT: EN HASSAS (%100'e yakın) — kortikal kırık + deplasyon + çevre hematom. 3D volüm renderlanma: kosta fraktürlerini görsel haritalama (cerrah için). MR/kemik sintigrafisi: okkült fraktür (grafi ve BT negatif ama ağrı devam). USG: bedside hızlı değerlendirme.", detail: "BT 3D reformat: tüm kosta fraktürlerini tek bakışta haritalar → cerrah ve travma ekibi için çok değerli" },
+    { type: "finding", label: "Görüntüleme Bulgusu", text: "BT: kortikal bozulma, deplasyon, angulasyon, çevre yumuşak doku hematomu. Eşlik eden yaralanmalar: pnömotoraks, hemotoraks, pulmoner kontüzyon (akciğer parankiminde buzlu cam/konsolidasyon). Flail chest: çoklu segmental fraktürler. Üst kostalar (1-3): vasküler yaralanma BT anjiyo ile taranmalı. Alt kostalar (10-12): KC/dalak laserasyonu? Grafi: insidental kosta fraktürü (iyileşme fazında kallus).", detail: "Pulmoner kontüzyon: kosta fraktürü altındaki akciğer parankiminde 24-48 saatte gelişen buzlu cam/konsolidasyon" }
+  ],
+  keyPoint: "KOSTA KORTİKAL BOZULMASI + DEPLASYON = fraktür. BT: grafi'den çok daha hassas. Üst kosta (1-3): yüksek enerji → vasküler yaralanma ara. Alt kosta (10-12): KC/dalak yaralanması ara. Flail chest: ≥3 kosta × 2 yerden → paradoks hareket → acil. Pnömotoraks + hemotoraks eşlik eder.",
+  differential: ["Kosta metastazı — litik/sklerotik lezyon, patolojik fraktür, primer tümör öyküsü", "Kosta kondriti (Tietze) — kıkırdak şişmesi, fraktür çizgisi yok, ağrılı", "Normal kosta varyantı — bifid kosta, servikal kosta, kaynaşma anomalisi"],
+  protocol: "PA grafi: ilk değerlendirme (duyarlılık düşük). BT toraks: fraktür + komplikasyon (pnömotoraks, hemotoraks, kontüzyon). BT anjiyo: üst kosta fraktüründe vasküler tarama. BT abdomen: alt kosta fraktüründe KC/dalak. USG: bedside acil değerlendirme.",
+  quiz: { q: "Kosta fraktüründe kosta seviyesine göre eşlik eden yaralanma risklerini açıklayınız.", a: "KOSTA SEVİYESİ VE RİSK: 1) 1.-3. KOSTA (ÜST): YÜKSEK ENERJİLİ travma göstergesi → subklavian arter/ven yaralanması, brakiyal pleksus hasarı, aort yaralanması, trakea/bronş rüptürü. BT ANJİYO şart 2) 4.-9. KOSTA (ORTA): En sık kırılan bölge → pnömotoraks (%30-50), hemotoraks, pulmoner kontüzyon. Flail chest riski (çoklu fraktür) 3) 10.-12. KOSTA (ALT): KC yaralanması (sağ), DALAK yaralanması (sol) — BT abdomen şart. Böbrek yaralanması 4) BİLATERAL KOSTA FRAKTÜRÜ: Yüksek enerji → aort + spinal yaralanma taraması. PRATİK: Her kosta fraktüründe → ilgili seviyenin EŞLİK EDEN yaralanmalarını sistematik olarak tara." }
+},
+{
+  id: "thoracic_outlet_syndrome", name: "Torasik Outlet Sendromu (TOS)", category: "chest_wall", tag: "important", tagText: "Önemli",
+  pathway: [
+    { type: "histo", label: "Histopatoloji", text: "Torasik çıkış (outlet) bölgesinde nörovasküler yapıların kompresyonu. Üç tip: 1) Nörojenik TOS (%95): brakiyal pleksus kompresyonu (ağrı, parestezi, güçsüzlük). 2) Venöz TOS (%4): subklavian ven kompresyonu (Paget-Schroetter sendromu — effort tromboz). 3) Arteriyel TOS (%1): subklavian arter kompresyonu (iskemi, anevrizma). Nedenler: servikal kosta, 1. kosta anomalisi, fibröz bant, skalen kas hipertrofisi.", detail: "Servikal kosta: C7'den çıkan ek kosta (populasyonun %0.5-1) → TOS'un en sık anatomik nedeni" },
+    { type: "tissue", label: "Doku Değişikliği", text: "Üç anatomik dar geçit: 1) İnterskalenik üçgen (anterior + medius skalen kaslar arasında). 2) Kostoklaviküler alan (klavikula + 1. kosta arası). 3) Subpektoralis minor alanı. Servikal kosta veya 1. kosta anomalisi → dar geçit daralır → nörovasküler kompresyon. Kronik: brakiyal pleksus fibrozisi, subklavian arter anevrizması (post-stenotik), subklavian ven trombozu.", detail: "Paget-Schroetter: genç atletlerde (yüzücü, beyzbolcu) tekrarlayan kol hareketi → subklavian ven trombozu (effort tromboz)" },
+    { type: "signal", label: "Sinyal Karşılığı", text: "BT anjiyo: servikal kosta, 1. kosta anomalisi, subklavian arter/ven kompresyonu/anevrizma. DİNAMİK BT anjiyo: kollar nötr + kollar abdüksiyon pozisyonunda → subklavian arter kompresyonu ortaya çıkar. MR anjiyo + brakiyal pleksus MR: sinir kompresyonu + vasküler daralma. DSA: arteriyel TOS'ta altın standart. Venografi: venöz TOS'ta. X-ray: servikal kosta saptama.", detail: "Dinamik BT anjiyo: kollar yanda → normal, kollar yukarıda → subklavian arter kompresyonu = TOS doğrulama" },
+    { type: "finding", label: "Görüntüleme Bulgusu", text: "Grafi: servikal kosta (C7'den uzanan ek kosta), 1. kosta anomalisi, uzun C7 transvers process. BT anjiyo: servikal kosta + subklavian arter kompresyonu/anevrizma + post-stenotik dilatasyon. Dinamik çalışma: provokasyon pozisyonunda vasküler kompresyon. MR: brakiyal pleksus ödemi/kompresyonu (nörojenik TOS). Venöz TOS: subklavian ven trombozu (genç atlet + kol şişmesi).", detail: "Servikal kosta → subklavian arter kompresyonu → post-stenotik anevrizma → distal emboli → parmak iskemisi (Raynaud benzeri)" }
+  ],
+  keyPoint: "SERVİKAL KOSTA/1. KOSTA ANOMALİSİ + NÖROVASKÜLER KOMPRESYON = TOS. Nörojenik (%95): brakiyal pleksus. Venöz (%4): Paget-Schroetter (effort tromboz, genç atlet). Arteriyel (%1): subklavian anevrizma → emboli. Dinamik BT anjiyo: provokasyon pozisyonunda kompresyon gösterme.",
+  differential: ["Servikal disk hernisi — dermatomal ağrı, servikal MR'da disk protrüzyonu", "Karpal tünel sendromu — median sinir, el bileği, Tinel +", "Pancoast tümörü — apikal kitle, kemik destrüksiyonu, Horner sendromu"],
+  protocol: "Grafi servikal + toraks: servikal kosta, 1. kosta anomalisi. BT anjiyo dinamik (nötral + abdüksiyon): vasküler kompresyon. MR brakiyal pleksus: sinir kompresyonu (nörojenik TOS). Venografi/BT venografi: venöz TOS. EMG: nörojenik TOS (alt trunk). DSA: arteriyel TOS (cerrahi planlama).",
+  quiz: { q: "Torasik outlet sendromunun üç alt tipini ve görüntüleme yaklaşımlarını açıklayınız.", a: "TOS ALT TİPLERİ: 1) NÖROJENİK (%95): Brakiyal pleksus kompresyonu → ağrı, parestezi (C8-T1 dermatomu), el intrinsik kas atrofisi. GÖRÜNTÜLEME: MR brakiyal pleksus (sinir ödemi + kompresyon noktası) + grafi (servikal kosta). EMG: alt trunk tutulumu 2) VENÖZ (%4 — Paget-Schroetter): Subklavian ven trombozu → kol şişliği, siyanoz. Genç ATLET (tekrarlayan overhead hareket). GÖRÜNTÜLEME: BT/MR venografi (subklavian ven trombozu) + dinamik çalışma 3) ARTERİYEL (%1): Subklavian arter kompresyonu → post-stenotik anevrizma → distal emboli → parmak iskemisi. GÖRÜNTÜLEME: DİNAMİK BT ANJİYO (nötral + abdüksiyon) + DSA (cerrahi planlama). ORTAK: Grafi → servikal kosta/1. kosta anomalisi → anatomik neden saptama." }
+},
+// ===== BATCH A: +5 AKCİĞER =====
+{
+  id: "invasive_aspergillosis", name: "Pulmoner Aspergilloz (İnvaziv + ABPA)", category: "lung", tag: "high-yield", tagText: "Yüksek Verim",
+  pathway: [
+    { type: "histo", label: "Histopatoloji", text: "Aspergillus fumigatus kaynaklı spektrum: 1) İnvaziv Pulmoner Aspergilloz (IPA): nötropenik/immünsüpresif hasta, hif invazyonu → vasküler tromboz + infarkt. 2) ABPA: atopik/astım hastasında aşırı duyarlılık → santral bronşektazi + mukoid impaksiyon. 3) Aspergilloma (miçetoma): önceden var olan kavitede fungus topu. 4) Yarı-invaziv (kronik): hafif immünsüpresyon.", detail: "IPA: nötropeni (<500) + ateş + antibiyotiğe yanıtsız → galaktomannan + BT → erken amfoterisin" },
+    { type: "tissue", label: "Doku Değişikliği", text: "IPA: anjiyoinvazyon → hemoraji + nekroz → halo sign (erken), air crescent sign (nötrofil iyileşme fazında). ABPA: mukoid impaksiyon (Aspergillus hif + eozinofilik mukus) → santral bronşektazi + finger-in-glove. Aspergilloma: kavite içinde serbest hareket eden fungus topu (Monod sign).", detail: "Halo sign: nodül çevresi buzlu cam (hemoraji) → IPA erken bulgusu (nötropenik hastada YOĞUN şüphe)" },
+    { type: "signal", label: "Sinyal Karşılığı", text: "IPA: YÇBT → nodül/konsolidasyon + HALO SİGN. Geç faz: AIR CRESCENT sign (nekrotik doku çevresi hava = iyileşme). ABPA: santral bronşektazi + HAM (high attenuation mucus >70 HU) + finger-in-glove. Aspergilloma: kavite içinde mobil kitle + Monod sign (hava hilali).", detail: "HAM (High Attenuation Mucus): ABPA'da mukus BT'de >70 HU → kalsifiye mukus (Aspergillus hif + kalsiyum)" },
+    { type: "finding", label: "Görüntüleme Bulgusu", text: "IPA: nötropenik hasta + halo sign + nodül → tanı. Air crescent → iyi yanıt. ABPA: santral bronşektazi + HAM + total IgE>1000 + eozinofili + Aspergillus IgE/IgG. Aspergilloma: kavite + fungus topu (pozisyonla hareketli). Kronik: üst lob kavite + duvar kalınlaşması.", detail: "Monod sign: supin → prone'da kavite içi kitle hareket eder = aspergilloma (serbest fungus topu)" }
+  ],
+  keyPoint: "IPA: NÖTROPENİK + HALO SİGN + NODÜL = erken tanı. AIR CRESCENT = iyileşme. ABPA: SANTRAL BRONŞEKTAZİ + HAM (>70 HU) + IgE>1000. ASPERGILLOMA: KAVİTE İÇİ FUNGUS TOPU + MONOD SİGN.",
+  differential: ["Mukormikoz — IPA'ya benzer ama reverse halo sık, rinoorbital tutulum", "GPA (Wegener) — kaviter nodüller, c-ANCA+", "TB — kavite ama kronik seyir, ARB+"],
+  protocol: "YÇBT toraks: halo sign, air crescent, kavite + fungus topu. Galaktomannan: IPA. IgE + Aspergillus IgE: ABPA. Pozisyonel BT: Monod sign (aspergilloma).",
+  quiz: { q: "İnvaziv pulmoner aspergillozda halo sign ve air crescent sign'ın klinik önemini açıklayınız.", a: "HALO SİGN: Nodül çevresi BUZLU CAM halkası → perilesyonel HEMORAJİ. ERKEN bulgu (ilk 5-7 gün). Nötropenik + ateş + halo sign → HEMEN antifungal. AIR CRESCENT SİGN: Nekrotik lezyonun çevresi hava hilali → nötrofil İYİLEŞMESİ. GEÇ bulgu (2-3 hafta sonra). İYİ PROGNOZ göstergesi. Hemoptizi riski bu fazda artar." }
+},
+{
+  id: "cystic_fibrosis", name: "Kistik Fibrozis (KF)", category: "lung", tag: "classic", tagText: "Klasik",
+  pathway: [
+    { type: "histo", label: "Histopatoloji", text: "CFTR gen mutasyonu (otozomal resesif) → klor kanalı bozukluğu → koyu/yapışkan mukus. Pulmoner: mukus tıkaçları → kronik enfeksiyon → bronşektazi → fibrozis. Pankreatik yetmezlik (%85), infertilite (erkek). Pseudomonas aeruginosa kolonizasyonu progresyon belirleyici.", detail: "CFTR modulatörleri (ivacaftor): gen tedavisi → akciğer fonksiyonu düzelme" },
+    { type: "tissue", label: "Doku Değişikliği", text: "ÜST LOB DOMİNANT bronşektazi. Silindirik → kistik progresyon. Mukoid impaksiyon (finger-in-glove). Peribronşiyal kalınlaşma. Hava hapsi. İleri evre: fibrozis, bülla, pnömotoraks. Hemoptizi: bronşiyal arter hipertrofisi.", detail: "ÜST LOB bronşektazi + genç hasta + pankreatik yetmezlik = KF düşün" },
+    { type: "signal", label: "Sinyal Karşılığı", text: "YÇBT: üst lob dominant bronşektazi (silindirik → kistik), mukoid impaksiyon, peribronşiyal kalınlaşma, tree-in-bud. Ekspiratuar: hava hapsi. Bhalla skoru: BT ile hastalık şiddeti. MR: radyasyonsuz takip alternatifi.", detail: "Bhalla skoru: BT'de 9 parametre ile KF şiddeti takibi" },
+    { type: "finding", label: "Görüntüleme Bulgusu", text: "YÇBT: üst lob dominant kistik bronşektazi, mukoid impaksiyon, tree-in-bud (Pseudomonas). Komplikasyon: pnömotoraks (%5-8), masif hemoptizi. ABPA eşlik (%10). Sinüzit: pansüsinüzit + nazal polip.", detail: "KF + ABPA: santral bronşektazi + HAM → KF'ye ABPA eklenir → daha agresif seyir" }
+  ],
+  keyPoint: "ÜST LOB DOMİNANT KİSTİK BRONŞEKTAZİ + GENÇ HASTA + PANKREATİK YETMEZLİK = KF. Pseudomonas kolonizasyonu progresyon belirler. ABPA eşlik (%10). Komplikasyon: hemoptizi + pnömotoraks.",
+  differential: ["Post-enfeksiyöz bronşektazi — ALT lob dominant", "ABPA — santral bronşektazi + HAM", "Primer silier diskinezi — diffüz + situs inversus (Kartagener)"],
+  protocol: "YÇBT: bronşektazi dağılımı + Bhalla skoru. Ter testi: Cl >60 mEq/L. Genetik: CFTR mutasyonu. Balgam kültürü: Pseudomonas.",
+  quiz: { q: "KF'de bronşektazi dağılım paterninin tanısal önemini açıklayınız.", a: "KF → ÜST LOB dominant. Post-enfeksiyöz → ALT LOB. ABPA → SANTRAL. MAC → ORTA LOB/lingula. Primer silier diskinezi → DİFFÜZ. KF'de koyu mukus üst loblardan drene OLAMAZ → kronik enfeksiyon → bronşektazi. Genç + üst lob bronşektazi → KF + ter testi." }
+},
+{
+  id: "lam", name: "Lenfanjiyoleyomiyomatoz (LAM)", category: "lung", tag: "classic", tagText: "Klasik",
+  pathway: [
+    { type: "histo", label: "Histopatoloji", text: "Düz kas benzeri LAM hücrelerinin proliferasyonu. Neredeyse sadece KADIN (reprodüktif yaş). İki form: sporadik LAM ve TSC-LAM (tüberoskleroz). TSC1/TSC2 mutasyonu → mTOR sinyal yolu → sirolimus tedavisi. VEGF-D >800 pg/mL: biyobelirteç.", detail: "TSC: LAM + renal AML + kortikal tuber + subependimal nodül" },
+    { type: "tissue", label: "Doku Değişikliği", text: "LAM hücreleri bronşiol + lenfatik + damar duvarında → hava yolu obstrüksiyonu → kist oluşumu. Kistler: ince duvarlı, yuvarlak, DİFFÜZ (bazaller DAHİL). PLCH'den farkı: LAM yuvarlak + diffüz, PLCH bizarre + üst lob. Lenfatik obstrüksiyon → şilöz efüzyon.", detail: "LAM kistleri YUVARLAK + İNCE DUVARLI + DİFFÜZ → PLCH kistleri BİZARRE + ÜST LOB" },
+    { type: "signal", label: "Sinyal Karşılığı", text: "YÇBT: çok sayıda ince duvarlı yuvarlak kistler, DİFFÜZ dağılım (tüm loblar eşit). Araya giren parankim: NORMAL (nodül yok). Şilöz efüzyon olabilir. Abdomen: renal AML (%30-50 sporadik, %80 TSC-LAM).", detail: "DİFFÜZ YUVARLAK kistler + renal AML = LAM (neredeyse patognomonik)" },
+    { type: "finding", label: "Görüntüleme Bulgusu", text: "YÇBT: diffüz ince duvarlı yuvarlak kistler (bazaller DAHİL). Pnömotoraks (%50-80). Şilöz efüzyon (%20-30). Abdomen: renal AML. TSC-LAM: kortikal tuber. VEGF-D >800: biyopsisiz tanı.", detail: "Pnömotoraks + genç kadın → LAM düşün" }
+  ],
+  keyPoint: "GENÇ KADIN + DİFFÜZ YUVARLAK İNCE DUVARLI KİSTLER + BAZALLER DAHİL = LAM. Renal AML eşliği tanıyı pekiştirir. PLCH'den farkı: LAM yuvarlak + diffüz + kadın, PLCH bizarre + üst lob + sigara. Pnömotoraks sık. VEGF-D >800: biyopsisiz tanı.",
+  differential: ["PLCH — bizarre kistler + nodüller, üst lob, bazaller korunur, sigara", "Amfizem — kist duvarı yok", "Birt-Hogg-Dubé — bazal/medial kistler, renal karsinom"],
+  protocol: "YÇBT: kist morfolojisi + dağılımı. Abdomen BT: renal AML. VEGF-D. TSC: beyin MR. PFT: obstrüktif patern. Biyopsi: HMB-45+ düz kas hücreleri.",
+  quiz: { q: "LAM ile PLCH'yi YÇBT'de nasıl ayırırsınız?", a: "1) CİNSİYET: LAM SADECE KADIN. PLCH her iki cins 2) KİST: LAM YUVARLAK düzgün. PLCH BİZARRE düzensiz 3) DAĞILIM: LAM DİFFÜZ (bazaller DAHİL). PLCH ÜST LOB (bazaller KORUNUR) 4) NODÜL: LAM'da YOK. PLCH'de VAR 5) EŞLİK: LAM → renal AML + şilöz efüzyon. PLCH → kemik lezyonları 6) ORTAK: İkisi de PNÖMOTORAKS ile prezente olabilir." }
+},
+{
+  id: "lipoid_pneumonia", name: "Lipoid Pnömoni", category: "lung", tag: "classic", tagText: "Klasik",
+  pathway: [
+    { type: "histo", label: "Histopatoloji", text: "Alveoler boşluklarda lipid birikimi. Eksojen: mineral yağ/vazelin aspirasyonu (yaşlı, yutma güçlüğü, burun damlası). Endojen: bronşiyal obstrüksiyon distalinde lipid yüklü makrofaj (tümör arkasında). Lipid yüklü makrofajlar (köpüksü sitoplazma). Kronik: fibrozis + granülom.", detail: "Mineral yağ aspirasyonu: yaşlı + kabızlık tedavisi (parafin yağ) + alt lob konsolidasyon" },
+    { type: "tissue", label: "Doku Değişikliği", text: "Alveoler alanlar lipid yüklü makrofajlarla dolu. Eksojen: alt loblar, yavaş progresyon. Konsolidasyon içinde YAĞ DANSİTESİ: -30 ile -150 HU → patognomonik. Kronik: fokal kitle benzeri (kanser mimiği).", detail: "BT'de konsolidasyon içi yağ dansitesi: -30 ile -150 HU → lipoid pnömoni (başka konsolidasyonda bu dansite yok)" },
+    { type: "signal", label: "Sinyal Karşılığı", text: "BT: konsolidasyon/buzlu cam içinde YAĞ DANSİTESİ ALANLARI (-30 ile -150 HU) — PATOGNOMONİK. Alt lob posterior. Crazy paving olabilir. PET: FDG tutulumu olabilir (granülomatöz reaksiyon → yanlış pozitif). MR: T1 fat-sat ile sinyal kaybı.", detail: "FDG-PET yanlış pozitif: kronik lipoid pnömonide granülomatöz reaksiyon → kanser sanılır" },
+    { type: "finding", label: "Görüntüleme Bulgusu", text: "BT: alt lob posterior konsolidasyon + içinde yağ dansitesi (HU ölçümü kritik). Kronik: fokal kitle (kanser mimiği). BAL: lipid yüklü makrofaj (Oil Red O +). Tedavi: aspirasyon kaynağını kes.", detail: "ROI ölçümü: konsolidasyon içinde -30 ile -150 HU → yağ = lipoid pnömoni tanısı BT'de konur" }
+  ],
+  keyPoint: "KONSOLİDASYON İÇİNDE YAĞ DANSİTESİ (-30 ile -150 HU) = lipoid pnömoni (patognomonik). Alt lob posterior. Kronik: kanser mimiği (PET de yanlış pozitif). BAL: lipid yüklü makrofaj.",
+  differential: ["Akciğer kanseri — yağ dansitesi yok, PET yüksek", "Organize pnömoni — yağ dansitesi yok", "PAP — crazy paving ama yağ dansitesi değil"],
+  protocol: "BT toraks kontrastsız: konsolidasyon içi yağ dansitesi (HU ölçümü). BAL: Oil Red O. Aspirasyon öyküsü. PET: yanlış pozitif dikkat.",
+  quiz: { q: "Lipoid pnömoninin BT'deki patognomonik bulgusunu açıklayınız.", a: "Konsolidasyon içinde YAĞ DANSİTESİ (-30 ile -150 HU). Başka hiçbir konsolidasyonda bu dansite YOKTUR. Kronik lipoid pnömonide PET YANLIŞ POZİTİF olabilir (granülomatöz reaksiyon). HU ölçümü + aspirasyon öyküsü + BAL → tanı. Yağ dansitesi gösterilirse biyopsi GEREKSİZ." }
+},
+{
+  id: "pulmonary_edema", name: "Pulmoner Ödem (Kardiyojenik/Non-kardiyojenik)", category: "lung", tag: "common", tagText: "Sık",
+  pathway: [
+    { type: "histo", label: "Histopatoloji", text: "Akciğer interstisyumunda/alveollerinde sıvı birikimi. Kardiyojenik: sol kalp yetmezliği → pulmoner venöz basınç artışı. Non-kardiyojenik (ARDS): kapiller permeabilite artışı (sepsis, travma, aspirasyon). Evreler: interstisyel ödem (erken) → alveoler ödem (geç).", detail: "Hidrostatik bozulma (kardiyojenik) vs permeabilite artışı (ARDS) → tedavi farklı" },
+    { type: "tissue", label: "Doku Değişikliği", text: "Kardiyojenik: sefalizasyon, peribronşiyal cuffing, Kerley B çizgileri, bilateral plevral efüzyon (sağ > sol), bat-wing paterni. Non-kardiyojenik (ARDS): patchy/homojen buzlu cam + konsolidasyon, dependant (posterior dominant), kardiyomegali YOK.", detail: "Kerley B çizgileri: bazalde 1-2 cm horizontal ince çizgiler = interlobüler septal sıvı" },
+    { type: "signal", label: "Sinyal Karşılığı", text: "Kardiyojenik grafi: sefalizasyon → peribronşiyal cuffing → Kerley B → bat-wing → efüzyon (sıralı progresyon). BT: düzgün septal kalınlaşma (crazy paving olabilir), bilateral efüzyon, kardiyomegali. ARDS BT: bilateral dependant konsolidasyon, kardiyomegali YOK, efüzyon minimal.", detail: "Bat-wing paterni: perihiler simetrik alveoler ödem — kardiyojenik ödeme karakteristik" },
+    { type: "finding", label: "Görüntüleme Bulgusu", text: "Kardiyojenik: kardiyomegali + sefalizasyon + bat-wing + bilateral efüzyon (sağ > sol). Pedikül genişliği >70 mm. ARDS: bilateral dependant opasiteler + normal kalp + minimal efüzyon. Tedavi sonrası 24-48 saatte dramatik düzelme → kardiyojenik onaylar.", detail: "Kardiyojenik vs ARDS: kardiyomegali VAR/YOK + efüzyon ÇOK/AZ + dağılım perihiler/dependant" }
+  ],
+  keyPoint: "KARDİYOMEGALİ + SEFALİZASYON + BAT-WİNG + BİLATERAL EFÜZYON = kardiyojenik ödem. ARDS: dependant opasiteler + normal kalp + minimal efüzyon. Kerley B: interstisyel ödem erken bulgusu. Tedavi sonrası dramatik düzelme → kardiyojenik.",
+  differential: ["Pnömoni — fokal, ateş/lökositoz", "PAP — crazy paving ama kardiyomegali/efüzyon yok", "Difüz alveoler hemoraji — hemoptizi, anemi"],
+  protocol: "PA grafi: sefalizasyon, bat-wing, efüzyon, kalp boyutu. Eko: EF + diyastolik fonksiyon. BNP: kardiyojenik vs non-kardiyojenik. ARDS: P/F oranı (Berlin kriterleri).",
+  quiz: { q: "Kardiyojenik pulmoner ödem ile ARDS'yi ayırt ediniz.", a: "1) KALP: Kardiyojenik → KARDİYOMEGALİ. ARDS → normal 2) DAĞILIM: Kardiyojenik → PERİHİLER (bat-wing). ARDS → DEPENDANT 3) EFÜZYON: Kardiyojenik → BİLATERAL BÜYÜK. ARDS → az/yok 4) SEFALİZASYON: Kardiyojenik → VAR. ARDS → yok 5) KERLEY B: Kardiyojenik → VAR. ARDS → yok 6) TEDAVİ YANITI: Kardiyojenik → 24-48 saat düzelme. ARDS → günler-haftalar." }
+},
+// ===== BATCH B: +3 MEDİASTEN + 2 PLEVRA =====
+{
+  id: "mediastinitis", name: "Mediastinit (Akut/Fibrozişan)", category: "mediastinum", tag: "critical", tagText: "Kritik",
+  pathway: [
+    { type: "histo", label: "Histopatoloji", text: "İki antite: 1) Akut mediastinit: özofagus perforasyonu (Boerhaave — kusma sonrası spontan, iyatrojenik), sternotomi sonrası, desendan nekrotizan (orofarengeal yayılım). Mortalite %20-40. 2) Fibrozişan mediastinit: histoplazmoz/TB sonrası → mediastinal fibrozis → yapı kompresyonu.", detail: "Boerhaave: şiddetli kusma → özofagus sol posterolateral rüptür → sol pnömomediastinum + hidropnömotoraks" },
+    { type: "tissue", label: "Doku Değişikliği", text: "Akut: mediastinal yağ infiltrasyonu, sıvı koleksiyonu, hava kabarcıkları. Pnömomediastinum. Plevral efüzyon (sol). Fibrozişan: mediastinal yumuşak doku kitlesi → SVC, pulmoner ven, hava yolu, özofagus kompresyonu. Kalsifikasyon olabilir.", detail: "Fibrozişan → pulmoner ven stenozu → unilateral pulmoner ödem (patognomonik)" },
+    { type: "signal", label: "Sinyal Karşılığı", text: "Akut BT: mediastinal yağ infiltrasyonu, sıvı/abse (rim kontrastlanma), hava kabarcıkları, pnömomediastinum. Oral kontrast kaçağı (özofagus perforasyonu). Fibrozişan BT: infiltratif mediastinal kitle (kalsifiye olabilir), vasküler/hava yolu kompresyonu.", detail: "Oral sude çözünür kontrast → özofagus perforasyonu tespiti (baryum kontrendike)" },
+    { type: "finding", label: "Görüntüleme Bulgusu", text: "Akut: pnömomediastinum + mediastinal sıvı + yağ infiltrasyonu. Özofagus perforasyonu: oral kontrast kaçağı + sol hidropnömotoraks. Fibrozişan: kalsifiye/non-kalsifiye infiltratif kitle → SVC kompresyonu, pulmoner ven stenozu → unilateral pulmoner ödem.", detail: "Unilateral pulmoner ödem: fibrozişan mediastinit → tek taraf pulmoner ven stenozu → o tarafa lokalize ödem" }
+  ],
+  keyPoint: "AKUT: PNÖMOMEDİASTİNUM + MEDİASTİNAL SIVI/HAVA + ÖZOFAGUS PERFORASYONU = acil cerrahi. FİBROZİŞAN: İNFİLTRATİF KİTLE + VASKÜLER KOMPRESYON + KALSİFİKASYON = histoplazmoz/TB. Unilateral pulmoner ödem → pulmoner ven stenozu düşün.",
+  differential: ["Mediastinal lenfoma — solid, infiltratif değil, FDG avid", "IgG4 hastalığı — periaortik fibrozis, retroperitoneal fibrozis eşlik", "Sarkoidoz — LAP dominant, granülomatöz"],
+  protocol: "BT toraks kontrastlı (IV + oral): koleksiyon/abse/hava/kontrast kaçağı. Fibrozişan: BT anjiyo (vasküler kompresyon). Histoplazma/PPD: etiyoloji.",
+  quiz: { q: "Fibrozişan mediastinitin neden olduğu unilateral pulmoner ödem mekanizmasını açıklayınız.", a: "Fibrozişan mediastinit → mediastende fibröz kitle → PULMONER VEN kompresyonu (genellikle TEK TARAFLI) → o taraftaki venöz dönüş engeli → pulmoner venöz basınç ARTAR → UNİLATERAL pulmoner ödem. Nadir ama tanısal: unilateral ödem → fibrozişan mediastinit düşün." }
+},
+{
+  id: "esophageal_duplication_cyst", name: "Özofageal Duplikasyon Kisti", category: "mediastinum", tag: "classic", tagText: "Klasik",
+  pathway: [
+    { type: "histo", label: "Histopatoloji", text: "Embriyolojik foregut duplikasyonu. Özofagus duvarında/komşuluğunda kistik yapı. İki kat düz kas + iç yüzeyde GİS mukozası (gastrik mukoza olabilir → peptik ülser). Bronkojenikte respiratuar mukoza. %60 posterior mediastende.", detail: "Ektopik gastrik mukoza → Tc-99m perteknetat sintigrafisinde TUTULUM" },
+    { type: "tissue", label: "Doku Değişikliği", text: "İyi sınırlı, oval kistik kitle. KALIN düz kas duvarı (çift kat). Özofagus ile ortak duvar ama lümen iletişimi YOK. İçerik: müsinöz/seröz. Kanama olabilir (gastrik mukoza → ülser). Posterior mediastende paraözofageal.", detail: "Kalın düz kas duvarı: duplikasyon kistinin karakteristik özelliği — bronkojenikte ince duvar" },
+    { type: "signal", label: "Sinyal Karşılığı", text: "BT: posterior mediastende oval iyi sınırlı kistik kitle. Duvar kalın (düz kas). İçerik: 20-60 HU (protein/hemoraji). MR: T2 hiperintens, T1 değişken. EUS: en iyi — özofagus duvarı ile ilişki + çift kas tabakası.", detail: "MR T1 hiperintens kist: protein/hemoraji → bronkojenik veya duplikasyon" },
+    { type: "finding", label: "Görüntüleme Bulgusu", text: "BT/MR: posterior mediastende paraözofageal kistik kitle + kalın duvar. EUS: özofagus ile devamlılık + çift kas tabakası → tanısal. Komplikasyon: enfeksiyon, hemoraji. Tedavi: cerrahi eksizyon.", detail: "EUS: özofagus komşuluğunda kist + çift kas tabakası → duplikasyon kisti kesin tanı" }
+  ],
+  keyPoint: "POSTERİOR MEDİASTEN + PARAÖZOFAGEAL KİSTİK KİTLE + KALIN DUVAR = duplikasyon kisti. Bronkojenitten farkı: enterik mukoza + posterior + kalın duvar. EUS en iyi tanı. Gastrik mukoza: Tc-99m perteknetat +.",
+  differential: ["Bronkojenik kist — subkarinal/paratrakeal, ince duvar, respiratuar epitel", "Nöroenterik kist — posterior, vertebral anomali eşlik", "Lenfanjiom — multiloküle, ince duvar"],
+  protocol: "BT kontrastlı: posterior mediastinal kist + duvar kalınlığı. MR: T2/T1 sinyal. EUS: duvar yapısı + aspirasiyon. Tc-99m perteknetat: gastrik mukoza.",
+  quiz: { q: "Bronkojenik kist ile duplikasyon kistini nasıl ayırırsınız?", a: "1) YERLEŞİM: Bronkojenik → subkarinal/paratrakeal (orta mediasten). Duplikasyon → PARAÖZOFAGeal (posterior) 2) DUVAR: Bronkojenik → İNCE. Duplikasyon → KALIN (çift kas) 3) MUKOZA: Bronkojenik → respiratuar. Duplikasyon → enterik/gastrik 4) EUS: Duplikasyonda çift kas tabakası → tanısal." }
+},
+{
+  id: "mediastinal_lymphangioma", name: "Mediastinal Lenfanjiom (Kistik Higroma)", category: "mediastinum", tag: "classic", tagText: "Klasik",
+  pathway: [
+    { type: "histo", label: "Histopatoloji", text: "Lenfatik malformasyon — konjenital. Çoğu boyunda, %1-5 mediastene uzanır. Çocuklarda sık. Kapilleri: basit, kavernöz, kistik (en sık). Turner sendromu ilişkili. İnce endotel kaplı lenfatik sıvı dolu kistik boşluklar.", detail: "Kistik higroma + Turner sendromu: fetüste boyun arkasında → Turner (45,X) araştır" },
+    { type: "tissue", label: "Doku Değişikliği", text: "Çoklu ince duvarlı kistik boşluklar (MULTİLOKÜLE). İçerik: seröz/şilöz sıvı. Septalar. Çevre yapıları SIKIŞTIRMAZ. Boyundan mediastene uzanım olabilir.", detail: "Multiloküle kistik kitle + boyun uzanımı + çocuk = kistik higroma" },
+    { type: "signal", label: "Sinyal Karşılığı", text: "BT: ince duvarlı multiloküle kistik kitle. Su dansitesi (0-20 HU). İnce septalar hafif kontrastlanır. MR: T2 hiperintens, T1 değişken. Hemoraji: kist içi T1 hiperintens.", detail: "T2 çok parlak + multiloküle + boyun uzanımı → lenfanjiom" },
+    { type: "finding", label: "Görüntüleme Bulgusu", text: "BT/MR: anterior/süperior mediastende multiloküle kistik kitle. Su dansitesi. Boyunla devamlılık olabilir. İnvazyon yok (benign). Tedavi: cerrahi eksizyon veya skleroterapi.", detail: "Anterior mediasten kistik DDx: lenfanjiom (multiloküle), bronkojenik (tek loküle), teratom (yağ + kalsifikasyon)" }
+  ],
+  keyPoint: "MULTİLOKÜLE İNCE DUVARLI KİSTİK KİTLE + BOYUN UZANIMI + ÇOCUK = lenfanjiom. Bronkojenitten farkı: multiloküle. Teratamdan farkı: yağ/kalsifikasyon yok. Malign transformasyon yok.",
+  differential: ["Bronkojenik kist — tek loküllü, protein içerikli", "Matür teratom — yağ + kalsifikasyon + solid", "Timik kist — ince duvarlı, anterior, az loküllü"],
+  protocol: "BT kontrastlı: kistik yapı + septalar + boyun uzanımı. MR: T2 sinyal. USG (boyun). Turner taraması (çocuk).",
+  quiz: { q: "Mediastinal kistik kitlelerin ayırıcı tanısını açıklayınız.", a: "1) LENFANJIOM: MULTİLOKÜLE, su dansitesi, boyun uzanımı, T2 parlak 2) BRONKOJENİK KİST: TEK LOKÜLE, parabronşiyal, protein yüksek (40-80 HU) 3) TERATOM: Kistik + solid + YAĞ + KALSİFİKASYON 4) TİMİK KİST: İnce duvar, anterior, az loküllü 5) DUPLİKASYON: Paraözofageal, kalın kas duvarı. ANAHTAR: Lokül sayısı + HU + yağ/kalsifikasyon + yerleşim." }
+},
+{
+  id: "fibrothorax", name: "Fibrotoraks", category: "pleura", tag: "important", tagText: "Önemli",
+  pathway: [
+    { type: "histo", label: "Histopatoloji", text: "Plevral boşlukta yaygın fibröz doku → akciğer sıkışması (trapped lung). Nedenler: organize hemotoraks, organize ampiyem, TB plörezi, asbest. Kronik enflamasyon → fibrin → organize → fibröz peel (kabuk). Dekortikasyon tedavisi.", detail: "Trapped lung: visseral plevra fibröz kabuk → akciğer ekspanse OLAMAZ" },
+    { type: "tissue", label: "Doku Değişikliği", text: "Kalın fibröz tabaka: visseral + parietal plevrada. Akciğer volüm kaybı (ipsilateral hemitoraks küçülür). İnterkostal aralıklar daralır. Mediastinal shift (ipsilateral). Kalsifikasyon: kronik'te sık (TB, hemotoraks).", detail: "Hemitoraks küçülmesi + interkostal daralma + mediastinal shift → fibrotoraks" },
+    { type: "signal", label: "Sinyal Karşılığı", text: "BT: diffüz plevral kalınlaşma ± kalsifikasyon. Akciğer volüm kaybı. İpsilateral hemitoraks küçük. Mediastinal shift. Fibröz doku minimal kontrastlanır. MR: T2 hipointens (kronik fibrozis).", detail: "Kalsifiye fibrotoraks: eski hemotoraks veya TB — unilateral kalsifikasyon + volüm kaybı" },
+    { type: "finding", label: "Görüntüleme Bulgusu", text: "Grafi: hemitoraks opasifiye/küçülmüş, interkostal aralıklar dar, mediastinal shift. BT: diffüz plevral kalınlaşma ± kalsifikasyon, volüm kaybı. Mezotelyomadan farkı: fibrotoraks düzgün + kalsifiye + küçülen; mezotelyoma nodüler + büyüyen + efüzyon.", detail: "PET: fibrotoraks düşük FDG (mezotelyoma yüksek FDG)" }
+  ],
+  keyPoint: "DİFFÜZ PLEVRAL KALINLAŞMA + KALSİFİKASYON + VOLÜM KAYBI + HEMİTORAKS KÜÇÜLMESİ = fibrotoraks. Eski hemotoraks/ampiyem/TB. Mezotelyomadan farkı: düzgün + kalsifiye + küçülen. Tedavi: dekortikasyon.",
+  differential: ["Mezotelyoma — nodüler, büyüyen, efüzyon, FDG yüksek", "Plevral metastaz — nodüler, efüzyon, primer tümör öyküsü", "Asbest plakları — fokal, bilateral, volüm kaybı yok"],
+  protocol: "BT kontrastlı: plevral patern + kalsifikasyon + volüm kaybı. PET: fibrotoraks düşük FDG. Öykü: hemotoraks, ampiyem, TB. PFT: restriktif. Cerrahi: dekortikasyon.",
+  quiz: { q: "Fibrotoraks ile mezotelyomayı nasıl ayırırsınız?", a: "1) YÜZEY: Fibrotoraks DÜZGÜN. Mezotelyoma NODÜLER 2) KALSİFİKASYON: Fibrotoraks SIK. Mezotelyoma NADİR 3) BOYUT: Fibrotoraks KÜÇÜLÜR. Mezotelyoma BÜYÜR 4) EFÜZYON: Fibrotoraks YOK. Mezotelyoma MASİF 5) İNTERKOSTAL: Fibrotoraks DAR. Mezotelyoma normal/geniş 6) PET: Fibrotoraks düşük. Mezotelyoma YÜKSEK FDG." }
+},
+{
+  id: "pleural_lipoma", name: "Plevral Lipom", category: "pleura", tag: "classic", tagText: "Klasik",
+  pathway: [
+    { type: "histo", label: "Histopatoloji", text: "Plevra/göğüs duvarından köken alan benign yağ dokusu tümörü. Asemptomatik insidental bulgu. Matür adipositler. Malign transformasyon çok nadir. >10 cm'de liposarkom riski artar.", detail: "Plevral lipom vs lipomatozis: lipom kapsüllü fokal, lipomatozis difüz non-neoplastik" },
+    { type: "tissue", label: "Doku Değişikliği", text: "İyi sınırlı, kapsüllü, homojen yağ kitlesi. Göğüs duvarı ile obtüz açı. Büyük lipomlar interkostal aralıktan dumbbell şekli gösterebilir. Solid komponent → liposarkom düşün.", detail: "Dumbbell lipom: hem toraks içi hem dışı uzanım → BT'de kolay tanınır" },
+    { type: "signal", label: "Sinyal Karşılığı", text: "BT: homojen yağ dansitesi (-50 ile -120 HU). İyi sınırlı. Solid komponent YOK. Kontrastlanma yok. MR: T1 hiperintens, fat-sat ile tam BASKILANMA. Solid komponent varsa → liposarkom.", detail: "HU ölçümü: -50 ile -120 HU + homojen + iyi sınırlı = BENİGN lipom (biyopsi gerekmez)" },
+    { type: "finding", label: "Görüntüleme Bulgusu", text: "BT: göğüs duvarı/plevra bazlı yağ dansiteli kitle, iyi sınırlı, obtüz açı. BT ile tanı kesinleşir (HU ölçümü). >10 cm veya heterojen → liposarkom şüphesi (MDM2 amplifikasyonu).", detail: "Lipom >10 cm veya heterojen → well-differentiated liposarkom ayırımı gerekli" }
+  ],
+  keyPoint: "PLEVRA BAZLI YAĞ DANSİTELİ KİTLE (-50 ile -120 HU) + HOMOJEN + SOLİD KOMPONENT YOK = lipom. BT ile tanı konur. Solid komponent → liposarkom. >10 cm → dikkatli ol.",
+  differential: ["Liposarkom — yağ + solid komponent, düzensiz", "Timolipom — anterior mediastende yağ + timik doku", "Ekstraplöral yağ — difüz, non-neoplastik"],
+  protocol: "BT kontrastsız: yağ dansitesi (HU). Kontrastlı: solid komponent tarama. MR: fat-sat baskılanma. >10 cm veya heterojen: biyopsi.",
+  quiz: { q: "Plevral lipom tanısında BT'nin rolünü açıklayınız.", a: "BT TANİSAL: -50 ile -120 HU = YAĞ → lipom tanısı. BİYOPSİ GEREKSİZ (homojen yağ + iyi sınırlı + solid komponent yok). LİPOSARKOM: solid/yumuşak doku komponent VAR, heterojen, >10 cm risk artışı, MR'da solid kısım fat-sat'ta baskılanmaz." }
 }
 ];
 
@@ -2105,6 +2344,145 @@ const duels = [
       { label: "Tedavi", value: "Antikoagülasyon ± tromboliz" }
     ]},
     keyRule: "CTEPH: duvar yapışıklı + web/band + rekanalizasyon + mozaik + genişlemiş bronşiyal arter → PEA ile kür. Akut PE: santral dolma defekti + damardan ayrık → antikoagülasyon. CTEPH tanınması kritik: tedavi edilebilir PH."
+  },
+  // ===== WAVE 2 DÜELLOLARI (6 adet) =====
+  {
+    title: "Fabry Hastalığı vs HCM",
+    category: "Kardiyak",
+    difficulty: "Zor",
+    focus: "Duvar kalınlaşması + genç hasta — T1 mapping ile kritik ayrım",
+    a: { name: "Fabry Hastalığı", findings: [
+      { label: "Kalınlaşma", value: "Konsantrik SİMETRİK (tüm duvarlar)" },
+      { label: "Native T1", value: "DÜŞÜK (<900 ms 1.5T) — PATOGNOMONİK" },
+      { label: "LGE", value: "İnferolateral mid-wall (geç evre)" },
+      { label: "T2 mapping", value: "İnferolateral artış (psödoinflamasyon)" },
+      { label: "EKG", value: "Kısa PR + LVH paterni" },
+      { label: "Yaş/Cinsiyet", value: "Erkek: 20-30, Kadın: 40-50 (X-linked)" }
+    ]},
+    b: { name: "HCM", findings: [
+      { label: "Kalınlaşma", value: "ASİMETRİK septal (septum/PW ≥1.3)" },
+      { label: "Native T1", value: "NORMAL veya hafif YÜKSEK" },
+      { label: "LGE", value: "Mid-wall + RV insertion point" },
+      { label: "T2 mapping", value: "Normal (akut faz hariç)" },
+      { label: "EKG", value: "Yüksek voltaj + derin Q dalgaları" },
+      { label: "Yaş/Cinsiyet", value: "Her yaş, her iki cins (otozomal dominant)" }
+    ]},
+    keyRule: "Fabry: konsantrik + DÜŞÜK T1 (<900ms) = patognomonik + kısa PR. HCM: asimetrik + normal/yüksek T1 + SAM. T1 mapping olmadan ayırt edilemez — kardiyak MR protokolüne T1 mapping dahil et!"
+  },
+  {
+    title: "İnvaziv Aspergilloz vs Mukormikoz",
+    category: "Akciğer",
+    difficulty: "Zor",
+    focus: "İmmünsüprese hastada pulmoner infiltrat — erken tanı hayat kurtarır",
+    a: { name: "İnvaziv Aspergilloz", findings: [
+      { label: "Erken bulgu", value: "HALO SIGN (nodül + çevre buzlu cam)" },
+      { label: "Geç bulgu", value: "AIR CRESCENT sign (iyileşme fazı)" },
+      { label: "Yerleşim", value: "Rastgele (anjioinvaziv → hematojen yayılım)" },
+      { label: "Damar ilişkisi", value: "Anjioinvazyon → küçük damar oklüzyonu" },
+      { label: "Galaktomannan", value: "POZİTİF (serum + BAL)" },
+      { label: "Risk grubu", value: "Nötropenik (AML, KIT, allojenik)" }
+    ]},
+    b: { name: "Mukormikoz", findings: [
+      { label: "Erken bulgu", value: "Reverse halo (atoll sign) daha sık" },
+      { label: "Geç bulgu", value: "Kavitasyon daha erken ve agresif" },
+      { label: "Yerleşim", value: "Periferal (plevra tabanlı), >10 segment" },
+      { label: "Damar ilişkisi", value: "BÜYÜK DAMAR invazyonu (PA/aorta)" },
+      { label: "Galaktomannan", value: "NEGATİF (mucor ≠ aspergillus)" },
+      { label: "Risk grubu", value: "DKA, demir yükü (deferoksamin), nötropenik" }
+    ]},
+    keyRule: "Aspergilloz: HALO sign + air crescent + galaktomannan (+) + küçük damar. Mukormikoz: reverse halo + büyük damar invazyonu + galaktomannan (-). ≥10 nodül/plevra bazlı → mukormikoz düşün."
+  },
+  {
+    title: "Kardiojenik Ödem vs ARDS",
+    category: "Akciğer",
+    difficulty: "Orta",
+    focus: "Bilateral buzlu cam/konsolidasyon — tedavi yaklaşımı zıttır",
+    a: { name: "Kardiojenik Pulmoner Ödem", findings: [
+      { label: "Dağılım", value: "Santral/perihiler (KELEBEK paterni)" },
+      { label: "Efüzyon", value: "Bilateral plevral efüzyon (sağ > sol)" },
+      { label: "Kalp", value: "KARDİYOMEGALİ (KTO >0.5)" },
+      { label: "Vasküler", value: "Sefalik redistribüsyon (üst lob venleri)" },
+      { label: "Kerley B", value: "VAR (interstisyel ödem)" },
+      { label: "Yanıt", value: "Diüretik ile HIZLI düzelme (24-48 saat)" }
+    ]},
+    b: { name: "ARDS", findings: [
+      { label: "Dağılım", value: "Periferal/diffüz/yerçekimine bağımlı" },
+      { label: "Efüzyon", value: "Efüzyon YOK veya minimal" },
+      { label: "Kalp", value: "Normal kalp boyutu" },
+      { label: "Vasküler", value: "Normal vasküler redistribüsyon" },
+      { label: "Kerley B", value: "YOK (permeabilite ödemi)" },
+      { label: "Yanıt", value: "Diüretik ile YANITSIZ (prone + PEEP)" }
+    ]},
+    keyRule: "Kardiojenik: santral kelebek + kardiyomegali + bilateral efüzyon + sefalik redistribüsyon + diüretik yanıtı. ARDS: periferal/diffüz + normal kalp + efüzyon yok + diüretik yanıtsız."
+  },
+  {
+    title: "LAM vs Pulmoner LCH",
+    category: "Akciğer",
+    difficulty: "Zor",
+    focus: "Kistik akciğer hastalığı — genç kadın, pnömotoraks riski",
+    a: { name: "LAM (Lenfanjiyoleiomyomatozis)", findings: [
+      { label: "Kist şekli", value: "Yuvarlak, ince duvarlı, DİFFÜZ uniform" },
+      { label: "Dağılım", value: "DİFFÜZ (üst + alt lob EŞİT)" },
+      { label: "Nodül", value: "YOK" },
+      { label: "Cinsiyet", value: "SADECE KADIN (doğurgan çağ)" },
+      { label: "Eşlik eden", value: "Renal AML (%40) + TSC" },
+      { label: "VEGF-D", value: "YÜKSEK (>800 pg/mL tanısal)" }
+    ]},
+    b: { name: "Pulmoner LCH", findings: [
+      { label: "Kist şekli", value: "BİZAR şekil (düzensiz, septalar arası)" },
+      { label: "Dağılım", value: "ÜST + ORTA lob dominant (bazal SPARING)" },
+      { label: "Nodül", value: "Nodül + kist KARIŞIMı (erken: nodül, geç: kist)" },
+      { label: "Cinsiyet", value: "Her iki cins (genç sigara içen)" },
+      { label: "Eşlik eden", value: "SİGARA (neredeyse %100) + kemik" },
+      { label: "VEGF-D", value: "Normal" }
+    ]},
+    keyRule: "LAM: genç kadın + diffüz yuvarlak kistler + renal AML + VEGF-D yüksek. LCH: sigara + üst lob bizar kistler + nodül-kist birlikteliği + bazal sparing. İkisinde de pnömotoraks riski yüksek."
+  },
+  {
+    title: "Fibrotoraks vs Mezotelyoma",
+    category: "Plevra",
+    difficulty: "Orta",
+    focus: "Diffüz plevral kalınlaşma — benign vs malign ayırımı kritik",
+    a: { name: "Fibrotoraks", findings: [
+      { label: "Kalınlaşma", value: "Diffüz + DÜZGÜN kontur" },
+      { label: "Kalsifikasyon", value: "SIK (TB/ampiyem sekeli)" },
+      { label: "Mediastinal plevra", value: "Tutulum az belirgin" },
+      { label: "Volüm", value: "İpsilateral volüm KAYBI (çekme)" },
+      { label: "Kontrastlanma", value: "Minimal/yok (fibrotik inaktif)" },
+      { label: "Öykü", value: "TB veya ampiyem sekeli" }
+    ]},
+    b: { name: "Mezotelyoma", findings: [
+      { label: "Kalınlaşma", value: "Diffüz + NODÜLER/IRREGULAR kontur" },
+      { label: "Kalsifikasyon", value: "Plevral PLAKLAR eşlik edebilir" },
+      { label: "Mediastinal plevra", value: "TUTULUM VAR (spesifik bulgu)" },
+      { label: "Volüm", value: "Volüm kaybı (ama tümöral komponent varsa değişken)" },
+      { label: "Kontrastlanma", value: "Belirgin kontrastlanma (aktif tümör)" },
+      { label: "Öykü", value: "ASBEST maruziyeti (%80)" }
+    ]},
+    keyRule: "Fibrotoraks: düzgün + kalsifiye + inaktif + TB/ampiyem sekeli. Mezotelyoma: nodüler + mediastinal plevra + kontrastlanma + asbest. Mediastinal plevra tutulumu ve nodüler kontur → malign düşün."
+  },
+  {
+    title: "Penetran Aort Ülseri vs Aort Diseksiyonu",
+    category: "Vasküler",
+    difficulty: "Zor",
+    focus: "Akut aort sendromu — farklı patoloji, benzer aciliyet",
+    a: { name: "Penetran Aort Ülseri (PAU)", findings: [
+      { label: "Morfoloji", value: "Fokal KRATER (ülser nişi) damar duvarında" },
+      { label: "Flep", value: "İntimal flep YOK" },
+      { label: "Lümen", value: "TEK lümen (çift lümen yok)" },
+      { label: "Ateroskleroz", value: "İLERİ (yaygın plaklar, kalsifikasyon)" },
+      { label: "Yaş", value: "İleri yaş (>70) + HT + sigara" },
+      { label: "Lokalizasyon", value: "DESENDAN aort en sık" }
+    ]},
+    b: { name: "Aort Diseksiyonu", findings: [
+      { label: "Morfoloji", value: "İNTİMAL FLEP (membran) — uzun segment" },
+      { label: "Flep", value: "İntimal flep VAR (tanı koydurucu)" },
+      { label: "Lümen", value: "ÇİFT lümen (gerçek + yalancı)" },
+      { label: "Ateroskleroz", value: "Değişken (Marfan'da genç aorta)" },
+      { label: "Yaş", value: "Değişken (40-70, Marfan: genç)" },
+      { label: "Lokalizasyon", value: "Tip A: asendan. Tip B: sol subklavyan sonrası" }
+    ]},
+    keyRule: "PAU: fokal krater + tek lümen + flep yok + ileri ateroskleroz + yaşlı. Diseksiyon: intimal flep + çift lümen + uzun segment. PAU → IMH veya diseksiyona progresyon riski! Akut aort sendromu üçlüsü: diseksiyon + IMH + PAU."
   }
 ];
 
@@ -2404,6 +2782,71 @@ const signalProfiles = [
       { seq: "YÇBT parankimal", val: "🎯 Mozaik atenüasyon", why: "Tutulmuş segmentler oligemik (lusen), tutulmamışlar hipervolemik (dens)" },
       { seq: "V/Q sintigrafi", val: "⚠️ Segmental mismatch", why: "En duyarlı tarama — kronik perfüzyon defektleri + normal ventilasyon" },
       { seq: "BT mediastinal", val: "🩸 Bronşiyal arter hipertrofisi", why: ">2 mm tortiyöz mediastinal arterler (kollateral dolaşım)" }
+    ]},
+  // ===== WAVE 2 SİNYAL PROFİLLERİ (8 adet) =====
+  { id: "invasive_aspergillosis", name: "İnvaziv Aspergilloz", cat: "lung",
+    signals: [
+      { seq: "BT erken", val: "🌅 Halo sign", why: "Nodül + çevre buzlu cam halesi (hemoraji) — erken tanı ipucu" },
+      { seq: "BT geç", val: "🌙 Air crescent sign", why: "İyileşme fazında çevre hava hilali (nötrofil dönüşü)" },
+      { seq: "BT anjiyo", val: "⬛ Damar oklüzyonu", why: "Anjioinvaziv → küçük pulmoner arter oklüzyonu → enfarkt" },
+      { seq: "Galaktomannan", val: "🎯 Serum/BAL (+)", why: "Serum GM >0.5, BAL GM >1.0 = tanısal" },
+      { seq: "BT follow-up", val: "📉 Kavitasyon", why: "Nötropeni düzelince nodül kaviteleşir = iyi yanıt" }
+    ]},
+  { id: "cystic_fibrosis", name: "Kistik Fibrozis", cat: "lung",
+    signals: [
+      { seq: "YÇBT", val: "🫁 ÜST lob bronşektazi", why: "Üst lob dominant bronşektazi (post-enfeksiyöz alt lob)" },
+      { seq: "Mukoid impaksiyon", val: "🤚 Finger-in-glove", why: "Dilate bronşlarda koyu mukus tıkacı (ABPA eşlik ≠ yüksek dansite)" },
+      { seq: "Hava hapsi", val: "🌬️ Mozaik atenüasyon", why: "Ekspiratuar BT'de belirgin mozaik = küçük hava yolu tıkanıklığı" },
+      { seq: "Peribronşiyal", val: "📏 Duvar kalınlaşması", why: "Kronik enfeksiyon → bronş duvarı fibrozisi" },
+      { seq: "Komplikasyon", val: "⚠️ Pnömotoraks/hemoptizi", why: "Kistik değişiklikler → rüptür; bronşiyal arter hipertrofi → hemoptizi" }
+    ]},
+  { id: "fabry_disease", name: "Fabry Hastalığı", cat: "cardiac",
+    signals: [
+      { seq: "Native T1 (1.5T)", val: "⬇️ <900 ms PATOGNOMONİK", why: "Glikosfingolipid birikimi → T1 kısalması (diğer KMP'lerde T1 artar!)" },
+      { seq: "LGE", val: "🔴 İnferolateral mid-wall", why: "Geç evre fibrozis → inferolateral bazal segmentte" },
+      { seq: "T2 mapping", val: "📊 İnferolateral artış", why: "Psödoinflamasyon: sphingolipid birikimi → T2 yüksek (LGE bölgesinde)" },
+      { seq: "Cine MR", val: "📏 Konsantrik hipertrofi", why: "Simetrik duvar kalınlaşması (HCM'den farklı: asimetrik değil)" },
+      { seq: "EKG", val: "⚡ Kısa PR + LVH", why: "AV nod glikolipid birikimi → kısa PR, miyokard birikimi → LVH" }
+    ]},
+  { id: "intramural_hematoma", name: "İntramural Hematom (IMH)", cat: "vascular",
+    signals: [
+      { seq: "Kontrastsız BT", val: "🌙 Hilal hiperdens (≥60 HU)", why: "Aort duvarında taze hematom → hiperdens hilal ŞEKLİ — ANAHTAR BULGU" },
+      { seq: "Kontrastlı BT", val: "📏 Duvar kalınlaşması", why: "Aort duvarı >5 mm + intimal flep YOK + çift lümen YOK" },
+      { seq: "MR T1 yağ baskılı", val: "☀️ Hiperintens", why: "Methemoglobin → T1 kısalması (subakut kanama)" },
+      { seq: "MR T2", val: "💧 Hiperintens", why: "Hematom sıvı komponenti → T2 parlak" },
+      { seq: "Follow-up", val: "⚠️ Progresyon takibi", why: "%30 diseksiyona progresyon → seri görüntüleme zorunlu" }
+    ]},
+  { id: "pulmonary_edema", name: "Pulmoner Ödem", cat: "lung",
+    signals: [
+      { seq: "PA grafi", val: "🦋 Kelebek (perihiler)", why: "Bilateral perihiler buzlu cam/konsolidasyon = kelebek paterni" },
+      { seq: "BT", val: "📏 Septal kalınlaşma", why: "İnterlobüler septal kalınlaşma (Kerley B eşdeğeri)" },
+      { seq: "BT", val: "💧 Bilateral efüzyon", why: "Plevral efüzyon (sağ > sol) + mediastinal yağ doku ödemi" },
+      { seq: "Kalp", val: "❤️ Kardiyomegali", why: "KTO >0.5 + sefalik redistribüsyon (üst lob venleri dolgun)" },
+      { seq: "Follow-up", val: "✨ Hızlı düzelme", why: "Diüretik sonrası 24-48 saatte belirgin düzelme (ARDS'den fark)" }
+    ]},
+  { id: "mediastinitis", name: "Mediastinit", cat: "mediastinum",
+    signals: [
+      { seq: "BT kontrastlı", val: "🔥 Mediastinal infiltrasyon", why: "Yağ doku dansitesi artmış, sıvı koleksiyonları, hava kabarcıkları" },
+      { seq: "BT kontrastlı", val: "⭕ Rim-enhancing koleksiyon", why: "Apsifiye koleksiyon → periferal kontrastlanma + santral düşük dansite" },
+      { seq: "Özofagus", val: "💨 Ekstraluminal hava", why: "Perforasyon → mediastinal amfizem (Boerhaave: sol alt)" },
+      { seq: "BT fibrozis", val: "📏 Kalsifiye kitle", why: "Fibrotik mediastinit: kalsifiye kitle → SVC/airway obstrüksiyonu" },
+      { seq: "Etyoloji", val: "🔍 Neden araştır", why: "Akut: özofagus perforasyonu, postop. Fibrotik: histoplazmoz, TB, IgG4" }
+    ]},
+  { id: "lam", name: "LAM (Lenfanjiyoleiomyomatozis)", cat: "lung",
+    signals: [
+      { seq: "YÇBT", val: "⭕ Diffüz yuvarlak kistler", why: "İnce duvarlı, düzgün konturlu kistler TÜM akciğere DİFFÜZ dağılım" },
+      { seq: "Boyut", val: "📏 2-30 mm", why: "Kistler 2-30 mm, düzgün duvarlı (LCH'deki bizar kistlerden farklı)" },
+      { seq: "Eşlik eden", val: "🫘 Renal AML", why: "%40 bilateral renal anjiomiyolipom → BT abdomen kontrol!" },
+      { seq: "VEGF-D", val: "🎯 >800 pg/mL", why: "Serum VEGF-D yüksek = biyopsisiz tanı (spesifik)" },
+      { seq: "Komplikasyon", val: "💨 Pnömotoraks + şilotoraks", why: "Kist rüptürü → tekrarlayan pnömotoraks; lenfatik tutulum → şilotoraks" }
+    ]},
+  { id: "cardiac_thrombus", name: "Kardiyak Trombüs", cat: "cardiac",
+    signals: [
+      { seq: "İlk geçiş perfüzyon", val: "⬛ KONTRASTLANMA YOK", why: "Avasküler trombüs → perfüzyon negatif (en güvenilir ayırım)" },
+      { seq: "LGE", val: "⬛ Sinyal YOK", why: "Trombüs LGE almaz (tümör ALIR → ayrım)" },
+      { seq: "Cine (SSFP)", val: "⬛ Hipointens", why: "Deoksi-hemoglobin → düşük sinyal (organize trombüs)" },
+      { seq: "T2", val: "⬛ Düşük sinyal", why: "Organize trombüs → T2 düşük (tümör T2 yüksek)" },
+      { seq: "Lokalizasyon", val: "📍 Staz alanı", why: "LA appendiks (AF), LV apeks (akinetik/diskinetik segment)" }
     ]}
 ];
 
@@ -2432,7 +2875,16 @@ const signalQuizzes = [
   { combo: "Anterior mediasten kitlesi + YAĞ dansitesi🟡 + Kalsifikasyon/diş🦷 + Kistik alan💧 + Fat-fluid level", answer: "Mediastinal Teratom", why: "Yağ + kalsifikasyon + kist triadı: patognomonik. Fat-fluid level. 4T kuralı: Timoma, Teratom, Terrible lenfoma, Tiroid." },
   { combo: "Konsantrik SİMETRİK duvar kalınlaşması + Diffüz subendokardiyal LGE🔴 + Native T1 >1100ms + Düşük voltaj EKG⚡ + Tc-99m PYP+", answer: "Kardiyak Amiloidoz", why: "Simetrik (HCM asimetrik). Diffüz LGE (HCM fokal). T1/ECV yüksek. Düşük voltaj paradoksu. PYP: ATTR biyopsisiz tanı." },
   { combo: "Perikard kalınlaşması (>4mm)📏 + Kalsifikasyon + Septal bounce🔄 + Dilate IVC + Tubüler ventrikül", answer: "Konstriktif Perikardit", why: "Kalın perikard + kalsifikasyon (BT en hassas). Septal bounce: cine MR (ventriküler interdependans). Dilate IVC: venöz konjesyon. Cerrahi ile kür: perikardektomi." },
-  { combo: "Aort duvar kalınlaşması + Dal stenozu/oklüzyon + Genç kadın (<40)👩 + PET hot aorta🔥 + T2 STIR hiperintens", answer: "Takayasu Arteriti", why: "Büyük damar vasküliti. Konsantrik duvar kalınlaşması. Dal stenozları (subklavian, karotis). PET: aktif inflamasyon. Genç kadın: nabızsız hastalık." }
+  { combo: "Aort duvar kalınlaşması + Dal stenozu/oklüzyon + Genç kadın (<40)👩 + PET hot aorta🔥 + T2 STIR hiperintens", answer: "Takayasu Arteriti", why: "Büyük damar vasküliti. Konsantrik duvar kalınlaşması. Dal stenozları (subklavian, karotis). PET: aktif inflamasyon. Genç kadın: nabızsız hastalık." },
+  // ===== WAVE 2 SİNYAL QUİZLERİ (8 adet) =====
+  { combo: "Halo sign🌅 + Air crescent🌙 + Galaktomannan (+)🎯 + Nötropenik hasta + Kaviteleşen nodül", answer: "İnvaziv Aspergilloz", why: "Halo sign: erken (hemoraji). Air crescent: geç (iyileşme). Galaktomannan serum >0.5 tanısal. Nötropeni en önemli risk faktörü." },
+  { combo: "Üst lob bronşektazi🫁 + Finger-in-glove + Genç hasta + Tekrarlayan enfeksiyon + Pankreas yetmezliği", answer: "Kistik Fibrozis", why: "Üst lob dominant bronşektazi (CF patognomonik). Mukus tıkacı: finger-in-glove sign. Ter testi + CFTR mutasyonu ile tanı." },
+  { combo: "Konsantrik kalınlaşma + DÜŞÜK native T1 (<900ms)⬇️ + İnferolateral LGE🔴 + Kısa PR⚡ + X-linked", answer: "Fabry Hastalığı", why: "DÜŞÜK T1: glikosfingolipid birikimi patognomonik (diğer KMP'lerde T1 artar). İnferolateral LGE: geç evre fibrozis. Kısa PR: AV nod infiltrasyonu." },
+  { combo: "Kontrastsız BT hilal hiperdens (≥60 HU)🌙 + İntimal flep YOK + Tek lümen + Aort duvar kalınlaşması >5mm", answer: "İntramural Hematom (IMH)", why: "Hilal hiperdens = mural kanama. Flep yok + tek lümen = diseksiyondan ayrım. Kontrastsız BT ESANSİYEL! %30 diseksiyona ilerler." },
+  { combo: "Diffüz yuvarlak ince duvarlı kistler⭕ + Genç kadın👩 + Renal AML🫘 + VEGF-D yüksek + Pnömotoraks", answer: "LAM (Lenfanjiyoleiomyomatozis)", why: "Diffüz uniform kistler (LCH: bizar, üst lob). Sadece kadın. Renal AML %40. VEGF-D >800 = biyopsisiz tanı. TSC ilişkili olabilir." },
+  { combo: "Perihiler kelebek🦋 + Bilateral efüzyon💧 + Kardiyomegali❤️ + Septal kalınlaşma + Diüretik yanıtı", answer: "Kardiojenik Pulmoner Ödem", why: "Kelebek: santral perihiler dağılım. Bilateral efüzyon (sağ>sol). Kardiyomegali + sefalik redistribüsyon. Diüretik ile hızlı düzelme = ARDS'den ayrım." },
+  { combo: "Fokal krater ülser🕳️ + İntimal flep YOK + Tek lümen + İleri ateroskleroz + Yaşlı hasta (>70)", answer: "Penetran Aort Ülseri (PAU)", why: "Fokal ülser nişi (flep yok, tek lümen). İleri ateroskleroz zemininde. Desendan aort en sık. Akut aort sendromu üçlüsü: diseksiyon + IMH + PAU." },
+  { combo: "Mediastinal yağ infiltrasyonu🔥 + Hava kabarcıkları💨 + Rim-enhancing koleksiyon⭕ + Özofagus perforasyonu", answer: "Akut Mediastinit", why: "Mediastinal yağ infiltrasyonu + hava = enfeksiyon. Rim-enhancing: apse. Boerhaave: sol alt özofagus perforasyonu → sol plevral efüzyon + pnömomediastinum." }
 ];
 
 // ===== DISEASE CONNECTIONS MAP =====
@@ -2596,6 +3048,90 @@ const diseaseConnections = {
   ],
   pectus_excavatum: [
     { to: "dcm", label: "Psödokardiyomegali DDx", mechanismTag: "Pektus → grafide kalp geniş görünür" }
+  ],
+  // ===== WAVE 2 HASTALIK BAĞLANTILARI (18 adet) =====
+  cardiac_thrombus: [
+    { to: "cardiac_mass", label: "Kitle DDx", mechanismTag: "Trombüs (kontrastlanma yok) vs tümör (kontrastlanma var)" },
+    { to: "dcm", label: "Etyoloji", mechanismTag: "Dilate KMP + akinetik segment → staz → trombüs" },
+    { to: "pulmonary_embolism", label: "Emboli Kaynağı", mechanismTag: "Sol kalp trombüsü → sistemik emboli, sağ → PE" }
+  ],
+  fabry_disease: [
+    { to: "hcm", label: "Duvar Kalınlaşması DDx", mechanismTag: "Fabry: simetrik + düşük T1. HCM: asimetrik + normal T1" },
+    { to: "cardiac_amyloidosis", label: "İnfiltratif KMP DDx", mechanismTag: "Fabry: düşük T1. Amiloidoz: yüksek T1 + diffüz LGE" }
+  ],
+  infective_endocarditis: [
+    { to: "cardiac_mass", label: "Kapak Kitlesi DDx", mechanismTag: "Vejetasyon vs papiller fibroelastom vs tümör" },
+    { to: "pulmonary_embolism", label: "Septik Emboli", mechanismTag: "Sağ kalp endokardit → septik pulmoner emboli" },
+    { to: "lung_abscess", label: "Septik Kaynak", mechanismTag: "Endokardit → septik emboli → multipl periferal apseler" }
+  ],
+  intramural_hematoma: [
+    { to: "aortic_dissection", label: "Akut Aort Sendromu", mechanismTag: "IMH: hilal hiperdens + flep yok. Diseksiyon: flep var + çift lümen" },
+    { to: "penetrating_aortic_ulcer", label: "Akut Aort Sendromu", mechanismTag: "IMH ve PAU sıklıkla birlikte — progresyon riski" },
+    { to: "aortic_aneurysm", label: "Komplikasyon", mechanismTag: "İMH → diseksiyon → anevrizma gelişimi" }
+  ],
+  penetrating_aortic_ulcer: [
+    { to: "aortic_dissection", label: "Akut Aort Sendromu", mechanismTag: "PAU: fokal krater + ateroskleroz. Diseksiyon: flep + çift lümen" },
+    { to: "intramural_hematoma", label: "Eşlik Eden", mechanismTag: "PAU → lokal hematom → IMH gelişimi" },
+    { to: "aortic_aneurysm", label: "Progresyon", mechanismTag: "PAU → psödoanevrizma → gerçek anevrizma" }
+  ],
+  pulmonary_artery_aneurysm: [
+    { to: "pulmonary_hypertension", label: "Neden", mechanismTag: "Kronik PH → PA dilatasyonu → anevrizma" },
+    { to: "pulmonary_embolism", label: "Behçet + Trombüs", mechanismTag: "Behçet'de PA anevrizma + in-situ trombüs (antikoagülan KONTRENDİKE!)" }
+  ],
+  rib_fracture: [
+    { to: "sternal_fracture", label: "Travma Birlikteliği", mechanismTag: "Göğüs travmasında her ikisi birlikte olabilir" },
+    { to: "pneumothorax", label: "Komplikasyon", mechanismTag: "Kosta kırığı → plevra yaralanması → pnömotoraks" },
+    { to: "lung_abscess", label: "Penetran Yaralanma", mechanismTag: "Deplase kırık → akciğer laserasyonu → apse riski" }
+  ],
+  thoracic_outlet_syndrome: [
+    { to: "pancoast_tumor", label: "Nörojenik Semptom DDx", mechanismTag: "Pancoast: apikal kitle + Horner. TOS: anatomik kompresyon" },
+    { to: "svc_syndrome", label: "Venöz Obstrüksiyon DDx", mechanismTag: "TOS venöz tip vs SVC sendromu" }
+  ],
+  invasive_aspergillosis: [
+    { to: "pneumonia", label: "İmmünsüprese Pnömoni DDx", mechanismTag: "Nötropenik ateş + nodül → aspergilloz düşün" },
+    { to: "lung_cancer", label: "Kaviter Lezyon DDx", mechanismTag: "Kaviteleşen nodül: kanser vs aspergilloz" },
+    { to: "pulmonary_embolism", label: "Anjioinvaziv", mechanismTag: "Aspergilloz → damar invazyonu → pulmoner enfarkt benzeri" }
+  ],
+  cystic_fibrosis: [
+    { to: "bronchiectasis", label: "Üst Lob Bronşektazi", mechanismTag: "KF: üst lob dominant. Post-enfeksiyöz: alt lob dominant" },
+    { to: "invasive_aspergillosis", label: "ABPA Komplikasyonu", mechanismTag: "KF + ABPA → santral bronşektazi + yüksek dansiteli mukus" },
+    { to: "pneumothorax", label: "Komplikasyon", mechanismTag: "Kistik değişiklikler → tekrarlayan pnömotoraks" }
+  ],
+  lam: [
+    { to: "langerhans_histiocytosis", label: "Kistik AC DDx", mechanismTag: "LAM: diffüz uniform kist + kadın. LCH: bizar kist + üst lob + sigara" },
+    { to: "pneumothorax", label: "Komplikasyon", mechanismTag: "Kist rüptürü → tekrarlayan pnömotoraks (%70)" },
+    { to: "chylothorax", label: "Lenfatik Tutulum", mechanismTag: "LAM → lenfatik obstrüksiyon → şilotoraks" }
+  ],
+  lipoid_pneumonia: [
+    { to: "lung_cancer", label: "Persistan Konsolidasyon DDx", mechanismTag: "Kronik konsolidasyon → malignite ayırıcı tanı" },
+    { to: "organizing_pneumonia", label: "Konsolidasyon DDx", mechanismTag: "İkisi de persistan konsolidasyon yapar" }
+  ],
+  pulmonary_edema: [
+    { to: "pneumonia", label: "Bilateral Opasiteler DDx", mechanismTag: "Ödem: perihiler kelebek. Pnömoni: lobar/segmental" },
+    { to: "dcm", label: "Kardiyak Neden", mechanismTag: "Dilate KMP → düşük EF → pulmoner venöz konjesyon" },
+    { to: "pleural_effusion", label: "Eşlik Eden", mechanismTag: "Kardiojenik ödem → bilateral transüda efüzyon" }
+  ],
+  mediastinitis: [
+    { to: "esophageal_carcinoma", label: "Perforasyon Riski", mechanismTag: "Özofagus karsinomu → perforasyon → mediastinit" },
+    { to: "thoracic_lymphoma", label: "Mediastinal Kitle DDx", mechanismTag: "Fibrotik mediastinit → lenfoma benzeri kalsifiye kitle" },
+    { to: "svc_syndrome", label: "Komplikasyon", mechanismTag: "Fibrotik mediastinit → SVC obstrüksiyonu" }
+  ],
+  esophageal_duplication_cyst: [
+    { to: "bronchogenic_cyst", label: "Mediastinal Kist DDx", mechanismTag: "Duplikasyon: posterior + kalın duvar. Bronkojenik: subkarinal + ince duvar" },
+    { to: "neurogenic_tumor", label: "Posterior Mediasten DDx", mechanismTag: "İkisi de posterior mediastende → MR ile ayırım" }
+  ],
+  mediastinal_lymphangioma: [
+    { to: "bronchogenic_cyst", label: "Kistik Mediasten DDx", mechanismTag: "Lenfanjiom: multilokule. Bronkojenik: unilokule" },
+    { to: "chylothorax", label: "Lenfatik Patoloji", mechanismTag: "Lenfanjiom → lenfatik obstrüksiyon → şilotoraks" }
+  ],
+  fibrothorax: [
+    { to: "mesothelioma", label: "Diffüz Plevral Kalınlaşma DDx", mechanismTag: "Fibrotoraks: düzgün + kalsifiye. Mezotelyoma: nodüler + mediastinal" },
+    { to: "empyema", label: "Sekel", mechanismTag: "Ampiyem → organizasyon → fibrotoraks gelişimi" },
+    { to: "tuberculosis", label: "Sekel", mechanismTag: "TB plörezi → plevral fibrozis → fibrotoraks" }
+  ],
+  pleural_lipoma: [
+    { to: "solitary_fibrous_tumor", label: "Plevral Kitle DDx", mechanismTag: "Lipom: yağ dansitesi (-50 ile -120 HU). SFT: solid + heterojen" },
+    { to: "chest_wall_tumor", label: "Göğüs Duvarı Kitle DDx", mechanismTag: "Lipom yumuşak doku kökenli → plevra vs göğüs duvarı" }
   ]
 };
 
