@@ -1306,19 +1306,19 @@ const diseases = [
 
 // ===== CATEGORY CONFIG =====
 const categories = {
-  lung: { name: 'Akciğer', icon: '🫁', color: '#3b82f6' },
-  mediastinum: { name: 'Mediasten', icon: '🫀', color: '#8b5cf6' },
-  pleura: { name: 'Plevra', icon: '💧', color: '#06b6d4' },
-  cardiac: { name: 'Kardiyak', icon: '❤️', color: '#f43f5e' },
-  vascular: { name: 'Vasküler', icon: '🩸', color: '#f97316' },
-  chest_wall: { name: 'Göğüs Duvarı', icon: '🦴', color: '#10b981' }
+  lung: { icon: '🫁', color: '#3b82f6', title: 'Akciğer', bg: 'rgba(59,130,246,0.1)' },
+  mediastinum: { icon: '🫀', color: '#8b5cf6', title: 'Mediasten', bg: 'rgba(139,92,246,0.1)' },
+  pleura: { icon: '💧', color: '#06b6d4', title: 'Plevra', bg: 'rgba(6,182,212,0.1)' },
+  cardiac: { icon: '❤️', color: '#f43f5e', title: 'Kardiyak', bg: 'rgba(244,63,94,0.1)' },
+  vascular: { icon: '🩸', color: '#f97316', title: 'Vasküler', bg: 'rgba(249,115,22,0.1)' },
+  chest_wall: { icon: '🦴', color: '#10b981', title: 'Göğüs Duvarı', bg: 'rgba(16,185,129,0.1)' }
 };
 
 // ===== STATE =====
 let currentTab = 'all';
 let expandedId = null;
 let currentPage = 'home';
-const studied = JSON.parse(localStorage.getItem('thoraxrad_studied') || '{}');
+let studied = []; try { studied = JSON.parse(localStorage.getItem('thoraxrad_studied') || '[]'); } catch(e) {}
 
 // ===== SIGNAL BADGES =====
 const signalBadges = {};

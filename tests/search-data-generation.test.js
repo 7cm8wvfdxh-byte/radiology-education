@@ -70,17 +70,19 @@ describe('search-data.js Yapısal Doğrulama', () => {
     data.duelEntries.forEach((entry, i) => {
       expect(Array.isArray(entry), `duelEntries[${i}] dizi değil`).toBe(true);
       expect(entry.length, `duelEntries[${i}] 5 eleman olmalı`).toBe(5);
-      expect(['n', 'a'], `duelEntries[${i}] prefix n veya a olmalı`).toContain(entry[0]);
+      expect(['n', 'a', 't'], `duelEntries[${i}] prefix n, a veya t olmalı`).toContain(entry[0]);
       expect(typeof entry[1]).toBe('string');
     });
   });
 
-  it('neuro ve abdomen duel girişleri dengeli olmalı', () => {
+  it('neuro, abdomen ve thorax duel girişleri dengeli olmalı', () => {
     if (!data) return;
     const neuroCount = data.duelEntries.filter(d => d[0] === 'n').length;
     const abdCount = data.duelEntries.filter(d => d[0] === 'a').length;
+    const thoraxCount = data.duelEntries.filter(d => d[0] === 't').length;
     expect(neuroCount).toBeGreaterThan(0);
     expect(abdCount).toBeGreaterThan(0);
+    expect(thoraxCount).toBeGreaterThan(0);
   });
 
   // === signalEntries ===
@@ -95,7 +97,7 @@ describe('search-data.js Yapısal Doğrulama', () => {
     data.signalEntries.forEach((entry, i) => {
       expect(Array.isArray(entry), `signalEntries[${i}] dizi değil`).toBe(true);
       expect(entry.length, `signalEntries[${i}] 4 eleman olmalı`).toBe(4);
-      expect(['n', 'a'], `signalEntries[${i}] prefix n veya a olmalı`).toContain(entry[0]);
+      expect(['n', 'a', 't'], `signalEntries[${i}] prefix n, a veya t olmalı`).toContain(entry[0]);
     });
   });
 
@@ -116,7 +118,7 @@ describe('search-data.js Yapısal Doğrulama', () => {
     data.findingEntries.forEach((entry, i) => {
       expect(Array.isArray(entry), `findingEntries[${i}] dizi değil`).toBe(true);
       expect(entry.length).toBeGreaterThanOrEqual(3);
-      expect(['n', 'a']).toContain(entry[0]);
+      expect(['n', 'a', 't']).toContain(entry[0]);
       expect(typeof entry[1]).toBe('string');
     });
   });
