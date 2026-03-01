@@ -6550,67 +6550,67 @@ const thoraxLearningPath = [
 // ===== THORAX ADVANCED MR DATA =====
 const thoraxAdvancedMR = [
   {
-    title: "DWI Thorax (Difüzyon Ağırlıklı Görüntüleme)",
+    title: "DWI Toraks (Difüzyon Ağırlıklı Görüntüleme)",
     icon: "🔒",
     color: "#f59e0b",
     concepts: [
-      { name: "ADC Değerleri — Lezyon Karakterizasyonu", what: "Su molekülü hareketinin nicel ölçümü. Düşük ADC = yüksek selülarite veya viskozite", high: "Basit kist, nekrotik alan, ödemli doku (su serbest hareket eder)", low: "Malign tümör (yüksek selülarite), abse (visköz pü), sitotoksik ödem (iskemik barsak)" },
-      { name: "b-Değeri Seçimi", what: "Difüzyon gradyan gücü. Düşük b = perfüzyon etkisi dahil, yüksek b = gerçek difüzyon", high: "b50-100: perfüzyon ağırlıklı (IVIM → kapiller perfüzyon görselleştirme). Hipervasküler lezyonlar parlak", low: "b800-1000: gerçek difüzyon kısıtlanması. Malign lezyon tespitinde optimal. KC için b=800, barsak için b=600-800" },
-      { name: "Organ-Spesifik DWI (KC, Böbrek, Barsak)", what: "Her organın normal ADC değeri ve eşik değerleri farklı", high: "KC normal ADC: ~1.5 × 10⁻³ mm²/s. Böbrek korteks: ~2.2. İnce barsak: ~2.0", low: "KC malign lezyon: <1.0 × 10⁻³. Böbrek tümör: <1.5. Aktif Crohn segmenti: <1.3 (duvar DWI parlak)" }
+      { name: "ADC Değerleri — Toraks Lezyonları", what: "Su molekülü hareketinin nicel ölçümü. Düşük ADC = yüksek selülarite veya viskozite. Toraks lezyonlarında ADC eşik değerleri organa göre değişir", high: "Benign lezyon (organize pnömoni, benign nodül): ADC >1.4 × 10⁻³ mm²/s. Nekrotik/kistik alan: çok yüksek ADC (serbest su)", low: "Akciğer kanseri: ADC <1.2 × 10⁻³ (yüksek selülarite). Lenfoma: ADC <0.8 × 10⁻³ (çok yoğun hücre). Abse: ADC 0.5-0.7 × 10⁻³ (visköz pü)" },
+      { name: "b-Değeri Seçimi — Toraks Protokolü", what: "Difüzyon gradyan gücü. Toraks DWI'da akciğer parankimi düşük proton dansitesi nedeniyle zor bölgedir", high: "b=50-100: perfüzyon etkisi dahil — mediastinal vaskülarite değerlendirmesi. Lenf nodu perfüzyon haritalaması için IVIM modeli", low: "b=800-1000: mediastinal kitle ve lenf nodu karakterizasyonu için optimal. Plevral lezyon değerlendirmesinde b=800 tercih edilir. Akciğer nodülü için b=600-800 yeterli" },
+      { name: "Toraks-Spesifik DWI Uygulamaları", what: "Akciğer nodülü, mediastinal kitle ve plevral lezyon karakterizasyonunda DWI'ın rolü", high: "Mediastinal lenf nodu: DWI reaktif vs metastatik ayırımında yardımcı (metastatik = düşük ADC). Timoma vs lenfoma: lenfoma çok daha düşük ADC", low: "Akciğer nodülü: malign nodül ADC <1.0-1.2, benign nodül >1.4. Plevral lezyon: malign mezotelyoma ADC <1.0-1.2, benign plevral kalınlaşma >1.5" }
     ],
     clinicalPearls: [
-      "🔑 DWI tümör vs abse: Abse → çok düşük ADC (visköz pü, 0.3-0.7), tümör → orta-düşük ADC (0.8-1.2). KC absesinde DWI parlak merkez = abse patolojik",
-      "🔑 DWI barsak inflamasyon aktivitesi: Aktif Crohn segmentinde DWI parlak + düşük ADC → aktivite belirteci. Fibrotik striktür = DWI parlak DEĞİL",
-      "🔑 Hepatobilier faz + DWI kombinasyonu: Gd-EOB-DTPA hepatobilier fazda hipointens (hepatosit yok) + DWI parlak = yüksek güvenle malign lezyon",
-      "🔑 TUZAK: T2 shine-through → hemanjiom gibi T2 parlak lezyonlar DWI'da da parlak görünebilir. MUTLAKA ADC haritasını kontrol et!"
+      "🔑 Akciğer nodülü DWI: Solid nodülde DWI parlak + ADC düşük (<1.2) = malignite şüphesi yüksek. Ancak aktif granülom (tbc, sarkoidoz) de düşük ADC gösterebilir → klinik korelasyon ŞART",
+      "🔑 Mediastinal lenfadenopati: Lenfoma ADC <0.8 ile reaktif LAP ADC >1.0 arasında anlamlı fark var. DWI ile N-evreleme PET'e yakın doğrulukta yapılabilir",
+      "🔑 Plevral efüzyon karakterizasyonu: Transüda vs eksüda DWI ile ayırt edilemez. Ancak plevral nodülarite + DWI parlak = malign plevral hastalık düşündürür",
+      "🔑 TUZAK: Akciğer parankiminde düşük proton dansitesi → DWI sinyal-gürültü oranı düşük. Küçük periferal nodüller (<1cm) DWI'da kaçabilir. T2 shine-through → MUTLAKA ADC haritasını kontrol et!"
     ]
   },
   {
-    title: "DCE-MR (Dinamik Kontrastlı MR)",
+    title: "Kardiyak MR — T1/T2 Mapping",
     icon: "💉",
     color: "#f43f5e",
     concepts: [
-      { name: "Zaman-Yoğunluk Eğrileri (Type I/II/III)", what: "Kontrastlanmanın zamansal davranışı — lezyon karakteri hakkında bilgi verir", high: "Type I (progressif artış): benign (hemanjiom, fibröz doku — yavaş dolum). Type III (hızlı wash-out): malign (HCC, hipervasküler met)", low: "Type II (plato): borderline — hem benign hem malign olabilir (FNH, düşük grade tümör). Tek başına tanısal değil" },
-      { name: "Wash-in / Wash-out Analizi", what: "Arteryel fazda kontrastlanma hızı ve gecikmeli fazda kayıp oranı", high: "Hızlı wash-in: hipervasküler lezyon (HCC, FNH, hemanjiom nodüler kontrastlanma). Wash-out: HCC'de portal/gecikmeli fazda çevre KC'den KOYU", low: "Yavaş wash-in + gecikmeli tutulum: desmoplastik tümör (kolanjiokarsinom, pankreas Ca). Fibröz doku = gecikmeli tutan" },
-      { name: "Hepatobilier Kontrast Ajanları (Gd-EOB-DTPA vs Gd-BOPTA)", what: "Hepatosit-spesifik kontrast: normal hepatositler tarafından alınır → hepatobilier fazda KC parlak", high: "Gd-EOB-DTPA (Primovist): %50 hepatobilier atılım → 20dk'da hepatobilier faz. Daha güçlü hepatosit uptake", low: "Gd-BOPTA (MultiHance): %5 hepatobilier → 60-120dk'da hepatobilier faz. Daha düşük hepatosit uptake ama dinamik fazları daha iyi" }
+      { name: "Native T1 Mapping", what: "Kontrast öncesi miyokard T1 relaksasyon süresinin piksel bazlı nicel ölçümü. Doku karakterizasyonunda altın standart", high: "Yüksek native T1 (>1100ms, 1.5T): amiloidoz (ekstraselüler protein birikimi), miyokardit (ödem + inflamasyon), demir eksikliği, akut MI (ödem)", low: "Düşük native T1 (<900ms, 1.5T): Fabry hastalığı (sfingolipid birikimi — patognomonik bulgu), demir birikimi (hemokromatoz/transfüzyon), yağlı infiltrasyon (lipomatöz metaplazi)" },
+      { name: "T2 Mapping", what: "Miyokard T2 relaksasyon süresinin nicel ölçümü. T2 uzaması = doku su içeriği artışı (ödem belirteci)", high: "T2 >55ms (1.5T): miyokardiyal ödem mevcut — akut miyokardit, akut MI reperfüzyon hasarı, rejeksiyon (transplant). Fokal vs diffüz ödem ayrımı yapılabilir", low: "T2 <55ms (1.5T): normal miyokard — ödem yok. Kronik fibrozis T2'yi UZATMAZ (kronik MI'da T2 normal, LGE pozitif → akut-kronik ayrımında kritik)" },
+      { name: "ECV (Ekstraselüler Volüm Fraksiyonu)", what: "Kontrast öncesi-sonrası T1 değerleri + hematokrit ile hesaplanan ekstraselüler alan oranı. Normal miyokard ECV %25-30", high: "ECV >%30: diffüz fibrozis (HCM, dilate KMP), amiloidoz (ECV %40-60 çok yüksek), miyokardit (aktif inflamasyon). Amiloidozda ECV en yüksek değerlere ulaşır", low: "ECV <%25: normal miyokard veya kompakt hipertrofi (atletik kalp — fizyolojik hipertrofi). Fabry'de ECV normal olabilir (intraselüler birikim)" }
     ],
     clinicalPearls: [
-      "🔑 FNH vs adenom hepatobilier fazda: FNH = fonksiyonel hepatositler → Gd-EOB-DTPA ALIR → hepatobilier fazda İZO/HİPERİNTENS. Adenom = anormal hepatositler → ALMAZ → HİPOİNTENS",
-      "🔑 HCC wash-out mekanizması: HCC arteryel neovaskülarizasyon → arteryel APHE. Ama sinüzoidal yapı bozuk → portal akım azalır → portal/gecikmeli fazda çevre KC parankiminden KOYU (wash-out)",
-      "🔑 Kolanjiokarsinom gecikmeli tutulumu: Yoğun fibröz stroma → kontrast yavaş sızar + yavaş çıkar → arteryelde HİPO, gecikmeli fazda (5-10dk) İZO/HİPER. Bu 'fibröz doku retansiyon' paterni",
-      "🔑 Primovist TUZAĞI: Arteryel faz kalitesi ekstrasellüler ajanlara göre daha düşük (düşük doz). Küçük hipervasküler lezyonları kaçırabilirsin → hepatobilier faz ile telafi"
+      "🔑 Fabry patognomonik bulgu: Düşük native T1 (<900ms, 1.5T) + normal ECV = sfingolipid birikimi. Başka hiçbir kardiyomiyopatide bu kombinasyon GÖRÜLMEZ — tanı koydurucu",
+      "🔑 Amiloidoz vs HCM ayırımı: Her ikisinde de duvar kalınlığı artar. Amiloidoz → çok yüksek native T1 + çok yüksek ECV (%40-60). HCM → hafif yüksek T1 + orta ECV (%30-40). Mapping ile ayırt edilebilir",
+      "🔑 Akut vs kronik MI: Akut MI → T2 YÜKSEK (ödem) + T1 yüksek + LGE pozitif. Kronik MI → T2 NORMAL + T1 yüksek + LGE pozitif. T2 mapping akut-kronik ayrımında EN ÖNEMLİ parametre",
+      "🔑 TUZAK: T1 ve T2 değerleri manyetik alan gücüne BAĞIMLI — 1.5T ve 3T için farklı referans aralıkları kullan. 3T'de native T1 daha yüksek (~1200ms normal). Vendor-spesifik farklılıklar da mevcut"
     ]
   },
   {
-    title: "MR Elastografi",
+    title: "BT Anjiyo Toraks — Protokol ve Teknik",
     icon: "📊",
     color: "#8b5cf6",
     concepts: [
-      { name: "KC Sertliği Ölçümü", what: "Mekanik dalga propagasyonu → doku sertliği (kPa) hesaplanır. Sert doku = hızlı dalga", high: "Fibrozis/siroz: sertlik artar (F4 siroz: >5-6 kPa). Konjesyon (sağ kalp yetmezliği): sertlik yapay artabilir", low: "Normal KC: ~2.0-2.5 kPa. Steatoz sertliği çok az artırır ama fibrozis olmadan genelde <3 kPa" },
-      { name: "Fibrozis Evreleme (F0-F4)", what: "METAVIR skoru ile korelasyon: F0=normal, F1=portal fibrozis, F2=bridging, F3=ciddi bridging, F4=siroz", high: "MRE eşik değerleri: F≥2: >3.0 kPa (klinik anlamlı fibrozis). F≥3: >3.5 kPa. F4: >5.0 kPa. Viral hepatit ve NAFLD için en iyi non-invaziv yöntem", low: "F0-F1: <3.0 kPa → anlamlı fibrozis YOK. Biyopsi gerekmez. Ancak steatohepatitin kendisi (NASH) elastografiyle ayırt edilemez" },
-      { name: "Teknik (Vibrasyon + Faz Kontrast)", what: "Pasif driver → 60Hz mekanik vibrasyon → KC'ye dalga gönderir → faz kontrast MR ile dalga haritası → sertlik hesaplama", high: "Avantaj: tüm KC'yi örnekler (biyopsi 1/50.000 hacim), obezitede bile çalışır (USG elastografinin limiti)", low: "Limitasyon: demir birikimi → sinyal düşer → ölçüm güvenilmez. Aşırı asit → dalga iletimi bozulur" }
+      { name: "Pulmoner Emboli Protokolü", what: "PA'da bolus tracking ile optimal pulmoner arteryel opasifikasyon sağlanır. Hızlı akuisizyon = hareket artefaktı minimuma iner", high: "Bolus tracking: ROI pulmoner trunkus üzerine → eşik 100-150 HU → otomatik tetikleme. 100-120 kV (düşük kV = iyot kontrastı artar). İnce kesit (0.5-1mm) + sagittal-koronal MPR", low: "Kontrendikasyon/limitasyon: böbrek yetmezliği (eGFR <30), kontrast alerjisi. Suboptimal bolus → sağ kalp karışımı artefaktı. Gebelikte ventilasyon-perfüzyon sintigrafisi alternatif" },
+      { name: "Aortik BT Anjiyo Protokolü", what: "Aort diseksiyonu, anevrizma ve vaskülit değerlendirmesinde çok fazlı protokol. Asendan aort için EKG-gating ŞART", high: "EKG-gated akuisizyon: asendan aort hareket artefaktını elimine eder (kardiyak pulsasyon). Dual-faz: arteryel (disseksiyon flap) + gecikmeli (yavaş akım, endoleak). Aort kökü ölçümü EKG-gated'de güvenilir", low: "Non-gated limitasyonu: asendan aort pulsasyon artefaktı → sahte diseksiyon flap (pseudo-dissection). Sadece desendan aort değerlendirmesinde non-gated kabul edilebilir" },
+      { name: "Koroner BT Anjiyo (KBTA)", what: "Koroner arter stenozunu non-invaziv değerlendiren EKG-senkronize BT anjiografi. Prospektif vs retrospektif gating seçimi kritik", high: "Prospektif gating (step-and-shoot): düşük doz (~2-5 mSv), düzenli ritimde (<65 bpm) optimal. Retrospektif gating: tüm kardiyak siklus → fonksiyonel analiz yapılabilir ama doz yüksek (~8-15 mSv)", low: "KBTA limitasyonları: yüksek kalsiyum skoru (Agatston >400) → blooming artefaktı, ciddi aritmi → gating bozulur, yüksek kalp hızı → beta-bloker ile hız kontrolü gerekli (<65 bpm hedef)" }
     ],
     clinicalPearls: [
-      "🔑 Biyopsi yerine non-invaziv fibrozis: MRE → fibrozis evreleme AUC >0.95 (F≥2 için). KC biyopsisinin örnekleme hatası %25-40 → MRE tüm KC'yi değerlendirir",
-      "🔑 NAFLD takibi: MRE + MR-PDFF (proton dansite yağ fraksiyonu) kombinasyonu → yağlanma + fibrozis birlikte değerlendirilir → tedavi yanıtı takibi",
-      "🔑 Portal HT korelasyonu: KC sertliği >5 kPa → portal HT riski yüksek. Splenik sertlik de ölçülebilir → portal HT'nin indirekt belirteci",
-      "🔑 TUZAK: Akut hepatit (inflamasyon) → sertlik YAPAY artar (ödem etkisi). Akut alevlenmede ölçüm yapma → en az 3 ay bekle"
+      "🔑 PE protokolünde zamanlama: Bolus tracking ROI'si pulmoner trunkusa koyulmalı — sol atriyuma koyarsan geç tetiklenir ve pulmoner arterler yıkanmış olur. Valsalva etkisi → geçici PA opasifikasyon düşüşü — hastayı nefes tutma konusunda önceden bilgilendir",
+      "🔑 Asendan aort tuzağı: EKG-gating OLMADAN asendan aortta pulsasyon artefaktı → yalancı diseksiyon flap görüntüsü. Şüpheli olguda EKG-gated tekrar çekim veya EKG-gated rekonstrüksiyon yap",
+      "🔑 Dual-energy BT anjiyo: İyot haritası ile subsegmental PE tespiti artar. Perfüzyon defekti haritası = V/Q sintigrafisine benzer fonksiyonel bilgi sağlar. Küçük emboli tespitinde konvansiyonel BT'den üstün",
+      "🔑 TUZAK: Koroner BT'de kalsifik plak blooming etkisi → stenoz derecesini OLDUĞUNDAN FAZLA gösterir. Agatston skoru >400 ise KBTA güvenilirliği düşer → invaziv anjiyografi düşün. Stent içi değerlendirme ancak >3mm stentlerde güvenilir"
     ]
   },
   {
-    title: "MRCP Teknikleri",
+    title: "Kardiyak MR — LGE ve Cine Tekniği",
     icon: "💚",
     color: "#10b981",
     concepts: [
-      { name: "2D Kalın Kesit vs 3D İnce Kesit MRCP", what: "2D: tek nefes tutma, hızlı, genel bakış (40-80mm kalın slab). 3D: çok ince kesit (1-1.5mm), MPR yapılabilir, detaylı", high: "2D avantajı: hızlı (1-2sn), hareket artefaktı az, koopere olmayan hastada. Safra ağacı genel değerlendirmesi", low: "3D avantajı: küçük taşlar (<5mm), stent içi değerlendirme, anatomik varyant detayı. Dezavantaj: uzun (3-5dk), hareket artefaktı" },
-      { name: "Sekretin MRCP", what: "IV sekretin → pankreas ekzokrin salgısını uyarır → Wirsung doluluk ve duodenal dolum gözlenir", high: "Pankreas divisum tanısı: sekretin ile minör papilladan akım → dorsal kanal dilatasyonu. Wirsung fonksiyonel kapasitesi", low: "Normal bulgu: sekretin sonrası Wirsung geçici dilatasyon (<3dk) + duodenum dolumu. Anormal: >5dk dilatasyon veya akım olmaması" },
-      { name: "Fonksiyonel Bilier Değerlendirme", what: "Kontrastlı MR kolanjiografi: hepatobilier kontrast → bilier atılım → anatomik + fonksiyonel bilgi", high: "Hepatobilier fazda safra yolları parlak → obstrüksiyon seviyesi net. Segmental atılım farkı → segmental obstrüksiyon", low: "Atılım olmaması: ciddi hepatosit disfonksiyonu veya komplet obstrüksiyon. Klinik kontekste değerlendir" }
+      { name: "LGE Tekniği (Late Gadolinium Enhancement)", what: "Gadolinium enjeksiyonundan 10-15 dakika sonra T1 ağırlıklı inversion-recovery sekansı. Fibrozis/skar = kontrast retansiyonu → parlak sinyal", high: "TI scout (Look-Locker) ile optimal inversiyon zamanı belirlenir — normal miyokard sinyali sıfırlanır, skar parlak kalır. PSIR (Phase-Sensitive IR): TI hatalarına daha toleranslı, skar-miyokard kontrastı daha güvenilir", low: "Yetersiz TI seçimi → miyokard sinyali tam sıfırlanmaz → skar-miyokard kontrastı düşer → küçük skar alanları kaçabilir. Gadolinium dozu: 0.1-0.2 mmol/kg. Bekleme süresi <10dk ise wash-out yetersiz" },
+      { name: "Cine SSFP (Balanced Steady-State Free Precession)", what: "Kardiyak fonksiyon değerlendirmesinin temel sekansı. Kan havuzu parlak, miyokard orta sinyal — yüksek kontrast", high: "Kısa aks yığını (short axis stack): apeksten bazale tüm LV kapsar → ejeksiyon fraksiyonu, volümler, duvar kalınlığı hesaplanır. 2-4 boşluk (2ch, 3ch, 4ch) cine: kapak değerlendirmesi + bölgesel duvar hareketi", low: "Nefes tutma gerekli (her kesit ~8-12 kalp atımı). Koopere olmayan hastada real-time cine alternatif (düşük rezolüsyon). Metalik implant yakınında off-resonance artefaktı → banding artefaktı (3T'de daha belirgin)" },
+      { name: "Doku Karakterizasyonu Sekansları", what: "Yağ baskılama, T2-STIR ve T2* sekansları ile miyokardiyal doku içeriği belirlenir", high: "Yağ baskılama (fat-sat): ARVC'de sağ ventrikül miyokardında yağlı infiltrasyon tespiti. T2-STIR: miyokardiyal ödem (akut miyokardit, akut MI). Ödemli alan = parlak sinyal", low: "T2* mapping: demir birikimi değerlendirmesi — T2* <20ms = demir birikimi (talasemi major, hemokromatoz). T2* <10ms = ciddi demir yükü → kardiyak risk yüksek. Normal T2* >20ms (1.5T)" }
     ],
     clinicalPearls: [
-      "🔑 Taş tespiti optimizasyonu: 3D ince kesit MRCP + radyal slab kombinasyonu. Negatif dolum defekti = taş. Hava ile karıştırma: pozisyon değiştir → hava hareket eder, taş etmez",
-      "🔑 Striktür karakterizasyonu: Kısa + düzgün = benign (PSC, postoperatif). Uzun + irregüler + proksimal dilatasyon = malign (kolanjiokarsinom). Shoulder sign = malign striktür",
-      "🔑 Pankreas divisum: popülasyonun %5-10. Dorsal kanal → minör papilla (Santorini). Ventral kanal → majör papilla (küçük, sadece uncinate drene eder). Rekürren pankreatit nedeni olabilir",
-      "🔑 TUZAK: MRCP'de safra yolları dilate ise kontrast MRCP ek bilgi verir. Ama normal çaplı yollarda taş MRCP'den kaçabilir → klinik şüphe devam ediyorsa EUS düşün"
+      "🔑 LGE paterni tanıyı verir: Subendokardiyal/transmural = iskemik (koroner arter dağılımı). Midwall = non-iskemik (dilate KMP, miyokardit). Epikardiyal = miyokardit (inferolateral duvar tipik). Diffüz subendokardiyal = amiloidoz",
+      "🔑 Miyokardit tanı kriterleri (Lake Louise): T2 ödem (T2-STIR veya T2 mapping) + T1-bazlı doku hasarı (LGE veya yüksek T1/ECV) = miyokardit tanısı. Her iki kriter birlikte olmalı → tanısal doğruluk artar",
+      "🔑 ARVC tanısında kardiyak MR: Sağ ventrikül dilatasyonu + duvar hareket bozukluğu (akinezi/diskinezi/anevrizma) + yağlı infiltrasyon (fat-sat). Cine SSFP ile RV fonksiyon + LGE ile fibrozis birlikte değerlendirilir",
+      "🔑 TUZAK: LGE'de uzun aks görüntülerde bazal inferolateral duvarda epikardiyal parlak sinyal → perikardyal yağ veya partial volume artefaktı olabilir, gerçek skar ile karıştırılmamalı. PSIR sekansı konvansiyonel IR'ye göre bu tuzağa daha az duyarlı"
     ]
   }
 ];
