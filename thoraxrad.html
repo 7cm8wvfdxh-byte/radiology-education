@@ -3160,48 +3160,47 @@ const searchSynonyms = {
   'koyu': ['hipointens', 'dark', 'hypointense'],
   'kanama': ['hemoraji', 'hematom', 'hemorrhage', 'hemosiderin'],
   'tümör': ['kitle', 'neoplazm', 'mass', 'tumor', 'lezyon'],
-  'enfeksiyon': ['abse', 'infeksiyon', 'apse', 'sepsis'],
+  'enfeksiyon': ['abse', 'infeksiyon', 'apse', 'sepsis', 'pnömoni'],
   'dwi': ['difüzyon', 'diffusion', 'kısıtlanma', 'restriction'],
   'kontrastlanma': ['enhancement', 'gadolinyum', 'kontrast', 'boyanma'],
   'ring': ['halka', 'ring enhancement', 'rim'],
-  'kist': ['kistik', 'cystic', 'sıvı'],
-  'yağ': ['steatoz', 'fat', 'lipid', 'adipöz'],
+  'kist': ['kistik', 'cystic', 'sıvı', 'bronkojenik'],
+  'yağ': ['fat', 'lipid', 'lipom', 'teratom'],
   'met': ['metastaz', 'metastatik', 'sekonder'],
-  'hcc': ['hepatosellüler', 'hepatokarsinom', 'li-rads'],
-  'wash-out': ['wash out', 'washout', 'portal hipointens'],
-  'taş': ['kalkül', 'calculus', 'litiazis', 'stone'],
-  'obstrüksiyon': ['tıkanıklık', 'obstruction', 'ileus'],
-  'iskemi': ['iskemik', 'ischemia', 'infarkt'],
-  'siroz': ['sirotik', 'cirrhosis', 'fibrozis'],
-  'pankreatit': ['pankreas inflamasyonu', 'pancreatitis'],
-  'hidronefroz': ['üriner dilatasyon', 'hydronephrosis'],
-  'apandisit': ['appendisit', 'appendicitis'],
-  'divertikülit': ['diverticulitis', 'divertiküler'],
-  'anevrizma': ['aneurysm', 'anevrizma', 'dilatasyon'],
-  'peritoneal': ['periton', 'omental', 'asit'],
-  'lenfoma': ['lymphoma', 'hodgkin'],
-  'kolon': ['kolorektal', 'sigmoid', 'rektum', 'colon'],
-  'safra': ['biliyer', 'biliary', 'koledok', 'kolesistit'],
-  'ekinokok': ['hidatik', 'hydatid', 'kız kist', 'water lily'],
-  'abse': ['apse', 'abscess', 'pyojenik', 'pü'],
-  'budd': ['budd-chiari', 'hepatik ven trombüs', 'kaudat hipertrofi'],
-  'steatoz': ['yağlanma', 'nafld', 'masld', 'nash', 'fatty liver'],
-  'fibrolamellar': ['genç hcc', 'kalsifiye skar'],
-  'portal': ['portal hipertansiyon', 'variks', 'splenomegali', 'asit']
+  'iskemi': ['iskemik', 'ischemia', 'infarkt', 'emboli'],
+  'anevrizma': ['aneurysm', 'anevrizma', 'dilatasyon', 'aort'],
+  'lenfoma': ['lymphoma', 'hodgkin', 'mediasten'],
+  'abse': ['apse', 'abscess', 'pyojenik', 'pü', 'ampiyem'],
+  'plevra': ['plevral', 'efüzyon', 'mezotelyoma', 'kalınlaşma'],
+  'akciğer': ['pulmoner', 'lung', 'bronş', 'alveoler'],
+  'nodül': ['nodül', 'nodule', 'kitle', 'spikülasyon'],
+  'kavite': ['kaviter', 'cavity', 'abse', 'tüberküloz'],
+  'fibrozis': ['fibrotik', 'fibrosis', 'honeycombing', 'interstisyel'],
+  'buzlu cam': ['ggo', 'ground glass', 'opasifikasyon'],
+  'hava yolu': ['bronşektazi', 'bronş', 'airway', 'trakea'],
+  'pe': ['pulmoner emboli', 'trombüs', 'dolma defekti'],
+  'aort': ['diseksiyon', 'anevrizma', 'intramural', 'ülser'],
+  'kalp': ['kardiyak', 'miyokard', 'perikard', 'ventrikül'],
+  'lgn': ['lge', 'geç kontrastlanma', 'fibrozis', 'skar'],
+  'mediasten': ['mediastinal', 'timoma', 'lenfadenopati'],
+  'tb': ['tüberküloz', 'tbc', 'kavite', 'tree-in-bud'],
+  'lap': ['lenfadenopati', 'lenf nodu', 'hiler', 'mediastinal'],
+  'perikardit': ['perikard', 'tamponad', 'efüzyon', 'konstriksiyon'],
+  'diseksiyon': ['intimal flep', 'çift lümen', 'imh', 'akut aort']
 };
 
 const quickSearchTags = [
-  { label: '💉 Arteryel Parlak', query: 'arteryel hipervasküler enhancement', icon: '💉' },
-  { label: '🔒 DWI Parlak', query: 'dwi kısıtlanma', icon: '🔒' },
-  { label: '💧 T2 Çok Parlak', query: 't2 hiperintens parlak', icon: '💧' },
-  { label: '🧈 Yağ İçerik', query: 'yağ chemical shift', icon: '🧈' },
-  { label: '⭕ Ring Enhancement', query: 'ring rim periferal', icon: '⭕' },
-  { label: '🩸 Vasküler Acil', query: 'iskemi trombüs anevrizma', icon: '🩸' },
-  { label: '🫁 KC Lezyonu', query: 'karaciğer hepatik lezyon', icon: '🫁' },
-  { label: '🚨 Cerrahi Acil', query: 'perforasyon pnömatozis gangren', icon: '🚨' },
-  { label: '👶 Pediatrik', query: 'wilms nöroblastom pilor volvulus pediatrik çocuk', icon: '👶' },
-  { label: '🔊 USG', query: 'usg ultrason doppler ekojen', icon: '🔊' },
-  { label: '🩷 Jinekolojik', query: 'over uterus endometrium fibroid', icon: '🩷' }
+  { label: '🫁 Akciğer Nodül', query: 'nodül spikülasyon kitle akciğer', icon: '🫁' },
+  { label: '🔒 DWI Parlak', query: 'dwi kısıtlanma difüzyon', icon: '🔒' },
+  { label: '💧 Plevral Patoloji', query: 'plevra efüzyon kalınlaşma mezotelyoma', icon: '💧' },
+  { label: '🐝 İnterstisyel', query: 'fibrozis honeycombing buzlu cam interstisyel', icon: '🐝' },
+  { label: '⭕ Ring Enhancement', query: 'ring rim periferal abse kavite', icon: '⭕' },
+  { label: '🩸 Vasküler Acil', query: 'emboli diseksiyon anevrizma aort', icon: '🩸' },
+  { label: '❤️ Kardiyak MR', query: 'lge miyokardit kardiyomiyopati perikardit', icon: '❤️' },
+  { label: '🚨 Toraks Acil', query: 'pnömotoraks tamponad diseksiyon emboli tansiyon', icon: '🚨' },
+  { label: '📦 Mediasten', query: 'timoma lenfoma teratom mediasten anterior', icon: '📦' },
+  { label: '🕳️ Kaviter Lezyon', query: 'kavite abse tüberküloz aspergilloz kanser', icon: '🕳️' },
+  { label: '☀️ PET-FDG', query: 'pet fdg tutulum suv metabolik', icon: '☀️' }
 ];
 
 function smartSearch(term) {
@@ -4211,60 +4210,60 @@ function renderThoraxDiseaseGraph(main) {
 
 // ===== REPORT WRITING QUIZ (Thorax) =====
 var abdReportQuizzes = [
-  { id: 0, title: "Sirotik KC'de Fokal Lezyon",
-    scenario: "58 yaşında erkek, HCV sirozu, rutin takip USG'de yeni 2.5cm fokal lezyon saptanmış. Dinamik MR isteniyor.",
-    findings: "Arteryel faz: APHE (arteryel fazda belirgin parlaklaşma). Portal faz: Wash-out (çevre KC'den hipointens). Gecikmeli faz: Kapsül kontrastlanması. T2: Hafif hiperintens. DWI: Hafif kısıtlanma. Hepatobilier faz (Gd-EOB): Hipointens.",
+  { id: 0, title: "Akciğer Nodülü — Malign mi Benign mi?",
+    scenario: "62 yaşında erkek, 40 paket-yıl sigara, rutin taramada sağ üst lobda 2.2cm solid nodül saptanmış. Önceki BT yok.",
+    findings: "BT: Sağ üst lobda 2.2cm solid nodül, SPİKÜLE kontur, korona radiata paterni. Mediastinal pencerede ipsilateral 1.2cm paratrakeal LAP. Kontrastlanma: heterojen (nekrotik merkez). Kemik penceresinde kosta destrüksiyonu yok.",
     fields: [
-      { key: "lirads", label: "LI-RADS Kategori", options: ["LR-5 (Kesin HCC)", "LR-4 (Olası HCC)", "LR-3 (Belirsiz)", "LR-M (Non-HCC malignite)"], correct: 0 },
-      { key: "features", label: "Major Features (LR-5 için)", options: ["APHE + Wash-out + Kapsül (3 major → LR-5)", "Sadece APHE yeterli", "Sadece wash-out yeterli", "DWI gerekli"], correct: 0 },
-      { key: "hepatobiliary", label: "Hepatobilier Faz Anlamı", options: ["OATP kaybı → hepatosit fonksiyon kaybı → malignite", "Normal hepatosit → FNH", "Vasküler lezyon → hemanjiom", "Kistik lezyon"], correct: 0 },
-      { key: "report", label: "Raporda Olması Gereken", options: ["LI-RADS kategori + tüm major/ancillary features + boyut", "Sadece 'HCC ile uyumlu'", "Sadece lezyon boyutu", "Sadece kontrastlanma paterni"], correct: 0 }
+      { key: "diagnosis", label: "En Olası Tanı", options: ["Akciğer Kanseri (NSCLC)", "Granülom (TB/sarkoidoz)", "Hamartom", "Organize pnömoni"], correct: 0 },
+      { key: "features", label: "Malignite İpuçları", options: ["Spikülasyon + >8mm + heterojen + LAP = yüksek şüphe", "Sadece boyut yeterli", "Sadece kontur yeterli", "LAP tek başına tanı koydurucu"], correct: 0 },
+      { key: "next_step", label: "Sonraki Adım", options: ["PET-BT → SUVmax >2.5 ise biyopsi/cerrahi", "6 ay sonra kontrol BT", "Antibiyotik ver 6 hafta bekle", "Direkt cerrahi öner"], correct: 0 },
+      { key: "report", label: "Raporda Olması Gereken", options: ["Nodül boyut + kontur + lokalizasyon + LAP + Lung-RADS kategori", "Sadece 'nodül saptanmıştır'", "Sadece boyut", "Sadece takip önerisi"], correct: 0 }
     ],
-    explanation: "Sirotik KC + APHE + Wash-out + Kapsül = LI-RADS 5 = kesin HCC. Biyopsiye GEREK YOK. Raporda LI-RADS kategori + tüm major features tek tek belirtilmeli. Hepatobilier hipointensite = OATP kaybı (ancillary feature)."
+    explanation: "Spikülasyon + >8mm + sigara + LAP = yüksek maligite riski. Lung-RADS 4B: solid nodül >15mm. PET-BT ile metabolik aktivite değerlendir. Raporda: nodül özellikleri + LAP durumu + Lung-RADS + öneri."
   },
-  { id: 1, title: "Pankreas Başı Kitlesi + İkter",
-    scenario: "65 yaşında kadın, 3 haftadır ilerleyici sarılık + 8 kg kilo kaybı. CA 19-9: 450 U/mL.",
-    findings: "BT: Pankreas başında 3cm hipodens kitle (pankreas fazında). CBD + Wirsung kanalı dilate (double duct sign). SMA'ya 180° temas (abutment). SMV'de fokal daralma. Peritoneal implant veya uzak metastaz yok.",
+  { id: 1, title: "Akut Göğüs Ağrısı — PE mi Diseksiyon mu?",
+    scenario: "55 yaşında kadın, ani başlayan şiddetli göğüs ağrısı, dispne, taşikardi. D-dimer: 4500 ng/mL. Acil BT anjiyo isteniyor.",
+    findings: "BT anjiyo: Sağ ana PA'da ve bilateral alt lob segmental arterlerde dolma defektleri. RV/LV oranı: 1.4 (artmış). İnterventriküler septumda sola bowing (D-sign). Bilateral küçük plevral efüzyon. Aort normal.",
     fields: [
-      { key: "diagnosis", label: "En Olası Tanı", options: ["PDAC (Pankreatik Duktal Adenokarsinom)", "pNET (Nöroendokrin Tümör)", "Otoimmün pankreatit", "Kronik pankreatit"], correct: 0 },
-      { key: "vascularity", label: "Neden Hipovasküler?", options: ["Desmoplastik stroma → damar yatağı yok → arteryelde koyu", "Nekroz → vaskülarite kaybı", "Kistik yapı → kontrast almaz", "Teknik artefakt"], correct: 0 },
-      { key: "resectability", label: "Rezektabilite Değerlendirmesi", options: ["Borderline rezektabl (SMA abutment + SMV daralma)", "Kesinlikle rezektabl", "Unrezektabl (SMA encasement)", "Metastatik → cerrahi dışı"], correct: 0 },
-      { key: "report", label: "Raporda Kritik Bilgi", options: ["Kitle boyut/lokalizasyon + SMA/SMV ilişkisi + double duct + M durumu", "Sadece kitle boyutu", "Sadece CA 19-9 değeri", "Sadece safra yolu dilatasyonu"], correct: 0 }
+      { key: "diagnosis", label: "En Olası Tanı", options: ["Masif Pulmoner Emboli", "Aort Diseksiyonu", "Akut Miyokard İnfarktüsü", "Pnömotoraks"], correct: 0 },
+      { key: "severity", label: "RV/LV >1 Ne Anlama Geliyor?", options: ["RV strain/yük → hemodinamik instabilite riski → masif PE", "Normal bulgu", "Sol kalp yetmezliği", "Teknik artefakt"], correct: 0 },
+      { key: "d_sign", label: "D-sign Mekanizması", options: ["RV basınç artışı → septum sola itilir → LV D şekli alır", "LV basınç artışı", "Perikardiyal efüzyon etkisi", "Normal varyant"], correct: 0 },
+      { key: "report", label: "Raporda Kritik Bilgi", options: ["Trombüs lokalizasyonu + RV/LV oranı + D-sign + efüzyon durumu", "Sadece 'PE mevcuttur'", "Sadece trombüs lokalizasyonu", "Sadece D-dimer sonucu"], correct: 0 }
     ],
-    explanation: "PDAC hipovaskülerdir (pNET'in tersi!). Double duct sign = pankreas başı kitlesi. Rezektabilite: SMA >180° encasement = unrezektabl. SMA ≤180° abutment = borderline. SMV daralma + rekonstrüksiyon olasılığı = borderline."
+    explanation: "Santral PE + RV/LV >1 + D-sign = masif PE (hemodinamik kompromize). Tedavi: tromboliz veya embolektomi. Raporda: trombüs anatomik seviyesi + RV/LV oranı + septal geometri + perikardiyal efüzyon tek tek belirtilmeli."
   },
-  { id: 2, title: "Adrenal İnsidentaloma",
-    scenario: "52 yaşında kadın, BT toraks'ta insidental sol adrenal 3cm nodül saptanmış. Bilinen kanser öyküsü yok.",
-    findings: "Non-kontrast BT: 8 HU. Kontrastlı BT: 60 HU (60. saniye), 22 HU (15. dakika). Homojen, düzgün sınırlı. Chemical shift MR: Opposed-phase'de belirgin sinyal kaybı (%35 kayıp).",
+  { id: 2, title: "Kardiyak MR — Miyokardit mi MI mı?",
+    scenario: "28 yaşında erkek, 2 hafta önce viral ÜSYE, şimdi göğüs ağrısı + troponin yüksekliği. EKG: nonspesifik ST değişiklikleri. Koroner anjiyo normal.",
+    findings: "Kardiyak MR: T2 STIR'da inferolateral duvarda belirgin ödem (hiperintens). LGE: İnferolateral duvarda SUBEPİKARDİYAL + mid-wall kontrastlanma. Native T1: Artmış (1180ms). ECV: Artmış (%38). Cine: İnferolateral hipokinezi.",
     fields: [
-      { key: "diagnosis", label: "En Olası Tanı", options: ["Lipid-rich Adrenal Adenom", "Feokromositoma", "Adrenal metastaz", "Adrenokortikal karsinom"], correct: 0 },
-      { key: "hu_value", label: "<10 HU Ne Söylüyor?", options: ["İntrasellüler lipid → TANI KOYUCU adenom", "Kistik lezyon", "Nekroz", "Kalsifikasyon"], correct: 0 },
-      { key: "washout", label: "APW Hesaplaması", options: ["APW = (60-22)/(60-8) × 100 = %73 → >60% = adenom", "APW = %50 → belirsiz", "Wash-out hesaplanamaz", "RPW kullanılmalı"], correct: 0 },
-      { key: "report", label: "Rapor Kararı", options: ["Benign adenom ile uyumlu - takip/biyopsi gereksiz", "Biyopsi öner", "PET-BT öner", "Cerrahi öner"], correct: 0 }
+      { key: "diagnosis", label: "En Olası Tanı", options: ["Akut Miyokardit", "Akut Miyokard İnfarktüsü", "HCM", "Kardiyak Amiloidoz"], correct: 0 },
+      { key: "lge_pattern", label: "LGE Paterni Neden Kritik?", options: ["SUBEPİKARDİYAL = miyokardit (MI: subendokardiyal olur)", "LGE paterni fark etmez", "Mid-wall = her zaman MI", "Subepikardial = her zaman HCM"], correct: 0 },
+      { key: "lake_louise", label: "Lake Louise Kriterleri", options: ["T2 ödem + T1/ECV artış + LGE = miyokardit tanısı (≥2/3 kriter)", "Sadece troponin yeterli", "Sadece LGE yeterli", "Sadece T2 ödem yeterli"], correct: 0 },
+      { key: "report", label: "Rapor Yapılandırması", options: ["Lake Louise kriterleri + LGE dağılım paterni + fonksiyon + T1/T2 mapping", "Sadece 'miyokardit ile uyumlu'", "Sadece EF değeri", "Sadece T2 ödem"], correct: 0 }
     ],
-    explanation: "<10 HU = lipid-rich adenom → KESİN TANI. Chemical shift sinyal kaybı doğrular. APW >60% = ek destek. Kanser hastasında bile <10 HU = adenom! Biyopsi ve ek tetkik gereksiz."
+    explanation: "Genç + viral prodrom + normal koroner + subepikardial LGE = miyokardit. MI'da LGE subendokardiyal olur ve koroner dağılıma uyar. Lake Louise 2018: ≥1 T2 kriter (ödem) + ≥1 T1 kriter (LGE veya T1/ECV artış) = miyokardit."
   },
-  { id: 3, title: "Over Kisti T1 Parlak - Endometrioma mı Dermoid mi?",
-    scenario: "34 yaşında kadın, pelvik ağrı, infertilite. USG'de sol overde 5cm kistik lezyon. MR isteniyor.",
-    findings: "T1: Homojen HİPERİNTENS kist. T1 yağ baskılı: Hâlâ HİPERİNTENS (sinyal düşmedi!). T2: Periferal shading (kenar hipointens). DWI: Hafif parlak (T2 shine-through). Kontrastlanma: Yok.",
+  { id: 3, title: "Aort Diseksiyonu — Stanford Sınıflama",
+    scenario: "68 yaşında erkek, kontrol altında olmayan HT, ani yırtılır tarzda sırta vuran göğüs ağrısı. Tansiyon: 200/110 mmHg.",
+    findings: "BT anjiyo: Asendan aorttan başlayıp desendan aorta uzanan intimal flep. Gerçek lümen: küçük, erken opasifiye. Yalancı lümen: geniş, geç opasifiye, kısmen trombüze. Sol renal arter gerçek lümenden çıkıyor. Minimal perikardiyal efüzyon. Sol koroner arter tutulumu yok.",
     fields: [
-      { key: "diagnosis", label: "En Olası Tanı", options: ["Endometrioma", "Dermoid (matür teratom)", "Hemorajik kist", "Müsinöz kistadenom"], correct: 0 },
-      { key: "fat_sat", label: "Yağ Baskılama Neden Kritik?", options: ["T1 parlak + yağ baskıda parlak = KAN (endometrioma)", "T1 parlak + yağ baskıda söner = YAĞ (dermoid)", "Her ikisinde de aynı", "Yağ baskılama gereksiz"], correct: 0 },
-      { key: "shading", label: "T2 Shading Ne Anlama Geliyor?", options: ["Hemosiderin birikimi → kronik kan → patognomonik endometrioma", "Kalsifikasyon", "Fibröz doku", "Mukoid içerik"], correct: 0 },
-      { key: "report", label: "Raporda Belirtilecek", options: ["T1 yağ baskılama davranışı + T2 shading + boyut + DIE taraması öner", "Sadece kist boyutu", "Sadece T1 sinyali", "Cerrahi öner"], correct: 0 }
+      { key: "diagnosis", label: "Stanford Sınıflama", options: ["Stanford Tip A (asendan tutulum var)", "Stanford Tip B (sadece desendan)", "DeBakey Tip III", "İntramural Hematom"], correct: 0 },
+      { key: "urgency", label: "Tip A'nın Klinik Önemi", options: ["ACİL CERRAHİ (mortalite saatte %1-2 artar)", "Medikal tedavi yeterli", "Elektif cerrahi planla", "Endovasküler stent yeterli"], correct: 0 },
+      { key: "complications", label: "Perikardiyal Efüzyon Ne Anlama Geliyor?", options: ["Aort kökü rüptürü/sızıntı → tamponad riski!", "Normal bulgu", "Miyokardit eşlik ediyor", "Teknik artefakt"], correct: 0 },
+      { key: "report", label: "Rapor İçeriği", options: ["Stanford tipi + flep uzanımı + dal tutulumu + perikardiyal durum + koroner ilişki", "Sadece 'diseksiyon mevcuttur'", "Sadece Stanford tipi", "Sadece aort çapı"], correct: 0 }
     ],
-    explanation: "T1 parlak + yağ baskıda parlak = KAN (dermoidde yağ baskıda söner). T2 shading = hemosiderin birikimi = endometriomaya patognomonik. Dermoid: T1 parlak + yağ baskıda SÖNER + Rokitansky nodülü + kalsifikasyon."
+    explanation: "Asendan aort tutulumu = Stanford A = ACİL cerrahi. Mortalite saatte %1-2 artar! Perikardiyal efüzyon = tamponad riski (kötü prognoz). Raporda: Stanford tipi, intimal flep başlangıç/bitiş noktası, dal damar tutulumu, perikardiyal durum, koroner ostium ilişkisi."
   },
-  { id: 4, title: "Böbrek Kitlesi - Berrak Hücreli mi Papiller mi?",
-    scenario: "48 yaşında erkek, insidental sol böbrek 4cm solid kitle. Nefrektomi planlanıyor, preop MR.",
-    findings: "T2: Hiperintens (parlak). DWI: Kısıtlanma mevcut. Chemical shift: Opposed-phase'de sinyal kaybı var. Arteryel faz: Hipervasküler (belirgin kontrastlanma). Portal faz: Wash-out.",
+  { id: 4, title: "Plevral Kalınlaşma — Mezotelyoma mı Benign mi?",
+    scenario: "72 yaşında erkek, 30 yıl asbest maruziyeti (tersane işçisi), 3 aydır artan dispne + sağ göğüs ağrısı.",
+    findings: "BT: Sağ hemitoraksta diffüz nodüler plevral kalınlaşma (>1 cm). Mediastinal plevra tutulumu mevcut. Fissüral nodülarite. İpsilateral volüm kaybı. Bilateral kalsifiye plevral plaklar. Sağ plevral efüzyon. Kontralateral plevra normal.",
     fields: [
-      { key: "diagnosis", label: "En Olası Tanı", options: ["Berrak Hücreli RCC", "Papiller RCC", "Kromofob RCC", "Onkositom"], correct: 0 },
-      { key: "cs_meaning", label: "Chemical Shift Kaybı Ne Söylüyor?", options: ["İntrasellüler lipid → berrak hücreli RCC (%60)", "Makroskopik yağ → AML", "Kalsifikasyon", "Hemosiderin"], correct: 0 },
-      { key: "papillary_diff", label: "Papiller RCC Nasıl Farklı Olurdu?", options: ["T2 HİPO + CS kaybı YOK + HİPOVASKÜLER", "T2 parlak + hipervasküler", "Aynı bulgular", "Sadece boyut fark eder"], correct: 0 },
-      { key: "report", label: "Rapor Stratejisi", options: ["T2 sinyal + CS davranış + vaskülarite + ven invazyonu değerlendir", "Sadece boyut", "Sadece Bosniak sınıflama", "Sadece nefrektomi öner"], correct: 0 }
+      { key: "diagnosis", label: "En Olası Tanı", options: ["Malign Plevral Mezotelyoma", "Plevral Metastaz", "Fibrotoraks", "Plevral Plak (benign)"], correct: 0 },
+      { key: "malign_signs", label: "Malignite Kriterleri (3 Kriter)", options: [">1cm kalınlık + Nodülarite + Mediastinal plevra tutulumu", "Sadece efüzyon yeterli", "Sadece kalınlaşma yeterli", "Kalsifikasyon = malign"], correct: 0 },
+      { key: "volume", label: "Volüm Kaybı Ne Anlama Geliyor?", options: ["Mezotelyoma → interkostal invazyon → hemitoraks daralır (metastazda volüm ARTAR)", "Normal yaşlanma", "Efüzyon etkisi", "Atelektazi"], correct: 0 },
+      { key: "report", label: "Raporda Belirtilecek", options: ["Kalınlaşma tipi + mediastinal plevra + volüm değişimi + plaklar + kontralateral durum", "Sadece 'plevral kalınlaşma'", "Sadece efüzyon", "Sadece asbest öyküsü"], correct: 0 }
     ],
-    explanation: "Berrak hücreli RCC: T2 parlak + CS kaybı (%60 intrasellüler lipid) + hipervasküler + wash-out. Papiller RCC: T2 HİPO + CS kaybı YOK + HİPOVASKÜLER → TAM TERSİ. Bu ayrım preop planlamayı etkiler."
+    explanation: "Asbest + diffüz nodüler >1cm + mediastinal plevra + volüm kaybı = mezotelyoma. Volüm kaybı (mezotelyoma) vs volüm artışı (metastaz) kritik ayrım. Raporda: kalınlaşma paterni, mediastinal plevra, fissüral tutulum, volüm, kontralateral plevra, staging bilgileri."
   }
 ];
 
@@ -6496,54 +6495,54 @@ function renderCasesPage(main) {
 const thoraxLearningPath = [
   {
     week: 1,
-    title: "Karaciğer Temelleri & LI-RADS",
-    subtitle: "KC segmentasyonu, kontrast dinamikleri ve LI-RADS mantığı",
+    title: "Akciğer Temelleri & Nodül Değerlendirme",
+    subtitle: "Akciğer anatomisi, nodül karakterizasyonu ve Lung-RADS",
     color: "#f43f5e",
     icon: "🫁",
     modules: [
-      { type: 'concept', title: 'Karaciğer Segmentasyonu (Couinaud)', desc: 'Couinaud 8 segment: Hepatik venler segmentleri AYIRIR (sol HV = II-III/IV sınırı, orta HV = sol-sağ lob = Cantlie hattı, sağ HV = anterior/posterior sektör). Portal ven dalları segmentleri BESler. IVC → safra kesesi çukuru hattı = Cantlie hattı = cerrahi sol-sağ lob sınırı.', action: 'anatomy', label: 'Anatomi Atlasını Aç' },
-      { type: 'concept', title: 'Kontrast Dinamikleri (Arteryel / Portal / Gecikmeli)', desc: 'Normal KC: çift kanlanma (%75 portal ven, %25 hepatik arter). Arteryel faz (25-35sn): arterden beslenen lezyonlar PARLAK (HCC, FNH, hemanjiom). Portal faz (60-70sn): KC parankimi pik kontrastlanma → lezyon/parenkim kontrastı. Gecikmeli faz (3-5dk): fibröz doku tutar, wash-out değerlendirmesi.', action: 'enhance', label: 'Kontrast Paternlerini Aç' },
-      { type: 'concept', title: 'LI-RADS Temelleri', desc: 'Sirotik/yüksek riskli hastada KC kitle değerlendirmesi: LR-1 (kesin benign) → LR-5 (kesin HCC). Major kriterler: arteryel faz hiperenhancement (APHE), wash-out, kapsül görünümü, çap, eşik büyüme. APHE + wash-out + >10mm = LR-5 (kesin HCC → biyopsisiz tanı!).', action: 'disease', id: 'hcc', label: 'HCC Kartını Aç' },
-      { type: 'study', ids: ['hcc', 'hemangioma', 'fnh', 'metastasis_liver', 'hepatic_adenoma'], title: 'Çalışılacak Hastalıklar', desc: 'Bu 5 hastalık KC kitle ayrımının temelini oluşturur. Her birinin kontrastlanma paternini öğren.' }
+      { type: 'concept', title: 'Akciğer Lob ve Segment Anatomisi', desc: 'Sağ: 3 lob (üst, orta, alt) + 10 segment. Sol: 2 lob (üst, alt) + 8-10 segment. Fissürler: Major (oblik) her ikisinde, minor (horizontal) sadece sağda. Hiler anatomi: PA pulmoner arterlerin en büyüğü → lob/segment dalları. Bronkovasküler demetler anatomik referans noktaları.', action: 'anatomy', label: 'Anatomi Atlasını Aç' },
+      { type: 'concept', title: 'Soliter Pulmoner Nodül Değerlendirme', desc: 'Boyut: <6mm → takip gereksiz (düşük risk). 6-8mm → takip. >8mm → PET-BT/biyopsi düşün. Kontur: düzgün = benign, spikülasyon/lobülasyon = malign şüphe. Kalsifikasyon: santral/popcorn/lamellar = benign. Yağ: hamartom. Büyüme hızı: VDT <20 gün veya >600 gün = benign olasılığı.', action: 'finder', label: 'Karar Ağacını Aç' },
+      { type: 'concept', title: 'Lung-RADS Sınıflama', desc: 'Tarama BT\'de nodül değerlendirmesi. Lung-RADS 1: negatif. 2: benign. 3: muhtemelen benign (6mm+ solid, takip). 4A: şüpheli (8-15mm solid). 4B: çok şüpheli (>15mm solid). 4X: ek şüpheli özellikler. Solid, parsiyel solid ve saf buzlu cam nodüller için ayrı eşikler.', action: 'disease', id: 'lung_cancer', label: 'Akciğer Kanseri Kartını Aç' },
+      { type: 'study', ids: ['lung_cancer', 'pneumonia', 'tuberculosis', 'sarcoidosis', 'pulmonary_fibrosis'], title: 'Çalışılacak Hastalıklar', desc: 'Akciğer patolojisinin temel 5 hastalığı. Her birinin BT paternini ve ayırıcı tanısını öğren.' }
     ]
   },
   {
     week: 2,
-    title: "Pankreatobiliyer & GIS",
-    subtitle: "Pankreas kontrastlanması, MRCP tekniği, barsak duvar analizi",
+    title: "Mediasten & Plevra",
+    subtitle: "Mediastinal kompartmanlar, plevral patoloji, efüzyon analizi",
     color: "#f59e0b",
-    icon: "🟡",
+    icon: "📦",
     modules: [
-      { type: 'concept', title: 'Pankreas Kontrastlanma Fiziği', desc: 'Normal pankreas: YOĞUN kapiller ağ → arteryel/pankreatik fazda HOMOJENkontrastlanır. PDAC: desmoplastik stroma → HİPOVASKÜLER → pankreatik fazda HİPODENS (çevre pankreastan koyu). pNET: zengin kapiller → HİPERVASKÜLER → arteryel fazda parlak. Bu basit kural ikisini ayırır!', action: 'disease', id: 'pancreatic_adenoca', label: 'PDAC Kartını Aç' },
-      { type: 'concept', title: 'MRCP Tekniği', desc: '2D kalın kesit MRCP: hızlı, genel bakış (T2 ağırlıklı → safra/pankreatik kanal parlak, çevre koyu). 3D ince kesit MRCP: detaylı, MPR yapılabilir → küçük taş/striktür tespiti. Sekretin MRCP: IV sekretin → pankreas salgısı artar → Wirsung doluluk ve fonksiyon. Tuzak: hava kabarcığı = taş gibi görünebilir (pozisyon değişir).', action: 'disease', id: 'choledocholithiasis', label: 'Koledokolitiyazis Kartını Aç' },
-      { type: 'concept', title: 'Barsak Duvar Analizi', desc: 'Normal duvar: ≤3mm (distansiyon). Kalınlaşma paterni: SİMETRİK + homojen = inflamatuar (Crohn, ÜK). ASİMETRİK + irregular = neoplastik. Katmanlanma (target sign): mukoza hiperemik + submukoza ödemli → aktif inflamasyon. Yağ halo sign: submukozal yağlanma → kronik inflamasyon (Crohn).', action: 'disease', id: 'crohn', label: 'Crohn Kartını Aç' },
-      { type: 'study', ids: ['pancreatic_adenoca', 'ipmn', 'cholangiocarcinoma', 'crohn', 'appendicitis'], title: 'Çalışılacak Hastalıklar', desc: 'Pankreatobiliyer ve GIS patolojilerinin temel 5 hastalığı.' }
+      { type: 'concept', title: 'Mediastinal Kompartman Analizi', desc: 'Anterior (prevascular): timoma, lenfoma, teratom, tiroid (4T kuralı). Orta (visceral): LAP, bronkojenik kist, özofagus patolojisi. Posterior (paravertebral): nörojenik tümörler (schwannoma, nörofibrom). ITMIG 2014 sınıflama: prevascular, visceral, paravertebral.', action: 'disease', id: 'thymoma', label: 'Timoma Kartını Aç' },
+      { type: 'concept', title: 'Plevral Efüzyon Analizi', desc: 'Transüda: bilateral, düşük dansite (<15 HU), ince plevra → KKY, siroz. Eksüda: unilateral, yüksek dansite (>15 HU), kalın plevra → enfeksiyon, tümör. Light kriterleri: protein >3g/dL veya LDH yüksek = eksüda. BT ipucu: septasyon, nodüler kalınlaşma, kontrastlanma = komplike/malign.', action: 'disease', id: 'pleural_effusion', label: 'Efüzyon Kartını Aç' },
+      { type: 'concept', title: 'Malign vs Benign Plevral Kalınlaşma', desc: 'Malign kriterleri: >1cm kalınlık + nodülarite + mediastinal plevra tutulumu. Mezotelyoma: diffüz sirkümferansiyal + asbest + volüm kaybı. Metastaz: nodüler + bilinen primer + volüm artışı. Benign: düzgün, ince, kalsifiye → plevral plak (asbest) veya fibrotoraks.', action: 'disease', id: 'mesothelioma', label: 'Mezotelyoma Kartını Aç' },
+      { type: 'study', ids: ['thymoma', 'thoracic_lymphoma', 'mesothelioma', 'pleural_effusion', 'empyema'], title: 'Çalışılacak Hastalıklar', desc: 'Mediasten ve plevra patolojilerinin temel 5 hastalığı.' }
     ]
   },
   {
     week: 3,
-    title: "Ürogenital & Pelvik",
-    subtitle: "Renal kitle karakterizasyonu, Bosniak, PI-RADS, over kitle analizi",
+    title: "Kardiyak & Vasküler",
+    subtitle: "Kardiyak MR protokolleri, LGE paterni, aort acilleri",
     color: "#8b5cf6",
-    icon: "🫘",
+    icon: "❤️",
     modules: [
-      { type: 'concept', title: 'Renal Kitle Karakterizasyonu', desc: 'Solid kitle: kontrastlanma >20 HU artış = GERÇEK solid lezyon. Berrak hücreli RCC: hipervasküler → arteryel parlak, heterojen. Papiller RCC: hipovasküler → homojen, gecikmeli kontrastlanma. Kromofob RCC: homojen, orta kontrastlanma. AML: makroskopik yağ (-30 HU) → PATOGNOMONİK (yağsız AML tuzağı var!).', action: 'disease', id: 'rcc', label: 'RCC Kartını Aç' },
-      { type: 'concept', title: 'Bosniak Sınıflama (2019 Güncelleme)', desc: 'Bosniak I: basit kist (su dansitesi, ince duvar, kontrastlanma yok). Bosniak II: ince septa, ince kalsifikasyon, hiperdens kist. Bosniak IIF: minimal kalınlaşmış septa, takip gerekli. Bosniak III: kalınlaşmış irregular septa/duvar, kontrastlanan komponent → cerrahi düşün. Bosniak IV: solid kontrastlanan komponent → MALİGN kabul.', action: 'disease', id: 'bosniak_cysts', label: 'Bosniak Kartını Aç' },
-      { type: 'concept', title: 'PI-RADS Temelleri & Over Kitle Analizi', desc: 'PI-RADS: prostat mpMR → PZ\'de DWI dominant (kısıtlanma = şüpheli), TZ\'de T2 dominant (homojen kapsüllü = BPH, lentiküler/organize olmayan = Ca). Over kitle: solid komponent + kontrastlanma = en önemli malignite kriteri. Endometrioma: T1 parlak kist (kan), T2 shading (kronik kan ürünleri).', action: 'disease', id: 'prostate_ca', label: 'Prostat Ca Kartını Aç' },
-      { type: 'study', ids: ['rcc', 'aml', 'ovarian_ca', 'endometriosis', 'prostate_ca'], title: 'Çalışılacak Hastalıklar', desc: 'Ürogenital ve pelvik patolojilerin temel 5 hastalığı.' }
+      { type: 'concept', title: 'Kardiyak MR Temel Protokol', desc: 'Cine SSFP: fonksiyon (EF, duvar hareket, kapak). T2 STIR: ödem (miyokardit, akut infarkt). LGE: skar/fibrozis paterni (subendokardiyal=iskemik, subepikardial=miyokardit, mid-wall=non-iskemik KMP). T1 mapping: diffüz hastalık (amiloidoz, Fabry). T2 mapping: miyokardiyal ödem nicel ölçümü.', action: 'disease', id: 'myocarditis', label: 'Miyokardit Kartını Aç' },
+      { type: 'concept', title: 'LGE Paternleri ile Ayırıcı Tanı', desc: 'Subendokardiyal → iskemik (koroner dağılım). Subepikardial → miyokardit (inferolateral). Mid-wall → DCM, HCM (RV insertion). Diffüz subendokardiyal → amiloidoz. İnferolateral mid-wall + düşük T1 → Fabry. LGE yok + kalın perikard → konstriktif perikardit.', action: 'disease', id: 'hcm', label: 'HCM Kartını Aç' },
+      { type: 'concept', title: 'Akut Aort Sendromu (AAS)', desc: 'Üç patoloji: 1) Aort diseksiyonu: intimal flep + çift lümen. 2) İntramural hematom: hilal hiperdens (≥60HU) + flep yok. 3) Penetran aortik ülser: fokal krater + ateroskleroz. Stanford: A (asendan) = ACİL cerrahi. B (desendan) = medikal ± endovasküler. Kontrastsız BT → IMH, kontrastlı → diseksiyon/PAU.', action: 'disease', id: 'aortic_dissection', label: 'Diseksiyon Kartını Aç' },
+      { type: 'study', ids: ['hcm', 'myocarditis', 'aortic_dissection', 'pulmonary_embolism', 'cardiac_amyloidosis'], title: 'Çalışılacak Hastalıklar', desc: 'Kardiyovasküler patolojilerin temel 5 hastalığı.' }
     ]
   },
   {
     week: 4,
     title: "Entegrasyon & Ayırıcı Tanı",
-    subtitle: "Multiorgan ayırıcı tanı, acil toraks, staging entegrasyonu",
+    subtitle: "Sistematik toraks BT okuma, acil toraks, staging",
     color: "#10b981",
     icon: "🏆",
     modules: [
-      { type: 'concept', title: 'Sistematik Yaklaşım: Bulgu → Tanı', desc: '1) Organ lokalizasyonu (KC, pankreas, böbrek, barsak?) 2) Lezyon karakteri (kistik vs solid vs mikst) 3) Kontrastlanma paterni (hipervasküler vs hipovasküler vs periferik) 4) Klinik bağlam (siroz? kanser öyküsü? acil?) 5) Ayırıcı tanı → en olası tanı. Her vakada bu sırayı uygula!', action: 'finder', label: 'Tüm Karar Ağaçlarını Gör' },
-      { type: 'concept', title: 'Acil Toraks Yaklaşımı', desc: 'Vasküler aciller: SMA trombozu (barsak duvarında kontrastlanma kaybı + pnömatozis), aort rüptürü (retroperitoneal hematom), portal ven trombozu. Travma: AAST organ yaralanma gradeleme. Serbest sıvı, aktif kanama (arteryel blush), sentinel clot sign → en çok yaralanan organ.', action: 'emergency', label: 'Acil Sayfasını Aç' },
-      { type: 'concept', title: 'Staging & Grading Entegrasyonu', desc: 'TNM evreleme: T (tümör boyutu/invazyon), N (lenf nodu), M (metastaz). Organ-spesifik: KC metastaz sayı/boyut, peritoneal karsinomatozis (PCI skoru), lenf nodu kısa aks >10mm = patolojik. Imaging rapor: cerrahın neye ihtiyacı var → damar invazyonu, rezektabilite, uzak metastaz.', action: 'staging', label: 'Evreleme Sayfasını Aç' },
-      { type: 'study', ids: ['mesenteric_ischemia', 'aortic_aneurysm', 'peritoneal_carcinomatosis', 'sma_thrombosis'], title: 'Çalışılacak Hastalıklar', desc: 'Vasküler aciller ve ileri evre hastalıklar — entegrasyon.' }
+      { type: 'concept', title: 'Sistematik Toraks BT Okuma', desc: '1) Akciğer parankimi: nodül, konsolidasyon, buzlu cam, fibrozis. 2) Hava yolları: bronşektazi, trakea. 3) Plevra: efüzyon, kalınlaşma. 4) Mediasten: LAP, kitle. 5) Kardiyak: perikard, odacıklar. 6) Vasküler: aort, PA. 7) Kemik: kosta, vertebra. Her BT\'de bu 7 adımı uygula!', action: 'finder', label: 'Tüm Karar Ağaçlarını Gör' },
+      { type: 'concept', title: 'Toraks Acil Durumlar', desc: 'Vasküler: PE (dolma defekti + RV strain), aort diseksiyonu (intimal flep), aort rüptürü (mediastinal hematom). Pnömotoraks: tansiyon (mediastinal shift + kontralateral). Tamponad: perikardiyal efüzyon + RA/RV kollaps. Özofagus perforasyonu: pnömomediastinum + sol plevral efüzyon.', action: 'emergency', label: 'Acil Sayfasını Aç' },
+      { type: 'concept', title: 'Akciğer Kanseri Staging', desc: 'T: tümör boyut + invazyon (T1≤3cm, T2 3-5cm, T3 5-7cm, T4>7cm veya mediastinal invazyon). N: N1 ipsilateral hiler, N2 ipsilateral mediastinal, N3 kontralateral. M: M1a kontralateral nodül/plevral. M1b tek organ. M1c multi-organ. Raporda: tümör boyut, komşu yapı ilişkisi, LAP istasyonları, metastaz durumu.', action: 'disease', id: 'lung_cancer', label: 'Staging Kartını Aç' },
+      { type: 'study', ids: ['lung_cancer', 'pulmonary_embolism', 'aortic_dissection', 'mesothelioma', 'thoracic_lymphoma'], title: 'Çalışılacak Hastalıklar', desc: 'Staging ve acil durumları entegre et — tüm hastalıkları karşılaştır.' }
     ]
   }
 ];
@@ -6551,67 +6550,67 @@ const thoraxLearningPath = [
 // ===== THORAX ADVANCED MR DATA =====
 const thoraxAdvancedMR = [
   {
-    title: "DWI Thorax (Difüzyon Ağırlıklı Görüntüleme)",
+    title: "DWI Toraks (Difüzyon Ağırlıklı Görüntüleme)",
     icon: "🔒",
     color: "#f59e0b",
     concepts: [
-      { name: "ADC Değerleri — Lezyon Karakterizasyonu", what: "Su molekülü hareketinin nicel ölçümü. Düşük ADC = yüksek selülarite veya viskozite", high: "Basit kist, nekrotik alan, ödemli doku (su serbest hareket eder)", low: "Malign tümör (yüksek selülarite), abse (visköz pü), sitotoksik ödem (iskemik barsak)" },
-      { name: "b-Değeri Seçimi", what: "Difüzyon gradyan gücü. Düşük b = perfüzyon etkisi dahil, yüksek b = gerçek difüzyon", high: "b50-100: perfüzyon ağırlıklı (IVIM → kapiller perfüzyon görselleştirme). Hipervasküler lezyonlar parlak", low: "b800-1000: gerçek difüzyon kısıtlanması. Malign lezyon tespitinde optimal. KC için b=800, barsak için b=600-800" },
-      { name: "Organ-Spesifik DWI (KC, Böbrek, Barsak)", what: "Her organın normal ADC değeri ve eşik değerleri farklı", high: "KC normal ADC: ~1.5 × 10⁻³ mm²/s. Böbrek korteks: ~2.2. İnce barsak: ~2.0", low: "KC malign lezyon: <1.0 × 10⁻³. Böbrek tümör: <1.5. Aktif Crohn segmenti: <1.3 (duvar DWI parlak)" }
+      { name: "ADC Değerleri — Toraks Lezyonları", what: "Su molekülü hareketinin nicel ölçümü. Düşük ADC = yüksek selülarite veya viskozite. Toraks lezyonlarında ADC eşik değerleri organa göre değişir", high: "Benign lezyon (organize pnömoni, benign nodül): ADC >1.4 × 10⁻³ mm²/s. Nekrotik/kistik alan: çok yüksek ADC (serbest su)", low: "Akciğer kanseri: ADC <1.2 × 10⁻³ (yüksek selülarite). Lenfoma: ADC <0.8 × 10⁻³ (çok yoğun hücre). Abse: ADC 0.5-0.7 × 10⁻³ (visköz pü)" },
+      { name: "b-Değeri Seçimi — Toraks Protokolü", what: "Difüzyon gradyan gücü. Toraks DWI'da akciğer parankimi düşük proton dansitesi nedeniyle zor bölgedir", high: "b=50-100: perfüzyon etkisi dahil — mediastinal vaskülarite değerlendirmesi. Lenf nodu perfüzyon haritalaması için IVIM modeli", low: "b=800-1000: mediastinal kitle ve lenf nodu karakterizasyonu için optimal. Plevral lezyon değerlendirmesinde b=800 tercih edilir. Akciğer nodülü için b=600-800 yeterli" },
+      { name: "Toraks-Spesifik DWI Uygulamaları", what: "Akciğer nodülü, mediastinal kitle ve plevral lezyon karakterizasyonunda DWI'ın rolü", high: "Mediastinal lenf nodu: DWI reaktif vs metastatik ayırımında yardımcı (metastatik = düşük ADC). Timoma vs lenfoma: lenfoma çok daha düşük ADC", low: "Akciğer nodülü: malign nodül ADC <1.0-1.2, benign nodül >1.4. Plevral lezyon: malign mezotelyoma ADC <1.0-1.2, benign plevral kalınlaşma >1.5" }
     ],
     clinicalPearls: [
-      "🔑 DWI tümör vs abse: Abse → çok düşük ADC (visköz pü, 0.3-0.7), tümör → orta-düşük ADC (0.8-1.2). KC absesinde DWI parlak merkez = abse patolojik",
-      "🔑 DWI barsak inflamasyon aktivitesi: Aktif Crohn segmentinde DWI parlak + düşük ADC → aktivite belirteci. Fibrotik striktür = DWI parlak DEĞİL",
-      "🔑 Hepatobilier faz + DWI kombinasyonu: Gd-EOB-DTPA hepatobilier fazda hipointens (hepatosit yok) + DWI parlak = yüksek güvenle malign lezyon",
-      "🔑 TUZAK: T2 shine-through → hemanjiom gibi T2 parlak lezyonlar DWI'da da parlak görünebilir. MUTLAKA ADC haritasını kontrol et!"
+      "🔑 Akciğer nodülü DWI: Solid nodülde DWI parlak + ADC düşük (<1.2) = malignite şüphesi yüksek. Ancak aktif granülom (tbc, sarkoidoz) de düşük ADC gösterebilir → klinik korelasyon ŞART",
+      "🔑 Mediastinal lenfadenopati: Lenfoma ADC <0.8 ile reaktif LAP ADC >1.0 arasında anlamlı fark var. DWI ile N-evreleme PET'e yakın doğrulukta yapılabilir",
+      "🔑 Plevral efüzyon karakterizasyonu: Transüda vs eksüda DWI ile ayırt edilemez. Ancak plevral nodülarite + DWI parlak = malign plevral hastalık düşündürür",
+      "🔑 TUZAK: Akciğer parankiminde düşük proton dansitesi → DWI sinyal-gürültü oranı düşük. Küçük periferal nodüller (<1cm) DWI'da kaçabilir. T2 shine-through → MUTLAKA ADC haritasını kontrol et!"
     ]
   },
   {
-    title: "DCE-MR (Dinamik Kontrastlı MR)",
+    title: "Kardiyak MR — T1/T2 Mapping",
     icon: "💉",
     color: "#f43f5e",
     concepts: [
-      { name: "Zaman-Yoğunluk Eğrileri (Type I/II/III)", what: "Kontrastlanmanın zamansal davranışı — lezyon karakteri hakkında bilgi verir", high: "Type I (progressif artış): benign (hemanjiom, fibröz doku — yavaş dolum). Type III (hızlı wash-out): malign (HCC, hipervasküler met)", low: "Type II (plato): borderline — hem benign hem malign olabilir (FNH, düşük grade tümör). Tek başına tanısal değil" },
-      { name: "Wash-in / Wash-out Analizi", what: "Arteryel fazda kontrastlanma hızı ve gecikmeli fazda kayıp oranı", high: "Hızlı wash-in: hipervasküler lezyon (HCC, FNH, hemanjiom nodüler kontrastlanma). Wash-out: HCC'de portal/gecikmeli fazda çevre KC'den KOYU", low: "Yavaş wash-in + gecikmeli tutulum: desmoplastik tümör (kolanjiokarsinom, pankreas Ca). Fibröz doku = gecikmeli tutan" },
-      { name: "Hepatobilier Kontrast Ajanları (Gd-EOB-DTPA vs Gd-BOPTA)", what: "Hepatosit-spesifik kontrast: normal hepatositler tarafından alınır → hepatobilier fazda KC parlak", high: "Gd-EOB-DTPA (Primovist): %50 hepatobilier atılım → 20dk'da hepatobilier faz. Daha güçlü hepatosit uptake", low: "Gd-BOPTA (MultiHance): %5 hepatobilier → 60-120dk'da hepatobilier faz. Daha düşük hepatosit uptake ama dinamik fazları daha iyi" }
+      { name: "Native T1 Mapping", what: "Kontrast öncesi miyokard T1 relaksasyon süresinin piksel bazlı nicel ölçümü. Doku karakterizasyonunda altın standart", high: "Yüksek native T1 (>1100ms, 1.5T): amiloidoz (ekstraselüler protein birikimi), miyokardit (ödem + inflamasyon), demir eksikliği, akut MI (ödem)", low: "Düşük native T1 (<900ms, 1.5T): Fabry hastalığı (sfingolipid birikimi — patognomonik bulgu), demir birikimi (hemokromatoz/transfüzyon), yağlı infiltrasyon (lipomatöz metaplazi)" },
+      { name: "T2 Mapping", what: "Miyokard T2 relaksasyon süresinin nicel ölçümü. T2 uzaması = doku su içeriği artışı (ödem belirteci)", high: "T2 >55ms (1.5T): miyokardiyal ödem mevcut — akut miyokardit, akut MI reperfüzyon hasarı, rejeksiyon (transplant). Fokal vs diffüz ödem ayrımı yapılabilir", low: "T2 <55ms (1.5T): normal miyokard — ödem yok. Kronik fibrozis T2'yi UZATMAZ (kronik MI'da T2 normal, LGE pozitif → akut-kronik ayrımında kritik)" },
+      { name: "ECV (Ekstraselüler Volüm Fraksiyonu)", what: "Kontrast öncesi-sonrası T1 değerleri + hematokrit ile hesaplanan ekstraselüler alan oranı. Normal miyokard ECV %25-30", high: "ECV >%30: diffüz fibrozis (HCM, dilate KMP), amiloidoz (ECV %40-60 çok yüksek), miyokardit (aktif inflamasyon). Amiloidozda ECV en yüksek değerlere ulaşır", low: "ECV <%25: normal miyokard veya kompakt hipertrofi (atletik kalp — fizyolojik hipertrofi). Fabry'de ECV normal olabilir (intraselüler birikim)" }
     ],
     clinicalPearls: [
-      "🔑 FNH vs adenom hepatobilier fazda: FNH = fonksiyonel hepatositler → Gd-EOB-DTPA ALIR → hepatobilier fazda İZO/HİPERİNTENS. Adenom = anormal hepatositler → ALMAZ → HİPOİNTENS",
-      "🔑 HCC wash-out mekanizması: HCC arteryel neovaskülarizasyon → arteryel APHE. Ama sinüzoidal yapı bozuk → portal akım azalır → portal/gecikmeli fazda çevre KC parankiminden KOYU (wash-out)",
-      "🔑 Kolanjiokarsinom gecikmeli tutulumu: Yoğun fibröz stroma → kontrast yavaş sızar + yavaş çıkar → arteryelde HİPO, gecikmeli fazda (5-10dk) İZO/HİPER. Bu 'fibröz doku retansiyon' paterni",
-      "🔑 Primovist TUZAĞI: Arteryel faz kalitesi ekstrasellüler ajanlara göre daha düşük (düşük doz). Küçük hipervasküler lezyonları kaçırabilirsin → hepatobilier faz ile telafi"
+      "🔑 Fabry patognomonik bulgu: Düşük native T1 (<900ms, 1.5T) + normal ECV = sfingolipid birikimi. Başka hiçbir kardiyomiyopatide bu kombinasyon GÖRÜLMEZ — tanı koydurucu",
+      "🔑 Amiloidoz vs HCM ayırımı: Her ikisinde de duvar kalınlığı artar. Amiloidoz → çok yüksek native T1 + çok yüksek ECV (%40-60). HCM → hafif yüksek T1 + orta ECV (%30-40). Mapping ile ayırt edilebilir",
+      "🔑 Akut vs kronik MI: Akut MI → T2 YÜKSEK (ödem) + T1 yüksek + LGE pozitif. Kronik MI → T2 NORMAL + T1 yüksek + LGE pozitif. T2 mapping akut-kronik ayrımında EN ÖNEMLİ parametre",
+      "🔑 TUZAK: T1 ve T2 değerleri manyetik alan gücüne BAĞIMLI — 1.5T ve 3T için farklı referans aralıkları kullan. 3T'de native T1 daha yüksek (~1200ms normal). Vendor-spesifik farklılıklar da mevcut"
     ]
   },
   {
-    title: "MR Elastografi",
+    title: "BT Anjiyo Toraks — Protokol ve Teknik",
     icon: "📊",
     color: "#8b5cf6",
     concepts: [
-      { name: "KC Sertliği Ölçümü", what: "Mekanik dalga propagasyonu → doku sertliği (kPa) hesaplanır. Sert doku = hızlı dalga", high: "Fibrozis/siroz: sertlik artar (F4 siroz: >5-6 kPa). Konjesyon (sağ kalp yetmezliği): sertlik yapay artabilir", low: "Normal KC: ~2.0-2.5 kPa. Steatoz sertliği çok az artırır ama fibrozis olmadan genelde <3 kPa" },
-      { name: "Fibrozis Evreleme (F0-F4)", what: "METAVIR skoru ile korelasyon: F0=normal, F1=portal fibrozis, F2=bridging, F3=ciddi bridging, F4=siroz", high: "MRE eşik değerleri: F≥2: >3.0 kPa (klinik anlamlı fibrozis). F≥3: >3.5 kPa. F4: >5.0 kPa. Viral hepatit ve NAFLD için en iyi non-invaziv yöntem", low: "F0-F1: <3.0 kPa → anlamlı fibrozis YOK. Biyopsi gerekmez. Ancak steatohepatitin kendisi (NASH) elastografiyle ayırt edilemez" },
-      { name: "Teknik (Vibrasyon + Faz Kontrast)", what: "Pasif driver → 60Hz mekanik vibrasyon → KC'ye dalga gönderir → faz kontrast MR ile dalga haritası → sertlik hesaplama", high: "Avantaj: tüm KC'yi örnekler (biyopsi 1/50.000 hacim), obezitede bile çalışır (USG elastografinin limiti)", low: "Limitasyon: demir birikimi → sinyal düşer → ölçüm güvenilmez. Aşırı asit → dalga iletimi bozulur" }
+      { name: "Pulmoner Emboli Protokolü", what: "PA'da bolus tracking ile optimal pulmoner arteryel opasifikasyon sağlanır. Hızlı akuisizyon = hareket artefaktı minimuma iner", high: "Bolus tracking: ROI pulmoner trunkus üzerine → eşik 100-150 HU → otomatik tetikleme. 100-120 kV (düşük kV = iyot kontrastı artar). İnce kesit (0.5-1mm) + sagittal-koronal MPR", low: "Kontrendikasyon/limitasyon: böbrek yetmezliği (eGFR <30), kontrast alerjisi. Suboptimal bolus → sağ kalp karışımı artefaktı. Gebelikte ventilasyon-perfüzyon sintigrafisi alternatif" },
+      { name: "Aortik BT Anjiyo Protokolü", what: "Aort diseksiyonu, anevrizma ve vaskülit değerlendirmesinde çok fazlı protokol. Asendan aort için EKG-gating ŞART", high: "EKG-gated akuisizyon: asendan aort hareket artefaktını elimine eder (kardiyak pulsasyon). Dual-faz: arteryel (disseksiyon flap) + gecikmeli (yavaş akım, endoleak). Aort kökü ölçümü EKG-gated'de güvenilir", low: "Non-gated limitasyonu: asendan aort pulsasyon artefaktı → sahte diseksiyon flap (pseudo-dissection). Sadece desendan aort değerlendirmesinde non-gated kabul edilebilir" },
+      { name: "Koroner BT Anjiyo (KBTA)", what: "Koroner arter stenozunu non-invaziv değerlendiren EKG-senkronize BT anjiografi. Prospektif vs retrospektif gating seçimi kritik", high: "Prospektif gating (step-and-shoot): düşük doz (~2-5 mSv), düzenli ritimde (<65 bpm) optimal. Retrospektif gating: tüm kardiyak siklus → fonksiyonel analiz yapılabilir ama doz yüksek (~8-15 mSv)", low: "KBTA limitasyonları: yüksek kalsiyum skoru (Agatston >400) → blooming artefaktı, ciddi aritmi → gating bozulur, yüksek kalp hızı → beta-bloker ile hız kontrolü gerekli (<65 bpm hedef)" }
     ],
     clinicalPearls: [
-      "🔑 Biyopsi yerine non-invaziv fibrozis: MRE → fibrozis evreleme AUC >0.95 (F≥2 için). KC biyopsisinin örnekleme hatası %25-40 → MRE tüm KC'yi değerlendirir",
-      "🔑 NAFLD takibi: MRE + MR-PDFF (proton dansite yağ fraksiyonu) kombinasyonu → yağlanma + fibrozis birlikte değerlendirilir → tedavi yanıtı takibi",
-      "🔑 Portal HT korelasyonu: KC sertliği >5 kPa → portal HT riski yüksek. Splenik sertlik de ölçülebilir → portal HT'nin indirekt belirteci",
-      "🔑 TUZAK: Akut hepatit (inflamasyon) → sertlik YAPAY artar (ödem etkisi). Akut alevlenmede ölçüm yapma → en az 3 ay bekle"
+      "🔑 PE protokolünde zamanlama: Bolus tracking ROI'si pulmoner trunkusa koyulmalı — sol atriyuma koyarsan geç tetiklenir ve pulmoner arterler yıkanmış olur. Valsalva etkisi → geçici PA opasifikasyon düşüşü — hastayı nefes tutma konusunda önceden bilgilendir",
+      "🔑 Asendan aort tuzağı: EKG-gating OLMADAN asendan aortta pulsasyon artefaktı → yalancı diseksiyon flap görüntüsü. Şüpheli olguda EKG-gated tekrar çekim veya EKG-gated rekonstrüksiyon yap",
+      "🔑 Dual-energy BT anjiyo: İyot haritası ile subsegmental PE tespiti artar. Perfüzyon defekti haritası = V/Q sintigrafisine benzer fonksiyonel bilgi sağlar. Küçük emboli tespitinde konvansiyonel BT'den üstün",
+      "🔑 TUZAK: Koroner BT'de kalsifik plak blooming etkisi → stenoz derecesini OLDUĞUNDAN FAZLA gösterir. Agatston skoru >400 ise KBTA güvenilirliği düşer → invaziv anjiyografi düşün. Stent içi değerlendirme ancak >3mm stentlerde güvenilir"
     ]
   },
   {
-    title: "MRCP Teknikleri",
+    title: "Kardiyak MR — LGE ve Cine Tekniği",
     icon: "💚",
     color: "#10b981",
     concepts: [
-      { name: "2D Kalın Kesit vs 3D İnce Kesit MRCP", what: "2D: tek nefes tutma, hızlı, genel bakış (40-80mm kalın slab). 3D: çok ince kesit (1-1.5mm), MPR yapılabilir, detaylı", high: "2D avantajı: hızlı (1-2sn), hareket artefaktı az, koopere olmayan hastada. Safra ağacı genel değerlendirmesi", low: "3D avantajı: küçük taşlar (<5mm), stent içi değerlendirme, anatomik varyant detayı. Dezavantaj: uzun (3-5dk), hareket artefaktı" },
-      { name: "Sekretin MRCP", what: "IV sekretin → pankreas ekzokrin salgısını uyarır → Wirsung doluluk ve duodenal dolum gözlenir", high: "Pankreas divisum tanısı: sekretin ile minör papilladan akım → dorsal kanal dilatasyonu. Wirsung fonksiyonel kapasitesi", low: "Normal bulgu: sekretin sonrası Wirsung geçici dilatasyon (<3dk) + duodenum dolumu. Anormal: >5dk dilatasyon veya akım olmaması" },
-      { name: "Fonksiyonel Bilier Değerlendirme", what: "Kontrastlı MR kolanjiografi: hepatobilier kontrast → bilier atılım → anatomik + fonksiyonel bilgi", high: "Hepatobilier fazda safra yolları parlak → obstrüksiyon seviyesi net. Segmental atılım farkı → segmental obstrüksiyon", low: "Atılım olmaması: ciddi hepatosit disfonksiyonu veya komplet obstrüksiyon. Klinik kontekste değerlendir" }
+      { name: "LGE Tekniği (Late Gadolinium Enhancement)", what: "Gadolinium enjeksiyonundan 10-15 dakika sonra T1 ağırlıklı inversion-recovery sekansı. Fibrozis/skar = kontrast retansiyonu → parlak sinyal", high: "TI scout (Look-Locker) ile optimal inversiyon zamanı belirlenir — normal miyokard sinyali sıfırlanır, skar parlak kalır. PSIR (Phase-Sensitive IR): TI hatalarına daha toleranslı, skar-miyokard kontrastı daha güvenilir", low: "Yetersiz TI seçimi → miyokard sinyali tam sıfırlanmaz → skar-miyokard kontrastı düşer → küçük skar alanları kaçabilir. Gadolinium dozu: 0.1-0.2 mmol/kg. Bekleme süresi <10dk ise wash-out yetersiz" },
+      { name: "Cine SSFP (Balanced Steady-State Free Precession)", what: "Kardiyak fonksiyon değerlendirmesinin temel sekansı. Kan havuzu parlak, miyokard orta sinyal — yüksek kontrast", high: "Kısa aks yığını (short axis stack): apeksten bazale tüm LV kapsar → ejeksiyon fraksiyonu, volümler, duvar kalınlığı hesaplanır. 2-4 boşluk (2ch, 3ch, 4ch) cine: kapak değerlendirmesi + bölgesel duvar hareketi", low: "Nefes tutma gerekli (her kesit ~8-12 kalp atımı). Koopere olmayan hastada real-time cine alternatif (düşük rezolüsyon). Metalik implant yakınında off-resonance artefaktı → banding artefaktı (3T'de daha belirgin)" },
+      { name: "Doku Karakterizasyonu Sekansları", what: "Yağ baskılama, T2-STIR ve T2* sekansları ile miyokardiyal doku içeriği belirlenir", high: "Yağ baskılama (fat-sat): ARVC'de sağ ventrikül miyokardında yağlı infiltrasyon tespiti. T2-STIR: miyokardiyal ödem (akut miyokardit, akut MI). Ödemli alan = parlak sinyal", low: "T2* mapping: demir birikimi değerlendirmesi — T2* <20ms = demir birikimi (talasemi major, hemokromatoz). T2* <10ms = ciddi demir yükü → kardiyak risk yüksek. Normal T2* >20ms (1.5T)" }
     ],
     clinicalPearls: [
-      "🔑 Taş tespiti optimizasyonu: 3D ince kesit MRCP + radyal slab kombinasyonu. Negatif dolum defekti = taş. Hava ile karıştırma: pozisyon değiştir → hava hareket eder, taş etmez",
-      "🔑 Striktür karakterizasyonu: Kısa + düzgün = benign (PSC, postoperatif). Uzun + irregüler + proksimal dilatasyon = malign (kolanjiokarsinom). Shoulder sign = malign striktür",
-      "🔑 Pankreas divisum: popülasyonun %5-10. Dorsal kanal → minör papilla (Santorini). Ventral kanal → majör papilla (küçük, sadece uncinate drene eder). Rekürren pankreatit nedeni olabilir",
-      "🔑 TUZAK: MRCP'de safra yolları dilate ise kontrast MRCP ek bilgi verir. Ama normal çaplı yollarda taş MRCP'den kaçabilir → klinik şüphe devam ediyorsa EUS düşün"
+      "🔑 LGE paterni tanıyı verir: Subendokardiyal/transmural = iskemik (koroner arter dağılımı). Midwall = non-iskemik (dilate KMP, miyokardit). Epikardiyal = miyokardit (inferolateral duvar tipik). Diffüz subendokardiyal = amiloidoz",
+      "🔑 Miyokardit tanı kriterleri (Lake Louise): T2 ödem (T2-STIR veya T2 mapping) + T1-bazlı doku hasarı (LGE veya yüksek T1/ECV) = miyokardit tanısı. Her iki kriter birlikte olmalı → tanısal doğruluk artar",
+      "🔑 ARVC tanısında kardiyak MR: Sağ ventrikül dilatasyonu + duvar hareket bozukluğu (akinezi/diskinezi/anevrizma) + yağlı infiltrasyon (fat-sat). Cine SSFP ile RV fonksiyon + LGE ile fibrozis birlikte değerlendirilir",
+      "🔑 TUZAK: LGE'de uzun aks görüntülerde bazal inferolateral duvarda epikardiyal parlak sinyal → perikardyal yağ veya partial volume artefaktı olabilir, gerçek skar ile karıştırılmamalı. PSIR sekansı konvansiyonel IR'ye göre bu tuzağa daha az duyarlı"
     ]
   }
 ];
@@ -7054,7 +7053,7 @@ function renderThoraxLearningPath(main) {
   html += '• Her hastalığı okurken "Bu lezyon NEDEN bu fazda parlak/koyu?" sorusunu sor<br>';
   html += '• Pathway (patoloji → kontrastlanma yolu) bölümünü sadece OKU değil, ANLAT kendine<br>';
   html += '• 💉 Kontrast paternleri atlasını kullan — wash-in/wash-out mantığını kavra<br>';
-  html += '• Düelloları açıp benzer lezyonları YAN YANA karşılaştır (ör: HCC vs hemanjiom)<br>';
+  html += '• Düelloları açıp benzer lezyonları YAN YANA karşılaştır (ör: UIP vs NSIP, Timoma vs Lenfoma)<br>';
   html += '• Her haftanın sonunda Quiz\'e gir — Leitner sistemi zayıf konuları tekrar sorar';
   html += '</div></div>';
 
