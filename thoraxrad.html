@@ -5714,210 +5714,96 @@ function renderMeasurements(main) {
 // ===== 1. PITFALLS & MIMICS =====
 const pitfallsData = [
   {
-    organ: "Karaciğer", icon: "🫁", color: "#f43f5e",
+    organ: "Akciğer", icon: "🫁", color: "#f43f5e",
     pitfalls: [
-      { title: "Confluent Fibrosis → HCC Sanılması", danger: "high",
-        trap: "Sirotik KC'de wedge-shaped, kapsül çekilmeli, gecikmeli kontrastlanan alan. Arteryel fazda hafif enhancement olabilir.",
-        truth: "Confluent fibrosis: skar dokusu, GECİKMELİ fazda progresif dolum (fibröz geç tutar). HCC'de wash-OUT olur, fibroziste wash-OUT OLMAZ.",
-        avoid: "Gecikmeli faz mutlaka değerlendir. HCC: arteryel parlak → portal/geç wash-out. Fibrosis: arteryel minimal → geç fazda artan tutulum." },
-      { title: "Periportal Ödem → Kolanjiokarsinom Sanılması", danger: "medium",
-        trap: "Periportal T2 hiperintens alanlar + hafif enhancement. Özellikle kalp yetmezliği, hepatit, post-transplant.",
-        truth: "Periportal ödem: BİLATERAL, diffüz, klinik bağlam (KKY, hepatit). Kolanjio: FOKAL, kitle etkisi, proksimal safra yolu dilatasyonu.",
-        avoid: "Klinik bağlam + fokal vs diffüz ayrımı. Kolanjio: fokal darlık + upstream dilatasyon. Ödem: diffüz, darlık yok." },
-      { title: "Flash-filling Hemanjiom → HCC Sanılması", danger: "high",
-        trap: "Küçük (<2cm) hemanjiom arteryel fazda HOMOJEN PARLAK → HCC gibi görünür.",
-        truth: "Flash-filling hemanjiom: portal/geç fazda İZOİNTENS veya HAFİF HİPER kalır (WASH-OUT YOK). T2'de ÇOK PARLAK (light bulb). HCC'de T2 hafif parlak.",
-        avoid: "T2 kontrol et: hemanjiom AMPUL GİBİ PARLAK (>dalak). HCC hafif parlak (<dalak). Gecikmeli fazda wash-out VAR MI? Yoksa hemanjiom." },
-      { title: "Fokal Yağlanma / Yağdan Korunma → Metastaz Sanılması", danger: "medium",
-        trap: "Geographic hipo/hiperekojenik alan USG'de veya BT'de düzensiz yoğunluk farkı → metastaz veya infiltratif süreç şüphesi.",
-        truth: "Fokal steatoz/korunma: KARAKTERİSTİK LOKALİZASYON (segment IV, perikolesistik, portal ven çevresi). Kitle etkisi YOK, damarlar normal seyreder.",
-        avoid: "Chemical shift MR: opposed-phase'de sinyal kaybı = YAĞ → kesin tanı. Damar deplasmanı yok + tipik lokalizasyon = fokal steatoz." },
-      { title: "Hepatik Steatoz Zemininde Lezyon Kaçırma", danger: "high",
-        trap: "Yağlı KC'de tüm lezyon-parankim kontrastı AZALIR. İzodens metastazlar GİZLENİR. USG'de atenuasyon artar, derin yapılar görülmez.",
-        truth: "Steatotik KC'de kontrastlı BT duyarlılığı %20-30 DÜŞER. MR (özellikle DWI + hepatobilier faz) yağlı KC'de üstün.",
-        avoid: "Steatotik KC + malignite taraması → MR tercih et (BT yetersiz kalabilir). DWI + hepatobilier faz: yağdan etkilenmez." },
-      { title: "Arteryoportal Shunt → Lezyon Sanılması", danger: "medium",
-        trap: "Arteryel fazda wedge-shaped veya nodüler parlak alan (subkapsüler). Portal fazda izodens olur.",
-        truth: "AP shunt: portal fazda İZODENS (wash-out değil, EŞİTLENME). Wash-out = portal fazda HİPODENS. AP shunt geçici, lezyon kalıcı.",
-        avoid: "Portal faz + gecikmeli faz: AP shunt = izodens. HCC = hipodens (wash-out). Lokalizasyon: AP shunt genellikle subkapsüler, periportal." }
+      { title: "Buzlu Cam Opasitesi → Kanser Yerine Enfeksiyon Sanılması", danger: "high",
+        trap: "BT'de buzlu cam (ground-glass) opasitesi görülünce ilk akla enfeksiyon/inflamasyon gelir. Ancak adenokarsinom spektrumunda (AIS, MIA, lepidik dominant) buzlu cam ÖNCü BULGU olabilir.",
+        truth: "Persistan buzlu cam nodülü (>6 ay değişmeyen): NEOPLASTİK düşün (adenokarsinom in situ veya minimal invaziv). Enfeksiyöz buzlu cam: hızlı değişir, antibiyotik sonrası geriler.",
+        avoid: "Buzlu cam nodülü >6mm + persistan → takip BT (3-6 ay). Değişmeyen veya büyüyen buzlu cam = biyopsi veya cerrahi düşün. Enfeksiyon: klinik + tedavi yanıtı ile ayır." },
+      { title: "Yuvarlak Atelektazi → Akciğer Kitlesi Sanılması", danger: "medium",
+        trap: "Subplevral yuvarlak yumuşak doku dansitesi → periferik akciğer kitlesi (özellikle malignite) sanılır. Asbest maruziyeti öyküsü olan hastalarda sık.",
+        truth: "Yuvarlak atelektazi: comet-tail sign (kıvrılan bronkovasküler yapılar lezyona girer), komşu plevral kalınlaşma/plak, volüm kaybı bulguları. Kontrast tutulumu homojen.",
+        avoid: "Comet-tail sign + plevral plak + subplevral lokalizasyon = yuvarlak atelektazi. Kitle: spiküle kenar, plevral çekilme (retraksiyon). Şüphede PET-BT veya takip." },
+      { title: "Mukoid İmpaksiyon → Endobronşiyal Lezyon Sanılması", danger: "medium",
+        trap: "BT'de bronş lümeni içinde hiperdens tubuler yapı → endobronşiyal tümör (karsinoid, squamöz Ca) şüphesi uyandırır.",
+        truth: "Mukoid impaksiyon: finger-in-glove sign (dallanma paterni), kalsifikasyon olabilir (ABPA'da yüksek atenüasyonlu mukus). Kontrast TUTMAZ. Tümör: kontrast TUTAR + lümen obstrüksiyonu.",
+        avoid: "Kontrast tutulumu ANAHTAR: mukus tutmaz, tümör tutar. ABPA öyküsü + yüksek dansiteli mukus = mukoid impaksiyon. Bronkoskopi şüpheli olgularda altın standart." },
+      { title: "Pulmoner Ven → Lenf Adenopati (LAP) Sanılması", danger: "low",
+        trap: "Mediastene dökülen pulmoner ven kesiti aksiyel BT'de oval yumuşak doku yapısı olarak görülür → mediastinal LAP sanılabilir.",
+        truth: "Pulmoner ven: kontrast sonrası damar lümeni gibi opasifiye olur, sol atriyuma bağlantısı izlenebilir. LAP: kontrast tutmaz veya heterojen tutar, damar bağlantısı YOK.",
+        avoid: "Koronal ve sagittal reformatlarla damar bağlantısını doğrula. Kontrastlı fazda lümen opasifikasyonu = damar. Şüphede multiplanar reformat (MPR) ile takip et." }
     ]
   },
   {
-    organ: "Pankreas", icon: "🟡", color: "#f59e0b",
+    organ: "Mediasten", icon: "🔬", color: "#8b5cf6",
     pitfalls: [
-      { title: "Otoimmün Pankreatit → Pankreas Ca Sanılması", danger: "high",
-        trap: "Diffüz veya fokal pankreas büyümesi + hipodens + CBD daralması = adenokarsinom gibi!",
-        truth: "Otoimmün pankreatit (Tip 1): 'sausage-shaped' diffüz büyüme + loss of lobulation + capsule-like rim. IgG4 yüksek. STEROİDE YANITLI.",
-        avoid: "Capsule-like rim (gecikmeli kontrastlanan kapsül) = OİP ipucu. Çift kanal işareti YOK (Ca'da var). IgG4 iste. Şüphede steroid trial." },
-      { title: "Groove Pankreatit → Duodenal Kitle/Ca Sanılması", danger: "medium",
-        trap: "Pankreatikoduodenal groove'da (pankreas başı ile duodenum arası) kitle benzeri lezyon. Duodenal duvar kalınlaşması.",
-        truth: "Groove pankreatit: ALKOL öyküsü. T2'de kistik değişiklikler groove'da. Duodenal duvar kalınlaşması (düzgün). Pankreas kanalı genellikle NORMAL.",
-        avoid: "Pankreas kanalı normal + alkol + groove yerleşim = groove pankreatit düşün. Ca'da kanal genellikle genişlemiş (upstream dilatasyon)." },
-      { title: "Pankreas Divisum → Tekrarlayan Pankreatit Nedeni", danger: "low",
-        trap: "Normal varyant (%5-10 popülasyon) ama bazılarında tekrarlayan pankreatit nedeni olabilir. MRCP'de dorsal ve ventral kanal birleşmemiş.",
-        truth: "Divisum: dorsal kanal minör papilladan drene olur (dar açıklık → obstrüksiyon riski). Santorini kanalı dominant.",
-        avoid: "Tekrarlayan pankreatit + genç hasta → MRCP ile divisum kontrol et. Sekretinle dinamik MRCP daha duyarlı." }
+      { title: "Timik Rebound → Lenfoma Sanılması", danger: "high",
+        trap: "Kemoterapi sonrası anterior mediastende timus büyümesi → rezidü/nüks lenfoma veya yeni mediastinal kitle sanılır. Özellikle genç hastalarda belirgin.",
+        truth: "Timik rebound: kemoterapi bitiminden 3-12 ay sonra, SİMETRİK büyüme, normal timus morfolojisi korunmuş (üçgen/ok ucu şekli). Lenfoma: ASİMETRİK, lobüle, heterojen.",
+        avoid: "Kemo sonrası anterior mediasten kitlesi → PET-BT: rebound timusta FDG tutulumu HAFİF ve homojen. Lenfomada YOĞUN ve heterojen. Klinik bağlam + zamanlama kritik." },
+      { title: "Normal Timus → Genç Hastada Mediastinal Kitle Sanılması", danger: "medium",
+        trap: "30 yaş altı hastalarda normal timus belirgin boyutta olabilir → anterior mediastinal kitle (timoma, lenfoma, germ hücreli tümör) sanılır.",
+        truth: "Normal timus: yaşa uygun boyut, homojen yumuşak doku dansitesi (genç) veya yağ infiltrasyonu (>30 yaş). Bikonveks veya üçgen şekil, düzgün kenar.",
+        avoid: "Yaş + morfoloji değerlendir: <30 yaşta homojen bikonveks timus = NORMAL. Fokal kitle, lobülasyon, kalsifikasyon = patolojik. Chemical shift MR: normal timus yağ içerir." },
+      { title: "Perikardial Yağ Yastığı → Lipom Sanılması", danger: "low",
+        trap: "Kardiyofrenik açıda yağ dansiteli alan → lipom, liposarkom veya teratom şüphesi uyandırır.",
+        truth: "Perikardial yağ yastığı (fat pad): SİMETRİK, homojen yağ dansitesi (-50 ile -150 HU), düzgün sınırlı, kitle etkisi YOK. Obez ve yaşlı hastalarda daha belirgin.",
+        avoid: "Homojen yağ dansitesi + kardiyofrenik açı + kitle etkisi yok = yağ yastığı (benign). Lipom: kapsüllü, fokal. Liposarkom: heterojen, yumuşak doku komponenti var. Şüphede MR." }
     ]
   },
   {
-    organ: "Böbrek", icon: "🫘", color: "#8b5cf6",
+    organ: "Plevra", icon: "💧", color: "#0ea5e9",
     pitfalls: [
-      { title: "Hiperekoik Küçük RCC → AML Sanılması", danger: "high",
-        trap: "Küçük (<3cm) hiperekoik renal kitle USG'de → AML gibi görünür. AML %80 hiperekoik, AMA küçük RCC %30 da hiperekoik!",
-        truth: "AYIRICI: AML homojen hiperekoik + akustik gölge olabilir. RCC hafif heterojen + kistik odaklar + hipoekoik rim olabilir.",
-        avoid: "Hiperekoik renal kitle <3cm → BT ile DOĞRULA (yağ var mı?). Negatif HU = AML. Yağ yok = RCC'yi ekarte edemezsin → biyopsi." },
-      { title: "Pseudoenhancement → Kist İçi Enhancement Sanılması", danger: "medium",
-        trap: "BT'de küçük renal kist (<2cm) → HU değeri komşu kontrast tutan parankimden YALANCI YÜKSEK ölçülür (beam hardening + partial volume).",
-        truth: "Pseudoenhancement: küçük kistte 10-25 HU artış olabilir (gerçek enhancement DEĞİL). Gerçek enhancement >20 HU.",
-        avoid: "Küçük renal kist + şüpheli enhancement → MR (subtraction tekniği gerçek enhancement gösterir). Veya renal kist protokol BT." },
-      { title: "Renal İnfarkt → Tümör/Pyelonefrit Sanılması", danger: "medium",
-        trap: "Wedge-shaped hipodens alan (kontrastlı BT) → tümör veya fokal pyelonefrit gibi görünebilir.",
-        truth: "Renal infarkt: WEDGE-shaped + KORTIKAL bazlı + cortical rim sign (kapsüler arterlerden perfüzyon korunur). AF, aort disseksiyon ara.",
-        avoid: "Cortical rim sign + wedge-shape + akut ağrı = infarkt. Tümör: yuvarlak, kitle etkisi. Pyelonefrit: striated nefrogram + klinik." }
+      { title: "Plevral Plaklar → Mezotelyoma Sanılması", danger: "high",
+        trap: "Asbest maruziyeti olan hastada plevral kalınlaşma → malign mezotelyoma endişesi. Özellikle kalsifiye olmayan plaklar korku yaratır.",
+        truth: "Plevral plaklar: düzgün kenarlı, bilateral, posterolateral ve diyafragmatik plevrada sık, kalsifikasyon olabilir. Mezotelyoma: UNİLATERAL nodüler/düzensiz kalınlaşma + plevral efüzyon + mediastinal plevra tutulumu.",
+        avoid: "Bilateral + düzgün kenarlı + kalsifiye = benign plak. Unilateral + nodüler + mediastinal plevra tutulumu = mezotelyoma şüphesi → biyopsi. Rind-like enhancement MR'da mezotelyoma lehine." },
+      { title: "Transüdatif Efüzyon → Eksüdatif Efüzyon ile Karıştırma", danger: "medium",
+        trap: "Plevral efüzyon saptanınca BT dansitesine bakarak transüda/eksüda ayrımı yapılmaya çalışılır. BT ile güvenilir ayrım ZOR.",
+        truth: "Transüda: bilateral, serbest akan, plevral kalınlaşma YOK, altta KKY/siroz/nefrotik. Eksüda: unilateral olabilir, loküle, plevral kalınlaşma/enhancement VAR, altta enfeksiyon/malignite.",
+        avoid: "BT dansitesi tek başına YETERSIZ. İpuçları: plevral enhancement (split pleura sign) = ampiyem/eksüda. Kalınlaşma yok + bilateral + kardiyomegali = transüda. Kesin ayrım = torasentez + Light kriterleri." },
+      { title: "Subpulmonik Efüzyon → Diyafragma Elevasyonu Sanılması", danger: "medium",
+        trap: "Sıvı akciğer tabanı ile diyafragma arasında birikir → PA grafide diyafragma yüksek görünür, efüzyon GÖZDEN KAÇAR.",
+        truth: "Subpulmonik efüzyon: lateral grafide posterior kostrofrenik sinüs küntleşmesi, PA'da diyafragma tepe noktası laterale kayar (normalde medial). Dekübit grafide sıvı yer değiştirir.",
+        avoid: "Tek taraflı 'yüksek diyafragma' → lateral grafi veya dekübit çek. USG ile konfirme et (en duyarlı). BT şüpheli olgularda kesin tanı koyar." }
     ]
   },
   {
-    organ: "Barsak & Mezenter", icon: "🔴", color: "#ef4444",
+    organ: "Kardiyak", icon: "❤️", color: "#ef4444",
     pitfalls: [
-      { title: "Epiploik Apandajit → Acil Cerrahi", danger: "high",
-        trap: "Akut lokalize ağrı + BT'de perikolik yağ dokusu inflamasyonu → apandisit/divertikülit sanılıp gereksiz cerrahi.",
-        truth: "Epiploik apandajit: oval yağ dansiteli lezyon + hiperdans ring (inflame peritonal örtü) + central dot sign (trombozlu ven). SELF-LIMITED → cerrahiye GEREK YOK.",
-        avoid: "Central dot sign + oval fatty lesion + ring = epiploik apandajit. Antibiyotik bile gereksiz, NSAİD ile düzelir. Omental infarkt da benzer (daha büyük)." },
-      { title: "Kollapss Barsak → Duvar Kalınlaşma Sanılması", danger: "medium",
-        trap: "Yetersiz distansiyone barsak segmenti → duvar kalın GÖRÜNÜR → inflamasyon veya tümör şüphesi.",
-        truth: "Gerçek duvar kalınlaşması: lümen distansiyone İKEN duvar >3mm (ince barsak) veya >5mm (kolon). Kollaps duvar kalınlığı artifisyeldir.",
-        avoid: "Oral/rektal kontrast ile barsak distansiyonu sağla. Distansiyone segmentte duvar ölç. İV kontrast: duvar enhancement paterni (mukozal vs transmural)." },
-      { title: "Crohn vs Lenfoma → Tedavi FARKLI", danger: "high",
-        trap: "İkisinde de barsak duvar kalınlaşması + mezenterik LAP var. Lenfoma düz duvar kalınlaşması ile Crohn'a benzeyebilir.",
-        truth: "Crohn: katmanlı duvar (target sign) + kreeping fat + skip lesion + fistül. Lenfoma: HOMOJENLlY KALIN duvar + anevrizmal dilatasyon (obstrüksiyon az) + mezenterik sandwich sign.",
-        avoid: "Anevrizmal dilatasyon (lümen genişlemiş) = lenfoma ipucu (Crohn'da lümen daralır). Sandwich sign: LAP arası damar = lenfoma. Fistül = Crohn." }
-    ]
-  },
-  {
-    organ: "Safra Yolları", icon: "💚", color: "#10b981",
-    pitfalls: [
-      { title: "Pnömobilia → Portal Ven Gazı Karıştırma", danger: "high",
-        trap: "KC içinde lineer hava dansiteleri. İkisi çok farklı klinik anlam taşır!",
-        truth: "PNÖMOBİLİA: hava SANTRAL (safra yolları → hilusa doğru). Genellikle benign (sfinkterotomi sonrası, bilio-enterik anastomoz). PORTAL VEN GAZI: hava PERİFERAL (kan akımıyla perifere taşınır). CİDDİ: barsak nekrozu, mezenterik iskemi.",
-        avoid: "SANTRAL = pnömobilia (genellikle zararsız). PERİFERAL = portal ven gazı (ALARM → barsak iskemisi ara!). KC periferinde 2cm içinde hava = portal ven gazı." },
-      { title: "CBD Ölçüm Hatası → Gereksiz ERCP", danger: "medium",
-        trap: "CBD kolesistektomi sonrası fizyolojik olarak genişleyebilir (8-10mm). Normal postoperatif bulgu obstrüksiyon sanılır.",
-        truth: "Kolesistektomi sonrası CBD 8-10mm = NORMAL. Yaşla artar (70 yaşta 8mm normal). Ölçüm yeri: porta hepatis seviyesi, duvar-duvar arası.",
-        avoid: "CBD genişliği TEK BAŞINA obstrüksiyon göstermez. Bak: 1) Semptom var mı? 2) LFT bozuk mu? 3) İntrahepatik yollar dilate mi? 4) Distal neden var mı?" }
+      { title: "Perikardiyal Kist → Kardiyak Kitle Sanılması", danger: "medium",
+        trap: "Sağ kardiyofrenik açıda düzgün sınırlı kistik lezyon → kardiyak tümör, perikardial neoplazi veya lenfoma şüphesi.",
+        truth: "Perikardiyal kist: ince duvarlı, su dansiteli (0-20 HU), homojen, kontrast TUTMAZ. Sağ kardiyofrenik açı KLASİK lokalizasyon (%70). MR'da T2 çok parlak, T1 düşük sinyal.",
+        avoid: "Su dansitesi + ince duvar + kontrast tutmaz + kardiyofrenik açı = perikardiyal kist (benign, takip yeterli). Solid komponent veya kontrast tutulumu varsa → ileri tetkik." },
+      { title: "İnteratriyal Septumun Lipomatöz Hipertrofisi → Kardiyak Tümör Sanılması", danger: "low",
+        trap: "BT veya MR'da interatriyal septumda kalınlaşma + yağ dansiteli kitle → lipom veya miksoma şüphesi uyandırır.",
+        truth: "Lipomatöz hipertrofi: septumda YAĞ BİRİKİMİ, fossa ovalis KORUNMUŞ (dumbbell/halter şekli). >2cm kalınlık tanısal. Yaşlı, obez hastalarda sık. BENİGN, tedavi GEREKMEZ.",
+        avoid: "Dumbbell şekli (fossa ovalis korunmuş) = lipomatöz hipertrofi ipucu. Lipom: kapsüllü, fokal. Miksoma: fossa ovaliste, heterojen, mobil. Chemical shift MR ile yağ doğrula." },
+      { title: "Kardiyak Psödokitle → Gerçek Kitle Sanılması (Crista Terminalis, Moderatör Band)", danger: "medium",
+        trap: "Sağ atriyumda crista terminalis veya sağ ventrikülde moderatör band normal anatomik yapılar → trombüs veya kardiyak kitle sanılabilir.",
+        truth: "Crista terminalis: sağ atriyum lateral duvarında düzgün kas bandı, miyokardla İZOİNTENS, kontrast sonrası normal miyokard gibi tutulur. Moderatör band: sağ ventrikül apeksinde kas bandı.",
+        avoid: "Miyokardla aynı sinyal/dansite + her fazda sabit = normal anatomi. Trombüs: kontrast TUTMAZ, düşük dansite. Kitle: heterojen, miyokarddan FARKLI sinyal. Kardiyak MR (cine) ile hareket analizi." }
     ]
   },
   {
     organ: "Vasküler", icon: "🩸", color: "#dc2626",
     pitfalls: [
-      { title: "IVC Akım Artefaktı → Trombüs Sanılması", danger: "medium",
-        trap: "BT'de IVC veya iliak vende hipodens dolma defekti → trombüs sanılır. Aslında miksleme artefaktı (renal ven akımı).",
-        truth: "Mixing artifact: renal ven seviyesinde kontrast-tuz suyu karışımı → geçici hipodens. Gecikmeli fazda KAYBOLUR.",
-        avoid: "Şüphede gecikmeli faz kontrol (artefakt kaybolur, gerçek trombüs kalır). Renal ven seviyesi = klasik lokalizasyon." },
-      { title: "Bland vs Tümör Trombüs (Portal/Renal Ven)", danger: "high",
-        trap: "Portal veya renal vende trombüs. İkisi arasındaki ayrım TEDAVİYİ değiştirir.",
-        truth: "TÜMÖR trombüsü: trombüs içinde ARTERYel ENHANCEMENT var (neovaskülarizasyon). Ven genişlemiş (>23mm portal). BLAND: enhancement YOK, ven normal çaplı.",
-        avoid: "Arteryel fazda trombüse bak → kontrastlanıyor mu? EVET = tümör trombüsü (HCC veya RCC). HAYIR = bland trombüs. Ven çapı: tümör trombüsünde belirgin artmış." }
-    ]
-  },
-  {
-    organ: "Jinekolojik", icon: "🩷", color: "#ec4899",
-    pitfalls: [
-      { title: "Peritoneal İnklüzyon Kisti → Over Ca Sanılması", danger: "high",
-        trap: "Pelvik cerrahi veya PID öyküsü olan kadında over çevresinde multiloküle kistik koleksiyon + asit benzeri sıvı.",
-        truth: "Peritoneal inklüzyon kisti: over yapışıklıklar arasında SIKIŞMIŞ + sıvı birikimi. Over NORMAL BÖYÜTte (Ca'da patolojik). Spider-in-web sign: normal over sıvı içinde.",
-        avoid: "Cerrahi/PID öyküsü + over normal boyutta + yapışıklıklar = inklüzyon kisti. Over Ca: over KENDİSİ patolojik (solid komponent, kalın septa)." },
-      { title: "Korpus Luteum → Ektopik Sanılması", danger: "high",
-        trap: "Gebeliğin erken döneminde korpus luteum kisti: kalın duvarlı, hipervasküler (ring of fire) → ektopik gebelik sanılır.",
-        truth: "Korpus luteum: İNTRAOVARIAN. Ektopik: EKSTRAOVARIAN. Sliding sign ile over hareket ettir → kist overle birlikte hareket ederse = over kaynaklı = KL.",
-        avoid: "EKSTRA vs İNTRA ovarian = hayati ayrım. Ring of fire = KL normal bulgusu. Ektopik: blob/bagel sign + OVER DIŞINDA." },
-      { title: "Nabothian Kist → Servikal Kanser Sanılması", danger: "low",
-        trap: "Servikste multipl küçük kistik lezyonlar → neoplazi endişesi.",
-        truth: "Nabothian kistler: retansiyon kistleri, BENİGN, çok sık. T2 parlak, düzgün sınırlı, kontrast tutmaz. Servikal Ca: SOLİD, DWI kısıtlanma, kontrast tutar.",
-        avoid: "Kistik + kontrast tutmaz = nabothian (benign). Solid + DWI kısıtlanma + kontrast = Ca. Boyut değil KARAKTERİSTİK önemli." }
-    ]
-  },
-  {
-    organ: "Pelvik-Ürolojik", icon: "🔷", color: "#0ea5e9",
-    pitfalls: [
-      { title: "BPH Nodülü → Prostat Ca Sanılması (TZ)", danger: "medium",
-        trap: "BPH nodülleri T2'de heterojen, bazıları T2 hipo → PI-RADS değerlendirmede kanser ile karışır.",
-        truth: "BPH: organize kapsüllü nodül ('erased charcoal' sign → homojen düşük T2 + kapsül). Ca: HOMOJENLlY lentiküler/irregular + kapsül YOK.",
-        avoid: "Erased charcoal sign = BPH (organize, kapsüllü). Lentiküler hipo + DWI belirgin kısıtlanma + kapsül yok = Ca. TZ'de T2 DOMINANT değerlendirme." },
-      { title: "Post-biyopsi Kanama → Prostat Ca Sanılması", danger: "medium",
-        trap: "Biyopsi sonrası T1 parlak hemorajik alanlar → DWI'da kısıtlanma verebilir → PI-RADS yüksek değerlendirilir.",
-        truth: "Post-biyopsi: T1 PARLAK (metHb) + difüz/lineer patern + zamanla küçülür. Ca: T1'de genellikle izosinyal.",
-        avoid: "mpMR: biyopsiden EN AZ 6 HAFTA SONRA çekilmeli (ideal 8-12 hafta). T1 prekontrast kontrol et: parlak alan = kanama → bu alanda PI-RADS güvenilmez." }
-    ]
-  },
-  {
-    organ: "USG Genel", icon: "🔊", color: "#06b6d4",
-    pitfalls: [
-      { title: "Duodenum → Pankreas Kitlesi Sanılması", danger: "medium",
-        trap: "USG'de duodenum 2. kıta pankreas başına komşu → sıvı dolu duodenum loop = kistik pankreas lezyonu sanılır.",
-        truth: "Duodenum: peristaltik hareket GÖZLENİR (bekle ve izle!). Pankreas kisti: hareketsiz. Su içir → duodenum dolumu değişir.",
-        avoid: "Şüpheli pankreas kisti → hastaya su içir veya 1-2 dk bekle → peristaltik hareket varsa = duodenum. Hareket yoksa = gerçek kist." },
-      { title: "Sol Böbrek → Dalak Lezyonu Sanılması (ve Tersi)", danger: "low",
-        trap: "Sol böbrek üst pol ve dalak alt pol komşuluğu → bir organdaki lezyon diğerine aitmiş gibi görünebilir.",
-        truth: "İki farklı kesit düzleminde organa ait olduğunu doğrula. Lezyon hangi organın parankimi içinde → o organa ait.",
-        avoid: "Koronal + aksiyel iki düzlemde kontrol et. BT ile doğrula şüphede." },
-      { title: "Anizotropi → Tendon/Kas Lezyonu Sanılması", danger: "medium",
-        trap: "Prob açısı değişince tendon/kas ekojenitesi TAMAMEN değişir (parlak → koyu). Rüptür veya lezyon gibi görünür.",
-        truth: "Anizotropi: prob açısına bağımlı ekojenite değişimi. Açı düzeltince NORMALE döner. Gerçek lezyonda açı değişse de lezyon kalır.",
-        avoid: "HEEL-TOE manevrası: probu hafifçe eğ → ekojenite değişirse = anizotropi artefaktı. Değişmezse = gerçek lezyon." }
-    ]
-  },
-  {
-    organ: "Periton & Retroperiton", icon: "🔵", color: "#3b82f6",
-    pitfalls: [
-      { title: "Peritoneal Karsinomatozis → Asit + Omentum Kalınlaşma Gözden Kaçması", danger: "high",
-        trap: "Minimal asit + ince omental stranding → 'reaktif asit' diye geçilir. Altta yatan peritoneal karsinomatozis KAÇAR.",
-        truth: "Omental cake (kalınlaşmış omentum), peritoneal nodüller, scalloping (KC/dalak yüzeyinde girinti) = KARSİNOMATOZİS. Reaktif asitte omentum NORMALDİR.",
-        avoid: "Asit görünce HER ZAMAN omentumu, peritoneal yüzeyleri, KC/dalak kapsülünü dikkatle tara. Kadında: over Ca düşün (CA-125). Erkekte: GIS primer ara." },
-      { title: "Retroperitoneal Fibrozis → Lenfoma Sanılması", danger: "medium",
-        trap: "Aort/iliak damarlar çevresinde yumuşak doku kitlesi → lenfoma veya metastatik LAP sanılır.",
-        truth: "Retroperitoneal fibrozis: aorta YAPIŞIK, homojen, üreterleri MEDİALE çeker (lenfomada laterale iter). IgG4 ilişkili olabilir.",
-        avoid: "Üreter deviasyonu yönü kritik: medial = fibrozis, lateral = lenfoma/kitle. Ayrıca fibrozis kontrast sonrası homojen tutulur, lenfoma heterojen." },
-      { title: "Mezotelyal Kist → Kistik Over Tümörü Sanılması", danger: "low",
-        trap: "Pelvik/peritoneal ince duvarlı multiseptalı kistik lezyon → over kaynaklı kist/neoplazi sanılır.",
-        truth: "Mezotelyal inklüzyon kisti: overlerden AYRI lokalize, ince septa + basit sıvı. Kadında periton kaynaklı benign lezyon.",
-        avoid: "Over her iki taraf normal + pelvik kistik lezyon → peritoneal köken düşün. BT/MR ile overin AYRI olduğunu göster." }
-    ]
-  },
-  {
-    organ: "Adrenal", icon: "🟡", color: "#eab308",
-    pitfalls: [
-      { title: "Adrenal Myelolipom → Liposarkom/AML Sanılması", danger: "low",
-        trap: "Büyük adrenal kitle + makroskopik yağ → retroperitoneal liposarkom? Renal AML?",
-        truth: "Myelolipom: adrenal LOKALIZE, makroskopik yağ + hematopoetik element. ALTIN STANDART: BT'de negatif HU (yağ) + kalsifikasyon olabilir. Benign, cerrahi GEREKSIZ.",
-        avoid: "Lokalizasyonu kesin belirle: adrenal merkezli = myelolipom. Retroperitoneal diffüz = liposarkom. Renal merkezli = AML." },
-      { title: "Adrenal Adenom (lipid-poor) → Metastaz Sanılması", danger: "high",
-        trap: "Kanser hastasında adrenal kitle + non-kontras >10 HU → metastaz raporu yazılır. AMA %30 adenom lipid-poor = >10 HU.",
-        truth: "WASH-OUT hesapla: APW >60% veya RPW >40% = ADENOM (lipid-poor bile olsa). Chemical shift: sinyal kaybı varsa = adenom. PET: SUV <3.1 adenom lehine.",
-        avoid: "ASLA tek faz BT ile metastaz deme! Non-kontras + kontrastlı + gecikmeli faz çek → wash-out hesapla. CS MR altın standart. Şüphede PET." },
-      { title: "Normal Adrenal Crus → Nodül Sanılması", danger: "low",
-        trap: "Sol adrenal medial crus kalın → adrenal nodül sanılır (özellikle aksiyel BT'de).",
-        truth: "Normal adrenal: inverted Y/V şekli, gövde <10mm kalınlık. Uzun ince crus normal varyant. Nodül = fokal genişleme (>10mm).",
-        avoid: "Koronal + sagittal reformat kontrol et. Normal crus ince uzun, nodül yuvarlak fokal. Şüphede karşı tarafla karşılaştır." }
-    ]
-  },
-  {
-    organ: "Dalak", icon: "🟣", color: "#a855f7",
-    pitfalls: [
-      { title: "Aksesuar Dalak → Adrenal/Pankreatik Kitle Sanılması", danger: "medium",
-        trap: "Dalak hilusunda veya pankreas kuyruğunda küçük yuvarlak yapı → kitle/LAP sanılır.",
-        truth: "Aksesuar dalak: dalakla İDENTİK sinyal/dansite TÜM FAZLARDA. Yuvarlak, <2cm, dalak hilusunda veya pankreas kuyruğunda %10-30 insidans.",
-        avoid: "TÜM fazlarda dalakla aynı mı kontrol et. Tc-99m heat-damaged RBC sintigrafi veya SPIO MR: dalak dokusu konfirme eder. Özellikle ITP/post-splenektomide önemli." },
-      { title: "Dalak İnfarktı → Dalak Tümörü Sanılması", danger: "medium",
-        trap: "Wedge-shaped hipodens alan → fokal lezyon/tümör sanılır.",
-        truth: "İnfarkt: wedge-shaped (üçgen), kapsül tabanlı, arteriyel alanda. Tümör: yuvarlak, kapsülle ilişkisiz. Klinik: AF, endokardit, orak hücre, trombofili.",
-        avoid: "ŞEKLE BAK: üçgen + kapsül bazlı = infarkt. Yuvarlak + rastgele = tümör/metastaz. Klinik bağlam: emboli kaynağı var mı?" },
-      { title: "Splenozis → Peritoneal Metastaz Sanılması", danger: "medium",
-        trap: "Splenektomi öyküsü olan hastada peritoneal multipl küçük nodüller → karsinomatozis sanılır.",
-        truth: "Splenozis: travma/cerrahi sonrası dalak dokusu implantları. TÜM fazlarda dalak sinyali. Tc-99m heat-damaged RBC sintigrafi = ALTIN STANDART.",
-        avoid: "Splenektomi öyküsü olan hastada peritoneal nodüller → ÖNCELİKLE splenozis düşün. Sinyal/dansite dalakla aynı mı kontrol et." }
+      { title: "Hareket Artefaktı → Aort Disseksiyonu Sanılması", danger: "high",
+        trap: "EKG tetiklemesiz BT'de asendan aortta hareket artefaktı → intimal flep benzeri lineer hipodensite → Tip A disseksiyon sanılır. YANLIŞ ALARM cerrahiye yol açabilir!",
+        truth: "Hareket artefaktı: sadece ASENDAN aortta (kalp hareketi), desandan aorta NORMAL. Çizgisel artefakt aort duvarının ÖTESİNE geçer (gerçek flep geçmez). Tekrarlayan kesitlerde İNKONSİSTAN.",
+        avoid: "EKG-gated BT anjio tekrarla → artefakt KAYBOLUR, gerçek disseksiyon KALIR. True lümen/false lümen ayrımı, intimomedial kalsifikasyon deplasmanı ara. Şüphede TEE veya MR anjio." },
+      { title: "Pulmoner Arter Sarkomu → Kronik PE Sanılması", danger: "high",
+        trap: "Pulmoner arterde dolma defekti → kronik pulmoner emboli tanısı konur. Antikoagülan başlanır. GERÇEKTE pulmoner arter sarkomu (nadir ama ölümcül) gözden kaçar.",
+        truth: "Pulmoner arter sarkomu: pulmoner arter lümenini DOLDURAN, heterojen kontrast tutan kitle. Ekstravasküler uzanım olabilir. Kronik PE: intraluminal dolma defekti + rekanalizasyon + web/band + bronşiyal arter kollateralleri.",
+        avoid: "Dolma defekti kontrast TUTUYOR MU? EVET = tümör (sarkom). HAYIR = trombüs (PE). Arter genişlemiş + ekstraluminal uzanım = sarkom. PET-BT: sarkomda FDG avid. Antikoagülana yanıtsız PE → sarkom düşün." },
+      { title: "Parsiyel Volüm Etkisi → PE Tanısında Yanlış Pozitiflik", danger: "medium",
+        trap: "Oblik seyreden pulmoner arter dallarının aksiyel kesitte parsiyel volüm etkisiyle hipodens görünmesi → yanlış PE tanısı konur.",
+        truth: "Parsiyel volüm: oblik damarda kesit kalınlığı nedeniyle peridamar yumuşak doku karışır → psödodolma defekti. Gerçek PE: damar lümeninde NET dolma defekti + polo mint sign (aksiyel) veya railway track sign (uzunlamasına).",
+        avoid: "İnce kesit (1mm veya altı) rekonstrüksiyon ile tekrar değerlendir. Multiplanar reformat (MPR): damar uzun aksında kontrol et. Gerçek PE birden fazla kesitte tutarlı dolma defekti gösterir." }
     ]
   }
 ];
+
 
 // ===== 2. PROTOCOL GUIDE =====
 const protocolData = [
@@ -6722,12 +6608,11 @@ const thoraxAnatomyRegions = [
 
 // ===== NORMAL ANATOMY ATLAS =====
 const anatomyAtlas = [
-  { organ: "Karaciğer", icon: "🫁", color: "#f43f5e",
-    segments: "Couinaud 8 segment: I (kaudat), II-III (sol lateral), IVa-IVb (sol medial), V-VIII (sağ lob). Hepatik venler segmentleri ayırır, portal venler segmentleri besler.",
-    landmarks: "Cantlie hattı (orta hepatik ven = sağ-sol lob sınırı): IVC → safra kesesi çukuru hattı. Falciform ligaman: segment II-III / IVa-IVb sınırı. Portal ven: ana + sağ + sol dalları.",
-    normalMeasures: "Midklavikular hatta kraniokaudal ≤15.5cm. Kaudat/sağ lob oranı <0.65 (>0.65 = siroz/Budd-Chiari). Portal ven <13mm. Hepatik ven 3'lü: sol, orta, sağ → IVC'ye dökülür.",
-    variants: "Riedel lobu (sağ lob uzantısı → hepatomegali sanılır). Aksesuar sol lob. Aberrant hepatik arter (SMA'dan sağ hepatik, sol gastrikten sol hepatik — %25-40). Hepatik ven varyantları (aksesuar sağ alt hepatik ven).",
-    keyPearl: "CERRAHI PLANLAMA: Couinaud segmentasyon → hangi segment rezeke edilecek → hangi hepatik/portal ven korunmalı. Aberrant arter: kolesistektomide kistik arter varyantı → iatrojenik yaralanma riski." },
+  { title: "Akciğer Lobları ve Segmentleri", icon: "🫁", items: [
+    { name: "Sağ Akciğer Lobları", location: "Sağ hemitoraks — 3 lob (superior, orta, inferior), horizontal + oblik fissürlerle ayrılır", keyFeature: "10 bronkopulmoner segment. Horizontal fissür 4. kosta seviyesinde. Sağ ana bronkus daha dik → aspirasyon sağa sık.", clinical: "Lobektomi planlamada segment anatomisi kritik. Sağ orta lob sendromu: tekrarlayan atelektazi/pnömoni (dar bronkus açısı)." },
+    { name: "Sol Akciğer Lobları", location: "Sol hemitoraks — 2 lob (superior, inferior), tek oblik fissürle ayrılır", keyFeature: "8-10 segment. Lingula = sağ orta lob eşdeğeri (ayrı lob değil). Kardiyak çukurluk: kalbin sol alt lobdaki izlenimi.", clinical: "Sol hilus sağdan YÜKSEK görülür (sol PA bronkus üzerinden geçer). Lingula patolojileri orta lob sendromu benzeri tablo yapar." },
+    { name: "Bronşiyal Ağaç", location: "Trakea → karina (T5-6) → sağ/sol ana bronkus → lober → segmental → subsegmental dallar", keyFeature: "Sağ ana bronkus: daha kısa, daha geniş, daha vertikal (25°). Sol ana bronkus: daha uzun, daha dar, daha horizontal (45°).", clinical: "Yabancı cisim aspirasyonu en sık sağ ana bronkusa (özellikle sağ alt lob S6). Endobronşiyal lezyon → tek taraflı hava hapsi veya atelektazi." }
+  ]},
   { organ: "Pankreas", icon: "🟡", color: "#f59e0b",
     segments: "Baş (uncinate dahil), boyun, gövde, kuyruk. Baş duodenumla C-loop yapar. Kuyruk dalak hilusuna uzanır.",
     landmarks: "SMA + SMV: pankreas boynu ARKASINDA (portomesenteric confluens). Splenik ven: pankreas gövde-kuyruk ARKASINDA seyreder. CBD: pankreas başı içinden geçer (dorsal). Uncinate: SMA arkasında.",
