@@ -6617,144 +6617,104 @@ const thoraxAdvancedMR = [
 
 // ===== THORAX ANATOMY SVG REGIONS =====
 const thoraxAnatomyRegions = [
-  { id: "liver", name: "Karaciğer", color: "#f43f5e",
-    svgType: "polygon", points: "70,60 200,45 270,55 280,80 270,130 220,150 140,145 70,120",
+  { id: "right_lung", name: "Sağ Akciğer", color: "#3b82f6",
+    svgType: "polygon", points: "30,60 120,40 170,55 175,110 170,200 160,260 130,290 60,280 35,240 25,160",
     info: {
-      segments: "Couinaud 8 segment: I (kaudat), II-III (sol lateral), IVa-IVb (sol medial), V-VIII (sağ lob). Hepatik venler segmentleri ayırır, portal venler segmentleri besler.",
-      landmarks: "Cantlie hattı (orta hepatik ven = sağ-sol lob sınırı): IVC → safra kesesi çukuru hattı. Falciform ligaman: segment II-III / IVa-IVb sınırı.",
-      normalMeasures: "Midklavikular hatta kraniokaudal ≤15.5cm. Kaudat/sağ lob oranı <0.65. Portal ven <13mm.",
-      variants: "Riedel lobu (sağ lob uzantısı). Aksesuar sol lob. Aberrant hepatik arter (%25-40).",
-      keyPearl: "Couinaud segmentasyon cerrahi planlamada ZORUNLU. Aberrant arter varyantları kolesistektomide iatrojenik yaralanma riski taşır."
+      segments: "3 lob (superior, orta, inferior). 10 segment: apikal (S1), posterior (S2), anterior (S3), lateral (S4), medial (S5), superior bazal (S6), medial bazal (S7), anterior bazal (S8), lateral bazal (S9), posterior bazal (S10).",
+      landmarks: "Horizontal (minör) fissür: orta lobu superior lobdan ayırır (4. kosta seviyesi). Oblik (majör) fissür: inferior lobu üst loblardan ayırır. Sağ ana bronkus: daha kısa, daha geniş, daha dik açılı → aspirasyon sağ tarafa daha sık.",
+      normalMeasures: "Sağ akciğer sol akciğerden yaklaşık %10 daha büyüktür. Sağ ana bronkus çapı: ~15mm. Sağ pulmoner arter truncus anterior çapı: <16mm.",
+      variants: "Azigos lobu (%0.4-1): azigos ven sağ üst lobu boydan boya geçtiğinde oluşur (azigos fissürü görülür). Trakeal bronkus (%0.1-2): sağ üst lob apikal segment bronkusu direkt trakeadan çıkar.",
+      keyPearl: "Sağ akciğer 3 loblu ve 10 segmentlidir. Aspirasyon en sık SAĞ alt lob superior segmente (S6) olur (supin pozisyonda). Azigos lobu: PA grafide ters virgül şeklinde çizgi = normal varyant, patoloji değil."
     }
   },
-  { id: "spleen", name: "Dalak", color: "#a855f7",
-    svgType: "ellipse", cx: 310, cy: 100, rx: 32, ry: 45,
+  { id: "left_lung", name: "Sol Akciğer", color: "#0ea5e9",
+    svgType: "polygon", points: "225,55 280,40 370,60 375,160 365,240 340,280 270,290 230,260 225,200 220,110",
     info: {
-      segments: "Homojen parankim. Beyaz pulpa (lenfoid) + kırmızı pulpa (sinüzoidler). Arteryel fazda benekli kontrastlanma NORMAL.",
-      landmarks: "Sol üst kadran, 9-11. kosta. Splenik hilus: tortüöz splenik arter + splenik ven. Gastrosplenik ve splenorenal ligamanlar.",
-      normalMeasures: "Uzun aks <13cm. Splenik ven <10mm.",
-      variants: "Aksesuar dalak (%10-30). Polispleni (sol izomerizm). Aspleni (sağ izomerizm).",
-      keyPearl: "Arteryel fazda dalak BENEKLI kontrastlanır (zebra paterni) → lezyon sanılmamalı! Portal fazda homojenleşir."
+      segments: "2 lob (superior, inferior). 8-10 segment: apikoposterior (S1+2), anterior (S3), superior lingula (S4), inferior lingula (S5), superior bazal (S6), anteromedial bazal (S7+8), lateral bazal (S9), posterior bazal (S10).",
+      landmarks: "Oblik fissür: sol tarafta tek fissür. Lingula: sağ orta lob karşılığı (sol üst lobun alt parçası). Kardiyak çukurluk: kalbin sol akciğer alt lobunda oluşturduğu izlenim.",
+      normalMeasures: "Sol ana bronkus çapı: ~13mm (sağdan dardır). Sol pulmoner arter: sol ana bronkusun üzerinden geçer (bu yüzden sol hilus yüksektir).",
+      variants: "Sol üst lob ve lingula arasında aksesuar fissür (sol minör fissür) görülebilir. Sol akciğerde 2 lob olması nedeniyle lobektomi sonrası kompansatuar hiperinflasyon daha belirgin olabilir.",
+      keyPearl: "Sol hilus sağdan YÜKSEK görülür (sol pulmoner arter bronkusun üzerinden geçer). Lingula sağ orta lob EŞDEĞERİDİR ancak ayrı bir lob değildir. Sol akciğerde kardiyak çukurluk nedeniyle inferior lob medial bazal segment küçülmüştür."
     }
   },
-  { id: "pancreas", name: "Pankreas", color: "#f59e0b",
-    svgType: "polygon", points: "130,155 175,148 220,145 260,150 290,158 260,168 220,170 175,172 130,168",
+  { id: "trachea", name: "Trakea", color: "#10b981",
+    svgType: "rect", x: 188, y: 15, width: 22, height: 65, rx: 8,
     info: {
-      segments: "Baş (uncinate dahil), boyun, gövde, kuyruk. Baş duodenumla C-loop yapar. Kuyruk dalak hilusuna uzanır.",
-      landmarks: "SMA + SMV: pankreas boynu arkasında. Splenik ven: gövde-kuyruk arkasında. CBD: pankreas başı içinden geçer.",
-      normalMeasures: "Baş ≤3cm, gövde ≤2.5cm, kuyruk ≤2cm. Wirsung ≤3mm.",
-      variants: "Pankreas divisum (%5-10). Annüler pankreas. Ektopik pankreas (mide antrum).",
-      keyPearl: "Aksesuar dalak pankreas kuyruğunda kitle gibi görünebilir → TÜM FAZLARDA dalakla aynı sinyal = aksesuar dalak. Double duct sign = periampüller tümör."
+      segments: "Servikal trakea (krikoid → sternal çukurluk) + torakal trakea (sternal çukurluk → karina). Yaklaşık 18-22 halka (C-şeklinde kıkırdak, posterior membranöz duvar).",
+      landmarks: "Karina: T5-T6 seviyesinde trakeanın sağ ve sol ana bronkusa ayrıştığı yer. Subkarinal açı: normal 60-70° (LAP ile genişler >90°). Paratrakeal bant: trakea sağ duvarı ile akciğer arasındaki çizgi ≤4mm.",
+      normalMeasures: "Koronal çap: erkek 13-25mm, kadın 10-21mm. Sagittal çap: erkek 13-27mm, kadın 10-23mm. Duvar kalınlığı: ≤3mm. Karina açısı: <90° normal.",
+      variants: "Trakeal bronkus (pig bronchus): sağ üst lob apikal segment bronkusu direkt trakeadan çıkar. Kılıç kılıfı trakea: koronal çapı sagittal çapının yarısından az (KOAH'da sık görülür).",
+      keyPearl: "Subkarinal LAP → karina açısı genişler (>90°). Kılıç kılıfı trakea KOAH için spesifik bir bulgudur. Trakeal stenoz değerlendirmede sagittal + koronal çap birlikte ölçülmelidir."
     }
   },
-  { id: "gallbladder", name: "Safra Kesesi", color: "#10b981",
-    svgType: "ellipse", cx: 190, cy: 142, rx: 14, ry: 20,
+  { id: "mediastinum", name: "Mediasten", color: "#8b5cf6",
+    svgType: "rect", x: 155, y: 45, width: 90, height: 220, rx: 10,
     info: {
-      segments: "Fundus, korpus, infundibulum, boyun → kistik kanal → CBD birleşimi.",
-      landmarks: "KC segment IVb-V sınırında fossa. Portal triad: hepatik arter + portal ven + safra kanalı.",
-      normalMeasures: "Uzun aks ≤10cm, transvers ≤4cm. Duvar ≤3mm. CBD ≤6mm (kolesistektomi sonrası ≤8mm).",
-      variants: "Kistik kanal birleşme varyasyonları (düşük, medial, posterior). Frigyalı başlık (fundus katlantısı). Agenezi (nadir).",
-      keyPearl: "Kolesistektomi sonrası CBD hafif genişler (reservoir etkisi kaybolur → 10mm'e kadar kabul). Yeni dilatasyon + sarılık = patolojik."
+      segments: "Ön mediasten (prevasküler): timus, yağ, lenf nodları. Orta mediasten (visseral): kalp, büyük damarlar, trakea, özofagus, lenf nodları. Arka mediasten (paravertebral): sempatik zincir, torasik duktus, azigos/hemiazigos.",
+      landmarks: "ITMIG sınıflama (2020): prevasküler, visseral, paravertebral. Aortopulmoner pencere: aort arkusu ile sol pulmoner arter arası (LAP sık görülen yer). Subkarinal alan: karina altında (LAP istasyonu 7).",
+      normalMeasures: "Lenf nodu: kısa aks ≤10mm (normal). Timus: 40 yaş sonrası yağlı involüsyon → yumuşak doku kalmamalı (kalırsa patolojik). Özofagus duvar kalınlığı: ≤3mm (distansiyon ile).",
+      variants: "Aberrant sağ subklavyen arter (arteria lusoria, %0.5-2): özofagus arkasında seyreder → disfaji lusoria. Çift aortik ark. Sol persistan superior vena kava (koroner sinüse dökülür).",
+      keyPearl: "Mediasten kitle DDx: ÖN → 4T (timus, teratom, tiroid, terrible lenfoma). ORTA → lenfadenopati, bronkojenik kist, perikardiyal kist. ARKA → nörojenik tümör (schwannom, nörofibrom). Yaş + konum tanıyı daraltır."
     }
   },
-  { id: "right_kidney", name: "Sağ Böbrek", color: "#3b82f6",
-    svgType: "ellipse", cx: 100, cy: 195, rx: 28, ry: 40,
+  { id: "heart", name: "Kalp", color: "#ef4444",
+    svgType: "ellipse", cx: 215, cy: 195, rx: 55, ry: 50,
     info: {
-      segments: "Korteks (glomerüller), medulla (piramidler), renal sinüs (pelvis + yağ + damar).",
-      landmarks: "Renal arter: aortadan L1-2 seviyesinde. Sağ renal ven IVC'ye direkt dökülür. Üreter: UPJ → üreter → UVJ.",
-      normalMeasures: "Uzun aks: 9-12cm. Korteks kalınlığı ≥10mm. Renal arter RI <0.70.",
-      variants: "Aksesuar renal arter (%25-30). Çift toplayıcı sistem. At nalı böbrek.",
-      keyPearl: "Aksesuar renal arter transplant donörde BT anjio ile gösterilmeli. Bosniak sınıflama renal kistik kitle yönetiminin temelidir."
+      segments: "4 odacık: sağ atrium (RA), sağ ventrikül (RV), sol atrium (LA), sol ventrikül (LV). İnterventriküler septum. Kapaklar: mitral, aort, triküspid, pulmoner.",
+      landmarks: "Kardiyotorasik oran (KTO): PA grafide kalp genişliği / toraks genişliği ≤0.5. Sol ventrikül: kalbin apeksini oluşturur. Sağ ventrikül: sternum arkasında (retrosternal alan). Perikardiyal resesler: superior aortik, perikardiyal sinüsler.",
+      normalMeasures: "KTO ≤0.5 (>0.5 = kardiyomegali). Perikard kalınlığı ≤2mm. Perikard sıvısı: fizyolojik ≤50mL. LV duvar kalınlığı: ≤12mm (diyastol). RV serbest duvar: ≤5mm.",
+      variants: "Dekstrokardi (kalp sağda). Sol persistan SVC → dilate koroner sinüs. Perikardiyal yokluk (parsiyel/komplet → sol akciğer herniasyonu).",
+      keyPearl: "PA grafide KTO >0.5 = kardiyomegali (AP grafide güvenilmez → kalp büyütülmüş görünür). Perikard efüzyonu: su şişesi görünümü (grafi) + perikard yaprakları arası >2mm (BT). Perikard kalsifikasyonu → konstriktif perikardit düşün."
     }
   },
-  { id: "left_kidney", name: "Sol Böbrek", color: "#3b82f6",
-    svgType: "ellipse", cx: 295, cy: 185, rx: 28, ry: 40,
+  { id: "thoracic_aorta", name: "Torasik Aort", color: "#dc2626",
+    svgType: "polygon", points: "195,70 205,70 210,55 230,45 250,48 260,60 260,80 255,90 210,100 207,190 200,190 198,100 185,85 185,70",
     info: {
-      segments: "Korteks, medulla, renal sinüs. Sol böbrek genellikle sağdan 0.5cm büyüktür.",
-      landmarks: "Sol renal ven: aorta ÖNÜNden geçer (nutcracker pozisyon). Sol adrenal: sol böbrek üst polü medialinde.",
-      normalMeasures: "Uzun aks: 9-12cm. Parankim kalınlığı ≥15mm.",
-      variants: "Retroaortik/circumaortik sol renal ven (%2-8). Sol taraflı IVC (nadir).",
-      keyPearl: "Nutcracker sendromu: aorta-SMA arası sol renal ven sıkışır → hematüri. SMA-aort açısı <25° → SMA sendromu ile birlikte olabilir."
+      segments: "Aort kökü (anülüs → sinotübüler bileşim), çıkan aort (sinotübüler bileşim → brakiyosefalik arter), aort arkusu (brakiyosefalik → sol subklavyen sonrası), inen aort (istmus → diyafram).",
+      landmarks: "Aort düğmesi: PA grafide sol mediastinal kontür (arkusun görüntüsü). İstmus: sol subklavyen arter çıkışı ile lig. arteriosum arası (travmatik rüptürün en sık bölgesi). Sinüsler: sağ koroner, sol koroner, non-koroner (Valsalva).",
+      normalMeasures: "Aort kökü: ≤4.0cm. Çıkan aort: ≤3.5cm. İnen aort: ≤2.5cm. >4.5cm çıkan aort = anevrizma. Marfan'da >5.0cm → cerrahi endikasyon.",
+      variants: "Bovine ark (%15-25): sol karotis brakiyosefalik arterden çıkar. Aberrant sağ subklavyen arter (%0.5-2). Sağ aortik ark. Aort koarktasyonu (istmus darlığı → rib notching).",
+      keyPearl: "Stanford sınıflaması: Tip A = çıkan aort tutulumu (cerrahi ACİL). Tip B = sadece inen aort (medikal tedavi, komplike ise TEVAR). Travmatik aort yaralanması en sık İSTMUS'ta olur (ligamentum arteriosum fiksasyonu)."
     }
   },
-  { id: "stomach", name: "Mide", color: "#ef4444",
-    svgType: "polygon", points: "150,105 200,95 240,100 250,125 235,148 195,155 155,145 140,125",
+  { id: "pulmonary_arteries", name: "Pulmoner Arterler", color: "#7c3aed",
+    svgType: "polygon", points: "195,100 220,95 240,105 235,125 210,130 195,120",
     info: {
-      segments: "Kardia, fundus, korpus, antrum, pilorus. Duvar: mukoza, submukoza, muskularis propria, seroza.",
-      landmarks: "Küçük kurvatur (hepatogastrik ligaman). Büyük kurvatur (gastrokolik ligaman). Gastrik plikalar en iyi distansiyonla değerlendirilir.",
-      normalMeasures: "Duvar ≤5mm (distansiyon ile). Distansiyon olmadan duvar kalın GÖRÜNÜR → tuzak.",
-      variants: "Hiyatal herni (sliding vs paraözofageal). Mide divertikülü (fundus posterior).",
-      keyPearl: "Gastrik kanser evrelemede: T2 = muskularis propria invazyonu, T3 = seroza, T4 = komşu organ. Su veya hava ile distansiyon sağla."
+      segments: "Pulmoner trunk (sağ ventrikül çıkışı) → sağ pulmoner arter (daha uzun, karina arkasında) + sol pulmoner arter (daha kısa, sol ana bronkus üzerinde). Lober → segmental → subsegmental dallar.",
+      landmarks: "Sağ pulmoner arter: truncus anterior (sağ üst lob) + interlober arter (alt loblar). Sol pulmoner arter: sol ana bronkusun üzerinden geçer → sol hilus sağdan yüksek. Pulmoner trunk bifurkasyonu: T5 seviyesi.",
+      normalMeasures: "Pulmoner trunk çapı: ≤29mm. Pulmoner trunk / çıkan aort oranı: ≤1.0 (>1.0 = pulmoner hipertansiyon şüphesi). Segmental arter çapı: eşlik eden bronkusla eşit olmalı.",
+      variants: "Pulmoner arter sling: sol pulmoner arter sağ pulmoner arterden çıkar → trakea/sağ ana bronkus arkasında seyreder (çocuklarda hava yolu obstrüksiyonu). Aberrant pulmoner arter dalları (nadir).",
+      keyPearl: "Pulmoner emboli için ALTIN STANDART: BT pulmoner anjiyografi. Dolum defekti = trombüs. Pulmoner trunk >29mm veya PT/Ao oranı >1 = pulmoner hipertansiyon. Sağ kalp yetmezliğinde RV genişler ve interventriküler septum sola itilir."
     }
   },
-  { id: "small_bowel", name: "İnce Barsak", color: "#06b6d4",
-    svgType: "polygon", points: "135,215 260,215 270,290 250,320 145,320 125,290",
+  { id: "pleura", name: "Plevra", color: "#f59e0b",
+    svgType: "polygon", points: "25,65 35,55 42,65 42,280 35,290 25,285 22,170",
     info: {
-      segments: "Duodenum (D1-D4), jejunum (proksimal 2/5), ileum (distal 3/5). Jejunum: kalın kıvrımlar. İleum: ince kıvrımlar + Peyer plakları.",
-      landmarks: "Treitz ligamanı: duodenojejunal bileşke. İleoçekal valv: terminal ileum → çekum. MR enterografi ile en iyi değerlendirilir.",
-      normalMeasures: "Duvar ≤3mm (distansiyon), ≤5mm (kollaps). Lümen çapı ≤3cm.",
-      variants: "Malrotasyon (Treitz sağda). Meckel divertikülü (%2 popülasyon). Duplikasyon kisti.",
-      keyPearl: "3-6-9 kuralı: ince barsak >3cm, kolon >6cm, çekum >9cm = obstrüksiyon. Duvar kalınlığı DİSTANSE barsakta değerlendirilmeli."
+      segments: "Visseral plevra (akciğer yüzeyini sarar) + parietal plevra (göğüs duvarı iç yüzeyinde). Plevral boşluk: iki yaprak arası (normalde 10-20mL sıvı). Plevral resesler: kostofrenik, kostomediastenal, vertebral.",
+      landmarks: "Kostofrenik açılar: PA grafide en bağımlı bölge (efüzyon ilk burada birikir → küntleşme). Aksiller çizgi: aksilla altında dikey çizgi (pnömotoraks takibinde önemli). Fissürler: plevranın akciğer içine uzantıları.",
+      normalMeasures: "Plevral kalınlık: normal görünmez (<1mm). Plevral sıvı: PA grafide kostofrenik açı küntleşmesi için >200mL gerekli. Lateral dekübit grafide >10mm = torasentez için yeterli.",
+      variants: "Aksesuar fissürler: azigos fissürü (sağ), inferior aksesuar fissür, sol minör fissür. Plevral plaklar: asbest maruziyetinde bilateral kalsifiye plaklar (parietal plevra). Fibrotoraks.",
+      keyPearl: "Efüzyon DDx: transüda (KKY, siroz, nefrotik) vs eksüda (Light kriterleri → enfeksiyon, malignite, PE). Malign efüzyon: nodüler plevral kalınlaşma + >1cm mediastenal plevra tutulumu. Pnömotoraks: akciğer kenarında visseral plevra çizgisi görülür + dışında akciğer markingleri KAYBOLUR."
     }
   },
-  { id: "colon", name: "Kolon", color: "#ec4899",
-    svgType: "polygon", points: "85,175 100,170 110,210 110,320 120,340 275,340 285,320 285,210 295,170 310,175 310,195 300,210 300,330 290,355 105,355 95,330 95,210",
+  { id: "diaphragm", name: "Diyafram", color: "#f97316",
+    svgType: "polygon", points: "25,275 60,260 120,250 180,255 200,260 220,255 280,250 340,260 375,275 375,290 200,300 25,290",
     info: {
-      segments: "Çekum + apendiks, çıkan kolon, hepatik fleksura, transvers kolon, splenik fleksura, inen kolon, sigmoid, rektum.",
-      landmarks: "Hepatik fleksura: KC alt kenarı altında. Splenik fleksura: dalak alt polü yakınında. Rektosigmoid bileşke: S3 seviyesi.",
-      normalMeasures: "Duvar ≤3-5mm. Çekum çapı ≤9cm. Kolon çapı ≤6cm.",
-      variants: "Sağ taraflı kolon (situs inversus). Mobil çekum. Redundan sigmoid.",
-      keyPearl: "Kolorektal Ca evreleme: T3 = perikolik yağ invazyonu (en sık evre). CRM (circumferential resection margin) <1mm = pozitif → lokal nüks riski. Rektal Ca MR evreleme zorunlu."
+      segments: "Müsküler kısım (kostal, sternal, lomber parçalar) + santral tendon. Sağ hemidiyafram: karaciğer tarafından desteklenir → genellikle soldan 1-2cm YÜKSEK. Sol hemidiyafram: kalp ve mide komşu.",
+      landmarks: "Sağ krus: L1-L3 cisimlerinin önünde, sol krus: L1-L2. Aortik hiatus (T12): aort + torasik duktus + azigos ven. Özofageal hiatus (T10): özofagus + vagus siniri. Kaval foramen (T8): IVC.",
+      normalMeasures: "Sağ hemidiyafram: PA grafide 5-6. anterior kosta seviyesi. Sağ-sol yükseklik farkı: ≤3cm normal (>3cm → frenik sinir paralizisi düşün). Diyafram kalınlığı BT'de: 2-4mm.",
+      variants: "Bochdalek hernisi (posterolateral defekt, solda sık → neonatal). Morgagni hernisi (anteromedial, sağda sık → erişkin). Eventrasyon (diyafram incelip yükselir, sağda sık). Frenik sinir paralizisi.",
+      keyPearl: "Bochdalek: posterolateral + sol → neonatal solunum sıkıntısı. Morgagni: anteromedial + sağ → genellikle erişkin insidental. Diyafram elevasyonu DDx: frenik sinir paralizisi (sniff test ile doğrulanır), eventrasyon, subfrenik abse/koleksiyon."
     }
   },
-  { id: "aorta", name: "Aort", color: "#dc2626",
-    svgType: "rect", x: 191, y: 60, width: 14, height: 280, rx: 7,
+  { id: "chest_wall", name: "Göğüs Duvarı", color: "#64748b",
+    svgType: "polygon", points: "15,40 55,25 145,15 200,10 255,15 345,25 385,40 390,170 385,290 370,310 200,330 30,310 15,290 10,170",
     info: {
-      segments: "Abdominal aort: diyafragma → bifurkasyon (L4). Dalları: çölyak (T12), SMA (L1), renal arterler (L1-2), IMA (L3).",
-      landmarks: "Çölyak trunk: sol gastrik + splenik + hepatik arter. SMA: pankreatik boyun arkası. IVC: aortanın sağında.",
-      normalMeasures: "Suprarenal <2.5cm, infrarenal <2cm. ≥3cm = AAA. SMA-aort açısı: 38-65°.",
-      variants: "Aksesuar renal arter. Hepatik arter varyasyonları (Michel). Median arkuat ligaman kompresyonu.",
-      keyPearl: "AAA rüptür riski: çap ≥5.5cm (erkek), ≥5.0cm (kadın) → cerrahi endikasyon. Akut karın ağrısı + hipotansiyon + posterior duvar defekti = rüptür düşün."
-    }
-  },
-  { id: "bladder", name: "Mesane", color: "#0ea5e9",
-    svgType: "ellipse", cx: 198, cy: 365, rx: 40, ry: 22,
-    info: {
-      segments: "Detrusor kas (3 katman). Trigon: iki üreteral orifis + internal üretral orifis.",
-      landmarks: "Mesane kubbesi: peritonla örtülü. Posterior: rektum (erkek) veya uterus (kadın). Prevesikal alan (Retzius boşluğu).",
-      normalMeasures: "Duvar ≤3mm (distansiyon). ≤5mm (boş). Post-miksiyonel rezidü <50mL.",
-      variants: "Mesane divertikülü (kas defekti → herniyasyon). Urakal remnant (kubbe).",
-      keyPearl: "Mesane Ca evreleme: T2 = muskularis propria invazyon (kas-invaziv). MR → perivesikal yağ invazyonu (T3) tespitinde BT'den üstün."
-    }
-  },
-  { id: "adrenal_r", name: "Sağ Adrenal", color: "#f97316",
-    svgType: "polygon", points: "108,155 120,145 130,155 120,165",
-    info: {
-      segments: "Medial krus (gövde) + lateral krus (kanat). Y veya ters V şekli. IVC arkasında, KC sağ lobu medialinde.",
-      landmarks: "IVC ile sağ diyafragmatik krus arasında yer alır. Sağ adrenal ven direkt IVC'ye dökülür (kısa → cerrahi zor).",
-      normalMeasures: "Krus kalınlığı ≤10mm. Nodül <4cm + <10 HU = adenom. Wash-out APW >60% = benign.",
-      variants: "Myelolipom (makroskopik yağ → negatif HU). Adrenal hemoraji (neonatal/stres). Ektopik adrenal.",
-      keyPearl: "<10 HU = adenom (kesin). Chemical shift sinyal kaybı ≥%20 = lipid-rich adenom. Feo düşünüyorsan biyopsi YAPMA!"
-    }
-  },
-  { id: "adrenal_l", name: "Sol Adrenal", color: "#f97316",
-    svgType: "polygon", points: "280,150 295,140 305,150 295,160",
-    info: {
-      segments: "Ters Y/üçgen şekli. Sol böbrek üst polü önü-medialinde.",
-      landmarks: "Sol adrenal ven sol renal vene dökülür (sağdan farklı!). Pankreas kuyruğu ve dalak komşuluğunda.",
-      normalMeasures: "Krus kalınlığı ≤10mm. >4cm = malignite riski artar. Non-kontrast BT attenüasyonu kritik.",
-      variants: "Feokromositoma: T2 light bulb sign. Adrenokortikal Ca: >6cm + heterojen + nekroz.",
-      keyPearl: "Sol adrenal ven → sol renal ven → IVC. Venöz örnekleme bu anatomiye bağlı. Conn sendromu lateralizasyonunda adrenal venöz örnekleme altın standart."
-    }
-  },
-  { id: "uterus", name: "Uterus / Prostat", color: "#d946ef",
-    svgType: "polygon", points: "180,340 216,340 220,358 210,370 198,374 186,370 176,358",
-    info: {
-      segments: "Uterus: fundus, korpus, istmus, serviks. Zonlar (MR): endometrium (T2 parlak), junctional zone (T2 koyu), myometrium. Prostat: periferik zon (PZ), transizyonel zon (TZ), santral zon.",
-      landmarks: "Douglas çukuru: rektouterin poş (en derin peritoneal alan). Prostat: NVB posterolateral → cerrahi korumalı.",
-      normalMeasures: "Uterus: 6-10cm. Endometrial kalınlık: postmenopozal <4mm. Prostat: >30cc = BPH.",
-      variants: "Müllerian anomaliler (uterus didelfis, bikornis, septus). Utrikül kisti (prostat orta hat).",
-      keyPearl: "Postmenopozal endometrial kalınlık ≥4mm + kanama = biyopsi. PI-RADS: PZ'de DWI dominant, TZ'de T2 dominant."
+      segments: "Kemik yapılar: sternum (manubrium, korpus, ksifoid), 12 çift kosta (7 gerçek, 3 yalancı, 2 yüzen), torakal vertebralar (T1-T12). Yumuşak doku: interkostal kaslar (3 katman), pektoralis major/minor, serratus anterior.",
+      landmarks: "Sternal açı (Louis açısı): manubrium-korpus bileşkesi = 2. kosta seviyesi (T4-5) → karina seviyesi. 1. kosta: supraklaviküler bölgede, cerrahide önemli landmark. İnterkostal nörovasküler demet: kostanın ALT kenarında seyreder.",
+      normalMeasures: "Kosta kalınlığı: korteks 1-2mm. Sternum genişliği: yaklaşık 2-3cm. Torakal vertebra yüksekliği: kaudale doğru artar. İnterkostal aralık: 1-2cm.",
+      variants: "Servikal kosta (%0.5-1): C7'den çıkan ek kosta → torasik çıkış sendromu. Bifid kosta. Pektus ekskavatum (çukur göğüs). Pektus karinatum (güvercin göğsü). Sternal foramen (normal varyant → biyopside dikkat).",
+      keyPearl: "İnterkostal girişim (torasentez, chest tube): kostanın ÜST kenarından girilir (alt kenarda nörovasküler demet yaralanma riski). Rib notching: aort koarktasyonunda interkostal arter genişlemesi → kosta alt kenarında erozyon. Servikal kosta → torasik çıkış sendromu (TOS) → subklavyen arter/brakiyal pleksus basısı."
     }
   }
 ];
