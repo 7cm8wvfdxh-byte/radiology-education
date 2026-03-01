@@ -1,6 +1,6 @@
 // Cache versiyon yönetimi: CACHE_VERSION her deploy'da güncellenmeli.
 // Build script (scripts/bump-cache.js) bunu otomatik yapar.
-const CACHE_VERSION = 6;
+const CACHE_VERSION = 7;
 const CACHE_NAME = 'radiology-edu-v' + CACHE_VERSION;
 const ASSETS = [
   '/',
