@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>NeuroRad Patho-Imaging</title>
-<meta name="description" content="Nöroradyoloji eğitim modülü — 74 hastalık, MR sinyal profilleri, ayırıcı tanı düelloları ve interaktif quiz">
+<meta name="description" content="Nöroradyoloji eğitim modülü — 86 hastalık, MR sinyal profilleri, ayırıcı tanı düelloları ve interaktif quiz">
 <meta name="theme-color" content="#0f172a">
 <meta property="og:title" content="NeuroRad Patho-Imaging">
-<meta property="og:description" content="Nöroradyoloji eğitim modülü — 74 hastalık, MR sinyal profilleri, ayırıcı tanı düelloları">
+<meta property="og:description" content="Nöroradyoloji eğitim modülü — 86 hastalık, MR sinyal profilleri, ayırıcı tanı düelloları">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary">
 <link rel="manifest" href="manifest.json">
@@ -4095,6 +4095,557 @@ const diseases = [
   quiz: {
     q: "Susac sendromunda korpus kallozum lezyonları MS'tekilerden nasıl ayrılır?",
     a: "KRİTİK FARK — lokalizasyon: (1) SUSAC: lezyonlar korpus kallozumun ALT 1/3'ünde ve SANTRAL liflerinde ('snowball' — yuvarlak, sınırlı). Kallosal-septal interface tutulur. (2) MS: lezyonlar korpus kallozumun ÜST yüzeyinde, ventriküle bakan tarafta ('Dawson fingers' — ovoid, uzun ekseni ventrikülere dik). Kallosal-ventriküler interface tutulur. Bu fark: Susac = küçük arteriolar oklüzyon (alt lifler), MS = perivenüler demiyelinizasyon (üst lifler, ven etrafı) farklı patojenezden kaynaklanır."
+  }
+},
+
+{
+  id: "pilocytic_astrocytoma",
+  name: "Pilositik Astrositom (WHO Grade 1)",
+  category: "tumor",
+  tag: "important",
+  tagText: "Önemli",
+  pathway: [
+    {
+      type: "histo",
+      label: "Histopatoloji",
+      text: "WHO Grade 1 — çocukluk çağının en sık posterior fossa tümörü. Bifazik patern: kompakt piloid alanlar (Rosenthal lifleri) + gevşek mikrokistik alanlar (eozinofilik granüler cisimler). Düşük proliferasyon indeksi. BRAF-KIAA1549 füzyon mutasyonu sık.",
+      detail: "Pilositik = 'saç benzeri' uzun ince hücre uzantıları. Rosenthal lifleri: eozinofilik, sosis şekilli yapılar"
+    },
+    {
+      type: "tissue",
+      label: "Doku Değişikliği",
+      text: "Serebellar (en sık): kistik kitle + kontrastlanan mural nodül. Kist duvarı: tümöral olmayabilir (reaktif gliozis). Optik kiazma/hipotalamus: solid kitle (NF1 ilişkili). Beyin sapı: dorsal ekzofitik büyüme.",
+      detail: "Kist + mural nodül = pilositik astrositom'un KLASİK paterni (hemanjioblastomda da olabilir)"
+    },
+    {
+      type: "signal",
+      label: "Sinyal/Dansite Karşılığı",
+      text: "MR: Kist: T1 hipointens, T2 hiperintens (BOS'tan hafif farklı — protein içeriği). Mural nodül: T1 izo-hipointens, T2 hiperintens, Gd+ PARLAK kontrastlanma. DWI: kısıtlanma genellikle YOK (düşük selülarite). Perfüzyon: rCBV düşük-orta.",
+      detail: "DWI kısıtlanması YOK = düşük grade tümör lehine (medulloblastomda kısıtlanma VAR)"
+    },
+    {
+      type: "finding",
+      label: "Görüntüleme Bulgusu",
+      text: "Serebellum: büyük kist + küçük parlak mural nodül (en tipik). Nadiren tamamen solid. Kist duvarı genellikle kontrastlanmaz (kist duvarı = tümöral değil). Hemanjioblastomdan fark: yaş (çocuk vs erişkin). Obstrüktif hidrosefali eşlik edebilir.",
+      detail: "Kist duvarı kontrastlanıyorsa: kraniyofarenjiom veya hemanjioblastom düşün (pilositik'te genellikle kontrastlanmaz)"
+    }
+  ],
+  keyPoint: "Pilositik astrositom = çocukluk çağı posterior fossa + kist + parlak mural nodül + DWI kısıtlanma yok. Küratif cerrahi ile mükemmel prognoz. NF1'de optik yol gliomu. Medulloblastomdan ayrım: DWI (kısıtlanma yok vs var), yaş, lokalizasyon (serebellum vs vermis).",
+  differential: [
+    "Medulloblastom — vermiste solid, DWI kısıtlanma VAR, daha agresif",
+    "Hemanjioblastom — kist + mural nodül ama ERİŞKİN, VHL ilişkili",
+    "Ependimom — 4. ventrikül tabanında, foraminadan uzanır (plastic tumor)",
+    "Arakhnoid kist — BOS sinyali, kontrastlanma YOK, mural nodül yok"
+  ],
+  protocol: "MR: T1, T2, FLAIR, DWI, T1 kontrastlı. Spinal MR: drop metastaz taraması (nadir ama gerekli). NF1 şüphesinde: optik yol MR.",
+  quiz: {
+    q: "Posterior fossada kist + mural nodül gösteren bir lezyonda pilositik astrositom ile hemanjioblastomu nasıl ayırırsınız?",
+    a: "YAŞ en kritik fark: Pilositik astrositom = ÇOCUK (5-15 yaş), hemanjioblastom = ERİŞKİN (20-40 yaş). Ek farklar: (1) VHL ilişkisi: hemanjioblastomda VHL taraması yapılır (retinal anjiyom, renal kist/RCC, feokromositoma). (2) Perfüzyon: hemanjioblastom çok vasküler (rCBV çok yüksek), pilositik düşük-orta. (3) Spinal hemanjioblastom: VHL'de multipl. Aynı radyolojik patern — yaş ve klinik bağlam belirleyici."
+  }
+},
+
+{
+  id: "epidermoid",
+  name: "Epidermoid Kist (Kolesteatom)",
+  category: "tumor",
+  tag: "classic",
+  tagText: "Klasik",
+  pathway: [
+    {
+      type: "histo",
+      label: "Histopatoloji",
+      text: "Konjenital inklüzyon kisti — nöral tüp kapanması sırasında ektoderm artığı. Stratifiye skuamöz epitel ile döşeli, keratin debris içerir (lameller yapı). Çok yavaş büyür (keratin birikimi ile). Gerçek neoplazi değil — konjenital inklüzyon.",
+      detail: "Epidermoid: sadece epitel. Dermoid: epitel + deri ekleri (kıl, yağ bezleri) — bu ayrım MR'da önemli"
+    },
+    {
+      type: "tissue",
+      label: "Doku Değişikliği",
+      text: "Serebellopontin açı (en sık), prepontin sistern, Meckel kovuğu, suprasellar sistern. Sisternleri doldurarak yayılır, komşu yapıları SARMALAR (itme yerine insinuasyon). Subarakhnoid mesafeye adapte olur (mum damlası gibi).",
+      detail: "Akustik schwannomdan fark: epidermoid İAK'a GİRMEZ (schwannom girer), epidermoid SARMALAR (schwannom İTER)"
+    },
+    {
+      type: "signal",
+      label: "Sinyal/Dansite Karşılığı",
+      text: "MR: T1 BOS benzeri hipointens (dermoidde T1 parlak — yağ!). T2 BOS benzeri hiperintens. FLAIR: HETEROJENİTİ (BOS baskılanır ama epidermoid BASKILANMAZ — dirty CSF). DWI: PARLAK (gerçek kısıtlanma — lameller keratin yapısı su difüzyonunu kısıtlar).",
+      detail: "DWI = GOLD STANDARD ayrım: Epidermoid DWI PARLAK, arakhnoid kist DWI KARANLIKTIR"
+    },
+    {
+      type: "finding",
+      label: "Görüntüleme Bulgusu",
+      text: "KPA lezyonu: BOS benzeri sinyal AMA FLAIR'de baskılanmaz + DWI'da PARLAK. Bu 2 sekans ayırıcı tanıda kritik. Düzensiz sınır (sisternlere insinuasyon). Kontrastlanma YOK (ince periferal rim nadiren). Kalsifikasyon olabilir.",
+      detail: "FLAIR baskılanmaz + DWI parlak = EPİDERMOİD. FLAIR baskılanır + DWI karanlık = ARAKHNOİD KİST"
+    }
+  ],
+  keyPoint: "Epidermoid kist = KPA/sistern + BOS benzeri sinyal + FLAIR'de baskılanmaz + DWI PARLAK. DWI en kritik sekans (araknoid kistten ayrım). Kontrastlanma yok. Yavaş büyüme. Rüptür: kimyasal menenjit (nadir ama ciddi).",
+  differential: [
+    "Araknoid kist — her sekansta TAM BOS sinyali, FLAIR baskılanır, DWI karanlık",
+    "Dermoid kist — T1 PARLAK (yağ), fat-sat ile baskılanır, median hatta",
+    "Schwannom — solid, kontrastlanır, İAK genişletir",
+    "Menenjiyom — solid, yoğun kontrastlanma, dural tail"
+  ],
+  protocol: "MR: T1, T2, FLAIR (epidermoid baskılanmaz), DWI (parlak olmalı), T1 kontrastlı. Postoperatif takip: DWI (rezidü/nüks tespiti).",
+  quiz: {
+    q: "Epidermoid kistte DWI neden parlaktır?",
+    a: "Epidermoid kist LAMELLERKERATİN tabakalar içerir — birbirine paralel dizilmiş, sıkıca paketlenmiş keratin yaprakçıkları. Su molekülleri bu lameller yapı arasında serbestçe hareket EDEMEZ → gerçek difüzyon kısıtlanması → ADC DÜŞÜK → DWI PARLAK. Bu araknoid kistten TEMEL farktır: araknoid kist serbest BOS içerir → su serbestçe hareket eder → ADC YÜKSEK → DWI T2 shine-through ile hafif parlak ama ADC haritasında PARLAK (kısıtlanma yok)."
+  }
+},
+
+{
+  id: "colloid_cyst",
+  name: "Kolloid Kist",
+  category: "tumor",
+  tag: "classic",
+  tagText: "Klasik",
+  pathway: [
+    {
+      type: "histo",
+      label: "Histopatoloji",
+      text: "Endoderm orijinli benign kist — siliyalı ve müsin salgılayan epitel ile döşeli. İçi musin, eski kan ürünleri, kolesterol kristalleri ile dolu viskoz materyal. Foramen Monro'da lokalize — 3. ventrikülün anterosuperior kısmı. Nadir ama potansiyel ölümcül (akut hidrosefali).",
+      detail: "Koloid kist = 3. ventrikül ön duvarı + Monro foramen = akut obstrüktif hidrosefali riski"
+    },
+    {
+      type: "tissue",
+      label: "Doku Değişikliği",
+      text: "Foramen Monro'yu tıkar → bilateral lateral ventrikül dilatasyonu (3. ventrikül normal veya küçük kalır). Ball-valve mekanizması: pozisyon değişikliği ile intermitan obstrüksiyon. Ani ölüm riski: akut bilateral foramen Monro obstrüksiyonu → akut intrakranyal basınç artışı.",
+      detail: "ANİ ÖLÜM: baş pozisyonu değişince kist Monro'yu tıkar → akut hidrosefali → kafa içi basınç → herniasyon"
+    },
+    {
+      type: "signal",
+      label: "Sinyal/Dansite Karşılığı",
+      text: "BT: foramen Monro düzeyinde HİPERDENS yuvarlak lezyon (60-90 HU — musin + eski kan). MR: T1 sinyali DEĞİŞKEN (genellikle hiperintens — protein/musin). T2 değişken (hipo-hiperintens). FLAIR hiperintens. DWI değişken. Kontrastlanma: genellikle YOK.",
+      detail: "BT'de HİPERDENS + 3. ventrikül ön duvarı = KOLLOİD KİST — BT tanısal olabilir"
+    },
+    {
+      type: "finding",
+      label: "Görüntüleme Bulgusu",
+      text: "BT: 3. ventrikülde anterosuperior hiperdens yuvarlak lezyon (1-2 cm). MR: Foramen Monro düzeyinde kistik lezyon, T1 genellikle parlak. Bilateral lateral ventrikül dilatasyonu (foramen Monro obstrüksiyonu). 3. ventrikül normal boyutta. Kontrastlanma yok.",
+      detail: "Lateral ventriküller dilate + 3. ventrikül normal = Monro foramen düzeyinde obstrüksiyon → kolloid kist"
+    }
+  ],
+  keyPoint: "Kolloid kist = 3. ventrikül ön duvarı + hiperdens (BT) + T1 parlak + bilateral hidrosefali. ANİ ÖLÜM RİSKİ: ball-valve mekanizması ile akut obstrüktif hidrosefali. >1 cm kistlerde profilaktik cerrahi önerilir. Tipik lokalizasyon = tanısal.",
+  differential: [
+    "Subependimal dev hücreli astrositom — foramen Monro, solid, kontrastlanır, TSC ilişkili",
+    "Santral nörositom — lateral ventrikül gövdesinde, kontrastlanan kitle",
+    "Koroid pleksus papillomu — lateral/3. ventrikülde, lobüle, yoğun kontrastlanma",
+    "Subependimom — 4. ventrikülde daha sık, kontrastlanma minimal"
+  ],
+  protocol: "BT: hiperdens lezyon tespiti. MR: T1 (parlak sinyal), T2/FLAIR, kontrastlı (kontrastlanma olmaması beklenir). Ventriküler boyut takibi. >1 cm: cerrahi (endoskopik rezeksiyon).",
+  quiz: {
+    q: "Kolloid kist neden ani ölüme neden olabilir?",
+    a: "KRİTİK ANATOMİ: Kolloid kist foramen Monro'da oturur — lateral ventriküllerin TEK BOS çıkış yolu. BAŞ POZİSYONU değişince kist BALL-VALVE gibi çalışır: (1) Monro'yu TIKIR → BOS çıkamaz (2) BİLATERAL lateral ventrikül HIZLA dilate olur (3) İntrakranyal basınç DAKİKALAR içinde yükselir (4) Transtentorial HERNİASYON. Bu nedenle küçük (1-2 cm), benign görünümlü bir kist ÖLÜMCÜL olabilir. >1 cm kistlerde asemptomatik olsa bile profilaktik cerrahi tartışılır."
+  }
+},
+
+{
+  id: "dai",
+  name: "Difüz Aksonal Hasar (DAI)",
+  category: "vascular",
+  tag: "critical",
+  tagText: "Kritik",
+  pathway: [
+    {
+      type: "histo",
+      label: "Histopatoloji",
+      text: "Travmatik akselerasyon-deselerasyon/rotasyonel kuvvetler → aksonal gerilme ve kopma. Farklı yoğunluktaki dokuların (gri-beyaz cevher) arayüzeyinde aksonal hasar. Adams sınıflaması: Grade 1 (lobar beyaz cevher), Grade 2 (+korpus kallozum), Grade 3 (+beyin sapı dorsolateral).",
+      detail: "Aksonal kopma anında değil, saatler-günler içinde Wallerian dejenerasyon ile tamamlanır"
+    },
+    {
+      type: "tissue",
+      label: "Doku Değişikliği",
+      text: "Mikroskobik aksonal kopma → aksonal şişme (retraksiyon topları). Eşlik eden: peteşiyal hemorajiler (aksonal hasar bölgesinde kapiller yırtılma). En sık: lobar beyaz cevher, korpus kallozum splenium, beyin sapı dorsolateral bölge, internal kapsül.",
+      detail: "Klinik-radyolojik uyumsuzluk: BT normal görünebilir ama hasta komada — DAI düşün"
+    },
+    {
+      type: "signal",
+      label: "Sinyal/Dansite Karşılığı",
+      text: "BT: genellikle NORMAL veya minimal peteşiyal hemoraji. MR: T2*/SWI (en duyarlı): multipl küçük hipointens odaklar (hemosiderin — mikrohemoraji). DWI: akut dönemde hiperintens odaklar (aksonal ödem). FLAIR: hiperintens beyaz cevher lezyonları.",
+      detail: "SWI > T2* > FLAIR > DWI > BT duyarlılık sıralaması — SWI DAI tespitinde en üstün"
+    },
+    {
+      type: "finding",
+      label: "Görüntüleme Bulgusu",
+      text: "MR SWI: gri-beyaz cevher arayüzeyinde, korpus kallozumda, beyin sapında multipl küçük hipointens noktalar (mikrohemoraji). DWI: aksonal ödem alanları. Lezyon sayısı ve lokalizasyonu prognozla ilişkili: beyin sapı tutulumu = kötü prognoz.",
+      detail: "HATIRLA: DAI lezyonlarının %80'i HEMORAJİK DEĞİL — SWI negatif olabilir → DWI + FLAIR da gerekli"
+    }
+  ],
+  keyPoint: "DAI = travma + koma + BT normal/minimal bulgu + MR SWI'da multipl mikrohemoraji. Klinik-radyolojik uyumsuzluk: BT normal ama hasta komada = DAI düşün → MR SWI iste. Grade arttıkça (beyaz cevher → korpus kallozum → beyin sapı) prognoz kötüleşir.",
+  differential: [
+    "Hipertansif mikrohemoraji — bazal ganglion/talamus, yaşlı, travma yok",
+    "Serebral amiloid anjiopati — lober, yaşlı, kortikal-subkortikal bileşke",
+    "Kavernomlar — popcorn paterni, çevre hemosiderin halkası",
+    "Difüz vasküler hastalık — perivasküler, simetrik, yaşlı"
+  ],
+  protocol: "BT: acil değerlendirme (cerrahi patoloji ekartasyonu). MR: T2*/SWI (mikrohemoraji), DWI (aksonal ödem), FLAIR (beyaz cevher lezyonları). DTI (difüzyon tensör): aksonal hasar derecesi ve prognoz.",
+  quiz: {
+    q: "DAI'de neden BT genellikle normaldir?",
+    a: "DAI MİKROSKOPİK düzeyde aksonal hasardır — milimetrik lezyonlar BT'nin UZAYSAL ÇÖZÜNÜRLÜĞÜNÜN ALTINDA kalır. BT: sadece büyük hemorajileri gösterir (>1cm). DAI lezyonları: (1) Çoğu NON-HEMORAJİK (aksonal ödem) → BT'de görünmez (2) Hemorajik olanlar bile ÇOK KÜÇÜK (1-15mm peteşi) → BT kaçırır. Bu nedenle SWI (sub-milimetrik hemosiderin) ve DWI (aksonal ödem) = DAI'nin ASIL tanı yöntemleri. Kural: TRAVMA + KOMA + NORMAL BT = MR SWI iste."
+  }
+},
+
+{
+  id: "epidural_hematoma",
+  name: "Epidural Hematom",
+  category: "vascular",
+  tag: "critical",
+  tagText: "Kritik",
+  pathway: [
+    {
+      type: "histo",
+      label: "Histopatoloji",
+      text: "Temporal kemik kırığı → orta meningeal arter (veya ven/dural sinüs) yırtılması → dura ile kraniyum iç tablosu arasında kan birikimi. Arteriyel kaynak (%85): hızlı genişleme, dakikalar-saatler. Venöz kaynak (%15): yavaş, posterior fossa/vertex.",
+      detail: "Orta meningeal arterin PTERION bölgesinde yüzeyel seyri → temporal kemik kırığında kolay yaralanır"
+    },
+    {
+      type: "tissue",
+      label: "Doku Değişikliği",
+      text: "Dura kraniyuma yapışık olduğundan hematom SÜTUR HATLARINI GEÇEMEZ (dura süturlarda yapışık). Bikonveks (lens) şekli alır. Hızlı genişleme: beyin basısı → unkal herniasyon → ipsilateral 3. sinir felci (midriazis) + kontralateral hemiparezi.",
+      detail: "Lüsid interval: kısa bilinç kaybı → uyanma (dakika-saatler) → tekrar bilinç kaybı = KLASİK sunuş"
+    },
+    {
+      type: "signal",
+      label: "Sinyal/Dansite Karşılığı",
+      text: "BT: BİKONVEKS (lens şekli) hiperdens koleksiyon, sütur hatlarını GEÇMEZ. Swirl sign: hematomda hipodens alanlar = AKTİF KANAMA (hemoglobin henüz koagüle olmamış). MR: T1/T2 sinyali hematom yaşına göre değişir.",
+      detail: "Swirl sign = hematom içinde hipodens bölge = AKTİF KANAMA = ACİL cerrahi"
+    },
+    {
+      type: "finding",
+      label: "Görüntüleme Bulgusu",
+      text: "BT: temporal bölgede bikonveks hiperdens koleksiyon + temporal kemik kırığı. Sütur hatlarını geçmez (subdural hematomdan fark). Masif etkisi: orta hat kayması, unkal herniasyon, ipsilateral ventrikül kompresyonu, kontralateral ventrikül dilatasyonu (trapping).",
+      detail: "Epidural = BİKONVEKS + sütur GEÇMEZ. Subdural = HİLAL + sütur GEÇER — en temel ayrım"
+    }
+  ],
+  keyPoint: "Epidural hematom = temporal kırık + bikonveks (lens) + sütur hatlarını geçmez + lüsid interval. SWIRL SIGN = aktif kanama = ACİL cerrahi. Subdural hematomdan farkı: bikonveks vs hilal şekli, sütur geçmez vs geçer.",
+  differential: [
+    "Subdural hematom — HİLAL şekli, sütur hatlarını GEÇER, venlerin yırtılması",
+    "Subaraknoid kanama — sisternal, silviyan fissürde, BOS boşluklarında",
+    "İntraparankimal hematom — beyin parankimi içinde, travmatik kontüzyon"
+  ],
+  protocol: "Acil BT kontrastsız: hematom tespiti + kırık. Swirl sign aranmalı (aktif kanama). Kalvaryum penceresi: kemik kırığı. Seri BT: takip. Cerrahi: >15mm kalınlık veya >5mm orta hat kayması.",
+  quiz: {
+    q: "Epidural hematom neden bikonveks (lens) şeklindedir?",
+    a: "ANATOMİK NEDEN: Dura mater kraniyumun İÇ TABLOSUNA YAPIŞTIR — özellikle SÜTUR HATLARI boyunca sıkıca tutunur. Epidural kan birikimi durayı kraniyumdan AYIRMAK zorundadır → dura elastik direnç gösterir → hematom ortada kalın, kenarlarda ince bikonveks şekil alır (lens). SÜTUR HATLARINI GEÇEMEZ çünkü dura süturlarda çok sıkı yapışıktır. Karşılaştırma: Subdural hematom dura ALTINDA, araknoid ÜSTÜNDE → serbestçe yayılır → HİLAL şekli → sütur hatlarını GEÇER."
+  }
+},
+
+{
+  id: "watershed_infarct",
+  name: "Watershed (Sınır Zon) İnfarktı",
+  category: "vascular",
+  tag: "important",
+  tagText: "Önemli",
+  pathway: [
+    {
+      type: "histo",
+      label: "Histopatoloji",
+      text: "İki major arterin sulama alanları arasındaki 'sınır bölgede' iskemik nekroz. Sistemik hipotansiyon/kardiyak arrest → global hipoperfüzyon → en son kanlanılan bölgeler en önce etkilenir. İKİ TİP: (1) Kortikal (eksternal): ACA-MCA, MCA-PCA arası (2) İnternal: derin beyaz cevherde.",
+      detail: "Watershed = son çayır (last meadow): çiftliğin en uzak çayırı su yetersizliğinde ilk kuruyandır"
+    },
+    {
+      type: "tissue",
+      label: "Doku Değişikliği",
+      text: "Eksternal watershed: ACA-MCA sınır zonu (parasagittal korteks), MCA-PCA sınır zonu (parieto-oksipital). İnternal watershed: centrum semiovale'de derin beyaz cevher (kortikal dallar ve lentikülostriat arasında). Bilateral ve simetrik tutulum global hipoperfüzyonu düşündürür.",
+      detail: "Bilateral simetrik watershed = global hipoperfüzyon (kardiyak arrest, şok). Unilateral = karotis stenoz/oklüzyon"
+    },
+    {
+      type: "signal",
+      label: "Sinyal/Dansite Karşılığı",
+      text: "DWI: sınır zon boyunca lineer/zincir şeklinde difüzyon kısıtlanması. İnternal: centrum semiovale'de 'string of pearls' (inci dizisi) patern. Kortikal: parasagittal kortikal DWI hiperintensite. T2/FLAIR: hiperintens alanlar (geç dönem).",
+      detail: "String of pearls = derin beyaz cevherde dizilmiş küçük DWI pozitif infarktlar = İNTERNAL watershed"
+    },
+    {
+      type: "finding",
+      label: "Görüntüleme Bulgusu",
+      text: "DWI/MR: (1) Kortikal watershed: ACA-MCA sınırında parasagittal lineer infarkt (2) İnternal watershed: centrum semiovale'de derin beyaz cevherde 'string of pearls'. Bilateral simetrik: global hipoperfüzyon. Unilateral: ipsilateral ICA stenoz/oklüzyon araştır.",
+      detail: "Unilateral watershed infarkt = İPSİLATERAL İCA stenozu/oklüzyonu → BT/MR anjiyografi ŞART"
+    }
+  ],
+  keyPoint: "Watershed infarkt = arter sulama alanları arasında lineer infarkt. İki tip: kortikal (parasagittal) + internal (centrum semiovale, string of pearls). Bilateral = global hipoperfüzyon (kardiyak arrest). Unilateral = ICA stenoz/oklüzyon → anjiyografi iste.",
+  differential: [
+    "Territoriyal infarkt — tek arter bölgesinde, kama şeklinde, embolik",
+    "Laküner infarkt — bazal ganglion/pons, küçük (<15mm), küçük damar hastalığı",
+    "Posterior reversibl ensefalopati (PRES) — oksipital ağırlıklı ödem, reversibl",
+    "Demiyelinizan hastalık — perivenüler, ovoid, Dawson fingers"
+  ],
+  protocol: "Akut: DWI + ADC (infarkt tespiti). BT/MR anjiyografi: karotis ve intrakranyal arterler. Perfüzyon MR: hipoperfüzyon derecesi. Kardiyak değerlendirme: global hipoperfüzyon nedeni. İCA stenoz: endarterektomi/stent.",
+  quiz: {
+    q: "Unilateral watershed infarktın klinik önemi nedir?",
+    a: "Unilateral watershed infarkt İPSİLATERAL İCA STENOZUNU/OKLÜZYONUNU işaret eder: (1) İCA stenozu → ipsilateral MCA + ACA perfüzyon basıncı DÜŞER (2) En son kanlanılan bölgeler (sınır zonlar) ilk etkilenir (3) Tedavi edilmezse: TERRİTORYAL infarkt (tam MCA infarktı) gelişebilir. Bu nedenle: unilateral watershed = UYARI → İCA'yı acil değerlendir (Doppler USG, BT-A, MR-A). Semptomatik >70% stenozda endarterektomi/stent = HAYAT KURTARICI."
+  }
+},
+
+{
+  id: "brain_tuberculoma",
+  name: "Beyin Tüberkülomu (İntrakranyal Tüberkülom)",
+  category: "infectious",
+  tag: "important",
+  tagText: "Önemli",
+  pathway: [
+    {
+      type: "histo",
+      label: "Histopatoloji",
+      text: "Mycobacterium tuberculosis'in SSS'de granülom oluşturması. Merkez: kazeöz nekroz (solid — abseden farklı). Çevre: epiteloid histiyositler + Langhans dev hücreleri + lenfositler + fibröz kapsül. İmmünkompetan: solid granülom. İmmünsüprese: daha büyük, apse benzeri.",
+      detail: "Kazeöz nekroz = SOLID (absedeki pü sıvıdır) — bu fark DWI'da yansır"
+    },
+    {
+      type: "tissue",
+      label: "Doku Değişikliği",
+      text: "İntrakranyal tüberkülom: soliter veya multipl granülomlar. Supratentoriyal > infratentoriyal. Bazal meninkslerde yaygın granülomatöz menenjit eşlik edebilir. Hidrosefali: bazal sisternlerde yapışıklıklar → BOS akışı engellemesi.",
+      detail: "TB menenjit + tüberkülom + hidrosefali = İNTRAKRANYAL TB TRİADI"
+    },
+    {
+      type: "signal",
+      label: "Sinyal/Dansite Karşılığı",
+      text: "MR: Non-kazeöz (erken): T2 hiperintens, homojen kontrastlanma. Kazeöz (solid merkez): T2 merkez HİPOİNTENS (kazeöz nekroz — paramanyetik serbest radikaller), halka kontrastlanma. DWI: merkez kısıtlanma genellikle YOK veya minimal (solid nekroz, absedeki sıvı pü değil).",
+      detail: "T2 HİPOİNTENS merkez = tüberkülomu abseden ayıran kritik bulgu (abse: T2 hiperintens merkez)"
+    },
+    {
+      type: "finding",
+      label: "Görüntüleme Bulgusu",
+      text: "MR: ring enhancement + T2 hipointens merkez + perileziyonel ödem. Abse'den fark: (1) DWI merkez kısıtlanma az/yok (2) T2 merkez hipointens (3) MR spektroskopi: lipid piki (abse: amino asit + suksinat + asetat). Bazal meningeal kontrastlanma eşlik edebilir.",
+      detail: "Ring enhancement + bazal menenjit + hidrosefali = TB → endeks şüphe yüksek tut"
+    }
+  ],
+  keyPoint: "Tüberkülom = ring enhancement + T2 HİPOİNTENS merkez + DWI kısıtlanma az. Abseden fark: T2 hipointens merkez (abse hiperintens), DWI minimal (abse parlak). MR spektroskopi: lipid (tüberkulom) vs amino asit (abse). Bazal menenjit eşlik eder.",
+  differential: [
+    "Beyin absesi — DWI parlak, T2 hiperintens merkez, MRS amino asit",
+    "Metastaz — multipl, gri-beyaz cevher bileşkesi, primer tümör",
+    "Toksoplazmoz — bazal ganglion, AIDS ilişkili, eksantrik target sign",
+    "Nörosistiserkoz — kistik + skoleks, kalsifikasyon (farklı evreler)"
+  ],
+  protocol: "MR: T1 kontrastlı (ring enhancement), T2 (hipointens merkez), DWI, MR spektroskopi. Toraks BT: pulmoner TB taraması. BOS analizi: lenfositik pleositoz, düşük glukoz, yüksek protein. Kültür/PCR.",
+  quiz: {
+    q: "Tüberkülom ile beyin absesini MR'da nasıl ayırırsınız?",
+    a: "ÜÇ KRİTİK FARK: (1) T2 MERKEZ: Tüberkülom HİPOİNTENS (solid kazeöz nekroz — paramanyetik radikaller). Abse HİPERİNTENS (sıvı pü). (2) DWI MERKEZ: Tüberkülom kısıtlanma az/YOK (solid materyal). Abse PARLAK (viskoz sıvı pü — hareket kısıtlı). (3) MR SPEKTROSKOPİ: Tüberkülom LİPİD piki (kazeöz nekroz). Abse AMİNO ASİT + süksinat + asetat (bakteriyel metabolitler). Bu farklar tüberkulomun SOLID, absein SIVI olmasından kaynaklanır."
+  }
+},
+
+{
+  id: "msa",
+  name: "Multisistem Atrofi (MSA)",
+  category: "degenerative",
+  tag: "highyield",
+  tagText: "Yüksek Verim",
+  pathway: [
+    {
+      type: "histo",
+      label: "Histopatoloji",
+      text: "Alfa-sinükleinopati — oligodendroglial sitoplazmik inklüzyonlar (GCI). İki klinik fenotip: MSA-C (serebellar: olivopontoserebellar atrofi) ve MSA-P (parkinsoniyen: striatonigral dejenerasyon). Otonom disfonksiyon her iki tipte belirgin.",
+      detail: "MSA = 'synucleinopathy triad' üyesi: Parkinson, Lewy cisimcikli demans ve MSA — hepsi alfa-sinüklein birikimi"
+    },
+    {
+      type: "tissue",
+      label: "Doku Değişikliği",
+      text: "MSA-C: pons + serebellum + orta serebellar pedinküller atrofisi. Ponsta çapraz liflerin kaybı → 'hot cross bun sign'. MSA-P: putamende demir birikimi + atrofi. Putamen posterolateral kenarında T2 hiperintens slit sign.",
+      detail: "Hot cross bun = pontaki çapraz liflerin kaybı + raphe nukleuslarının korunması → çarpı işareti"
+    },
+    {
+      type: "signal",
+      label: "Sinyal/Dansite Karşılığı",
+      text: "MSA-C MR: (1) Hot cross bun sign (pons aksiyel T2) (2) Serebellar atrofi + orta serebellar pedinkül atrofisi (3) Pontobulber atrofi. MSA-P MR: (1) Putaminal atrofi + posterolateral T2 hipointens (demir) (2) Putaminal slit sign (T2 hiperintens kenar).",
+      detail: "Hot cross bun sign patognomonik DEĞİL ama MSA-C için çok spesifik — spinoserebellar ataksilerde de görülebilir"
+    },
+    {
+      type: "finding",
+      label: "Görüntüleme Bulgusu",
+      text: "MSA-C: (1) PONS atrofisi + hot cross bun sign (2) Serebellar atrofi + orta serebellar pedinkül atrofisi (3) 4. ventrikül genişlemesi. MSA-P: (1) Putaminal atrofi + demir birikimi (T2 hipointens) (2) Putaminal slit sign. Her iki tipte: serebellar + pontin + putaminal bulguların KOMBİNASYONU önemli.",
+      detail: "Parkinson hastalığından fark: PD'de putamen NORMAL — MSA-P'de putamen ATROFİK + DEMİRLİ"
+    }
+  ],
+  keyPoint: "MSA iki tipi: MSA-C (serebellar) = hot cross bun sign + serebellar atrofi. MSA-P (parkinsoniyen) = putaminal atrofi + demir birikimi + slit sign. Parkinson'dan fark: MSA'da putaminal patoloji VAR, PD'de putamen normal. Otonom disfonksiyon şart.",
+  differential: [
+    "Parkinson hastalığı — putamen normal, substantia nigra kaybı, DaTscan pozitif",
+    "Progresif supranükleer palsi — midbrain atrofisi, humming bird sign",
+    "Spinoserebellar ataksi — serebellar atrofi, genetik, hot cross bun olabilir",
+    "Friedreich ataksisi — spinal kord atrofisi, serebellar etkilenmez"
+  ],
+  protocol: "MR: T2 aksiyel (hot cross bun, putaminal sinyal), T1 sagittal (serebellar/pontin atrofi), SWI (demir birikimi). DAT-SPECT: presinaptik dopaminerjik kayıp (MSA-P ve PD'de pozitif — ayırt edici değil).",
+  quiz: {
+    q: "Hot cross bun sign nasıl oluşur?",
+    a: "PONS'ta iki tip lif vardır: (1) ÇAPRAZ lifler (transvers pontoserebellar lifler) — nöron gövdeleri pontain çekirdeklerde (2) LONGİTUDİNAL lifler (kortikospinal + raphe nukleusları). MSA-C'de ÇAPRAZ LİFLER SELEKTİF olarak dejenerasyona uğrar → T2'de bu alanlar HİPERİNTENS olur (gliozis). Longitudinal lifler ve raphe nukleusları KORUNUR → T2'de HİPOİNTENS kalır. Sonuç: korunan lifler ÇARPI şekli oluşturur = '+' = HOT CROSS BUN (İngiliz çöreği üstündeki çarpı)."
+  }
+},
+
+{
+  id: "psp",
+  name: "Progresif Supranükleer Palsi (PSP/Steele-Richardson)",
+  category: "degenerative",
+  tag: "highyield",
+  tagText: "Yüksek Verim",
+  pathway: [
+    {
+      type: "histo",
+      label: "Histopatoloji",
+      text: "4R tauopati — nörofibriler yumaklar (tau protein) subkortikal yapılarda birikir. En çok etkilenen: midbrain (substantia nigra, superior kollikulus), subthalamik nükleus, globus pallidus. Frontal korteks de tutulur. Tufted astrocytes karakteristik.",
+      detail: "PSP = TAUopati (4R tau). MSA = SİNÜKLEİNopati. CBD = TAUopati (4R). Bu ayrım klinik denemelerde önemli"
+    },
+    {
+      type: "tissue",
+      label: "Doku Değişikliği",
+      text: "Midbrain atrofisi: tegmentum + tektum küçülür → AP çap azalır. Pons nispeten korunur → midbrain/pons oranı azalır. Superior serebellar pedinkül atrofisi. Frontal atrofi (geç dönem). 3. ventrikül genişler (periaqueductal atrofi).",
+      detail: "Midbrain ATROFİSİ + pons KORUNMASI = PSP'nin ANATOMİK İMZASI"
+    },
+    {
+      type: "signal",
+      label: "Sinyal/Dansite Karşılığı",
+      text: "MR sagittal T1: Hummingbird sign (sinek kuşu) — atrofik midbrain (gaga) + korunan pons (gövde). MR aksiyel: Morning glory sign (sabah sefası çiçeği) — midbrain atrofisi ile konkav lateral kenarlar. Midbrain AP çap <14mm. Midbrain/pons alan oranı azalmış.",
+      detail: "Hummingbird sign = sagittal MR'da atrofik midbrain kuş gagasına benzer → PSP için KLASİK"
+    },
+    {
+      type: "finding",
+      label: "Görüntüleme Bulgusu",
+      text: "SAGİTAL MR: Hummingbird sign (midbrain atrofisi + korunan pons). AKSİYEL MR: Morning glory sign (midbrain konkav kenarlı küçülme). MİDBRAİN/PONS ORANI: <0.52 → PSP lehine. Superior serebellar pedinkül atrofisi. 3. ventrikül genişlemesi. Frontal atrofi (geç dönem).",
+      detail: "MRPI (Magnetic Resonance Parkinsonism Index) = pons/midbrain × MCP/SCP genişliği → PSP'de ARTAR"
+    }
+  ],
+  keyPoint: "PSP = vertikal bakış felci + postural instabilite + midbrain atrofisi. MR: Hummingbird sign (sagittal) + Morning glory sign (aksiyel). Midbrain/pons oranı <0.52. Parkinson'dan ve MSA'dan ayrım: PSP'de midbrain selektif atrofi gösterir.",
+  differential: [
+    "Parkinson hastalığı — midbrain normal boyutta, tremor ön planda",
+    "MSA-P — putaminal atrofi + demir, hot cross bun (pons), midbrain korunur",
+    "Kortikobazal dejenerasyon — asimetrik kortikal atrofi, alien limb",
+    "Normal basınçlı hidrosefali — midbrain normal, ventriküller dilate"
+  ],
+  protocol: "MR: T1 sagittal (hummingbird), T2 aksiyel (morning glory + midbrain ölçümü), SWI (demir). Midbrain AP çap + midbrain/pons oranı. MRPI hesaplama. DAT-SPECT: presinaptik kayıp (PSP + PD'de pozitif).",
+  quiz: {
+    q: "Hummingbird sign nasıl oluşur ve PSP tanısındaki yeri nedir?",
+    a: "SAGİTAL T1 MR'da midbrain + pons görüntüsü bir SINEK KUŞUNA benzer: (1) GAGA = atrofik midbrain tegmentumu (küçülmüş, inclenmiş) (2) GÖVDE = korunan pons (normal boyutta). Bu görüntü oluşur çünkü PSP'de tau birikimi MİDBRAİN'de selektiftir — pons nispeten korunur. Hummingbird sign PSP için yüksek SPESİFİTE (%100'e yakın) ama düşük SENSİTİVİTE gösterir (erken evrede normal olabilir). Destekleyici: morning glory sign (aksiyel) + midbrain AP <14mm + MRPI artışı."
+  }
+},
+
+{
+  id: "iih",
+  name: "İdiyopatik İntrakranyal Hipertansiyon (Psödotümör Serebri)",
+  category: "daily",
+  tag: "important",
+  tagText: "Önemli",
+  pathway: [
+    {
+      type: "histo",
+      label: "Histopatoloji",
+      text: "BOS basıncı artışı — yapısal lezyon yok (tümör, hidrosefali, venöz tromboz ekarte). Mekanizma: BOS emilim bozukluğu ve/veya üretim artışı. Risk faktörleri: obez genç kadın, tetrasiklin, vitamin A, büyüme hormonu. Papilödem → optik sinir hasarı → görme kaybı.",
+      detail: "Psödotümör = 'sahte tümör' — artmış BOS basıncı tümör YOKKEN tümör gibi semptom verir"
+    },
+    {
+      type: "tissue",
+      label: "Doku Değişikliği",
+      text: "Artmış BOS basıncı → optik sinir kılıfında distansiyon, optik sinir başında ödem (papilödem), posterior skleral düzleşme. Pitüiter bez kompresyonu → empty sella. Transvers sinüslerde stenoz (BOS basıncı ile venöz basınç arasında kısır döngü).",
+      detail: "Empty sella + optik sinir kılıf dilatasyonu + posterior skleral düzleşme = İİH radyolojik TRİADI"
+    },
+    {
+      type: "signal",
+      label: "Sinyal/Dansite Karşılığı",
+      text: "MR: (1) Empty/partially empty sella (pitüiter yassılaşma) (2) Optik sinir kılıfı distansiyonu (perinöral BOS genişlemesi) (3) Optik sinir başı protrüzyonu (vitreus içine) (4) Posterior skleral düzleşme (5) Transvers sinüs stenozu. Beyin parankimi NORMAL.",
+      detail: "Tüm bulgular ARTMIŞ BOS BASINCININ mekanik etkilerini yansıtır — parankimal lezyon YOKTUR"
+    },
+    {
+      type: "finding",
+      label: "Görüntüleme Bulgusu",
+      text: "MR + MR venografi: (1) Empty sella (2) Optik sinir kılıf dilatasyonu (aksiyel T2 fat-sat: optik sinir çevresi hiperintens halo) (3) Posterior glob düzleşmesi (4) Optik disk protrüzyonu (5) Bilateral transvers sinüs stenozu. MR venografi: sinüs trombozu EKARTE edilmeli.",
+      detail: "MR venografi ŞAR: dural sinüs trombozu İİH'yi TAKLİT EDER → trombozu ekarte et"
+    }
+  ],
+  keyPoint: "İİH = obez genç kadın + baş ağrısı + papilödem + artmış BOS basıncı + NORMAL beyin MR. Radyolojik bulgular: empty sella + optik sinir kılıf dilatasyonu + posterior skleral düzleşme + transvers sinüs stenozu. MR venografi: sinüs trombozu ekartasyonu ŞART.",
+  differential: [
+    "Dural sinüs trombozu — trombus görülür, MR venografi tanısal",
+    "Beyin tümörü — kitle + ödem + shift",
+    "Hidrosefali — ventriküler dilatasyon",
+    "Meningeal karsinomatoz — meningeal kontrastlanma, BOS sitoloji"
+  ],
+  protocol: "MR: T2 fat-sat orbita (optik sinir), T1 sagittal (sella), MR venografi (sinüs trombozu ekartasyonu). LP: açılış basıncı >25 cmH2O. Oftalmoskopi: papilödem. Perimetri: görme alanı takibi.",
+  quiz: {
+    q: "İİH'de neden empty sella gelişir?",
+    a: "Sella turcica SERT KEMİK çerçevedir — üstünde diyafragma sella (dural membran) bulunur. BOS BASINCI ARTINCA: (1) BOS basıncı suprasellar sisternden diyafragma sellayı AŞAĞIYA iter (2) Pitüiter bez komprese olur (yassılaşır) (3) BOS sella içine herniye olur → sella BOS ile DOLAR (4) Pitüiter bez sella tabanına yapışık ince bir bant olarak kalır = EMPTY SELLA. Aslında sella 'boş' değildir — BOS ile doludur. Pitüiter fonksiyon genellikle KORUNUR (doku komprese ama fonksiyonel)."
+  }
+},
+
+{
+  id: "intracranial_hypotension",
+  name: "İntrakranyal Hipotansiyon (Spontan BOS Kaçağı)",
+  category: "daily",
+  tag: "important",
+  tagText: "Önemli",
+  pathway: [
+    {
+      type: "histo",
+      label: "Histopatoloji",
+      text: "BOS kaçağı → intrakranyal BOS volümü azalır → BOS basıncı düşer. Nedenleri: spontan dural yırtık (meningeal divertikül, konnektif doku hastalığı), iatrojenik (LP sonrası), travmatik. En sık kaçak bölgesi: torakal spinal bölge. Buoyancy kaybı → beyin 'çöker'.",
+      detail: "Monro-Kellie doktrini: BOS azalır → kompansasyon: venöz kan HACMİ ARTAR → pachimeningeal konjesyon"
+    },
+    {
+      type: "tissue",
+      label: "Doku Değişikliği",
+      text: "BOS hacmi azalır → beyin aşağı çekilir (sagging): tonsiller herniasyon, beyin sapı düzleşmesi, kiazma aşağı yer değiştirmesi. Kompansatuar: dural venöz konjesyon → pachimeningeal kalınlaşma ve kontrastlanma. Subdural koleksiyonlar (BOS veya kan).",
+      detail: "Brain sagging = beyin 'sarkar': Monro-Kellie (BOS azalır → venöz volüm artar → dura kontrastlanır)"
+    },
+    {
+      type: "signal",
+      label: "Sinyal/Dansite Karşılığı",
+      text: "MR kontrastlı: (1) DİFÜZ pachimeningeal (DURAL) kontrastlanma (leptomeningeal DEĞİL) (2) Beyin aşağı yer değiştirmesi (sagging) (3) Subdural koleksiyonlar (bilateral ince) (4) Pitüiter konjesyon (büyümüş hipofiz) (5) Engorje venöz sinüsler.",
+      detail: "SEEPS mnemoniği: Subdural, Enhancement (pachimeningeal), Engorgement (venöz), Pituitary, Sagging"
+    },
+    {
+      type: "finding",
+      label: "Görüntüleme Bulgusu",
+      text: "Kranyal MR: (1) Difüz pachimeningeal kontrastlanma (tüm duralar — konveksite + falk + tentoryum) (2) Brain sagging (tonsiller herniasyon, mammiller cisim düzleşmesi, pons düzleşmesi) (3) Bilateral ince subdural koleksiyonlar (4) Venöz distansiyon (5) Büyümüş hipofiz. Spinal MR/BT miyelografi: kaçak yeri tespiti.",
+      detail: "Pachimeningeal = DURAL kontrastlanma (meningokarsinomatoz = LEPTOmeningeal — farklı patern)"
+    }
+  ],
+  keyPoint: "İntrakranyal hipotansiyon = ortostatik baş ağrısı + DİFÜZ DURAL kontrastlanma + brain sagging + subdural koleksiyonlar + büyümüş hipofiz. SEEPS mnemoniği. Leptomeningeal değil PACHIMENINGEAL. Tedavi: epidural kan yaması (blood patch).",
+  differential: [
+    "Meningeal karsinomatoz — LEPTOmeningeal kontrastlanma, nodüler, BOS sitoloji",
+    "Sarkoidoz — bazal meningeal + kranyal sinir tutulumu",
+    "Pachimeningit (IgG4/hipertrofik) — fokal dural kalınlaşma, tentorium predileksiyonu",
+    "Subdural hematom — travma, ama hipotansiyonda da gelişebilir"
+  ],
+  protocol: "Kranyal MR kontrastlı: pachimeningeal kontrastlanma + sagging bulguları. Spinal MR: epidural sıvı koleksiyonu (kaçak işareti). BT/MR miyelografi: kaçak yeri. LP: düşük açılış basıncı (<6 cmH2O). Tedavi: epidural blood patch.",
+  quiz: {
+    q: "İntrakranyal hipotansiyonda neden pachimeningeal kontrastlanma olur?",
+    a: "MONRO-KELLİE DOKTRİNİ: Kraniyum sabit hacimli bir kutu → içindeki 3 komponent (beyin + BOS + kan) toplamı SABİT. BOS HACMİ AZALINCA: kompansasyon olarak venöz kan hacmi ARTAR. Sonuçlar: (1) Dural damarlar (bridging veinler, dural sinüsler) KONJESTİYONA uğrar (2) Konjesyone dural damarlar Gd sızması gösterir → DİFÜZ DURAL kontrastlanma (3) Venöz sinüsler distansiyone olur (4) Pitüiter venöz pleksus konjesyone olur → hipofiz BÜYÜR. Bu DURAL (pachimeningeal) kontrastlanmadır — leptomeningeal DEĞİL."
+  }
+},
+
+{
+  id: "tuberous_sclerosis",
+  name: "Tüberoz Skleroz Kompleksi (TSC)",
+  category: "congenital",
+  tag: "classic",
+  tagText: "Klasik",
+  pathway: [
+    {
+      type: "histo",
+      label: "Histopatoloji",
+      text: "TSC1 (hamartin) veya TSC2 (tuberin) gen mutasyonları → mTOR yolağı aktivasyonu → multipl organ hamartomları. SSS bulguları: kortikal tüberler (displastik korteks), subependimal nodüller (SEN), subependimal dev hücreli astrositom (SEGA). Otozomal dominant, yüksek penetrans.",
+      detail: "mTOR yolağı: hücre büyüme regülasyonu → mutasyonla AKTİVASYON → kontrolsüz hamartom büyümesi"
+    },
+    {
+      type: "tissue",
+      label: "Doku Değişikliği",
+      text: "KORTİKAL TÜBERLER: displastik korteks + beyaz cevher — T2/FLAIR hiperintens, kalsifikasyon (yaşla artar). SUBEPENDİMAL NODÜLLER (SEN): ventrikül duvarında küçük kalsifiye nodüller ('candle drippings' — mum damlaları). SEGA: Monro foramen yakınında büyüyen tümör → hidrosefali riski.",
+      detail: "Candle drippings = ventrikül duvarında dizilmiş kalsifiye SEN → TSC'ye PATOGNOMONIK"
+    },
+    {
+      type: "signal",
+      label: "Sinyal/Dansite Karşılığı",
+      text: "BT: subependimal kalsifiye nodüller (candle drippings), kortikal/subkortikal kalsifikasyonlar. MR: Kortikal tüberler: T2/FLAIR hiperintens (infantta T1 hiperintens — miyelinasyon öncesi). SEN: T1 iso-hiperintens, kalsifiye. SEGA: Monro'da kontrastlanan kitle, büyüme gösterir.",
+      detail: "SEN vs SEGA: SEN <1cm + stabil + kontrastlanma değişken. SEGA >1cm + BÜYÜR + kontrastlanır = cerrahi"
+    },
+    {
+      type: "finding",
+      label: "Görüntüleme Bulgusu",
+      text: "BEYİN: (1) Kortikal tüberler (FLAIR hiperintens, multipl) (2) SEN: ventrikül duvarında kalsifiye nodüller (candle drippings) (3) Beyaz cevher radyal migrasyon çizgileri (4) SEGA: Monro foramen yakınında büyüyen kontrastlanan kitle. DİĞER ORGANLAR: renal anjiomiyolipom, kardiyak rabdomiyom, LAM (akciğer), retinal hamartom.",
+      detail: "SEGA takibi: seri MR ile Monro foramen yakınındaki SEN boyut takibi — büyüyorsa SEGA"
+    }
+  ],
+  keyPoint: "TSC = kortikal tüberler + SEN (candle drippings) + SEGA (Monro'da büyüyen tümör). Multiorgan tutulum: beyin + böbrek (AML) + kalp (rabdomiyom) + akciğer (LAM) + cilt. SEGA >1 cm veya büyüme = cerrahi/mTOR inhibitörü (everolimus).",
+  differential: [
+    "Fokal kortikal displazi — soliter, tüber benzeri ama multipl organ tutulumu yok",
+    "Periventriküler heterotopi — ventrikül kenarında nodüller ama kalsifikasyon yok, gri cevher sinyali",
+    "Subependimal yayılım (metastaz) — düzensiz, kontrast tutan, primer tümör",
+    "Nörofibromatozis tip 1 — UBO'lar (FLAIR hiperintens) ama kalsifikasyon yok, optik gliom"
+  ],
+  protocol: "Kranyal MR: FLAIR (tüberler), T1 kontrastlı (SEGA), SWI (kalsifikasyon). BT: kalsifikasyon tespiti. Abdomen USG/MR: renal AML taraması. Kardiyak USG: rabdomiyom. Toraks BT: LAM. Seri MR: SEGA büyüme takibi (yıllık).",
+  quiz: {
+    q: "SEN (subependimal nodül) ile SEGA arasındaki farkı nasıl ayırırsınız?",
+    a: "İkisi de TSC'nin SSS bulgularıdır ama klinik önemi çok farklı: (1) SEN: <1cm, stabil boyut, kontrastlanma DEĞİŞKEN, KALSİFİYE, ventrikül duvarında HER YERDE, TEHLİKESİZ. (2) SEGA: >1cm, BÜYÜME gösterir, yoğun KONTRASTLANMA, Monro foramen YAKININDA, HİDROSEFALİ riski → TEDAVİ GEREKTİRİR (cerrahi/everolimus). PRATİK KURAL: Monro yakınındaki SEN seri MR'da büyüyorsa → artık SEGA'dır → tedavi planla. Boyut eşiği: >1cm kaudat groove'da = SEGA kabul et."
   }
 }
 ];
