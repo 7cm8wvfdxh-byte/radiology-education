@@ -371,7 +371,7 @@ function toggleTheme() {
 
 // ===== COMPREHENSIVE GLOBAL SEARCH =====
 const searchIndex = [
-  // NeuroRad diseases (74)
+  // NeuroRad diseases (86)
   {n:"Glioblastom (GBM)",c:"Tümör",m:"neuro",u:"neurorad.html",id:"gbm"},
   {n:"Menenjiyom",c:"Tümör",m:"neuro",u:"neurorad.html",id:"meningioma"},
   {n:"Düşük Dereceli Gliom (Grade 2)",c:"Tümör",m:"neuro",u:"neurorad.html",id:"low_grade_glioma"},
@@ -446,7 +446,19 @@ const searchIndex = [
   {n:"Pineal Kist",c:"Günlük Pratik",m:"neuro",u:"neurorad.html",id:"pineal_cyst"},
   {n:"Serebral Atrofi ve Yaşlanma",c:"Günlük Pratik",m:"neuro",u:"neurorad.html",id:"brain_atrophy_aging"},
   {n:"Sinüzit (İnsidental)",c:"Günlük Pratik",m:"neuro",u:"neurorad.html",id:"chronic_sinusitis"},
-  // AbdomenRad diseases (83)
+  {n:"Pilositik Astrositom",c:"Tümör",m:"neuro",u:"neurorad.html",id:"pilocytic_astrocytoma"},
+  {n:"Epidermoid Kist",c:"Tümör",m:"neuro",u:"neurorad.html",id:"epidermoid"},
+  {n:"Kolloid Kist",c:"Tümör",m:"neuro",u:"neurorad.html",id:"colloid_cyst"},
+  {n:"Difüz Aksonal Hasar (DAI)",c:"Vasküler",m:"neuro",u:"neurorad.html",id:"dai"},
+  {n:"Epidural Hematom",c:"Vasküler",m:"neuro",u:"neurorad.html",id:"epidural_hematoma"},
+  {n:"Watershed İnfarkt",c:"Vasküler",m:"neuro",u:"neurorad.html",id:"watershed_infarct"},
+  {n:"Beyin Tüberkülomu",c:"Enfeksiyon",m:"neuro",u:"neurorad.html",id:"brain_tuberculoma"},
+  {n:"Multisistem Atrofi (MSA)",c:"Dejeneratif",m:"neuro",u:"neurorad.html",id:"msa"},
+  {n:"Progresif Supranükleer Palsi (PSP)",c:"Dejeneratif",m:"neuro",u:"neurorad.html",id:"psp"},
+  {n:"İdiyopatik İntrakranyal Hipertansiyon",c:"Günlük Pratik",m:"neuro",u:"neurorad.html",id:"iih"},
+  {n:"İntrakranyal Hipotansiyon",c:"Günlük Pratik",m:"neuro",u:"neurorad.html",id:"intracranial_hypotension"},
+  {n:"Tüberoz Skleroz Kompleksi",c:"Konjenital",m:"neuro",u:"neurorad.html",id:"tuberous_sclerosis"},
+  // AbdomenRad diseases (98)
   {n:"Hepatosellüler Karsinom (HCC)",c:"Karaciğer",m:"abdomen",u:"abdomenrad.html",id:"hcc"},
   {n:"Karaciğer Hemanjiom",c:"Karaciğer",m:"abdomen",u:"abdomenrad.html",id:"hemangioma"},
   {n:"Fokal Nodüler Hiperplazi (FNH)",c:"Karaciğer",m:"abdomen",u:"abdomenrad.html",id:"fnh"},
@@ -530,7 +542,22 @@ const searchIndex = [
   {n:"Over Dermoid Kisti",c:"Pelvik",m:"abdomen",u:"abdomenrad.html",id:"ovarian_teratoma"},
   {n:"Safra Kesesi Karsinomu (İleri)",c:"Biliyer",m:"abdomen",u:"abdomenrad.html",id:"gallbladder_ca"},
   {n:"Renal AML (Detaylı)",c:"Böbrek",m:"abdomen",u:"abdomenrad.html",id:"renal_angiomyolipoma"},
-  // ThoraxRad diseases (70)
+  {n:"ODPKBH (Polikistik Böbrek)",c:"Böbrek",m:"abdomen",u:"abdomenrad.html",id:"adpkd"},
+  {n:"Renal Arter Stenozu",c:"Vasküler",m:"abdomen",u:"abdomenrad.html",id:"renal_artery_stenosis"},
+  {n:"Renal Ven Trombozu",c:"Böbrek",m:"abdomen",u:"abdomenrad.html",id:"renal_vein_thrombosis"},
+  {n:"Hemokromatozis (KC Demir Birikimi)",c:"Karaciğer",m:"abdomen",u:"abdomenrad.html",id:"hepatic_iron_overload"},
+  {n:"SOS/VOD (Sinüzoidal Obstrüksiyon)",c:"Karaciğer",m:"abdomen",u:"abdomenrad.html",id:"hepatic_veno_occlusive"},
+  {n:"Mide Kanseri",c:"Barsak",m:"abdomen",u:"abdomenrad.html",id:"gastric_cancer"},
+  {n:"İnce Barsak Obstrüksiyonu",c:"Barsak",m:"abdomen",u:"abdomenrad.html",id:"small_bowel_obstruction"},
+  {n:"Sigmoid Volvulus",c:"Barsak",m:"abdomen",u:"abdomenrad.html",id:"sigmoid_volvulus"},
+  {n:"Çölyak Hastalığı",c:"Barsak",m:"abdomen",u:"abdomenrad.html",id:"celiac_disease"},
+  {n:"Apendiks Musinöz Neoplazi (PMP)",c:"Barsak",m:"abdomen",u:"abdomenrad.html",id:"mucinous_neoplasm_appendix"},
+  {n:"Mezenterik Lenfadenit",c:"Periton",m:"abdomen",u:"abdomenrad.html",id:"mesenteric_lymphadenitis"},
+  {n:"Over Fibromu (Meigs Sendromu)",c:"Jinekolojik",m:"abdomen",u:"abdomenrad.html",id:"ovarian_fibroma"},
+  {n:"Pelvik Konjesyon Sendromu",c:"Pelvik",m:"abdomen",u:"abdomenrad.html",id:"pelvic_congestion"},
+  {n:"İBH Fistül ve Perianal Komplikasyonlar",c:"Barsak",m:"abdomen",u:"abdomenrad.html",id:"ibd_fistula"},
+  {n:"Pankreatik Psödokist",c:"Pankreas",m:"abdomen",u:"abdomenrad.html",id:"pancreatic_pseudocyst"},
+  // ThoraxRad diseases (84)
   {n:"Akciğer Kanseri (NSCLC)",c:"Akciğer",m:"thorax",u:"thoraxrad.html",id:"lung_cancer"},
   {n:"Toplum Kökenli Pnömoni",c:"Akciğer",m:"thorax",u:"thoraxrad.html",id:"pneumonia"},
   {n:"Akciğer Tüberkülozu",c:"Akciğer",m:"thorax",u:"thoraxrad.html",id:"tuberculosis"},
@@ -600,7 +627,21 @@ const searchIndex = [
   {n:"Sternum Fraktürü",c:"Göğüs Duvarı",m:"thorax",u:"thoraxrad.html",id:"sternal_fracture"},
   {n:"Pektus Ekskavatum (Kunduracı Göğsü)",c:"Göğüs Duvarı",m:"thorax",u:"thoraxrad.html",id:"pectus_excavatum"},
   {n:"Kosta Fraktürü",c:"Göğüs Duvarı",m:"thorax",u:"thoraxrad.html",id:"rib_fracture"},
-  {n:"Torasik Outlet Sendromu (TOS)",c:"Göğüs Duvarı",m:"thorax",u:"thoraxrad.html",id:"thoracic_outlet_syndrome"}
+  {n:"Torasik Outlet Sendromu (TOS)",c:"Göğüs Duvarı",m:"thorax",u:"thoraxrad.html",id:"thoracic_outlet_syndrome"},
+  {n:"Nonspesifik İnterstisyel Pnömoni (NSIP)",c:"Akciğer",m:"thorax",u:"thoraxrad.html",id:"nsip"},
+  {n:"Hipersensitivite Pnömoniti (HP)",c:"Akciğer",m:"thorax",u:"thoraxrad.html",id:"hypersensitivity_pneumonitis"},
+  {n:"Pnömokonyozlar (Silikozis/Asbestoz)",c:"Akciğer",m:"thorax",u:"thoraxrad.html",id:"pneumoconiosis"},
+  {n:"ARDS",c:"Akciğer",m:"thorax",u:"thoraxrad.html",id:"ards"},
+  {n:"Pulmoner Kontüzyon",c:"Akciğer",m:"thorax",u:"thoraxrad.html",id:"pulmonary_contusion"},
+  {n:"Atelektazi Tipleri",c:"Akciğer",m:"thorax",u:"thoraxrad.html",id:"atelectasis"},
+  {n:"Timus Hiperplazisi (Rebound)",c:"Mediasten",m:"thorax",u:"thoraxrad.html",id:"thymic_hyperplasia"},
+  {n:"ARVC/ARVD",c:"Kardiyak",m:"thorax",u:"thoraxrad.html",id:"arvc"},
+  {n:"Takotsubo Kardiyomiyopatisi",c:"Kardiyak",m:"thorax",u:"thoraxrad.html",id:"takotsubo"},
+  {n:"Kardiyak Sarkoidoz",c:"Kardiyak",m:"thorax",u:"thoraxrad.html",id:"cardiac_sarcoidosis"},
+  {n:"Perikardial Kist",c:"Kardiyak",m:"thorax",u:"thoraxrad.html",id:"pericardial_cyst"},
+  {n:"Aortit (Büyük Damar Vasküliti)",c:"Vasküler",m:"thorax",u:"thoraxrad.html",id:"aortitis"},
+  {n:"Aort Koarktasyonu",c:"Vasküler",m:"thorax",u:"thoraxrad.html",id:"aortic_coarctation"},
+  {n:"Elastofibroma Dorsi",c:"Göğüs Duvarı",m:"thorax",u:"thoraxrad.html",id:"elastofibroma_dorsi"}
 ];
 
 // Search state
