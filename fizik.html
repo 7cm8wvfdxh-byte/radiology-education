@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radyoloji Fiziği — Radiology Education</title>
+<meta name="description" content="USG, BT ve MR Fiziği — Kapsamlı Radyoloji Fiziği Eğitim Modülü">
+<meta name="theme-color" content="#0f172a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="manifest" href="manifest.json">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--bg:#0f172a;--bg2:#1e293b;--bg3:#334155;--text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;--accent:#3b82f6;--accent2:#06b6d4;--danger:#f43f5e;--success:#10b981;--warn:#f59e0b;--radius:16px;--usg-color:#f59e0b;--bt-color:#f43f5e;--mr-color:#8b5cf6;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background 0.3s,color 0.3s;}
+body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#64748b;--text3:#94a3b8;}
+.header{background:var(--bg2);border-bottom:1px solid var(--bg3);padding:16px 20px;position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);}
+.header-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo h1{font-family:'Playfair Display',Georgia,serif;font-size:22px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.header-actions{display:flex;gap:8px;}
+.header-btn{background:var(--bg);border:1px solid var(--bg3);border-radius:10px;padding:10px 14px;min-height:44px;color:var(--text2);font-size:13px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all 0.2s;-webkit-tap-highlight-color:transparent;text-decoration:none;}
+.header-btn:active{opacity:0.7;}
+@media(hover:hover){.header-btn:hover{border-color:var(--accent);color:var(--accent);}}
+.main{max-width:900px;margin:0 auto;padding:20px;}
+.hero{text-align:center;padding:40px 20px;margin-bottom:32px;background:linear-gradient(135deg,rgba(59,130,246,0.08),rgba(139,92,246,0.08),rgba(6,182,212,0.08));border-radius:var(--radius);border:1px solid var(--bg3);position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 50%,rgba(59,130,246,0.05),transparent 50%),radial-gradient(circle at 70% 50%,rgba(139,92,246,0.05),transparent 50%);animation:heroFloat 15s ease-in-out infinite;}
+@keyframes heroFloat{0%,100%{transform:translate(0,0);}50%{transform:translate(-2%,2%);}}
+.hero-icon{font-size:64px;margin-bottom:16px;position:relative;}
+.hero h2{font-family:'Playfair Display',Georgia,serif;font-size:28px;margin-bottom:8px;background:linear-gradient(135deg,#3b82f6,#8b5cf6,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;position:relative;}
+.hero p{color:var(--text2);font-size:14px;max-width:500px;margin:0 auto;line-height:1.6;position:relative;}
+.nav-tabs{display:flex;gap:6px;margin-bottom:24px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px;scrollbar-width:none;}
+.nav-tabs::-webkit-scrollbar{display:none;}
+.nav-tab{background:var(--bg2);border:1px solid var(--bg3);border-radius:10px;padding:10px 18px;min-height:44px;font-size:13px;font-weight:600;color:var(--text2);cursor:pointer;white-space:nowrap;transition:all 0.2s;-webkit-tap-highlight-color:transparent;flex-shrink:0;}
+.nav-tab:active{opacity:0.7;}
+.nav-tab.active{background:var(--accent);border-color:var(--accent);color:white;}
+.nav-tab[data-tab="usg"].active{background:var(--usg-color);border-color:var(--usg-color);}
+.nav-tab[data-tab="bt"].active{background:var(--bt-color);border-color:var(--bt-color);}
+.nav-tab[data-tab="mr"].active{background:var(--mr-color);border-color:var(--mr-color);}
+@media(hover:hover){.nav-tab:hover:not(.active){border-color:var(--accent);color:var(--accent);}}
+.section{display:none;animation:fadeUp 0.3s ease;}.section.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.topic-card{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--radius);margin-bottom:14px;overflow:hidden;transition:all 0.2s;}
+.topic-header{padding:16px 18px;cursor:pointer;display:flex;align-items:center;gap:12px;-webkit-tap-highlight-color:transparent;min-height:56px;}
+.topic-header:active{opacity:0.8;}
+.topic-icon{font-size:24px;flex-shrink:0;}
+.topic-info{flex:1;min-width:0;}.topic-name{font-size:15px;font-weight:700;color:var(--text);}
+.topic-sub{font-size:11px;color:var(--text3);margin-top:2px;}
+.topic-arrow{color:var(--text3);font-size:12px;transition:transform 0.2s;flex-shrink:0;}
+.topic-card.open .topic-arrow{transform:rotate(180deg);}
+.topic-card.open{border-color:rgba(59,130,246,0.3);box-shadow:0 4px 24px rgba(0,0,0,0.2);}
+.topic-card.usg-border.open{border-color:rgba(245,158,11,0.4);}
+.topic-card.bt-border.open{border-color:rgba(244,63,94,0.4);}
+.topic-card.mr-border.open{border-color:rgba(139,92,246,0.4);}
+.topic-content{display:none;padding:0 18px 18px;border-top:1px solid var(--bg3);}
+.topic-card.open .topic-content{display:block;}
+.content-block{margin-top:16px;}
+.content-block h4{font-size:14px;font-weight:700;color:var(--accent2);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.content-block h4 .cb-icon{font-size:16px;}
+.content-block p,.content-block li{font-size:13px;color:var(--text2);line-height:1.7;}
+.content-block ul,.content-block ol{padding-left:18px;margin-top:6px;}
+.content-block li{margin-bottom:6px;}.content-block li strong{color:var(--text);font-weight:600;}
+.info-box{background:var(--bg);border-radius:10px;padding:14px;margin-top:10px;border-left:3px solid var(--accent);}
+.info-box.warn{border-left-color:var(--warn);}.info-box.success{border-left-color:var(--success);}
+.info-box.danger{border-left-color:var(--danger);}.info-box.purple{border-left-color:var(--mr-color);}
+.info-box-title{font-size:12px;font-weight:700;color:var(--accent);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;}
+.info-box.warn .info-box-title{color:var(--warn);}.info-box.success .info-box-title{color:var(--success);}
+.info-box.danger .info-box-title{color:var(--danger);}.info-box.purple .info-box-title{color:var(--mr-color);}
+.info-box p,.info-box li{font-size:12px;color:var(--text2);line-height:1.6;}
+.formula-box{background:linear-gradient(135deg,rgba(59,130,246,0.08),rgba(6,182,212,0.08));border:1px solid rgba(59,130,246,0.2);border-radius:10px;padding:14px;margin-top:10px;text-align:center;}
+.formula-box.usg{background:linear-gradient(135deg,rgba(245,158,11,0.08),rgba(251,191,36,0.08));border-color:rgba(245,158,11,0.2);}
+.formula-box.bt{background:linear-gradient(135deg,rgba(244,63,94,0.08),rgba(251,113,133,0.08));border-color:rgba(244,63,94,0.2);}
+.formula-box.mr{background:linear-gradient(135deg,rgba(139,92,246,0.08),rgba(167,139,250,0.08));border-color:rgba(139,92,246,0.2);}
+.formula{font-family:'Courier New',monospace;font-size:15px;font-weight:700;color:var(--text);letter-spacing:0.5px;}
+.formula-desc{font-size:11px;color:var(--text3);margin-top:6px;}
+.compare-table{width:100%;border-collapse:collapse;margin-top:10px;font-size:12px;border-radius:10px;overflow:hidden;}
+.compare-table th{background:var(--bg);color:var(--accent2);padding:10px 12px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;font-weight:700;}
+.compare-table td{padding:10px 12px;border-top:1px solid var(--bg3);color:var(--text2);vertical-align:top;}
+.compare-table tr:nth-child(even) td{background:rgba(0,0,0,0.1);}
+body.light .compare-table tr:nth-child(even) td{background:rgba(0,0,0,0.02);}
+.tag{display:inline-block;padding:2px 8px;border-radius:6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;}
+.tag-usg{background:rgba(245,158,11,0.15);color:var(--usg-color);}
+.tag-bt{background:rgba(244,63,94,0.15);color:var(--bt-color);}
+.tag-mr{background:rgba(139,92,246,0.15);color:var(--mr-color);}
+.quiz-box{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--radius);padding:20px;margin-top:14px;}
+.quiz-question{font-size:14px;font-weight:600;color:var(--text);margin-bottom:14px;line-height:1.5;}
+.quiz-options{display:flex;flex-direction:column;gap:8px;}
+.quiz-opt{background:var(--bg);border:1px solid var(--bg3);border-radius:10px;padding:12px 14px;min-height:44px;font-size:13px;color:var(--text2);cursor:pointer;transition:all 0.2s;text-align:left;display:flex;align-items:center;gap:10px;-webkit-tap-highlight-color:transparent;}
+.quiz-opt:active{opacity:0.7;}
+@media(hover:hover){.quiz-opt:hover{border-color:var(--accent);color:var(--accent);}}
+.quiz-opt.correct{background:rgba(16,185,129,0.15);border-color:var(--success);color:var(--success);}
+.quiz-opt.wrong{background:rgba(244,63,94,0.15);border-color:var(--danger);color:var(--danger);}
+.quiz-opt .opt-letter{width:24px;height:24px;border-radius:50%;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
+.quiz-explanation{display:none;margin-top:12px;padding:12px;background:var(--bg);border-radius:10px;font-size:12px;color:var(--text2);line-height:1.6;border-left:3px solid var(--success);}
+.quiz-explanation.show{display:block;}
+.source-ref{margin-top:16px;padding:12px;background:var(--bg);border-radius:10px;border:1px dashed var(--bg3);}
+.source-ref-title{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;}
+.source-ref li{font-size:11px;color:var(--text3);line-height:1.5;margin-bottom:3px;list-style:none;}
+.progress-bar-section{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--radius);padding:16px;margin-bottom:20px;}
+.progress-label{font-size:12px;color:var(--text2);margin-bottom:8px;display:flex;justify-content:space-between;}
+.progress-track{background:var(--bg);border-radius:6px;height:8px;overflow:hidden;}
+.progress-fill{height:100%;border-radius:6px;transition:width 0.5s;background:linear-gradient(90deg,var(--accent),var(--accent2));}
+.section-title{display:flex;align-items:center;gap:10px;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--bg3);}
+.section-title-icon{font-size:28px;}
+.section-title h3{font-family:'Playfair Display',Georgia,serif;font-size:22px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.section-title.usg h3{background:linear-gradient(135deg,var(--usg-color),#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.section-title.bt h3{background:linear-gradient(135deg,var(--bt-color),#fb7185);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.section-title.mr h3{background:linear-gradient(135deg,var(--mr-color),#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.section-title p{font-size:12px;color:var(--text3);}
+.footer{text-align:center;padding:20px;color:var(--text3);font-size:12px;border-top:1px solid var(--bg3);margin-top:40px;}
+@media(max-width:600px){
+.header{padding:12px 16px;}.logo h1{font-size:18px;}.hero{padding:24px 16px;}.hero h2{font-size:22px;}.hero-icon{font-size:48px;}.main{padding:16px;}.nav-tabs{gap:4px;}.nav-tab{padding:8px 14px;font-size:12px;}.topic-header{padding:14px;}.compare-table{font-size:11px;}.compare-table th,.compare-table td{padding:8px;}.formula{font-size:13px;}}
+@media(max-width:380px){.main{padding:14px 12px;}.hero h2{font-size:20px;}}
+</style>
+</head>
+<body>
+<header class="header"><div class="header-inner">
+<a href="index.html" class="logo"><span style="font-size:24px">🩻</span><h1>Radyoloji Fiziği</h1></a>
+<div class="header-actions"><a href="index.html" class="header-btn">🏠 Ana Sayfa</a><button class="header-btn" onclick="toggleTheme()">🌙 <span id="themeText">Koyu</span></button></div>
+</div></header>
+<main class="main">
+<div class="hero"><div class="hero-icon">⚛️</div><h2>Radyoloji Fiziği</h2><p>Ultrasonografi, Bilgisayarlı Tomografi ve Manyetik Rezonans fiziğinin temellerinden ileri düzey kavramlarına kapsamlı eğitim modülü</p></div>
+<div class="progress-bar-section"><div class="progress-label"><span>Genel İlerleme</span><span id="progressPct">0%</span></div><div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div></div>
+<nav class="nav-tabs" id="navTabs">
+<button class="nav-tab active" data-tab="overview">📋 Genel Bakış</button>
+<button class="nav-tab" data-tab="usg">🔊 USG Fiziği</button>
+<button class="nav-tab" data-tab="bt">💫 BT Fiziği</button>
+<button class="nav-tab" data-tab="mr">🧲 MR Fiziği</button>
+<button class="nav-tab" data-tab="quiz">🧩 Quiz</button>
+</nav>
+<!-- OVERVIEW SECTION -->
+<div class="section active" id="sec-overview">
+<div class="section-title"><div class="section-title-icon">📋</div><div><h3>Genel Bakış</h3><p>Radyolojik görüntüleme modalitelerinin fizik temelleri</p></div></div>
+
+<div class="topic-card"><div class="topic-header" onclick="toggleTopic(this)"><div class="topic-icon">🌊</div><div class="topic-info"><div class="topic-name">Elektromanyetik Spektrum ve Radyasyon</div><div class="topic-sub">Görüntüleme modalitelerinin fiziksel temeli</div></div><div class="topic-arrow">▼</div></div>
+<div class="topic-content">
+<div class="content-block"><h4><span class="cb-icon">📡</span> Elektromanyetik Spektrum</h4>
+<p>Radyolojik görüntülemede kullanılan enerji formları elektromanyetik spektrumun farklı bölgelerinden gelir:</p>
+<ul>
+<li><strong>Radyo dalgaları (3 kHz – 300 GHz):</strong> MR görüntülemede kullanılır. İyonize edici değildir. RF darbeleri proton spinlerini uyarır.</li>
+<li><strong>Ses dalgaları (1–20 MHz):</strong> Ultrasonografi. Mekanik dalga olup elektromanyetik değildir. Doku akustik empedans farklılıklarından görüntü oluşturur.</li>
+<li><strong>X-ışınları (30–150 keV):</strong> Konvansiyonel radyografi ve BT'de kullanılır. İyonize edici radyasyondur.</li>
+<li><strong>Gama ışınları:</strong> Nükleer tıp / SPECT / PET'te kullanılır. Radyoaktif bozunma ile elde edilir.</li>
+</ul></div>
+<div class="info-box"><div class="info-box-title">Klinik Önem</div><p>İyonize edici radyasyon (X-ışını, gama) DNA hasarına neden olabilir → ALARA prensibi. USG ve MR iyonize edici değildir → pediatrik ve gebelerde tercih edilir.</p></div>
+<div class="content-block"><h4><span class="cb-icon">⚡</span> Radyasyon Tipleri</h4>
+<table class="compare-table">
+<tr><th>Tip</th><th>Kaynak</th><th>İyonizan</th><th>Kullanım</th></tr>
+<tr><td><strong>Mekanik dalga</strong></td><td>Piezoelektrik kristal</td><td>Hayır</td><td>USG</td></tr>
+<tr><td><strong>X-ışını</strong></td><td>X-ışın tüpü (Bremsstrahlung)</td><td>Evet</td><td>DR, BT, Floroskopi</td></tr>
+<tr><td><strong>RF dalgası</strong></td><td>RF verici bobini</td><td>Hayır</td><td>MR</td></tr>
+<tr><td><strong>Gama ışını</strong></td><td>Radyoizotop bozunması</td><td>Evet</td><td>SPECT, PET</td></tr>
+</table></div>
+<div class="source-ref"><div class="source-ref-title">Kaynaklar</div><ul><li>Bushberg JT et al. The Essential Physics of Medical Imaging, 4th Ed. Lippincott, 2020</li><li>ABR Core Exam Study Guide, 2024</li></ul></div>
+</div></div>
+
+<div class="topic-card"><div class="topic-header" onclick="toggleTopic(this)"><div class="topic-icon">🎯</div><div class="topic-info"><div class="topic-name">Görüntü Kalitesi Parametreleri</div><div class="topic-sub">Uzaysal çözünürlük, kontrast, gürültü, SNR</div></div><div class="topic-arrow">▼</div></div>
+<div class="topic-content">
+<div class="content-block"><h4><span class="cb-icon">🔍</span> Temel Parametreler</h4>
+<ul>
+<li><strong>Uzaysal Çözünürlük (Spatial Resolution):</strong> İki bitişik küçük yapıyı ayırt edebilme yeteneği. Birim: lp/mm.</li>
+<li><strong>Kontrast Çözünürlüğü:</strong> Benzer yoğunluktaki dokuları ayırt edebilme. MR > BT > USG > X-ray.</li>
+<li><strong>Temporal Çözünürlük:</strong> Hareketli yapıları görüntüleyebilme hızı. Floroskopi ve USG'de yüksek.</li>
+<li><strong>Sinyal-Gürültü Oranı (SNR):</strong> Anlamlı sinyal / arka plan gürültüsü oranı.</li>
+</ul></div>
+<div class="formula-box"><div class="formula">SNR = Sinyal / Gürültü</div><div class="formula-desc">SNR arttıkça görüntü kalitesi artar, ancak süre veya doz artışı gerektirebilir</div></div>
+<div class="formula-box" style="margin-top:8px;"><div class="formula">CNR = (S₁ - S₂) / Noise</div><div class="formula-desc">Kontrast-Gürültü Oranı: İki doku arasındaki kontrast farkının gürültüye oranı</div></div>
+<div class="content-block"><h4><span class="cb-icon">⚖️</span> Modalite Karşılaştırması</h4>
+<table class="compare-table">
+<tr><th>Parametre</th><th>USG</th><th>BT</th><th>MR</th></tr>
+<tr><td><strong>Uzaysal Çözünürlük</strong></td><td>0.3–1 mm</td><td>0.3–0.6 mm</td><td>0.5–2 mm</td></tr>
+<tr><td><strong>Kontrast Çözünürlüğü</strong></td><td>Orta</td><td>İyi</td><td>Mükemmel</td></tr>
+<tr><td><strong>Temporal Çözünürlük</strong></td><td>Mükemmel (gerçek zamanlı)</td><td>İyi (0.3–0.5 sn)</td><td>Düşük-Orta</td></tr>
+<tr><td><strong>İyonizan Radyasyon</strong></td><td>Yok</td><td>Var</td><td>Yok</td></tr>
+</table></div>
+<div class="source-ref"><div class="source-ref-title">Kaynaklar</div><ul><li>Huda W. Review of Radiologic Physics, 4th Ed. Wolters Kluwer, 2016</li><li>Bushberg JT et al. Essential Physics of Medical Imaging, 4th Ed. 2020</li></ul></div>
+</div></div>
+
+<div class="topic-card"><div class="topic-header" onclick="toggleTopic(this)"><div class="topic-icon">🛡️</div><div class="topic-info"><div class="topic-name">Radyasyon Güvenliği ve Dozimetri</div><div class="topic-sub">ALARA, doz birimleri, korunma ilkeleri</div></div><div class="topic-arrow">▼</div></div>
+<div class="topic-content">
+<div class="content-block"><h4><span class="cb-icon">📏</span> Doz Birimleri</h4>
+<ul>
+<li><strong>Absorbed Dose (Gray - Gy):</strong> Birim kütleye absorbe edilen enerji. 1 Gy = 1 J/kg</li>
+<li><strong>Equivalent Dose (Sievert - Sv):</strong> Radyasyon tipine göre ağırlıklandırılmış doz.</li>
+<li><strong>Effective Dose (Sv):</strong> Organ duyarlılığına göre ağırlıklandırılmış toplam vücut dozu</li>
+<li><strong>CTDIvol (mGy):</strong> BT'ye özgü hacimsel doz indeksi</li>
+<li><strong>DLP (mGy·cm):</strong> Doz-uzunluk çarpımı — toplam BT maruziyeti</li>
+</ul></div>
+<div class="info-box warn"><div class="info-box-title">ALARA Prensibi</div>
+<p><strong>As Low As Reasonably Achievable:</strong> 3 temel yöntem: <strong>Süre</strong> (minimize et), <strong>Mesafe</strong> (uzaklaş — I ∝ 1/d²), <strong>Zırhlama</strong> (kurşun önlük, tiroid koruyucu).</p></div>
+<div class="content-block"><h4><span class="cb-icon">📊</span> Tipik Efektif Dozlar</h4>
+<table class="compare-table">
+<tr><th>İnceleme</th><th>Efektif Doz (mSv)</th><th>Doğal Radyasyona Eşdeğer</th></tr>
+<tr><td><strong>PA Akciğer grafisi</strong></td><td>0.02</td><td>2.4 gün</td></tr>
+<tr><td><strong>Mamografi</strong></td><td>0.4</td><td>7 hafta</td></tr>
+<tr><td><strong>BT Beyin</strong></td><td>2</td><td>8 ay</td></tr>
+<tr><td><strong>BT Toraks</strong></td><td>7</td><td>2 yıl</td></tr>
+<tr><td><strong>BT Abdomen-Pelvis</strong></td><td>10</td><td>3 yıl</td></tr>
+<tr><td><strong>PET/BT</strong></td><td>25</td><td>8 yıl</td></tr>
+</table></div>
+<div class="source-ref"><div class="source-ref-title">Kaynaklar</div><ul><li>ICRP Publication 103, 2007</li><li>Mettler FA et al. Effective Doses in Radiology — Radiology 2008;248(1)</li></ul></div>
+</div></div>
+</div>
+<!-- USG PHYSICS SECTION -->
+<div class="section" id="sec-usg">
+<div class="section-title usg"><div class="section-title-icon">🔊</div><div><h3>Ultrasonografi Fiziği</h3><p>Ses dalgalarının temel prensiplerinden Doppler fiziğine</p></div></div>
+
+<div class="topic-card usg-border"><div class="topic-header" onclick="toggleTopic(this)"><div class="topic-icon">🌊</div><div class="topic-info"><div class="topic-name">Ses Dalgasının Temelleri</div><div class="topic-sub">Frekans, dalga boyu, hız, empedans</div></div><div class="topic-arrow">▼</div></div>
+<div class="topic-content">
+<div class="content-block"><h4><span class="cb-icon">🎵</span> Ses Dalgası Nedir?</h4>
+<p>Ultrason, insan kulağının duyma eşiğinin üzerindeki (>20 kHz) mekanik longitudinal dalgalardır. Tıbbi USG 1–20 MHz aralığında çalışır.</p>
+<ul>
+<li><strong>Frekans (f):</strong> Saniyedeki dalga sayısı. Tanısal USG: 2–18 MHz. Yüksek frekans → yüksek çözünürlük ama düşük penetrasyon.</li>
+<li><strong>Dalga boyu (λ):</strong> λ = c / f. Yumuşak dokuda ~0.1–0.8 mm.</li>
+<li><strong>Ses hızı (c):</strong> Yumuşak dokuda ortalama 1540 m/s.</li>
+<li><strong>Akustik Empedans (Z):</strong> Z = ρ × c. Farklı empedanslı doku arayüzlerinde yansıma oluşur.</li>
+</ul></div>
+<div class="formula-box usg"><div class="formula">c = f × λ</div><div class="formula-desc">Ses hızı = Frekans × Dalga boyu | Yumuşak dokuda c ≈ 1540 m/s</div></div>
+<div class="formula-box usg" style="margin-top:8px;"><div class="formula">Z = ρ × c</div><div class="formula-desc">Akustik Empedans = Yoğunluk × Ses hızı | Birim: Rayl (kg/m²/s)</div></div>
+<div class="content-block"><h4><span class="cb-icon">📊</span> Dokularda Ses Hızı</h4>
+<table class="compare-table">
+<tr><th>Ortam</th><th>Ses Hızı (m/s)</th><th>Akustik Empedans (MRayl)</th></tr>
+<tr><td><strong>Hava</strong></td><td>330</td><td>0.0004</td></tr>
+<tr><td><strong>Yağ dokusu</strong></td><td>1450</td><td>1.38</td></tr>
+<tr><td><strong>Yumuşak doku (ort.)</strong></td><td>1540</td><td>1.63</td></tr>
+<tr><td><strong>Kas</strong></td><td>1580</td><td>1.70</td></tr>
+<tr><td><strong>Kemik</strong></td><td>4080</td><td>7.80</td></tr>
+</table></div>
+<div class="info-box warn"><div class="info-box-title">Klinik Pearl</div><p>Hava-yumuşak doku arayüzünde empedans farkı çok büyük → %99.9 yansıma → USG ile hava içeren yapılar görüntülenemez. Bu nedenle jel kullanılır.</p></div>
+<div class="source-ref"><div class="source-ref-title">Kaynaklar</div><ul><li>Kremkau FW. Sonography Principles and Instruments, 10th Ed. Elsevier, 2020</li><li>Bushberg JT et al. Essential Physics of Medical Imaging, 4th Ed. Ch.14, 2020</li></ul></div>
+</div></div>
+
+<div class="topic-card usg-border"><div class="topic-header" onclick="toggleTopic(this)"><div class="topic-icon">🔄</div><div class="topic-info"><div class="topic-name">Ses-Doku Etkileşimleri</div><div class="topic-sub">Yansıma, kırılma, saçılma, absorpsiyon, attenuation</div></div><div class="topic-arrow">▼</div></div>
+<div class="topic-content">
+<div class="content-block"><h4><span class="cb-icon">↩️</span> Yansıma (Reflection)</h4>
+<p>İki farklı akustik empedansa sahip doku arayüzünde sesin bir kısmı geri döner.</p>
+<div class="formula-box usg"><div class="formula">R = ((Z₂ - Z₁) / (Z₂ + Z₁))²</div><div class="formula-desc">Yansıma katsayısı: Empedans farkı arttıkça yansıma artar</div></div>
+<ul style="margin-top:10px;">
+<li><strong>Speküler yansıma:</strong> Düzgün yüzeylerden. Açıya bağımlı — 90° açıda maksimum.</li>
+<li><strong>Diffüz yansıma:</strong> Düzensiz yüzeylerden. Açıya bağımsız.</li>
+</ul></div>
+<div class="content-block"><h4><span class="cb-icon">💨</span> Attenuation (Zayıflama)</h4>
+<ul>
+<li><strong>Absorpsiyon:</strong> Ses enerjisi → ısı. Ana zayıflama nedeni (%80). Frekansla doğru orantılı.</li>
+<li><strong>Saçılma (Scattering):</strong> Dalga boyundan küçük yapılardan. Parankimal ekotekstur bundan kaynaklanır.</li>
+</ul>
+<div class="formula-box usg"><div class="formula">Attenuation ≈ 0.5 dB/cm/MHz (yumuşak doku)</div><div class="formula-desc">Her cm derinlik ve her MHz frekans için ~0.5 dB kayıp</div></div></div>
+<div class="info-box"><div class="info-box-title">Frekans-Penetrasyon İlişkisi</div><p>Yüksek frekans (12–18 MHz) → iyi çözünürlük ama sığ penetrasyon (~2–4 cm) → tiroid, meme. Düşük frekans (2–5 MHz) → derin penetrasyon (~15–20 cm) → abdomen, obstetrik.</p></div>
+<div class="source-ref"><div class="source-ref-title">Kaynaklar</div><ul><li>Kremkau FW. Sonography Principles and Instruments, 10th Ed. Ch.3-4, 2020</li></ul></div>
+</div></div>
+
+<div class="topic-card usg-border"><div class="topic-header" onclick="toggleTopic(this)"><div class="topic-icon">📡</div><div class="topic-info"><div class="topic-name">Transdüserler ve Prob Tipleri</div><div class="topic-sub">Piezoelektrik etki, lineer, konveks, sektör, endokaviter</div></div><div class="topic-arrow">▼</div></div>
+<div class="topic-content">
+<div class="content-block"><h4><span class="cb-icon">💎</span> Piezoelektrik Etki</h4>
+<p>Transdüserin kalbi PZT kristaldir. İki yönlü çalışır:</p>
+<ul>
+<li><strong>Doğrudan:</strong> Mekanik basınç → elektrik sinyali (eko alma = alıcı mod, %99)</li>
+<li><strong>Ters:</strong> Elektrik → mekanik titreşim (ses gönderme = verici mod, %1)</li>
+</ul></div>
+<div class="content-block"><h4><span class="cb-icon">🔧</span> Prob Tipleri</h4>
+<table class="compare-table">
+<tr><th>Prob</th><th>Frekans</th><th>Görüntü</th><th>Kullanım</th></tr>
+<tr><td><strong>Lineer</strong></td><td>7–18 MHz</td><td>Dikdörtgen</td><td>Tiroid, meme, vasküler, MSK</td></tr>
+<tr><td><strong>Konveks</strong></td><td>2–6 MHz</td><td>Geniş sektör</td><td>Abdomen, obstetrik</td></tr>
+<tr><td><strong>Sektör (Phased)</strong></td><td>1–5 MHz</td><td>Dar sektör</td><td>Kardiyak, interkostal</td></tr>
+<tr><td><strong>Endokaviter</strong></td><td>5–10 MHz</td><td>Sektör</td><td>Transvajinal, transrektal</td></tr>
+<tr><td><strong>Hockey Stick</strong></td><td>8–18 MHz</td><td>Küçük lineer</td><td>Pediatrik, yüzeyel</td></tr>
+</table></div>
+<div class="info-box success"><div class="info-box-title">Çözünürlük Türleri</div><ul>
+<li><strong>Aksiyel:</strong> Işın yönü = SPL/2. Frekans artınca iyileşir.</li>
+<li><strong>Lateral:</strong> Işına dik = ışın genişliğine bağlı. Fokal noktada en iyi.</li>
+<li><strong>Elevasyon:</strong> 3. boyut. Mekanik odaklama veya 1.5D/2D array ile iyileşir.</li>
+</ul></div>
+<div class="source-ref"><div class="source-ref-title">Kaynaklar</div><ul><li>Kremkau FW. Sonography Principles and Instruments, 10th Ed. Ch.2,5, 2020</li><li>Rumack CM et al. Diagnostic Ultrasound, 5th Ed. Elsevier, 2018</li></ul></div>
+</div></div>
+
+<div class="topic-card usg-border"><div class="topic-header" onclick="toggleTopic(this)"><div class="topic-icon">🩸</div><div class="topic-info"><div class="topic-name">Doppler Ultrasonografi</div><div class="topic-sub">Doppler prensibi, CW, PW, renkli Doppler, power Doppler</div></div><div class="topic-arrow">▼</div></div>
+<div class="topic-content">
+<div class="content-block"><h4><span class="cb-icon">🔴</span> Doppler Prensibi</h4>
+<p>Hareketli reflektörden yansıyan ses dalgasının frekansı değişir. USG'de eritrositler ana reflektördür.</p>
+<div class="formula-box usg"><div class="formula">Δf = (2 × f₀ × v × cos θ) / c</div><div class="formula-desc">Doppler shift = (2 × verici frekans × akım hızı × cos açı) / ses hızı</div></div></div>
+<div class="info-box danger"><div class="info-box-title">Kritik: Doppler Açısı</div><p>θ &lt;60° olmalıdır. cos 0°=1 (maks sinyal), cos 90°=0 (sinyal yok!). &gt;60° üzerinde hata katlanır.</p></div>
+<div class="content-block"><h4><span class="cb-icon">📊</span> Doppler Modları</h4>
+<table class="compare-table">
+<tr><th>Mod</th><th>Özellik</th><th>Avantaj</th><th>Dezavantaj</th></tr>
+<tr><td><strong>CW</strong></td><td>Sürekli gönderme/alma</td><td>Yüksek hız (aliasing yok)</td><td>Derinlik bilgisi yok</td></tr>
+<tr><td><strong>PW</strong></td><td>Belirli derinlik örnekleme</td><td>Derinlik seçimi</td><td>Aliasing (PRF/2)</td></tr>
+<tr><td><strong>Renkli</strong></td><td>PW + renk kodlama</td><td>Akım yönü görselleştirme</td><td>Açı bağımlı</td></tr>
+<tr><td><strong>Power</strong></td><td>Sinyal amplitüdü</td><td>Açı bağımsız, yüksek hassasiyet</td><td>Yön/hız bilgisi yok</td></tr>
+</table></div>
+<div class="info-box"><div class="info-box-title">Renkli Doppler — BART</div><p><strong>Blue Away, Red Toward.</strong> Proba yaklaşan = kırmızı, uzaklaşan = mavi. Arteriyel/venöz ayrım DEĞİLDİR!</p></div>
+<div class="source-ref"><div class="source-ref-title">Kaynaklar</div><ul><li>Kremkau FW. Sonography Principles and Instruments, 10th Ed. Ch.6-7, 2020</li><li>Zwiebel WJ. Introduction to Vascular Ultrasonography, 6th Ed. 2012</li></ul></div>
+</div></div>
+
+<div class="topic-card usg-border"><div class="topic-header" onclick="toggleTopic(this)"><div class="topic-icon">👻</div><div class="topic-info"><div class="topic-name">USG Artefaktları</div><div class="topic-sub">Akustik gölge, posterior güçlenme, reverberasyon, ayna etkisi</div></div><div class="topic-arrow">▼</div></div>
+<div class="topic-content">
+<div class="content-block"><h4><span class="cb-icon">🎭</span> Artefakt Kataloğu</h4>
+<table class="compare-table">
+<tr><th>Artefakt</th><th>Mekanizma</th><th>Görünüm</th><th>Klinik Önemi</th></tr>
+<tr><td><strong>Akustik Gölge</strong></td><td>Yüksek attenuation</td><td>Yapı arkasında koyu bant</td><td>Safra taşı tanısı</td></tr>
+<tr><td><strong>Posterior Güçlenme</strong></td><td>Düşük attenuation (sıvı)</td><td>Yapı arkasında parlak bant</td><td>Kist teyidi</td></tr>
+<tr><td><strong>Reverberasyon</strong></td><td>Çoklu yansıma</td><td>Eşit aralıklı paralel ekolar</td><td>İğne görselleştirme</td></tr>
+<tr><td><strong>Comet-tail</strong></td><td>Küçük cisim reverberasyonu</td><td>Kısa hiperekoik çizgi</td><td>Adenomyomatozis</td></tr>
+<tr><td><strong>Ayna Etkisi</strong></td><td>Güçlü reflektör yansıması</td><td>Duplike yapı</td><td>Yalancı pozitif lezyon</td></tr>
+<tr><td><strong>Twinkle</strong></td><td>Düzensiz yüzey faz instabilitesi</td><td>Renkli mozaik</td><td>Böbrek taşı tespiti</td></tr>
+<tr><td><strong>Side Lobe</strong></td><td>Ana ışın dışı enerji</td><td>Kist içinde yalancı eko</td><td>Yalancı debris</td></tr>
+</table></div>
+<div class="info-box success"><div class="info-box-title">Tanısal Değer Taşıyan Artefaktlar</div><p>Akustik gölge (taş), posterior güçlenme (kist), twinkle (küçük taş), ring-down (hava varlığı).</p></div>
+<div class="source-ref"><div class="source-ref-title">Kaynaklar</div><ul><li>Feldman MK et al. US Artifacts. RadioGraphics 2009;29(4)</li></ul></div>
+</div></div>
+
+<div class="topic-card usg-border"><div class="topic-header" onclick="toggleTopic(this)"><div class="topic-icon">⚠️</div><div class="topic-info"><div class="topic-name">USG Biyoefektleri ve Güvenlik</div><div class="topic-sub">Termal indeks, mekanik indeks, AIUM güvenlik</div></div><div class="topic-arrow">▼</div></div>
+<div class="topic-content">
+<div class="content-block"><h4><span class="cb-icon">🌡️</span> Biyoefektler</h4>
+<ul>
+<li><strong>Termal:</strong> Ses enerjisi → ısı. Özellikle kemik-yumuşak doku arayüzünde belirgin.</li>
+<li><strong>Mekanik (Kavitasyon):</strong> Negatif basınçta mikro kabarcık oluşumu ve çökmesi.</li>
+</ul></div>
+<div class="content-block"><h4><span class="cb-icon">📏</span> Güvenlik İndeksleri</h4>
+<table class="compare-table">
+<tr><th>İndeks</th><th>Ölçüm</th><th>Güvenli Sınır</th></tr>
+<tr><td><strong>TI (Thermal)</strong></td><td>Isınma potansiyeli</td><td>&lt;1.0 (1. trimester)</td></tr>
+<tr><td><strong>MI (Mechanical)</strong></td><td>Kavitasyon riski</td><td>&lt;0.7 (CEUS), &lt;1.9 (genel)</td></tr>
+</table></div>
+<div class="info-box warn"><div class="info-box-title">ALARA — USG'de de Geçerli</div><p>1. trimester obstetrik USG'de: TI &lt;0.7, süre minimumda, Doppler sınırlı (AIUM, 2020).</p></div>
+<div class="source-ref"><div class="source-ref-title">Kaynaklar</div><ul><li>AIUM Statement on Safety in Ultrasound, 2020</li><li>BMUS Safety Guidelines, 2022</li></ul></div>
+</div></div>
+
+<div class="topic-card usg-border"><div class="topic-header" onclick="toggleTopic(this)"><div class="topic-icon">🚀</div><div class="topic-info"><div class="topic-name">İleri USG Teknikleri</div><div class="topic-sub">Harmonik, elastografi, CEUS, 3D/4D</div></div><div class="topic-arrow">▼</div></div>
+<div class="topic-content">
+<div class="content-block"><h4><span class="cb-icon">🎶</span> Tissue Harmonic Imaging</h4>
+<p>Nonlineer dalga propagasyonu → 2. harmonik (2×f) alınarak görüntü oluşturulur. Azalmış artefaktlar, daha iyi kontrast.</p></div>
+<div class="content-block"><h4><span class="cb-icon">🧊</span> Elastografi</h4>
+<ul>
+<li><strong>Strain:</strong> Manuel kompresyon → kalitatif deformasyon. Meme, tiroid malignite.</li>
+<li><strong>Shear Wave (SWE):</strong> Kantitatif sertlik (kPa). KC fibrozis evrelemesi altın standart.</li>
+</ul>
+<div class="info-box success"><div class="info-box-title">KC Fibrozis (SWE)</div><p>F0-F1: &lt;7.1 kPa | F2: 7.1–8.8 kPa | F3: 8.8–10.5 kPa | F4 (siroz): &gt;10.5 kPa</p></div></div>
+<div class="content-block"><h4><span class="cb-icon">💉</span> Kontrast USG (CEUS)</h4>
+<p>Mikro kabarcık ajanlar (SonoVue) ile vasküler perfüzyon değerlendirmesi. Gerçek zamanlı, nefrotoksik değil, iyonizan değil. KC lezyon karakterizasyonu (LI-RADS CEUS), travma, VUR.</p></div>
+<div class="source-ref"><div class="source-ref-title">Kaynaklar</div><ul><li>EFSUMB Guidelines on CEUS, 2020</li><li>Bamber J et al. EFSUMB Elastography Guidelines, 2013</li></ul></div>
+</div></div>
+</div>
+<!-- BT PHYSICS SECTION -->
+<div class="section" id="sec-bt">
+<div class="section-title bt"><div class="section-title-icon">💫</div><div><h3>Bilgisayarlı Tomografi Fiziği</h3><p>X-ışını üretiminden iteratif rekonstrüksiyona</p></div></div>
+
+<div class="topic-card bt-border"><div class="topic-header" onclick="toggleTopic(this)"><div class="topic-icon">⚡</div><div class="topic-info"><div class="topic-name">X-Işını Üretimi ve Tüp Fiziği</div><div class="topic-sub">Bremsstrahlung, karakteristik radyasyon, tüp parametreleri</div></div><div class="topic-arrow">▼</div></div>
+<div class="topic-content">
+<div class="content-block"><h4><span class="cb-icon">🔌</span> X-Işını Tüpü</h4>
+<ul>
+<li><strong>Katot (-):</strong> Tungsten filament → termoiyonik emisyon → elektron bulutu</li>
+<li><strong>Anot (+):</strong> Tungsten-renyum döner disk. Enerjinin %99'u ısı, %1'i X-ışını.</li>
+</ul></div>
+<div class="content-block"><h4><span class="cb-icon">💥</span> Üretim Mekanizmaları</h4>
+<ul>
+<li><strong>Bremsstrahlung:</strong> Elektron çekirdeğe yaklaşır → yavaşlar → sürekli spektrum. X-ışınlarının %80-85'i.</li>
+<li><strong>Karakteristik:</strong> İç kabuk elektronu koparılır → geçiş → belirli enerjide foton. Tungsten K-kabuğu → 59-69 keV.</li>
+</ul></div>
+<div class="content-block"><h4><span class="cb-icon">⚙️</span> Tüp Parametreleri</h4>
+<table class="compare-table">
+<tr><th>Parametre</th><th>Birim</th><th>Etki</th></tr>
+<tr><td><strong>kVp</strong></td><td>kV</td><td>X-ışını enerjisi/kalitesi. ↑kVp → daha penetran, düşük kontrast. BT: 80–140 kVp.</td></tr>
+<tr><td><strong>mA</strong></td><td>mA</td><td>Foton sayısı. ↑mA → az gürültü ama fazla doz.</td></tr>
+<tr><td><strong>mAs</strong></td><td>mA×s</td><td>Toplam radyasyon miktarı. Doz ile doğru orantılı.</td></tr>
+<tr><td><strong>Rotasyon süresi</strong></td><td>s</td><td>Gantry dönüş. Modern: 0.25–0.5 sn.</td></tr>
+<tr><td><strong>Focal spot</strong></td><td>mm</td><td>Küçük (0.6mm) → yüksek çözünürlük. Büyük (1.2mm) → ısı kapasitesi.</td></tr>
+</table></div>
+<div class="source-ref"><div class="source-ref-title">Kaynaklar</div><ul><li>Bushberg JT. Essential Physics, 4th Ed. Ch.6-7, 2020</li></ul></div>
+</div></div>
+
+<div class="topic-card bt-border"><div class="topic-header" onclick="toggleTopic(this)"><div class="topic-icon">🎯</div><div class="topic-info"><div class="topic-name">Hounsfield Skalası ve Pencere Ayarları</div><div class="topic-sub">HU değerleri, fotoelektrik-Compton, windowing</div></div><div class="topic-arrow">▼</div></div>
+<div class="topic-content">
+<div class="content-block"><h4><span class="cb-icon">💫</span> X-Işını Doku Etkileşimleri</h4>
+<ul>
+<li><strong>Fotoelektrik:</strong> Foton tamamen absorbe. Z³/E³'e orantılı. Yüksek kontrast. Düşük kVp'de baskın.</li>
+<li><strong>Compton:</strong> Kısmi enerji kaybı + yön değişikliği. Doku yoğunluğuna bağlı. Gürültü kaynağı. Yüksek kVp'de baskın.</li>
+</ul></div>
+<div class="info-box danger"><div class="info-box-title">kVp ve Kontrast</div><p><strong>Düşük kVp (80-100):</strong> Fotoelektrik baskın → yüksek iyot kontrastı → BT anjio. <strong>Yüksek kVp (120-140):</strong> İyi penetrasyon → obez hasta.</p></div>
+<div class="content-block"><h4><span class="cb-icon">📊</span> Hounsfield Skalası</h4>
+<div class="formula-box bt"><div class="formula">HU = 1000 × (μ_doku - μ_su) / μ_su</div><div class="formula-desc">Su = 0 HU, Hava = -1000 HU</div></div>
+<table class="compare-table" style="margin-top:14px;">
+<tr><th>Doku</th><th>HU</th><th>Görünüm</th></tr>
+<tr><td><strong>Hava</strong></td><td>-1000</td><td>Siyah</td></tr>
+<tr><td><strong>Yağ</strong></td><td>-50 ile -100</td><td>Koyu gri</td></tr>
+<tr><td><strong>Su</strong></td><td>0</td><td>Gri</td></tr>
+<tr><td><strong>Yumuşak doku</strong></td><td>+20 ile +80</td><td>Açık gri</td></tr>
+<tr><td><strong>Akut kanama</strong></td><td>+50 ile +70</td><td>Hiperdens</td></tr>
+<tr><td><strong>Kortikal kemik</strong></td><td>+700 ile +3000</td><td>Beyaz</td></tr>
+</table></div>
+<div class="content-block"><h4><span class="cb-icon">🖥️</span> Pencere Ayarları</h4>
+<table class="compare-table">
+<tr><th>Pencere</th><th>WW</th><th>WL</th><th>Amaç</th></tr>
+<tr><td><strong>Beyin</strong></td><td>80</td><td>40</td><td>Gri-beyaz cevher</td></tr>
+<tr><td><strong>Stroke</strong></td><td>40</td><td>40</td><td>Erken iskemi</td></tr>
+<tr><td><strong>Kemik</strong></td><td>2000</td><td>500</td><td>Kırık detayı</td></tr>
+<tr><td><strong>Akciğer</strong></td><td>1500</td><td>-600</td><td>Parankim</td></tr>
+<tr><td><strong>Mediastin</strong></td><td>350</td><td>50</td><td>Mediastinal yapılar</td></tr>
+<tr><td><strong>Abdomen</strong></td><td>400</td><td>40</td><td>Yumuşak doku</td></tr>
+<tr><td><strong>Karaciğer</strong></td><td>150</td><td>70</td><td>KC lezyonları</td></tr>
+</table></div>
+<div class="source-ref"><div class="source-ref-title">Kaynaklar</div><ul><li>Bushberg JT. Essential Physics, 4th Ed. Ch.10, 2020</li></ul></div>
+</div></div>
+
+<div class="topic-card bt-border"><div class="topic-header" onclick="toggleTopic(this)"><div class="topic-icon">🏗️</div><div class="topic-info"><div class="topic-name">BT Teknolojisi ve Dedektörler</div><div class="topic-sub">Nesiller, helikal BT, MDCT, pitch, photon-counting</div></div><div class="topic-arrow">▼</div></div>
+<div class="topic-content">
+<div class="content-block"><h4><span class="cb-icon">🌀</span> Helikal BT ve MDCT</h4>
+<p>Slip-ring ile sürekli rotasyon + masa hareketi → volümetrik veri. Modern MDCT: 64-320 dedektör sırası.</p>
+<div class="formula-box bt"><div class="formula">Pitch = Masa hareketi / Toplam kolimasyon genişliği</div><div class="formula-desc">Pitch &lt;1 = örtüşme (iyi kalite), =1 boşluksuz, &gt;1 = hızlı + düşük doz</div></div></div>
+<div class="content-block"><h4><span class="cb-icon">📡</span> Dedektör Teknolojileri</h4>
+<table class="compare-table">
+<tr><th>Tip</th><th>Mekanizma</th><th>Not</th></tr>
+<tr><td><strong>Solid-state</strong></td><td>X-ışını → sintilatör → fotodiod</td><td>Yaygın, güvenilir</td></tr>
+<tr><td><strong>Photon-counting</strong></td><td>CdZnTe → her foton bireysel sayılır</td><td>Yeni nesil! Daha iyi CNR, düşük doz, multi-enerji</td></tr>
+</table></div>
+<div class="info-box purple"><div class="info-box-title">Photon-Counting CT (PCCT)</div><p>2021 FDA onayı (Siemens NAEOTOM Alpha). Elektronik gürültü eliminasyonu, ultra-yüksek çözünürlük (0.2mm), intrinsik multi-energy, %30-40 doz azaltımı.</p></div>
+<div class="source-ref"><div class="source-ref-title">Kaynaklar</div><ul><li>Flohr TG et al. Photon-counting CT. Radiology 2020;297(3)</li><li>Kalender WA. Computed Tomography, 4th Ed. 2021</li></ul></div>
+</div></div>
+
+<div class="topic-card bt-border"><div class="topic-header" onclick="toggleTopic(this)"><div class="topic-icon">🧮</div><div class="topic-info"><div class="topic-name">Rekonstrüksiyon ve Doz Optimizasyonu</div><div class="topic-sub">FBP, IR, deep learning, AEC, doz azaltma</div></div><div class="topic-arrow">▼</div></div>
+<div class="topic-content">
+<div class="content-block"><h4><span class="cb-icon">📐</span> Rekonstrüksiyon Yöntemleri</h4>
+<ul>
+<li><strong>FBP:</strong> Klasik. Hızlı ama gürültülü.</li>
+<li><strong>Iterative (IR):</strong> %20-40 doz azaltımı. ASIR, ADMIRE, iDose.</li>
+<li><strong>Deep Learning (DLR):</strong> En yeni. AI ile FBP kalitesi + IR dozu. AiCE, TrueFidelity.</li>
+</ul></div>
+<div class="content-block"><h4><span class="cb-icon">🛡️</span> Doz Azaltma</h4>
+<table class="compare-table">
+<tr><th>Strateji</th><th>Mekanizma</th><th>Azaltım</th></tr>
+<tr><td><strong>AEC</strong></td><td>Otomatik mA ayarı</td><td>%20-40</td></tr>
+<tr><td><strong>kVp optimizasyonu</strong></td><td>Hasta boyutuna göre düşürme</td><td>%30-50</td></tr>
+<tr><td><strong>IR/DLR</strong></td><td>Düşük dozda kabul edilebilir kalite</td><td>%20-60</td></tr>
+<tr><td><strong>Tin filtre</strong></td><td>Düşük enerjili foton filtreleme</td><td>%50-90</td></tr>
+</table></div>
+<div class="source-ref"><div class="source-ref-title">Kaynaklar</div><ul><li>Geyer LL et al. Iterative CT Reconstruction. Radiology 2015;276(2)</li><li>AAPM Report No. 204 — SSDE, 2019</li></ul></div>
+</div></div>
+
+<div class="topic-card bt-border"><div class="topic-header" onclick="toggleTopic(this)"><div class="topic-icon">👻</div><div class="topic-info"><div class="topic-name">BT Artefaktları</div><div class="topic-sub">Beam hardening, metal, hareket, ring, partial volume</div></div><div class="topic-arrow">▼</div></div>
+<div class="topic-content">
+<div class="content-block"><h4><span class="cb-icon">🎭</span> Artefakt Kataloğu</h4>
+<table class="compare-table">
+<tr><th>Artefakt</th><th>Mekanizma</th><th>Çözüm</th></tr>
+<tr><td><strong>Beam Hardening</strong></td><td>Düşük enerjili fotonların absorbe edilmesi</td><td>Filtre, DECT monoenerjitik</td></tr>
+<tr><td><strong>Metal</strong></td><td>Tam absorpsiyon + beam hardening</td><td>MAR algoritmaları, yüksek kVp</td></tr>
+<tr><td><strong>Hareket</strong></td><td>Hasta hareketi</td><td>Hızlı tarama, ECG gating</td></tr>
+<tr><td><strong>Ring</strong></td><td>Defektif dedektör</td><td>Kalibrasyon</td></tr>
+<tr><td><strong>Partial Volume</strong></td><td>Farklı yoğunluklar aynı vokselde</td><td>İnce kesit</td></tr>
+<tr><td><strong>Stair-Step</strong></td><td>Helikal interpolasyon</td><td>İnce kesit, örtüşen rekon</td></tr>
+</table></div>
+<div class="source-ref"><div class="source-ref-title">Kaynaklar</div><ul><li>Barrett JF, Keat N. CT Artifacts. RadioGraphics 2004;24(6)</li></ul></div>
+</div></div>
+
+<div class="topic-card bt-border"><div class="topic-header" onclick="toggleTopic(this)"><div class="topic-icon">⚡</div><div class="topic-info"><div class="topic-name">Dual-Energy BT (DECT)</div><div class="topic-sub">Dual-source, monoenerjitik, VNC, materyal dekompozisyon</div></div><div class="topic-arrow">▼</div></div>
+<div class="topic-content">
+<div class="content-block"><h4><span class="cb-icon">💡</span> DECT Prensibi</h4>
+<p>İki farklı X-ışını enerjisi ile tarayarak materyallerin enerji bağımlı attenuation farklarından ek bilgi elde etme.</p></div>
+<div class="content-block"><h4><span class="cb-icon">🔧</span> Teknolojiler</h4>
+<table class="compare-table">
+<tr><th>Teknoloji</th><th>Mekanizma</th><th>Firma</th></tr>
+<tr><td><strong>Dual-Source</strong></td><td>İki tüp + dedektör</td><td>Siemens</td></tr>
+<tr><td><strong>Rapid kVp Switch</strong></td><td>Hızlı kVp değişimi</td><td>GE</td></tr>
+<tr><td><strong>Dual-Layer</strong></td><td>Sandwich dedektör</td><td>Philips</td></tr>
+<tr><td><strong>Photon-Counting</strong></td><td>Bireysel foton enerji ölçümü</td><td>Siemens</td></tr>
+</table></div>
+<div class="content-block"><h4><span class="cb-icon">🎯</span> Klinik Uygulamalar</h4>
+<ul>
+<li><strong>Monoenerjitik:</strong> 40 keV = maks iyot kontrast. 70+ keV = metal artefakt azaltımı.</li>
+<li><strong>Virtual Non-Contrast:</strong> İyot çıkarılarak kontrastsız benzeri görüntü.</li>
+<li><strong>İyot haritası:</strong> Perfüzyon değerlendirmesi (PE, infarkt, tümör).</li>
+<li><strong>Ürik asit ayrımı:</strong> Gut tanısında kristal tespiti.</li>
+<li><strong>Virtual Non-Calcium:</strong> Kemik iliği ödemi (MR yerine).</li>
+</ul></div>
+<div class="source-ref"><div class="source-ref-title">Kaynaklar</div><ul><li>McCollough CH et al. Dual-Energy CT. Radiology 2015;276(3)</li></ul></div>
+</div></div>
+</div>
+<!-- MR PHYSICS SECTION -->
+<div class="section" id="sec-mr">
+<div class="section-title mr"><div class="section-title-icon">🧲</div><div><h3>Manyetik Rezonans Fiziği</h3><p>Nükleer spin fiziğinden ileri MR tekniklerine</p></div></div>
+
+<div class="topic-card mr-border"><div class="topic-header" onclick="toggleTopic(this)"><div class="topic-icon">⚛️</div><div class="topic-info"><div class="topic-name">Nükleer Manyetik Rezonans Temelleri</div><div class="topic-sub">Proton spini, Larmor frekansı, presesyon, net manyetizasyon</div></div><div class="topic-arrow">▼</div></div>
+<div class="topic-content">
+<div class="content-block"><h4><span class="cb-icon">🔵</span> Spin ve Manyetik Moment</h4>
+<p>Tek sayıda proton/nötron içeren çekirdekler doğal spine sahiptir. ¹H en yaygın — vücutta bol, yüksek gyromanyetik oran.</p>
+<ul>
+<li><strong>B₀ alanına yerleşme:</strong> Paralel (spin-up, düşük enerji) ve anti-paralel (spin-down, yüksek enerji). Paralel biraz fazla → net longitudinal manyetizasyon (M₀).</li>
+<li><strong>Presesyon:</strong> Protonlar B₀ etrafında yalpalama hareketi yapar.</li>
+</ul></div>
+<div class="formula-box mr"><div class="formula">ω₀ = γ × B₀</div><div class="formula-desc">Larmor Denklemi | ¹H: γ = 42.58 MHz/T → 1.5T'de 63.87 MHz, 3T'de 127.74 MHz</div></div>
+<div class="content-block"><h4><span class="cb-icon">📻</span> Rezonans ve RF Darbe</h4>
+<ul>
+<li><strong>RF uygulanır:</strong> Larmor frekansında → Mz azalır, Mxy oluşur (faz koherensi)</li>
+<li><strong>Flip angle:</strong> 90° = tam transversal, 180° = ters çevirme</li>
+<li><strong>Sinyal:</strong> Dönen Mxy alıcı bobinde EMF indükler = FID (Free Induction Decay)</li>
+</ul></div>
+<div class="source-ref"><div class="source-ref-title">Kaynaklar</div><ul><li>Hashemi RH. MRI: The Basics, 4th Ed. 2018</li><li>McRobbie DW. MRI from Picture to Proton, 3rd Ed. 2017</li></ul></div>
+</div></div>
+
+<div class="topic-card mr-border"><div class="topic-header" onclick="toggleTopic(this)"><div class="topic-icon">⏱️</div><div class="topic-info"><div class="topic-name">T1 ve T2 Relaksasyon</div><div class="topic-sub">Spin-lattice, spin-spin, T2* bozunumu, doku kontrastı</div></div><div class="topic-arrow">▼</div></div>
+<div class="topic-content">
+<div class="content-block"><h4><span class="cb-icon">📈</span> T1 Relaksasyon (Spin-Lattice)</h4>
+<p>Mz'nin geri kazanımı. T1 = %63'e ulaşma zamanı.</p>
+<ul>
+<li><strong>Kısa T1 (parlak):</strong> Yağ (~250 ms), Gd, methemoglobin, melanin</li>
+<li><strong>Uzun T1 (koyu):</strong> Su/BOS (~4000 ms), ödem</li>
+<li><strong>T1 B₀'a bağlı:</strong> Alan artınca T1 uzar</li>
+</ul></div>
+<div class="content-block"><h4><span class="cb-icon">📉</span> T2 Relaksasyon (Spin-Spin)</h4>
+<p>Mxy kaybı — faz koherensi bozulur. T2 = %37'ye düşme zamanı. T2 ≤ T1.</p>
+<ul>
+<li><strong>Uzun T2 (parlak):</strong> Serbest su, BOS, kist</li>
+<li><strong>Kısa T2 (koyu):</strong> Fibrozis, hemosiderin, tendon, kortikal kemik</li>
+<li><strong>T2* = T2 + alan inhomogenitesi.</strong> SWI, T2* mapping, BOLD fMRI'da kullanılır.</li>
+</ul></div>
+<div class="content-block"><h4><span class="cb-icon">📊</span> Doku T1/T2 (1.5T)</h4>
+<table class="compare-table">
+<tr><th>Doku</th><th>T1 (ms)</th><th>T2 (ms)</th><th>T1A</th><th>T2A</th></tr>
+<tr><td><strong>BOS</strong></td><td>4000</td><td>2000</td><td>Koyu</td><td>Parlak</td></tr>
+<tr><td><strong>Gri cevher</strong></td><td>1000</td><td>100</td><td>Orta-koyu</td><td>Orta-parlak</td></tr>
+<tr><td><strong>Beyaz cevher</strong></td><td>780</td><td>90</td><td>Orta-parlak</td><td>Orta-koyu</td></tr>
+<tr><td><strong>Yağ</strong></td><td>250</td><td>80</td><td>Parlak</td><td>Orta-parlak</td></tr>
+<tr><td><strong>Kas</strong></td><td>870</td><td>50</td><td>Orta</td><td>Koyu</td></tr>
+</table></div>
+<div class="source-ref"><div class="source-ref-title">Kaynaklar</div><ul><li>Hashemi RH. MRI: The Basics, Ch.3-4, 2018</li><li>de Bazelaire CMJ et al. MR Relaxation Times. Radiology 2004;230(3)</li></ul></div>
+</div></div>
+
+<div class="topic-card mr-border"><div class="topic-header" onclick="toggleTopic(this)"><div class="topic-icon">🎼</div><div class="topic-info"><div class="topic-name">Puls Sekansları</div><div class="topic-sub">SE, FSE, GRE, IR, EPI — TR, TE, TI, doku baskılama</div></div><div class="topic-arrow">▼</div></div>
+<div class="topic-content">
+<div class="content-block"><h4><span class="cb-icon">🎯</span> Parametreler ve Ağırlıklama</h4>
+<table class="compare-table">
+<tr><th>Ağırlıklama</th><th>TR</th><th>TE</th><th>Parlak</th><th>Koyu</th></tr>
+<tr><td><strong>T1W</strong></td><td>Kısa (400-700)</td><td>Kısa (10-20)</td><td>Yağ, Gd</td><td>Su, BOS</td></tr>
+<tr><td><strong>T2W</strong></td><td>Uzun (2000-6000)</td><td>Uzun (80-120)</td><td>Su, BOS, ödem</td><td>Fibrozis</td></tr>
+<tr><td><strong>PDW</strong></td><td>Uzun</td><td>Kısa</td><td>Yüksek proton yoğunluğu</td><td>Düşük proton</td></tr>
+</table></div>
+<div class="content-block"><h4><span class="cb-icon">🔧</span> Sekans Aileleri</h4>
+<table class="compare-table">
+<tr><th>Sekans</th><th>RF</th><th>Özellik</th><th>Kullanım</th></tr>
+<tr><td><strong>SE</strong></td><td>90°–180°</td><td>Altın standart</td><td>T1W, T2W</td></tr>
+<tr><td><strong>FSE/TSE</strong></td><td>90°–(180°)×n</td><td>Echo train ile hızlı</td><td>Rutin</td></tr>
+<tr><td><strong>GRE</strong></td><td>α° (küçük flip)</td><td>Hızlı, T2* duyarlı</td><td>Vasküler, SWI</td></tr>
+<tr><td><strong>IR</strong></td><td>180°–90°–180°</td><td>TI ile doku baskılama</td><td>STIR, FLAIR</td></tr>
+<tr><td><strong>EPI</strong></td><td>Tek/Multi-shot</td><td>Ultra hızlı</td><td>DWI, perfüzyon, fMRI</td></tr>
+</table></div>
+<div class="content-block"><h4><span class="cb-icon">🚫</span> Doku Baskılama</h4>
+<ul>
+<li><strong>STIR:</strong> TI ~160 ms → yağ baskılama. B₀'dan etkilenmez. Düşük SNR.</li>
+<li><strong>FLAIR:</strong> TI ~2200 ms → BOS baskılama. MS plakları, SAK, kortikal lezyon.</li>
+<li><strong>Fat Sat:</strong> Selektif RF → yağ baskılama. B₀ homogenitesi gerekir.</li>
+<li><strong>Dixon:</strong> Su-yağ ayrımı. In-phase + opposed-phase → water-only, fat-only.</li>
+</ul></div>
+<div class="source-ref"><div class="source-ref-title">Kaynaklar</div><ul><li>Hashemi RH. MRI: The Basics, Ch.7-13, 2018</li></ul></div>
+</div></div>
+
+<div class="topic-card mr-border"><div class="topic-header" onclick="toggleTopic(this)"><div class="topic-icon">🌐</div><div class="topic-info"><div class="topic-name">k-Space ve Hızlandırma</div><div class="topic-sub">Fourier dönüşümü, paralel görüntüleme, compressed sensing</div></div><div class="topic-arrow">▼</div></div>
+<div class="topic-content">
+<div class="content-block"><h4><span class="cb-icon">🗺️</span> k-Space</h4>
+<p>MR görüntüsünün frekans domain temsili. 2D Fourier Transform ile görüntüye dönüştürülür.</p>
+<ul>
+<li><strong>Merkez:</strong> Düşük uzaysal frekans → kontrast, genel şekil</li>
+<li><strong>Periferi:</strong> Yüksek uzaysal frekans → kenar detayları</li>
+</ul></div>
+<div class="content-block"><h4><span class="cb-icon">🚀</span> Hızlandırma</h4>
+<table class="compare-table">
+<tr><th>Teknik</th><th>Prensip</th><th>Hız</th></tr>
+<tr><td><strong>Parallel Imaging</strong></td><td>Çoklu bobin, eksik k-space doldurma</td><td>2-4×</td></tr>
+<tr><td><strong>Compressed Sensing</strong></td><td>Random undersampling + sparse rekon</td><td>2-8×</td></tr>
+<tr><td><strong>Simultaneous Multi-Slice</strong></td><td>Birden fazla kesit aynı anda</td><td>2-4×</td></tr>
+<tr><td><strong>Deep Learning Recon</strong></td><td>AI ile artefakt düzeltme</td><td>2-8×</td></tr>
+</table></div>
+<div class="source-ref"><div class="source-ref-title">Kaynaklar</div><ul><li>Deshmane A et al. Parallel MR Imaging. JMRI 2012;36(1)</li></ul></div>
+</div></div>
+
+<div class="topic-card mr-border"><div class="topic-header" onclick="toggleTopic(this)"><div class="topic-icon">💉</div><div class="topic-info"><div class="topic-name">MR Kontrast Ajanları</div><div class="topic-sub">Gadolinyum, NSF, hepatoselüler ajanlar, Gd birikimi</div></div><div class="topic-arrow">▼</div></div>
+<div class="topic-content">
+<div class="content-block"><h4><span class="cb-icon">✨</span> Gadolinyum Bazlı Ajanlar</h4>
+<ul>
+<li><strong>Ekstraselüler:</strong> Gd-DOTA (Dotarem), Gadobutrol (Gadovist). İV → vasküler → renal atılım.</li>
+<li><strong>Hepatoselüler:</strong> Gd-EOB-DTPA (Primovist — %50 hepatik uptake). 20 dk sonra hepatosit fazı.</li>
+</ul></div>
+<div class="info-box danger"><div class="info-box-title">NSF (Nefrojenik Sistemik Fibrozis)</div><p>eGFR &lt;30'da lineer ajanlar yüksek risk. Makrosiklik ajanlar düşük risk. ACR 2022: Grup II ajanlar eGFR &lt;30'da verilebilir.</p></div>
+<div class="info-box warn"><div class="info-box-title">Gd Birikimi</div><p>Tekrarlayan Gd → beyin (dentate nucleus, globus pallidus) birikimi. Klinik önemi tartışmalı. Makrosiklik &gt; lineer (daha az birikim).</p></div>
+<div class="source-ref"><div class="source-ref-title">Kaynaklar</div><ul><li>ACR Manual on Contrast Media, v2024</li><li>Kanda T et al. Gadolinium Deposition. Radiology 2015;276(1)</li></ul></div>
+</div></div>
+
+<div class="topic-card mr-border"><div class="topic-header" onclick="toggleTopic(this)"><div class="topic-icon">👻</div><div class="topic-info"><div class="topic-name">MR Artefaktları</div><div class="topic-sub">Chemical shift, susceptibility, aliasing, truncation, motion</div></div><div class="topic-arrow">▼</div></div>
+<div class="topic-content">
+<div class="content-block"><h4><span class="cb-icon">🎭</span> Artefakt Kataloğu</h4>
+<table class="compare-table">
+<tr><th>Artefakt</th><th>Mekanizma</th><th>Çözüm</th></tr>
+<tr><td><strong>Chemical Shift Tip 1</strong></td><td>Su-yağ frekans farkı</td><td>Geniş bant genişliği</td></tr>
+<tr><td><strong>Chemical Shift Tip 2 (India Ink)</strong></td><td>GRE opposed-phase faz iptali</td><td>Tanısal! Adrenal adenom, yağlı KC</td></tr>
+<tr><td><strong>Susceptibility</strong></td><td>Manyetik duyarlılık farkı</td><td>SE sekansları, kısa TE</td></tr>
+<tr><td><strong>Aliasing</strong></td><td>FOV dışı yapıların yansıması</td><td>Oversampling, FOV artırma</td></tr>
+<tr><td><strong>Truncation (Gibbs)</strong></td><td>k-space'de sınırlı veri</td><td>Matris artırma</td></tr>
+<tr><td><strong>Motion</strong></td><td>Hasta/solunum/kalp hareketi</td><td>Gating, PROPELLER, breath-hold</td></tr>
+<tr><td><strong>Dielektrik (3T)</strong></td><td>RF dalga boyu ≈ vücut</td><td>Dielektrik yastık, multi-transmit</td></tr>
+</table></div>
+<div class="info-box success"><div class="info-box-title">Tanısal Artefaktlar</div><p><strong>India ink:</strong> Intrasellüler yağ (adrenal adenom OP sinyal kaybı). <strong>Susceptibility blooming:</strong> Hemosiderin/kanama (SWI/T2*).</p></div>
+<div class="source-ref"><div class="source-ref-title">Kaynaklar</div><ul><li>Zhuo J, Gullapalli RP. MR Artifacts. AJR 2006;187(3)</li></ul></div>
+</div></div>
+
+<div class="topic-card mr-border"><div class="topic-header" onclick="toggleTopic(this)"><div class="topic-icon">🚀</div><div class="topic-info"><div class="topic-name">İleri MR Teknikleri</div><div class="topic-sub">DWI/ADC, perfüzyon, spektroskopi, SWI, DTI, fMRI, elastografi</div></div><div class="topic-arrow">▼</div></div>
+<div class="topic-content">
+<div class="content-block"><h4><span class="cb-icon">🔬</span> DWI/ADC</h4>
+<p>Su moleküllerinin Brown hareketini ölçer. Kısıtlı difüzyon → DWI parlak, ADC koyu.</p>
+<div class="formula-box mr"><div class="formula">ADC = -ln(S₁/S₀) / (b₁ - b₀)</div><div class="formula-desc">Normal beyin: ~0.7-0.9 × 10⁻³ mm²/s | Akut infarkt: &lt;0.4 × 10⁻³ mm²/s</div></div>
+<ul style="margin-top:8px;">
+<li><strong>Klinik:</strong> Akut infarkt (30 dk'da pozitif!), apse vs tümör, kolesteatom, epidermoid, tümör grade.</li>
+</ul></div>
+<div class="content-block"><h4><span class="cb-icon">💧</span> Perfüzyon MR</h4>
+<ul>
+<li><strong>DSC:</strong> Gd bolus → T2* sinyal kaybı → CBV, CBF, MTT haritaları. İnme, tümör.</li>
+<li><strong>DCE:</strong> T1W dinamik → Ktrans, permeabilite. Tümör anjiyogenezi.</li>
+<li><strong>ASL:</strong> Kontrast gerektirmez! Arteriyel kanı manyetik işaretler. Pediatrik, böbrek yetmezliği.</li>
+</ul></div>
+<div class="content-block"><h4><span class="cb-icon">📊</span> MR Spektroskopi (MRS)</h4>
+<table class="compare-table">
+<tr><th>Metabolit</th><th>ppm</th><th>Anlam</th></tr>
+<tr><td><strong>NAA</strong></td><td>2.0</td><td>Nöronal bütünlük ↓ → hasar</td></tr>
+<tr><td><strong>Kolin</strong></td><td>3.2</td><td>Membran turnover ↑ → tümör</td></tr>
+<tr><td><strong>Kreatin</strong></td><td>3.0</td><td>Enerji metabolizması — referans</td></tr>
+<tr><td><strong>Laktat</strong></td><td>1.3</td><td>Anaerobik → iskemi, nekroz, apse</td></tr>
+<tr><td><strong>Lipid</strong></td><td>0.9–1.5</td><td>Nekroz → yüksek grade tümör</td></tr>
+<tr><td><strong>myo-Inositol</strong></td><td>3.6</td><td>Glial marker → düşük grade gliom</td></tr>
+</table></div>
+<div class="content-block"><h4><span class="cb-icon">🧲</span> Diğer Teknikler</h4>
+<ul>
+<li><strong>SWI:</strong> T2*W + faz → mikro kanama, kalsifikasyon, venöz yapılar.</li>
+<li><strong>DTI:</strong> 6+ yönde difüzyon → fiber traktografi. Beyaz cevher, preop planlama.</li>
+<li><strong>fMRI:</strong> BOLD kontrastı → nöronal aktivite haritalama. Preop kortikal haritalama.</li>
+<li><strong>MR Elastografi:</strong> Mekanik dalga + faz kontrast → doku sertliği (kPa). KC fibrozis.</li>
+</ul></div>
+<div class="source-ref"><div class="source-ref-title">Kaynaklar</div><ul><li>Le Bihan D. Diffusion MRI. Radiology 2013;268(2)</li><li>Hashemi RH. MRI: The Basics, Ch.18-21, 2018</li></ul></div>
+</div></div>
+
+<div class="topic-card mr-border"><div class="topic-header" onclick="toggleTopic(this)"><div class="topic-icon">🛡️</div><div class="topic-info"><div class="topic-name">MR Güvenliği</div><div class="topic-sub">Zonlar, implant, SAR, projektil, quench, gebelik</div></div><div class="topic-arrow">▼</div></div>
+<div class="topic-content">
+<div class="content-block"><h4><span class="cb-icon">🏥</span> ACR MR Güvenlik Zonları</h4>
+<table class="compare-table">
+<tr><th>Zon</th><th>Alan</th><th>Erişim</th></tr>
+<tr><td><strong>I</strong></td><td>Genel alan</td><td>Herkes</td></tr>
+<tr><td><strong>II</strong></td><td>Hasta kayıt</td><td>Tarama başlar</td></tr>
+<tr><td><strong>III</strong></td><td>Kontrol odası</td><td>MR eğitimli personel</td></tr>
+<tr><td><strong>IV</strong></td><td>Mıknatıs odası</td><td>Sıkı kontrol — ferromanyetik tarama</td></tr>
+</table></div>
+<div class="content-block"><h4><span class="cb-icon">⚡</span> Tehlikeler</h4>
+<ul>
+<li><strong>Projektil etkisi:</strong> Ferromanyetik cisimler → ölümcül olabilir!</li>
+<li><strong>Termal yanık:</strong> RF → SAR. İletken kablolar, dövmeler → lokal yanık.</li>
+<li><strong>PNS:</strong> Hızlı gradient → sinir uyarısı, karıncalanma.</li>
+<li><strong>Akustik gürültü:</strong> 100+ dB. Kulak koruyucu zorunlu.</li>
+<li><strong>Quench:</strong> Soğutma kaybı → helyum salınımı → oksijen deplasyonu.</li>
+</ul></div>
+<div class="content-block"><h4><span class="cb-icon">📱</span> İmplant Sınıflandırması</h4>
+<table class="compare-table">
+<tr><th>Etiket</th><th>Anlam</th></tr>
+<tr><td><strong>MR Safe</strong></td><td>Tüm ortamlarda güvenli (non-metalik, non-manyetik)</td></tr>
+<tr><td><strong>MR Conditional</strong></td><td>Belirli koşullarda güvenli (alan, SAR, gradient limitleri)</td></tr>
+<tr><td><strong>MR Unsafe</strong></td><td>MR odasına giremez</td></tr>
+</table></div>
+<div class="info-box warn"><div class="info-box-title">SAR (W/kg)</div><p>FDA: tüm vücut &lt;4, baş &lt;3.2, ekstremite &lt;12 W/kg. SAR ∝ B₀² → 3T'de 1.5T'nin 4 katı!</p></div>
+<div class="info-box"><div class="info-box-title">Gebelik</div><p>ACR 2024: MR herhangi trimesterde yapılabilir (endike ise). Gd kontrastsız tercih edilir. Gerekirse risk/yarar + makrosiklik ajan.</p></div>
+<div class="source-ref"><div class="source-ref-title">Kaynaklar</div><ul><li>ACR Manual on MR Safety, 2024</li><li>Kanal E et al. ACR MR Safe Practices. JMRI 2013;37(3)</li></ul></div>
+</div></div>
+</div>
+<!-- QUIZ SECTION -->
+<div class="section" id="sec-quiz">
+<div class="section-title"><div class="section-title-icon">🧩</div><div><h3>Fizik Quiz</h3><p>Bilgilerini test et — USG, BT ve MR fiziği soruları</p></div></div>
+<div class="progress-bar-section" style="margin-bottom:20px;"><div class="progress-label"><span>Quiz İlerlemesi</span><span id="quizScore">0 / 0</span></div><div class="progress-track"><div class="progress-fill" id="quizProgressFill" style="width:0%"></div></div></div>
+<div id="quizContainer"></div>
+</div>
+
+</main>
+<footer class="footer">
+<p>Radiology Education Platform — Radyoloji Fiziği Modülü</p>
+<p style="margin-top:4px;font-size:11px;">Kaynaklar: Bushberg (Essential Physics), Kremkau (Sonography), Hashemi (MRI: The Basics), ACR/AAPM Guidelines</p>
+</footer>
+
+<script>
+function toggleTheme(){var b=document.body;b.classList.toggle('light');var l=b.classList.contains('light');localStorage.setItem('radiology-theme',l?'light':'dark');document.getElementById('themeText').textContent=l?'Açık':'Koyu';}
+(function(){var t=localStorage.getItem('radiology-theme');if(t==='light'){document.body.classList.add('light');document.getElementById('themeText').textContent='Açık';}})();
+
+var currentTab='overview';
+document.getElementById('navTabs').addEventListener('click',function(e){
+if(e.target.classList.contains('nav-tab')){
+document.querySelectorAll('.nav-tab').forEach(function(t){t.classList.remove('active');});
+e.target.classList.add('active');currentTab=e.target.dataset.tab;
+document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});
+var sec=document.getElementById('sec-'+currentTab);if(sec)sec.classList.add('active');
+window.scrollTo({top:0,behavior:'smooth'});updateProgress();}});
+
+(function(){var p=new URLSearchParams(window.location.search);var pg=p.get('page');if(pg){var t=document.querySelector('.nav-tab[data-tab="'+pg+'"]');if(t)t.click();}})();
+
+function toggleTopic(h){var c=h.parentElement;var w=c.classList.contains('open');c.classList.toggle('open');if(!w){markTopicRead(c);updateProgress();}}
+
+var readTopics=JSON.parse(localStorage.getItem('fizik_read_topics')||'{}');
+function markTopicRead(c){var n=c.querySelector('.topic-name');if(n){var k=n.textContent.trim().replace(/\s+/g,'_').toLowerCase();readTopics[k]=true;localStorage.setItem('fizik_read_topics',JSON.stringify(readTopics));}}
+function updateProgress(){var a=document.querySelectorAll('.topic-card');var t=a.length;var r=Object.keys(readTopics).length;var p=t>0?Math.round((r/t)*100):0;document.getElementById('progressPct').textContent=p+'%';document.getElementById('progressFill').style.width=p+'%';}
+updateProgress();
+
+var quizData=[
+{q:"Yumuşak dokuda ses hızı ortalama kaç m/s'dir?",opts:["1000 m/s","1540 m/s","3000 m/s","330 m/s"],correct:1,exp:"Yumuşak dokuda ortalama ses hızı 1540 m/s olarak kabul edilir.",cat:"usg"},
+{q:"Piezoelektrik kristalin zamanının yüzde kaçında alıcı modda çalışır?",opts:["%50","%75","%99","%10"],correct:2,exp:"Transdüser zamanının %99'unda alıcı, %1'inde verici modundadır.",cat:"usg"},
+{q:"Doppler USG'de doğru hız ölçümü için insonasyon açısı kaç derecenin altında olmalıdır?",opts:["30°","45°","60°","90°"],correct:2,exp:"60° üzerinde cosθ hızla azalır ve hız ölçüm hatası katlanır. 90° açıda sinyal alınamaz.",cat:"usg"},
+{q:"PW Doppler'de aliasing'i önlemek için ne yapılır?",opts:["PRF azaltma","Frekans artırma","PRF artırma","Gain azaltma"],correct:2,exp:"Nyquist limiti = PRF/2. PRF artırılırsa ölçülebilir maks frekans artar.",cat:"usg"},
+{q:"Hangi USG artefaktı safra taşı tanısında yardımcıdır?",opts:["Posterior güçlenme","Akustik gölge","Ayna etkisi","Side lobe"],correct:1,exp:"Akustik gölge: Taş arkasında hipoekoik bant. Taş + gölge = %95+ spesifik.",cat:"usg"},
+{q:"Tissue Harmonic'de hangi frekans kullanılır?",opts:["Fundamental","2. harmonik (2×f)","3. harmonik","Sub-harmonik"],correct:1,exp:"THI'da 2. harmonik (2×f) kullanılır. Non-lineer propagasyonla oluşur.",cat:"usg"},
+{q:"X-ışını tüpünde enerjinin yüzde kaçı X-ışınıdır?",opts:["%50","%10","%1","%25"],correct:2,exp:"~%99'u ısı, ~%1'i X-ışını. Anot soğutması kritiktir.",cat:"bt"},
+{q:"Suyun Hounsfield değeri kaçtır?",opts:["-1000","0","+40","+100"],correct:1,exp:"HU skalası: su=0, hava=-1000.",cat:"bt"},
+{q:"Beam hardening artefaktı neden oluşur?",opts:["Dedektör arızası","Düşük enerjili fotonların absorbe edilmesi","Hasta hareketi","Helikal interpolasyon"],correct:1,exp:"Polikromatik ışın düşük enerjili fotonlarını kaybeder → ışın 'sertleşir' → cupping ve koyu bantlar.",cat:"bt"},
+{q:"CTDIvol'ün birimi nedir?",opts:["mSv","mGy","mGy·cm","Gy·cm²"],correct:1,exp:"CTDIvol: mGy. DLP: mGy·cm. Efektif doz: mSv.",cat:"bt"},
+{q:"DECT'de VNC görüntü nasıl oluşturulur?",opts:["Düşük doz tarama","İyot çıkarılarak","Kalsiyum çıkarılarak","Kemik penceresi"],correct:1,exp:"VNC: Materyal dekompozisyon ile iyot dijital olarak çıkarılır.",cat:"bt"},
+{q:"Photon-counting CT'nin en önemli avantajı?",opts:["Daha ucuz","Elektronik gürültü eliminasyonu ve multi-enerji","Daha büyük FOV","Daha hızlı rotasyon"],correct:1,exp:"PCCT: elektronik gürültü eliminasyonu, 0.2mm çözünürlük, intrinsik multi-energy, %30-40 doz azaltımı.",cat:"bt"},
+{q:"1.5T'de hidrojen Larmor frekansı yaklaşık kaç MHz?",opts:["21","42","64","128"],correct:2,exp:"ω₀ = 42.58 × 1.5 ≈ 63.87 ≈ 64 MHz. 3T'de ~128 MHz.",cat:"mr"},
+{q:"T1W görüntüde BOS nasıl görünür?",opts:["Parlak","Koyu","İzointens","Görünmez"],correct:1,exp:"BOS T1 ~4000 ms. Kısa TR'de Mz geri kazanılamamış → düşük sinyal → koyu.",cat:"mr"},
+{q:"FLAIR'de hangi doku baskılanır?",opts:["Yağ","Kemik iliği","BOS/sıvı","Kas"],correct:2,exp:"FLAIR: TI ~2200 ms → BOS baskılanır → periventriküler lezyonlar belirginleşir.",cat:"mr"},
+{q:"DWI'da kısıtlı difüzyon ADC'de nasıl görünür?",opts:["Parlak","Koyu","İzointens","Karışık"],correct:1,exp:"Kısıtlı difüzyon = DWI parlak + ADC koyu (düşük değer). T2 shine-through = DWI parlak + ADC parlak.",cat:"mr"},
+{q:"Chemical shift Tip 2 hangi tanıda kritiktir?",opts:["Hepatik kist","Adrenal adenom","Kemik metastazı","Beyin absesi"],correct:1,exp:"Adrenal adenomlar lipid içerir → opposed-phase'de sinyal kaybı ≥20% = adenom (%95+ spesifite).",cat:"mr"},
+{q:"MR Conditional ne anlama gelir?",opts:["Her koşulda güvenli","Belirli koşullarda güvenli","MR odasına giremez","Sadece 1.5T güvenli"],correct:1,exp:"Belirli koşullar (alan gücü, SAR, gradient) sağlandığında güvenli.",cat:"mr"},
+{q:"k-space merkezi hangi bilgiyi içerir?",opts:["Kenar detayları","Kontrast ve genel şekil","Gürültü","Faz bilgisi"],correct:1,exp:"Merkez = düşük uzaysal frekans = kontrast + şekil. Periferi = kenar detayları.",cat:"mr"},
+{q:"SAR'ı artıran faktör hangisidir?",opts:["Düşük flip angle","Yüksek B₀","Uzun TR","Küçük FOV"],correct:1,exp:"SAR ∝ B₀². Yüksek flip, kısa TR, geniş FOV de artırır. 3T'de 1.5T'nin 4 katı!",cat:"mr"},
+{q:"MRS'de tümör belirteci metabolit hangisidir?",opts:["NAA","Kreatin","Kolin","Laktat"],correct:2,exp:"Kolin: Membran turnover ↑ → hızlı proliferasyon. Yüksek Cho + düşük NAA = tümör.",cat:"mr"}
+];
+
+var quizState=JSON.parse(localStorage.getItem('fizik_quiz_state')||'{}');
+var quizAnswered=quizState.answered||{};var quizCorrectCount=quizState.correctCount||0;
+
+function renderQuiz(){var c=document.getElementById('quizContainer');var h='';
+quizData.forEach(function(q,i){var cl=q.cat==='usg'?'USG':q.cat==='bt'?'BT':'MR';var cc='tag-'+q.cat;var ans=quizAnswered[i]!==undefined;
+h+='<div class="quiz-box" id="quiz-'+i+'"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;"><span class="tag '+cc+'">'+cl+'</span><span style="font-size:11px;color:var(--text3);">Soru '+(i+1)+'/'+quizData.length+'</span></div>';
+h+='<div class="quiz-question">'+q.q+'</div><div class="quiz-options">';
+var L=['A','B','C','D'];q.opts.forEach(function(o,j){var cs='quiz-opt';if(ans){if(j===q.correct)cs+=' correct';else if(j===quizAnswered[i]&&j!==q.correct)cs+=' wrong';}
+var d=ans?'style="pointer-events:none;"':'';h+='<button class="'+cs+'" '+d+' onclick="answerQuiz('+i+','+j+')"><span class="opt-letter">'+L[j]+'</span>'+o+'</button>';});
+h+='</div><div class="quiz-explanation'+(ans?' show':'')+'" id="quizExp-'+i+'">'+q.exp+'</div></div>';});
+c.innerHTML=h;updateQuizScore();}
+
+function answerQuiz(qi,oi){if(quizAnswered[qi]!==undefined)return;quizAnswered[qi]=oi;if(oi===quizData[qi].correct)quizCorrectCount++;
+quizState.answered=quizAnswered;quizState.correctCount=quizCorrectCount;localStorage.setItem('fizik_quiz_state',JSON.stringify(quizState));
+var opts=document.querySelectorAll('#quiz-'+qi+' .quiz-opt');opts.forEach(function(o,j){o.style.pointerEvents='none';if(j===quizData[qi].correct)o.classList.add('correct');else if(j===oi)o.classList.add('wrong');});
+document.getElementById('quizExp-'+qi).classList.add('show');updateQuizScore();}
+
+function updateQuizScore(){var t=Object.keys(quizAnswered).length;document.getElementById('quizScore').textContent=quizCorrectCount+' / '+t;
+var p=quizData.length>0?Math.round((t/quizData.length)*100):0;document.getElementById('quizProgressFill').style.width=p+'%';}
+renderQuiz();
+</script>
+</body>
+</html>
