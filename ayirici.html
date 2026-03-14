@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Ayırıcı Tanı Motoru — Radyoloji Eğitim</title>
+<meta name="description" content="İnteraktif Ayırıcı Tanı Motoru — Bölge ve bulgu bazlı radyolojik ayırıcı tanı arama motoru">
+<meta name="theme-color" content="#0f172a">
+<meta property="og:title" content="Ayırıcı Tanı Motoru">
+<meta property="og:description" content="İnteraktif Ayırıcı Tanı Motoru — Bölge ve bulgu bazlı radyolojik ayırıcı tanı">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<link rel="manifest" href="manifest.json">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+:root{--bg:#0f172a;--bg2:#1e293b;--bg3:#334155;--text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;--accent:#3b82f6;--accent2:#06b6d4;--danger:#f43f5e;--success:#10b981;--warn:#f59e0b;--radius:16px;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background 0.3s,color 0.3s;line-height:1.6;}
+body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#64748b;--text3:#94a3b8;}
+html{scroll-behavior:smooth;}
+
+/* Header */
+.header{background:var(--bg2);border-bottom:1px solid var(--bg3);padding:16px 20px;position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);}
+.header-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo h1{font-size:20px;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.logo span{font-size:12px;color:var(--text3);font-weight:500;}
+.header-actions{display:flex;gap:8px;}
+.header-btn{background:var(--bg);border:1px solid var(--bg3);border-radius:10px;padding:10px 14px;min-height:44px;color:var(--text2);font-size:13px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all 0.2s;}
+.header-btn:active{opacity:0.7;}
+@media(hover:hover){.header-btn:hover{border-color:var(--accent);color:var(--accent);}}
+
+/* Main */
+.main{max-width:900px;margin:0 auto;padding:20px 16px 80px;}
+
+/* Search */
+.search-section{margin-bottom:20px;}
+.search-box{position:relative;}
+.search-box input{width:100%;background:var(--bg2);border:1px solid var(--bg3);border-radius:12px;padding:14px 16px 14px 44px;color:var(--text);font-size:16px;outline:none;transition:border-color 0.2s;}
+.search-box input:focus{border-color:var(--accent);}
+.search-box input::placeholder{color:var(--text3);}
+.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:18px;pointer-events:none;}
+.clear-btn{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:var(--bg3);border:none;color:var(--text2);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;display:none;align-items:center;justify-content:center;}
+.clear-btn.visible{display:flex;}
+
+/* Region Filters */
+.region-section{margin-bottom:16px;}
+.section-label{font-size:12px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;}
+.region-btns{display:flex;flex-wrap:wrap;gap:6px;}
+.region-btn{background:var(--bg2);border:1px solid var(--bg3);border-radius:10px;padding:8px 14px;min-height:44px;font-size:13px;font-weight:600;color:var(--text2);cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+.region-btn:active{opacity:0.7;}
+@media(hover:hover){.region-btn:hover{border-color:var(--accent);color:var(--accent);}}
+.region-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+.region-btn .count{font-size:10px;opacity:0.7;margin-left:4px;}
+
+/* Finding Tags */
+.findings-section{margin-bottom:20px;}
+.findings-tags{display:flex;flex-wrap:wrap;gap:6px;max-height:200px;overflow-y:auto;padding:2px 0;}
+.finding-tag{background:var(--bg2);border:1px solid var(--bg3);border-radius:20px;padding:6px 14px;min-height:36px;font-size:12px;font-weight:500;color:var(--text2);cursor:pointer;transition:all 0.2s;white-space:nowrap;display:flex;align-items:center;gap:4px;}
+.finding-tag:active{opacity:0.7;}
+@media(hover:hover){.finding-tag:hover{border-color:var(--accent2);color:var(--accent2);}}
+.finding-tag.active{background:var(--accent2);border-color:var(--accent2);color:#fff;}
+.finding-tag .tag-count{font-size:10px;opacity:0.7;}
+
+/* Active Filters Bar */
+.active-filters{display:none;margin-bottom:16px;padding:10px 14px;background:var(--bg2);border:1px solid var(--bg3);border-radius:12px;gap:8px;align-items:center;flex-wrap:wrap;}
+.active-filters.visible{display:flex;}
+.active-filters-label{font-size:11px;color:var(--text3);font-weight:600;white-space:nowrap;}
+.active-filter-chip{background:var(--accent);color:#fff;border:none;border-radius:20px;padding:4px 10px;font-size:11px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:4px;transition:opacity 0.2s;}
+.active-filter-chip:hover{opacity:0.8;}
+.active-filter-chip.finding-chip{background:var(--accent2);}
+.clear-all-btn{background:var(--danger);color:#fff;border:none;border-radius:20px;padding:4px 10px;font-size:11px;font-weight:600;cursor:pointer;margin-left:auto;transition:opacity 0.2s;}
+.clear-all-btn:hover{opacity:0.8;}
+
+/* Results Info */
+.results-info{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding:0 4px;}
+.results-count{font-size:13px;color:var(--text2);}
+.results-count strong{color:var(--accent);}
+.sort-btn{background:none;border:none;color:var(--text3);font-size:12px;cursor:pointer;padding:4px 8px;}
+.sort-btn:hover{color:var(--accent);}
+
+/* Result Cards */
+.results-grid{display:flex;flex-direction:column;gap:10px;}
+.result-card{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--radius);overflow:hidden;transition:border-color 0.2s;}
+@media(hover:hover){.result-card:hover{border-color:var(--accent);}}
+.card-header{padding:16px;cursor:pointer;display:flex;align-items:flex-start;gap:12px;min-height:44px;}
+.card-tag{flex-shrink:0;padding:4px 10px;border-radius:8px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.3px;}
+.card-tag.common{background:rgba(16,185,129,0.15);color:var(--success);border:1px solid rgba(16,185,129,0.3);}
+.card-tag.important{background:rgba(245,158,11,0.15);color:var(--warn);border:1px solid rgba(245,158,11,0.3);}
+.card-tag.critical{background:rgba(244,63,94,0.15);color:var(--danger);border:1px solid rgba(244,63,94,0.3);}
+.card-info{flex:1;min-width:0;}
+.card-name{font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.card-region{font-size:11px;color:var(--text3);margin-bottom:6px;}
+.card-findings-preview{display:flex;flex-wrap:wrap;gap:4px;}
+.card-finding-pill{background:var(--bg);border:1px solid var(--bg3);border-radius:6px;padding:2px 8px;font-size:10px;color:var(--text2);}
+.card-finding-pill.matched{background:rgba(6,182,212,0.15);border-color:rgba(6,182,212,0.3);color:var(--accent2);}
+.card-chevron{flex-shrink:0;color:var(--text3);font-size:18px;transition:transform 0.3s;margin-top:2px;}
+.result-card.expanded .card-chevron{transform:rotate(180deg);}
+.card-detail{display:none;padding:0 16px 16px;border-top:1px solid var(--bg3);}
+.result-card.expanded .card-detail{display:block;padding-top:14px;}
+.detail-section{margin-bottom:12px;}
+.detail-section:last-child{margin-bottom:0;}
+.detail-label{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;}
+.detail-text{font-size:13px;color:var(--text2);line-height:1.6;}
+.detail-findings{display:flex;flex-wrap:wrap;gap:4px;}
+.detail-finding{background:var(--bg);border:1px solid var(--bg3);border-radius:8px;padding:4px 10px;font-size:11px;color:var(--text2);}
+.detail-finding.matched{background:rgba(6,182,212,0.15);border-color:rgba(6,182,212,0.3);color:var(--accent2);}
+.modality-badge{display:inline-block;background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3);color:var(--accent);border-radius:6px;padding:3px 8px;font-size:11px;font-weight:600;margin-right:4px;margin-bottom:4px;}
+.match-score{background:var(--bg);border-radius:8px;padding:3px 10px;font-size:11px;font-weight:700;color:var(--accent2);flex-shrink:0;}
+
+/* Empty State */
+.empty-state{text-align:center;padding:60px 20px;color:var(--text3);}
+.empty-icon{font-size:48px;margin-bottom:16px;opacity:0.5;}
+.empty-title{font-size:18px;font-weight:700;color:var(--text2);margin-bottom:8px;}
+.empty-desc{font-size:13px;line-height:1.6;}
+
+/* Stats bar */
+.stats-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px;}
+.stat-item{background:var(--bg2);border:1px solid var(--bg3);border-radius:12px;padding:14px;text-align:center;}
+.stat-num{font-size:24px;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.stat-label{font-size:11px;color:var(--text3);margin-top:2px;}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--bg3);border-radius:3px;}
+
+/* Responsive */
+@media(max-width:640px){
+  .logo h1{font-size:17px;}
+  .region-btns{gap:4px;}
+  .region-btn{padding:6px 10px;font-size:12px;min-height:40px;}
+  .stats-bar{grid-template-columns:repeat(3,1fr);gap:6px;}
+  .stat-item{padding:10px 6px;}
+  .stat-num{font-size:20px;}
+  .finding-tag{padding:5px 10px;font-size:11px;min-height:32px;}
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <h1>RadEdu</h1>
+      <span>Ayırıcı Tanı</span>
+    </a>
+    <div class="header-actions">
+      <button class="header-btn" id="themeToggle" aria-label="Tema değiştir">
+        <span id="themeIcon">🌙</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Main Content -->
+<main class="main">
+
+  <!-- Stats -->
+  <div class="stats-bar">
+    <div class="stat-item"><div class="stat-num" id="totalCount">0</div><div class="stat-label">Tanı</div></div>
+    <div class="stat-item"><div class="stat-num" id="regionCount">7</div><div class="stat-label">Bölge</div></div>
+    <div class="stat-item"><div class="stat-num" id="findingCount">0</div><div class="stat-label">Bulgu</div></div>
+  </div>
+
+  <!-- Search -->
+  <div class="search-section">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Tanı veya bulgu ara..." autocomplete="off">
+      <button class="clear-btn" id="clearSearch" aria-label="Temizle">✕</button>
+    </div>
+  </div>
+
+  <!-- Region Filters -->
+  <div class="region-section">
+    <div class="section-label">Vücut Bölgesi</div>
+    <div class="region-btns" id="regionBtns"></div>
+  </div>
+
+  <!-- Finding Tags -->
+  <div class="findings-section">
+    <div class="section-label">Bulgular / Özellikler</div>
+    <div class="findings-tags" id="findingTags"></div>
+  </div>
+
+  <!-- Active Filters -->
+  <div class="active-filters" id="activeFilters">
+    <span class="active-filters-label">Filtreler:</span>
+    <div id="activeFilterChips"></div>
+    <button class="clear-all-btn" id="clearAllFilters">Tümünü Temizle</button>
+  </div>
+
+  <!-- Results Info -->
+  <div class="results-info">
+    <div class="results-count" id="resultsCount"></div>
+  </div>
+
+  <!-- Results -->
+  <div class="results-grid" id="resultsGrid"></div>
+
+  <!-- Empty State -->
+  <div class="empty-state" id="emptyState" style="display:none;">
+    <div class="empty-icon">🔎</div>
+    <div class="empty-title">Sonuç bulunamadı</div>
+    <div class="empty-desc">Farklı filtreler veya arama terimleri deneyin</div>
+  </div>
+
+</main>
+
+<script>
+// ============================================================
+// DATABASE: 100 differential diagnoses across 7 regions
+// ============================================================
+const DATABASE = [
+// ==================== BEYİN (Brain) ====================
+{name:"Glioblastom (GBM)",region:"Beyin",findings:["ring enhancement","perilesional edema","mass effect","restricted diffusion","necrosis","irregular margins"],modality:["MR","MR Spektroskopi"],keyFeatures:"İrregüler halka tarzı kontrastlanma, santral nekroz, yüksek kolin/NAA oranı. Kelebek gliom: korpus kallozum geçişi.",tag:"critical"},
+{name:"Beyin Metastazı",region:"Beyin",findings:["ring enhancement","perilesional edema","mass effect","multiple lesions","gray-white junction"],modality:["MR","BT"],keyFeatures:"Gri-beyaz cevher bileşkesinde multipl lezyonlar, orantısız perilesional ödem. Akciğer, meme, melanom en sık primer.",tag:"critical"},
+{name:"Beyin Absesi",region:"Beyin",findings:["ring enhancement","restricted diffusion","perilesional edema","smooth thin rim"],modality:["MR","DWI"],keyFeatures:"Difüzyon kısıtlanması (DWI parlak, ADC düşük) — tümörden ayırt edici. İnce düzgün duvar, medialde daha ince.",tag:"critical"},
+{name:"Menenjiyom",region:"Beyin",findings:["homogeneous enhancement","dural tail sign","calcification","extra-axial mass","hyperostosis"],modality:["MR","BT"],keyFeatures:"Ekstra-aksiyel, yoğun homojen kontrastlanma, dural kuyruk işareti. BT'de kalsifikasyon ve komşu kemik hipertrofisi.",tag:"common"},
+{name:"Akustik Schwannom",region:"Beyin",findings:["CP angle mass","IAC widening","homogeneous enhancement","ice cream on cone"],modality:["MR"],keyFeatures:"Serebellopontin köşe kitlesi, iç kulak yoluna uzanım (dondurma külahı). T2'de heterojen sinyal.",tag:"common"},
+{name:"Epidermoid Kist",region:"Beyin",findings:["restricted diffusion","CP angle mass","T1 dark","T2 bright","no enhancement","cauliflower shape"],modality:["MR","DWI"],keyFeatures:"DWI'da parlak (schwannomdan ayırt edici), kontrastlanmaz. Karnabahar benzeri şekil, BOS'a benzer sinyal.",tag:"important"},
+{name:"Akut İskemik İnme",region:"Beyin",findings:["restricted diffusion","vascular territory","loss of gray-white differentiation","hyperdense vessel sign"],modality:["MR","BT","BT Anjio"],keyFeatures:"DWI'da erken (dakikalar içinde) parlak sinyal. Vasküler alan dağılımı, ADC haritasında düşük sinyal.",tag:"critical"},
+{name:"Araknoid Kist",region:"Beyin",findings:["T2 bright","T1 dark","no enhancement","CSF signal","smooth margins","no restricted diffusion"],modality:["MR","BT"],keyFeatures:"BOS sinyali ile tamamen uyumlu, kontrastlanmaz, difüzyon kısıtlaması yok. Epidermoidde DWI parlak.",tag:"common"},
+{name:"MS Plakları (Multipl Skleroz)",region:"Beyin",findings:["T2 bright","periventricular","Dawson fingers","open ring enhancement","ovoid lesions","restricted diffusion"],modality:["MR"],keyFeatures:"Periventriküler ovoid lezyonlar (Dawson parmakları), açık halka kontrastlanma. Kallozoseptal arayüz tutulumu.",tag:"important"},
+{name:"Toksoplazmoz",region:"Beyin",findings:["ring enhancement","perilesional edema","basal ganglia","multiple lesions","eccentric target sign"],modality:["MR"],keyFeatures:"İmmünsüprese hastada bazal ganglia tutulumu, eksentrik hedef işareti. Lenfomadan ayırıcı tanı: Tl-201 SPECT.",tag:"critical"},
+{name:"Primer SSS Lenfoma",region:"Beyin",findings:["homogeneous enhancement","restricted diffusion","periventricular","deep gray matter"],modality:["MR","DWI"],keyFeatures:"Periventriküler yoğun homojen kontrastlanma, difüzyon kısıtlaması. İmmünsüprese hastada: halka tarzı kontrastlanma.",tag:"important"},
+{name:"Kraniofarenjiyom",region:"Beyin",findings:["calcification","sellar-suprasellar mass","cystic and solid","T1 bright"],modality:["MR","BT"],keyFeatures:"Sellar/suprasellar kalsifiye kistik-solid kitle. Çocuklarda adamantinömatöz (kalsifikasyon belirgin), yetişkinde papiller tip.",tag:"important"},
+{name:"Hipofiz Makroadenom",region:"Beyin",findings:["sellar-suprasellar mass","homogeneous enhancement","snowman sign","cavernous sinus invasion"],modality:["MR"],keyFeatures:"Kardan adam konfigürasyonu (suprasellar uzanım), optik kiazma basısı, kavernöz sinüs invazyonu.",tag:"common"},
+{name:"Hemanjioblastom",region:"Beyin",findings:["cystic with mural nodule","posterior fossa","enhancement of nodule","flow voids"],modality:["MR"],keyFeatures:"Posterior fossa kistik lezyon + kontrastlanan mural nodül. Von Hippel-Lindau sendromu ile ilişkili.",tag:"important"},
+{name:"Subependimal Dev Hücreli Astrositom (SEGA)",region:"Beyin",findings:["Monro foramen mass","calcification","enhancement","hydrocephalus"],modality:["MR","BT"],keyFeatures:"Monro foramen düzeyinde kontrastlanan kitle, tüberoskleroz kompleksinde görülür. Obstrüktif hidrosefali.",tag:"important"},
+
+// ==================== BAŞ-BOYUN (Head & Neck) ====================
+{name:"Pleomorfik Adenom",region:"Baş-boyun",findings:["T2 bright","well-defined","parotid gland mass","homogeneous enhancement","lobulated"],modality:["MR","USG"],keyFeatures:"Parotis bezinde en sık tümör, T2'de çok parlak, düzgün sınırlı lobüle kitle. Yavaş büyüme.",tag:"common"},
+{name:"Warthin Tümörü",region:"Baş-boyun",findings:["parotid gland mass","bilateral","multifocal","T2 intermediate","tail of parotid"],modality:["MR","USG"],keyFeatures:"Parotis kuyruğunda, erkeklerde, sigara içenlerde. %10 bilateral. T2'de orta sinyal (pleomorfik adenomdan farklı).",tag:"common"},
+{name:"Nazofarenks Karsinomu",region:"Baş-boyun",findings:["nasopharyngeal mass","skull base invasion","retropharyngeal lymph node","Rosenmüller fossa"],modality:["MR","BT","PET-BT"],keyFeatures:"Rosenmüller fossasında kitle, kafa tabanı invazyonu, retrofaringeal LAP. EBV ilişkili, Güneydoğu Asya'da sık.",tag:"critical"},
+{name:"Ranula",region:"Baş-boyun",findings:["T2 bright","sublingual space","cystic lesion","plunging extension","no enhancement"],modality:["MR","BT"],keyFeatures:"Sublingual bezden kaynaklanan retansiyon kisti. Dalıcı ranula: mylohyoid kasın altına uzanım gösterir.",tag:"common"},
+{name:"Tiroglossal Duktus Kisti",region:"Baş-boyun",findings:["midline neck mass","cystic lesion","hyoid bone level","T2 bright","thin wall enhancement"],modality:["USG","MR","BT"],keyFeatures:"Orta hatta, hyoid kemiği seviyesinde veya infrahyoid kistik lezyon. İnfekte olduğunda duvar kontrastlanması artar.",tag:"common"},
+{name:"Brankiyal Yarık Kisti (2. Tip)",region:"Baş-boyun",findings:["lateral neck mass","cystic lesion","angle of mandible","T2 bright","thin wall"],modality:["USG","BT","MR"],keyFeatures:"SCM kasının ön kenarında, mandibula açısı seviyesinde kistik lezyon. En sık 2. brankiyal yarık anomalisi.",tag:"common"},
+{name:"Paragangliom (Glomus Tümör)",region:"Baş-boyun",findings:["salt and pepper pattern","flow voids","skull base mass","intense enhancement","vascular mass"],modality:["MR","BT Anjio"],keyFeatures:"Tuz-biber paterni (T1'de flow void + kanama). Glomus jugulare, caroticum, vagale, timpanicum tipleri.",tag:"important"},
+{name:"Kolesteatom",region:"Baş-boyun",findings:["restricted diffusion","middle ear mass","bone erosion","no enhancement","Prussak space"],modality:["MR","HRBT"],keyFeatures:"Prussak boşluğunda (pars flaccida tipi) veya posterior mezotimpanumda (pars tensa). DWI'da parlak, kontrastlanmaz.",tag:"important"},
+
+// ==================== TORAKS (Thorax) ====================
+{name:"Akciğer Adenokarsinomu",region:"Toraks",findings:["ground glass opacity","part-solid nodule","spiculated margins","air bronchograms","peripheral location"],modality:["BT","PET-BT"],keyFeatures:"Periferal yerleşimli, buzlu cam + solid komponent. Spiküle kenarlar, hava bronkogramları. En sık akciğer kanseri tipi.",tag:"critical"},
+{name:"Küçük Hücreli Akciğer Karsinomu",region:"Toraks",findings:["central mass","mediastinal lymphadenopathy","hilar mass","bronchial obstruction","SVC syndrome"],modality:["BT","PET-BT"],keyFeatures:"Santral hiler/mediastinal kitle, masif LAP, VCS sendromu. Hızlı büyüme, erken metastaz.",tag:"critical"},
+{name:"İdiyopatik Pulmoner Fibrozis (UIP)",region:"Toraks",findings:["honeycomb pattern","traction bronchiectasis","ground glass opacity","basal predominance","subpleural"],modality:["YRBT"],keyFeatures:"Subpleural, bazal predominans, bal peteği (honeycomb) paterni + traksiyon bronşektazisi. YRBT tanı koydurucu.",tag:"important"},
+{name:"Sarkoidoz (Pulmoner)",region:"Toraks",findings:["bilateral hilar lymphadenopathy","perilymphatic nodules","galaxy sign","upper lobe predominance"],modality:["BT","PET-BT"],keyFeatures:"Bilateral simetrik hiler LAP (Löfgren sendromu), perilenfatik mikronodüller, galaksi işareti.",tag:"important"},
+{name:"Pulmoner Emboli",region:"Toraks",findings:["filling defect","pulmonary artery","Hampton hump","Westermark sign","mosaic perfusion"],modality:["BT Anjio"],keyFeatures:"Pulmoner arterde dolum defekti. Hampton hörgücü (periferik kama şekilli konsolidasyon), Westermark işareti (oligemi).",tag:"critical"},
+{name:"Pnömonitis (Hipersensitivite)",region:"Toraks",findings:["ground glass opacity","centrilobular nodules","mosaic attenuation","air trapping","headcheese sign"],modality:["YRBT"],keyFeatures:"Sentrilübüler buzlu cam nodüller, mozaik atenüasyon (headcheese sign), hava hapsi. Üst-orta lob predominans.",tag:"important"},
+{name:"Bronşektazi",region:"Toraks",findings:["signet ring sign","tram track sign","dilated bronchi","bronchial wall thickening","mucoid impaction"],modality:["YRBT"],keyFeatures:"Mühür yüzüğü işareti (dilate bronş > komşu arter), tramvay ray işareti. Kistik fibrozis, ABPA ayırıcı tanı.",tag:"common"},
+{name:"Plevral Mezotelyoma",region:"Toraks",findings:["pleural thickening","pleural effusion","mediastinal shift to affected side","calcification","circumferential thickening"],modality:["BT","PET-BT","MR"],keyFeatures:"Sirkümferansiyal plevral kalınlaşma, ipsilateral volüm kaybı (mediastinal şift tümör tarafına), asbest maruziyeti.",tag:"critical"},
+{name:"Timoma",region:"Toraks",findings:["anterior mediastinal mass","well-defined","homogeneous","calcification","myasthenia gravis"],modality:["BT","MR"],keyFeatures:"Anterior mediastende düzgün sınırlı solid kitle. Myastenia gravis ilişkisi (%30-50). 4T: Timoma, Teratom, Tiroid, Terrible lenfoma.",tag:"important"},
+{name:"Lenfoma (Mediastinal)",region:"Toraks",findings:["anterior mediastinal mass","mediastinal lymphadenopathy","prevascular mass","homogeneous","conglomerate"],modality:["BT","PET-BT"],keyFeatures:"Anterior mediastende konglomere LAP, Hodgkin lenfomada prevaskular kitle. PET-BT'de yüksek FDG tutulumu.",tag:"important"},
+{name:"Kriptojenik Organize Pnömoni (COP)",region:"Toraks",findings:["consolidation","peribronchovascular","ground glass opacity","reverse halo sign","migratory"],modality:["YRBT"],keyFeatures:"Migratuar konsolidasyonlar, ters halo (atol) işareti. Peribronkovasküler dağılım, steroid yanıtı iyi.",tag:"important"},
+{name:"Pulmoner Alveolar Proteinozis",region:"Toraks",findings:["ground glass opacity","crazy paving pattern","geographic distribution","septal thickening"],modality:["YRBT"],keyFeatures:"Kaldırım taşı (crazy paving) paterni — buzlu cam + interlobüler septal kalınlaşma. Coğrafik dağılım.",tag:"important"},
+{name:"Tüberküloz (Aktif)",region:"Toraks",findings:["tree-in-bud","upper lobe predominance","cavitation","centrilobular nodules","consolidation"],modality:["BT"],keyFeatures:"Üst lob kavitasyon, tomurcuklanan ağaç (tree-in-bud) paterni, sentrilübüler nodüller. Aktif tbc göstergesi.",tag:"critical"},
+{name:"Aspergillom (Miçetoma)",region:"Toraks",findings:["intracavitary mass","air crescent sign","dependent position","upper lobe","calcification"],modality:["BT"],keyFeatures:"Kavite içi hareketli kitle (pozisyonla yer değiştirir), hava hilal (air crescent) işareti. Önceden var olan kavitede.",tag:"important"},
+{name:"Hamartom",region:"Toraks",findings:["fat-containing lesion","popcorn calcification","well-defined","smooth margins","solitary pulmonary nodule"],modality:["BT"],keyFeatures:"Patlamış mısır (popcorn) kalsifikasyonu, yağ içeriği. BT'de yağ ve kalsifikasyon birlikteliği tanı koydurucu.",tag:"common"},
+
+// ==================== ABDOMEN ====================
+{name:"Hepatoselüler Karsinom (HCC)",region:"Abdomen",findings:["arterial enhancement","washout","capsule enhancement","mosaic pattern","T2 mild bright","portal vein invasion"],modality:["MR","BT","USG"],keyFeatures:"Arteriyel fazda parlama + portal/geç fazda yıkanma + kapsül = LI-RADS 5. Sirotik karaciğerde, portal ven invazyonu.",tag:"critical"},
+{name:"Karaciğer Hemanjiom",region:"Abdomen",findings:["T2 bright","peripheral nodular enhancement","centripetal fill-in","well-defined","hyperechoic on US"],modality:["MR","BT","USG"],keyFeatures:"T2'de çok parlak (ampul işareti), periferden merkeze doğru nodüler kontrastlanma, geç fazda tam dolum.",tag:"common"},
+{name:"Fokal Nodüler Hiperplazi (FNH)",region:"Abdomen",findings:["central scar","arterial enhancement","homogeneous","T2 isointense","hepatobiliary phase uptake"],modality:["MR"],keyFeatures:"Santral skar (T2 parlak, geç kontrastlanan), arteriyel fazda homojen parlama, hepatobilier fazda tutulum (Eovist).",tag:"common"},
+{name:"Hepatik Adenom",region:"Abdomen",findings:["fat-containing lesion","hemorrhage","arterial enhancement","T1 bright","no hepatobiliary uptake"],modality:["MR"],keyFeatures:"Yağ içeriği, kanama riski. Hepatobilier fazda tutulum yok (FNH'dan ayırıcı). OKS kullanımı, glikojen depo hastalığı.",tag:"important"},
+{name:"Kolanjiokarsinom (İntraheptatik)",region:"Abdomen",findings:["peripheral enhancement","capsular retraction","delayed enhancement","biliary dilatation","T2 bright"],modality:["MR","BT"],keyFeatures:"Periferik kontrastlanma + gecikmiş santral kontrastlanma, kapsüler retraksiyon, proksimal safra yolu dilatasyonu.",tag:"critical"},
+{name:"Pankreatik Duktal Adenokarsinom",region:"Abdomen",findings:["hypoenhancing mass","pancreatic duct dilatation","double duct sign","vascular encasement","atrophy"],modality:["BT","MR"],keyFeatures:"Hipodens kitle (pankreas parankimine göre az kontrastlanan), çift kanal işareti, vasküler sarılma. Baş %60-70.",tag:"critical"},
+{name:"Pankreatik Nöroendokrin Tümör (pNET)",region:"Abdomen",findings:["arterial enhancement","well-defined","hypervascular mass","pancreatic mass","T2 bright"],modality:["BT","MR"],keyFeatures:"Hipervasküler (arteriyel fazda yoğun kontrastlanan) iyi sınırlı kitle. İnsülinoma, gastrinoma. Duktal Ca'dan ayırıcı.",tag:"important"},
+{name:"İntrahepatik Safra Yolu Hamartomları (Von Meyenburg)",region:"Abdomen",findings:["multiple small cysts","T2 bright","no enhancement","periportal","tiny lesions"],modality:["MR"],keyFeatures:"Multipl <15 mm periportal kistik lezyonlar, T2 parlak, kontrastlanmaz. Metastazdan ayırıcı tanıda önemli.",tag:"common"},
+{name:"Renal Hücreli Karsinom (Berrak Hücreli)",region:"Abdomen",findings:["hypervascular mass","heterogeneous enhancement","T2 bright","cystic necrosis","renal vein invasion"],modality:["BT","MR"],keyFeatures:"Hipervasküler heterojen kitle, nekroz/kistik alanlar, renal ven/VCI invazyonu. En sık renal malignite.",tag:"critical"},
+{name:"Anjiomyolipom (AML)",region:"Abdomen",findings:["fat-containing lesion","well-defined","renal mass","T1 bright","india ink artifact"],modality:["BT","MR","USG"],keyFeatures:"Makroskopik yağ içeriği (BT <-10 HU), kimyasal kayma artefaktı. Tüberoskleroz kompleksinde bilateral/multipl.",tag:"common"},
+{name:"Renal Onkositom",region:"Abdomen",findings:["central scar","well-defined","homogeneous enhancement","spoke wheel pattern","segmental enhancement inversion"],modality:["BT","MR"],keyFeatures:"Santral skar + tekerlek çubuğu (spoke-wheel) kontrastlanma paterni. RCC'den kesin ayırım zor, cerrahi spesimen.",tag:"important"},
+{name:"Adrenal Adenom",region:"Abdomen",findings:["signal drop on out-of-phase","well-defined","adrenal mass","small size","homogeneous"],modality:["MR","BT"],keyFeatures:"Kimyasal kayma MR: opposed-phase'de sinyal düşüşü (intrasellüler yağ). BT: <10 HU (lipidden zengin adenom).",tag:"common"},
+{name:"Feokromositoma",region:"Abdomen",findings:["T2 bright","adrenal mass","heterogeneous enhancement","cystic necrosis","hypertension"],modality:["MR","BT","MIBG"],keyFeatures:"T2'de çok parlak (light bulb sign), heterojen kontrastlanma. Hipertansiyon triadı: başağrısı, terleme, çarpıntı.",tag:"important"},
+{name:"Akut Pankreatit",region:"Abdomen",findings:["peripancreatic fat stranding","pancreatic enlargement","fluid collection","no enhancement area","perilesional edema"],modality:["BT","MR"],keyFeatures:"Peripankreatik yağ doku inflamasyonu, nekroz alanlarında kontrastlanma kaybı. Balthazar/CTSI skorlama.",tag:"critical"},
+{name:"Karaciğer Metastazı",region:"Abdomen",findings:["multiple lesions","ring enhancement","target sign","T2 mild bright","varied enhancement"],modality:["MR","BT","PET-BT"],keyFeatures:"Multipl, değişken kontrastlanma (hipervasküler: RCC, melanom / hipovasküler: kolon, akciğer). Hedef işareti.",tag:"critical"},
+{name:"Mezenterik Pannikülit",region:"Abdomen",findings:["fat stranding","mesenteric mass","halo sign","misty mesentery","no vascular invasion"],modality:["BT"],keyFeatures:"Mezenterik yağ doku inflamasyonu, yağ halo işareti (tümoral psödokapsül), damarları çevrelemeyen.",tag:"common"},
+
+// ==================== PELVİS ====================
+{name:"Endometrioma",region:"Pelvis",findings:["T1 bright","T2 shading","homogeneous","adnexal mass","no enhancement"],modality:["MR","USG"],keyFeatures:"T1 parlak (hemorajik içerik), T2 gölgeleme (shading) — kronik kan ürünleri. Çikolata kisti olarak bilinir.",tag:"common"},
+{name:"Over Dermoidi (Matür Kistik Teratom)",region:"Pelvis",findings:["fat-containing lesion","calcification","dermoid mesh","Rokitansky nodule","T1 bright"],modality:["MR","USG","BT"],keyFeatures:"Yağ + kalsifikasyon (diş, kemik) + dermoid mesh (saç). Rokitansky çıkıntısı. Yağ-sıvı seviyesi.",tag:"common"},
+{name:"Over Karsinomu (Seröz)",region:"Pelvis",findings:["complex adnexal mass","peritoneal carcinomatosis","ascites","omental cake","enhancement"],modality:["BT","MR","USG"],keyFeatures:"Kompleks kistik-solid adneksiyal kitle, peritoneal karsinomatozis, omental kek, asit.",tag:"critical"},
+{name:"Uterin Leiomyom (Fibroid)",region:"Pelvis",findings:["T2 dark","well-defined","uterine mass","calcification","homogeneous"],modality:["MR","USG"],keyFeatures:"T2'de tipik olarak hipointens, düzgün sınırlı uterin kitle. Dejenerasyon tipleri: hiyalin, kistik, kırmızı.",tag:"common"},
+{name:"Endometrium Karsinomu",region:"Pelvis",findings:["endometrial thickening","myometrial invasion","T2 intermediate","restricted diffusion","enhancement"],modality:["MR"],keyFeatures:"Endometrial kalınlaşma + myometrial invazyon derinliği (cerrahi evreleme). DWI'da kısıtlanma, T2'de orta sinyal.",tag:"critical"},
+{name:"Serviks Karsinomu",region:"Pelvis",findings:["cervical mass","parametrial invasion","T2 bright","restricted diffusion","hydrometra"],modality:["MR"],keyFeatures:"T2'de parlak servikal kitle, parametriyal invazyon (FIGO evreleme). DWI yararlı.",tag:"critical"},
+{name:"Prostat Kanseri",region:"Pelvis",findings:["T2 dark","restricted diffusion","PI-RADS","peripheral zone","early enhancement"],modality:["MR (mpMR)"],keyFeatures:"Periferik zonda T2 hipointens fokal lezyon + DWI kısıtlanma + erken kontrastlanma. PI-RADS v2.1 skorlama.",tag:"critical"},
+{name:"Mesane Karsinomu",region:"Pelvis",findings:["bladder wall mass","papillary","enhancement","T2 intermediate","hydronephrosis"],modality:["MR","BT","Sistoskopi"],keyFeatures:"Mesane duvarında papiller veya sesil kitle. Kas invazyonu (T2 vs T3) MR ile değerlendirilir (VI-RADS).",tag:"critical"},
+{name:"Douglas Boşluğu Endometriozu",region:"Pelvis",findings:["T1 bright","T2 shading","pouch of Douglas","tethering","retrocervical nodule"],modality:["MR","TVUSG"],keyFeatures:"Douglas boşluğunda T1 parlak implantlar, rektum-uterus yapışıklık (tethering), retroservikal nodül.",tag:"important"},
+{name:"Pelvik Lipomatoz",region:"Pelvis",findings:["fat-containing lesion","pear-shaped bladder","fat proliferation","well-defined","no enhancement"],modality:["BT","MR"],keyFeatures:"Pelvik yağ doku aşırı proliferasyonu, mesanede armut şekli deformitesi, rektosigmoid kompresyonu.",tag:"common"},
+
+// ==================== MSK (Musculoskeletal) ====================
+{name:"Osteosarkom",region:"MSK",findings:["aggressive periosteal reaction","sunburst pattern","Codman triangle","soft tissue mass","bone destruction"],modality:["MR","BT","Direkt Grafi"],keyFeatures:"Güneş ışığı (sunburst) periost reaksiyonu, Codman üçgeni. Diz çevresi en sık, çocuk-genç erişkin.",tag:"critical"},
+{name:"Ewing Sarkomu",region:"MSK",findings:["aggressive periosteal reaction","onion skin pattern","permeative destruction","soft tissue mass","diaphyseal"],modality:["MR","BT","Direkt Grafi"],keyFeatures:"Soğan zarı (onion peel) periost reaksiyonu, permeatif destrüksiyon, diafizer yerleşim. 5-15 yaş.",tag:"critical"},
+{name:"Enkondrom",region:"MSK",findings:["calcification","T2 bright","rings and arcs","medullary location","well-defined","no bone expansion"],modality:["MR","Direkt Grafi"],keyFeatures:"Halka ve ark kalsifikasyonu, medüller kavitede lobüle T2 parlak lezyon. El kemikleri en sık yerleşim.",tag:"common"},
+{name:"Dev Hücreli Tümör (GCT)",region:"MSK",findings:["epiphyseal","eccentric","lytic lesion","well-defined","no matrix","subchondral"],modality:["MR","Direkt Grafi"],keyFeatures:"Epifiz kapandıktan sonra, subkondral/epifizer litik lezyon, eksantrik. Diz çevresi en sık. T2 düşük sinyal alanları.",tag:"important"},
+{name:"Anevrizmal Kemik Kisti (AKK)",region:"MSK",findings:["T2 bright","fluid-fluid levels","expansile","thin septations","peripheral enhancement"],modality:["MR","Direkt Grafi"],keyFeatures:"Ekspansil kistik lezyon, sıvı-sıvı seviyeleri (kan ürünleri). İnce septalar kontrastlanır. <20 yaş.",tag:"important"},
+{name:"Pigmente Villonodüler Sinovit (PVNS)",region:"MSK",findings:["T2 dark","hemosiderin","blooming artifact","joint mass","erosions"],modality:["MR"],keyFeatures:"Hemosiderin birikimi: T1 ve T2'de düşük sinyal, gradient echo'da belirgin blooming artefaktı. Monoartiküler.",tag:"important"},
+{name:"Lipom (Yumuşak Doku)",region:"MSK",findings:["fat-containing lesion","T1 bright","T2 bright","homogeneous","well-defined","fat suppression signal loss"],modality:["MR","USG"],keyFeatures:"Tüm sekanslarda yağ sinyali, yağ baskılama ile sinyal kaybı. Homojen, ince kapsül. En sık yumuşak doku tümörü.",tag:"common"},
+{name:"Liposarkom",region:"MSK",findings:["fat-containing lesion","thick septations","non-adipose enhancement","T2 bright areas","large size"],modality:["MR"],keyFeatures:"Yağ + kalın septalar (>2 mm) + nonadipose kontrastlanan komponent. >10 cm boyut lipomdan şüphe. İyi/dedif tipleri.",tag:"critical"},
+{name:"Menisküs Yırtığı",region:"MSK",findings:["linear signal","T2 bright","meniscal surface extension","displaced fragment"],modality:["MR"],keyFeatures:"Artiküler yüzeye uzanan lineer T2 parlak sinyal. Kova sapı, horizontal, radial, kompleks tipleri.",tag:"common"},
+{name:"ACL Yırtığı",region:"MSK",findings:["ligament discontinuity","bone bruise","T2 bright","Segond fracture","anterior tibial translation"],modality:["MR"],keyFeatures:"Ligaman devamsızlığı, anormal seyir/kalınlaşma. Kemik iliği ödemi (pivot shift), Segond kırığı eşlik edebilir.",tag:"common"},
+{name:"Stres Kırığı",region:"MSK",findings:["periosteal edema","T2 bright","bone marrow edema","linear signal","cortical abnormality"],modality:["MR","Direkt Grafi"],keyFeatures:"Erken dönemde kemik iliği ödemi + periosteal ödem. İleri dönemde lineer hipointensite (kırık hattı). Grafi geç pozitifleşir.",tag:"important"},
+
+// ==================== VASKÜLER ====================
+{name:"Aort Diseksiyonu",region:"Vasküler",findings:["intimal flap","true and false lumen","mural thrombus","pericardial effusion","branch vessel involvement"],modality:["BT Anjio","MR Anjio","TEE"],keyFeatures:"İntimal flep, gerçek ve yalancı lümen. Stanford A (asendan) = acil cerrahi. Stanford B = medikal tedavi (komplike değilse).",tag:"critical"},
+{name:"Abdominal Aort Anevrizması (AAA)",region:"Vasküler",findings:["aortic dilatation","mural thrombus","calcification","periaortic fat stranding","retroperitoneal hemorrhage"],modality:["BT","USG","BT Anjio"],keyFeatures:">3 cm infrarenal aort dilatasyonu. Rüptür: periaortik yağ doku bulanıklığı, retroperitoneal kanama.",tag:"critical"},
+{name:"Renal Arter Stenozu",region:"Vasküler",findings:["renal artery narrowing","poststenotic dilatation","small kidney","delayed nephrogram","collateral vessels"],modality:["BT Anjio","MR Anjio","USG Doppler"],keyFeatures:"Aterosklerotik (%90, ostial) veya fibromusküler displazi (genç kadın, mid-distal, string of beads). Renovasküler HT.",tag:"important"},
+{name:"Derin Ven Trombozu (DVT)",region:"Vasküler",findings:["venous filling defect","vein distension","perivenous edema","no flow on Doppler","non-compressible vein"],modality:["USG Doppler","BT Venografi"],keyFeatures:"Komprese edilemeyen ven, intraluminal trombüs, akım yokluğu. May-Thurner: sol iliak ven kompresyonu.",tag:"critical"},
+{name:"Karotis Stenozu",region:"Vasküler",findings:["carotid narrowing","plaque","ulceration","flow acceleration","string sign"],modality:["USG Doppler","BT Anjio","MR Anjio"],keyFeatures:"İnternal karotis arter bulbus seviyesinde darlık, NASCET kriterleri ile derecelendirme. PSV >230 cm/s = >70% darlık.",tag:"critical"},
+{name:"Pulmoner AVM",region:"Vasküler",findings:["pulmonary nodule","feeding artery","draining vein","enhancement","well-defined"],modality:["BT Anjio","Anjiyografi"],keyFeatures:"Besleyen arter + anevrizmal kese + drene eden ven. Herediter hemorajik telanjiektazi (Osler-Weber-Rendu). Paradoksal emboli riski.",tag:"important"},
+{name:"Mezenterik İskemi (Akut)",region:"Vasküler",findings:["bowel wall thickening","mesenteric vessel occlusion","pneumatosis intestinalis","portal venous gas","paper thin wall"],modality:["BT Anjio"],keyFeatures:"SMA oklüzyonu/trombozu, bağırsak duvarı incelmesi/kalınlaşması, pnömatosis intestinalis = ileri iskemi. Acil.",tag:"critical"},
+{name:"Budd-Chiari Sendromu",region:"Vasküler",findings:["hepatic vein thrombosis","caudate lobe hypertrophy","heterogeneous enhancement","ascites","flip-flop enhancement"],modality:["MR","BT","USG Doppler"],keyFeatures:"Hepatik ven trombozu, kaudat lob hipertrofisi (ayrı venöz drenaj), flip-flop kontrastlanma paterni. Asit.",tag:"important"},
+{name:"Portal Ven Trombozu",region:"Vasküler",findings:["portal vein filling defect","cavernous transformation","bowel wall edema","ascites","splenomegaly"],modality:["BT","MR","USG Doppler"],keyFeatures:"Portal ven dolum defekti, kronik: kavernöz transformasyon (periportal kollateraller). Siroz, HCC, trombofililer.",tag:"critical"},
+
+// ==================== EK BEYİN / ÇAPRAZ BÖLGE ====================
+{name:"Spinal Epidural Abse",region:"Beyin",findings:["restricted diffusion","ring enhancement","epidural collection","spinal cord compression","T2 bright"],modality:["MR"],keyFeatures:"Epidural boşlukta DWI kısıtlanması gösteren koleksiyon, periferik kontrastlanma, kord basısı. Acil cerrahi.",tag:"critical"},
+{name:"Dermoid Kist (İntrakranial)",region:"Beyin",findings:["fat-containing lesion","T1 bright","calcification","chemical shift artifact","rupture with fat droplets"],modality:["MR","BT"],keyFeatures:"T1 parlak (yağ), kalsifikasyon, rüptürde subaraknoid yağ damlacıkları. Midline yerleşim, posterior fossa.",tag:"important"},
+{name:"Kavernöz Malformasyon (Kavernom)",region:"Beyin",findings:["hemosiderin","popcorn appearance","T2 dark rim","blooming artifact","no enhancement","gradient echo sensitive"],modality:["MR"],keyFeatures:"Patlamış mısır görünümü, hemosiderin halkası (T2 koyu rim), gradient echo/SWI'da belirgin. Kontrastlanmaz.",tag:"important"},
+{name:"Pineal Germinoma",region:"Beyin",findings:["pineal mass","homogeneous enhancement","restricted diffusion","hydrocephalus","engulfed calcification"],modality:["MR"],keyFeatures:"Pineal bölgede homojen kontrastlanan kitle, kalsifikasyonu içine alan (pineoblastomda iten). Genç erkek.",tag:"important"},
+{name:"Hipoksik İskemik Ensefalopati (Term Bebek)",region:"Beyin",findings:["restricted diffusion","basal ganglia","thalamic involvement","cortical injury","T2 bright"],modality:["MR","DWI"],keyFeatures:"Bazal ganglia ve talamusta bilateral simetrik DWI kısıtlanması. Term bebekte santral patern.",tag:"critical"},
+
+// ==================== EK TORAKS ====================
+{name:"Pulmoner Langerhans Hücreli Histiositoz",region:"Toraks",findings:["cystic lesion","upper lobe predominance","bizarre-shaped cysts","nodules","costophrenic sparing"],modality:["YRBT"],keyFeatures:"Üst lob predominansı, irregüler şekilli kistler + nodüller. Kostrofrenik sinüs korunmuş. Sigara ilişkili.",tag:"important"},
+{name:"Lenfanjiyoleyomyomatoz (LAM)",region:"Toraks",findings:["cystic lesion","thin-walled cysts","diffuse distribution","pneumothorax","chylous effusion"],modality:["YRBT"],keyFeatures:"Diffüz ince duvarlı yuvarlak kistler, doğurganlık çağındaki kadın. Pnömotoraks, şilöz efüzyon. TSC ile ilişkili olabilir.",tag:"important"},
+{name:"Pulmoner Sekestrasyon",region:"Toraks",findings:["basal mass","systemic arterial supply","cystic and solid","left lower lobe","recurrent pneumonia"],modality:["BT Anjio"],keyFeatures:"Sistemik arteriyel beslenme (aortadan). İntralobar (%75, sol alt lob) vs ekstralobar. Tekrarlayan pnömoni.",tag:"important"},
+
+// ==================== EK ABDOMEN ====================
+{name:"Crohn Hastalığı",region:"Abdomen",findings:["bowel wall thickening","mural stratification","mesenteric fat stranding","fistula","skip lesions","comb sign"],modality:["MR Enterografi","BT"],keyFeatures:"Terminal ileum tutulumu, skip lezyonlar, transmural inflamasyon, fistül/abse. Tarak işareti (vasa recta genişleme).",tag:"important"},
+{name:"Apandisit",region:"Abdomen",findings:["appendiceal dilatation","perilesional edema","fat stranding","appendicolith","wall enhancement"],modality:["BT","USG"],keyFeatures:"Apendiks çapı >6 mm, periapendisiyel yağ doku inflamasyonu, apendikolit. USG: hedef işareti.",tag:"critical"},
+{name:"Hepatik Ekinokok Kisti",region:"Abdomen",findings:["cystic lesion","daughter cysts","floating membranes","calcification","water lily sign"],modality:["USG","BT","MR"],keyFeatures:"Gharbi/WHO sınıflaması: yavru kistler, yüzen membranlar (nilüfer işareti), duvar kalsifikasyonu. CE1-CE5 tipleri.",tag:"important"},
+{name:"Retroperitoneal Fibrozis (Ormond)",region:"Abdomen",findings:["periarticular tissue","encasement of aorta","medial ureteral deviation","hydronephrosis","T2 variable"],modality:["BT","MR"],keyFeatures:"Aorta ve iliak arterler çevresinde fibrotik doku, mediale deviye üreterler, bilateral hidronefrozis.",tag:"important"},
+
+// ==================== EK PELVİS ====================
+{name:"Sakral Kordoma",region:"Pelvis",findings:["sacral mass","bone destruction","T2 bright","lobulated","anterior soft tissue mass"],modality:["MR","BT"],keyFeatures:"Sakrumda destrüktif T2 parlak kitle, lobüle, anteriora uzanım. Midline yerleşim, yavaş büyüyen malign.",tag:"important"},
+{name:"Rektal Karsinom",region:"Pelvis",findings:["rectal wall thickening","T2 intermediate","restricted diffusion","perirectal fat invasion","lymph node"],modality:["MR"],keyFeatures:"MR rektum: T2'de orta sinyal kitle, mezorektal fasya ilişkisi (CRM), DWI kısıtlanma, N evreleme.",tag:"critical"},
+
+// ==================== EK MSK ====================
+{name:"Kemik Metastazı",region:"MSK",findings:["multiple lesions","bone destruction","pathologic fracture","T1 dark","T2 variable","bone marrow replacement"],modality:["MR","BT","Sintigrafi","PET-BT"],keyFeatures:"T1'de kemik iliği sinyal kaybı, multipl lezyonlar. Litik (akciğer, renal, tiroid) vs blastik (prostat, meme).",tag:"critical"},
+{name:"Osteoid Osteoma",region:"MSK",findings:["nidus","sclerotic rim","bone marrow edema","periosteal reaction","small lesion"],modality:["BT","MR"],keyFeatures:"<2 cm nidus + çevre skleroz. Gece ağrısı, aspirin yanıtı. BT'de nidus en iyi görülür.",tag:"common"},
+{name:"Diskitis-Osteomiyelit",region:"MSK",findings:["T2 bright","disc space narrowing","endplate erosion","paravertebral abscess","enhancement","restricted diffusion"],modality:["MR"],keyFeatures:"Disk mesafesi daralması, komşu end-plate erozyonu, T2 parlak disk + paraspinal/epidural abse. Modic 1 ile ayırıcı tanı.",tag:"critical"},
+{name:"Sinoviyal Sarkom",region:"MSK",findings:["T2 bright","triple sign","calcification","juxta-articular","periarticular mass","hemorrhage"],modality:["MR"],keyFeatures:"Eklem komşuluğunda heterojen kitle, triple sign (solid + kistik + kanama). %30 kalsifikasyon. 15-40 yaş.",tag:"critical"},
+{name:"Myozitis Ossifikans",region:"MSK",findings:["peripheral calcification","zonal pattern","soft tissue mass","T2 bright","perilesional edema"],modality:["MR","BT","Direkt Grafi"],keyFeatures:"Zonal patern: periferik matür kalsifikasyon + santral immatür doku. Osteosarkomun tersi (santral kalsifikasyon).",tag:"important"},
+{name:"Tendon Kılıfının Dev Hücreli Tümörü (GCTTS)",region:"MSK",findings:["T2 dark","hemosiderin","blooming artifact","periarticular mass","erosions"],modality:["MR"],keyFeatures:"PVNS'nin lokalize formu. El-ayak parmakları en sık. T2 düşük sinyal (hemosiderin), gradient echo'da blooming.",tag:"common"},
+
+// ==================== EK VASKÜLER ====================
+{name:"İntrakranial Anevrizma",region:"Vasküler",findings:["flow void","saccular outpouching","circle of Willis","subarachnoid hemorrhage","mass effect"],modality:["BT Anjio","MR Anjio","DSA"],keyFeatures:"ACoA, PCoA en sık yerleşim. Rüptür: SAK. Boyut >7 mm, arka dolaşım = artmış rüptür riski.",tag:"critical"},
+{name:"Dural AV Fistül",region:"Vasküler",findings:["flow voids","dilated cortical veins","edema","enhancement","venous congestion"],modality:["MR","DSA"],keyFeatures:"Dural arter-venöz sinüs bağlantısı, kortikal venöz reflü = agresif tip (Cognard III-V). Spinal: dorsal yüzeyde flow void.",tag:"important"},
+{name:"Karotis Diseksiyonu",region:"Vasküler",findings:["intimal flap","mural hematoma","T1 bright crescent","flame-shaped occlusion","string sign"],modality:["MR","BT Anjio","USG"],keyFeatures:"T1 yağ baskılı sekansta mural hematom (hilal işareti). İnme nedeni genç hastada. Travma veya spontan.",tag:"critical"},
+{name:"Venöz Sinüs Trombozu",region:"Vasküler",findings:["filling defect","empty delta sign","venous infarct","hemorrhagic infarction","cord sign"],modality:["MR Venografi","BT Venografi"],keyFeatures:"Boş delta işareti (superior sagittal sinüs), venöz infarkt (arteriyel dağılıma uymayan, hemorajik). OKS, gebelik.",tag:"critical"},
+{name:"Takayasu Arteriti",region:"Vasküler",findings:["aortic wall thickening","stenosis","aneurysm","concentric thickening","branch vessel involvement"],modality:["BT Anjio","MR Anjio","PET-BT"],keyFeatures:"Aort ve ana dallarında konsantrik duvar kalınlaşması, stenoz/oklüzyon/anevrizma. Genç kadın, nabızsız hastalık.",tag:"important"},
+];
+
+
+// ============================================================
+// REGIONS
+// ============================================================
+const REGIONS = ["Beyin","Baş-boyun","Toraks","Abdomen","Pelvis","MSK","Vasküler"];
+
+// ============================================================
+// APP STATE
+// ============================================================
+let activeRegion = null;
+let activeFindings = new Set();
+let searchQuery = "";
+let expandedCards = new Set();
+
+// ============================================================
+// INIT
+// ============================================================
+function init() {
+  // Theme
+  const savedTheme = localStorage.getItem("ayirici-theme");
+  if (savedTheme === "light") document.body.classList.add("light");
+  updateThemeIcon();
+
+  // Render
+  renderStats();
+  renderRegionButtons();
+  renderFindingTags();
+  renderResults();
+
+  // Events
+  document.getElementById("themeToggle").addEventListener("click", toggleTheme);
+  document.getElementById("searchInput").addEventListener("input", onSearch);
+  document.getElementById("clearSearch").addEventListener("click", clearSearch);
+  document.getElementById("clearAllFilters").addEventListener("click", clearAllFilters);
+}
+
+// ============================================================
+// THEME
+// ============================================================
+function toggleTheme() {
+  document.body.classList.toggle("light");
+  localStorage.setItem("ayirici-theme", document.body.classList.contains("light") ? "light" : "dark");
+  updateThemeIcon();
+}
+function updateThemeIcon() {
+  document.getElementById("themeIcon").textContent = document.body.classList.contains("light") ? "☀️" : "🌙";
+}
+
+// ============================================================
+// STATS
+// ============================================================
+function renderStats() {
+  document.getElementById("totalCount").textContent = DATABASE.length;
+  const allFindings = new Set();
+  DATABASE.forEach(d => d.findings.forEach(f => allFindings.add(f)));
+  document.getElementById("findingCount").textContent = allFindings.size;
+}
+
+// ============================================================
+// REGION BUTTONS
+// ============================================================
+function renderRegionButtons() {
+  const container = document.getElementById("regionBtns");
+  // "Tümü" button
+  const allBtn = document.createElement("button");
+  allBtn.className = "region-btn" + (activeRegion === null ? " active" : "");
+  allBtn.innerHTML = `Tümü <span class="count">${DATABASE.length}</span>`;
+  allBtn.addEventListener("click", () => { activeRegion = null; renderRegionButtons(); renderFindingTags(); renderResults(); updateActiveFilters(); });
+  container.innerHTML = "";
+  container.appendChild(allBtn);
+
+  REGIONS.forEach(r => {
+    const count = DATABASE.filter(d => d.region === r).length;
+    const btn = document.createElement("button");
+    btn.className = "region-btn" + (activeRegion === r ? " active" : "");
+    btn.innerHTML = `${r} <span class="count">${count}</span>`;
+    btn.addEventListener("click", () => { activeRegion = (activeRegion === r ? null : r); renderRegionButtons(); renderFindingTags(); renderResults(); updateActiveFilters(); });
+    container.appendChild(btn);
+  });
+}
+
+// ============================================================
+// FINDING TAGS
+// ============================================================
+function getAllFindings() {
+  const pool = activeRegion ? DATABASE.filter(d => d.region === activeRegion) : DATABASE;
+  const countMap = {};
+  pool.forEach(d => d.findings.forEach(f => { countMap[f] = (countMap[f] || 0) + 1; }));
+  return Object.entries(countMap).sort((a, b) => b[1] - a[1]);
+}
+
+function renderFindingTags() {
+  const container = document.getElementById("findingTags");
+  container.innerHTML = "";
+  const findings = getAllFindings();
+  findings.forEach(([f, count]) => {
+    const tag = document.createElement("button");
+    tag.className = "finding-tag" + (activeFindings.has(f) ? " active" : "");
+    tag.innerHTML = `${f} <span class="tag-count">${count}</span>`;
+    tag.addEventListener("click", () => {
+      if (activeFindings.has(f)) activeFindings.delete(f); else activeFindings.add(f);
+      renderFindingTags();
+      renderResults();
+      updateActiveFilters();
+    });
+    container.appendChild(tag);
+  });
+}
+
+// ============================================================
+// SEARCH
+// ============================================================
+function onSearch(e) {
+  searchQuery = e.target.value.trim().toLowerCase();
+  document.getElementById("clearSearch").classList.toggle("visible", searchQuery.length > 0);
+  renderResults();
+}
+function clearSearch() {
+  document.getElementById("searchInput").value = "";
+  searchQuery = "";
+  document.getElementById("clearSearch").classList.remove("visible");
+  renderResults();
+}
+
+// ============================================================
+// ACTIVE FILTERS
+// ============================================================
+function updateActiveFilters() {
+  const bar = document.getElementById("activeFilters");
+  const chips = document.getElementById("activeFilterChips");
+  chips.innerHTML = "";
+  let hasFilters = false;
+
+  if (activeRegion) {
+    hasFilters = true;
+    const chip = document.createElement("button");
+    chip.className = "active-filter-chip";
+    chip.innerHTML = `${activeRegion} ✕`;
+    chip.addEventListener("click", () => { activeRegion = null; renderRegionButtons(); renderFindingTags(); renderResults(); updateActiveFilters(); });
+    chips.appendChild(chip);
+  }
+
+  activeFindings.forEach(f => {
+    hasFilters = true;
+    const chip = document.createElement("button");
+    chip.className = "active-filter-chip finding-chip";
+    chip.innerHTML = `${f} ✕`;
+    chip.addEventListener("click", () => { activeFindings.delete(f); renderFindingTags(); renderResults(); updateActiveFilters(); });
+    chips.appendChild(chip);
+  });
+
+  bar.classList.toggle("visible", hasFilters);
+}
+
+function clearAllFilters() {
+  activeRegion = null;
+  activeFindings.clear();
+  searchQuery = "";
+  document.getElementById("searchInput").value = "";
+  document.getElementById("clearSearch").classList.remove("visible");
+  renderRegionButtons();
+  renderFindingTags();
+  renderResults();
+  updateActiveFilters();
+}
+
+// ============================================================
+// FILTERING & SCORING
+// ============================================================
+function getFilteredResults() {
+  let results = DATABASE.map(d => ({ ...d, score: 0 }));
+
+  // Region filter
+  if (activeRegion) {
+    results = results.filter(d => d.region === activeRegion);
+  }
+
+  // Finding filter — must match ALL selected findings, score by count
+  if (activeFindings.size > 0) {
+    results = results.filter(d => {
+      let matchCount = 0;
+      activeFindings.forEach(f => { if (d.findings.includes(f)) matchCount++; });
+      d.score = matchCount;
+      return matchCount > 0;
+    });
+    // Sort: more matches = higher rank
+    results.sort((a, b) => b.score - a.score);
+  }
+
+  // Search filter
+  if (searchQuery) {
+    const q = searchQuery;
+    results = results.filter(d => {
+      const haystack = (d.name + " " + d.findings.join(" ") + " " + d.keyFeatures + " " + d.region + " " + d.modality.join(" ")).toLowerCase();
+      return haystack.includes(q);
+    });
+  }
+
+  // Tag priority if no finding filters
+  if (activeFindings.size === 0 && !searchQuery) {
+    const tagOrder = { critical: 0, important: 1, common: 2 };
+    results.sort((a, b) => (tagOrder[a.tag] ?? 3) - (tagOrder[b.tag] ?? 3));
+  }
+
+  return results;
+}
+
+// ============================================================
+// RENDER RESULTS
+// ============================================================
+function renderResults() {
+  const grid = document.getElementById("resultsGrid");
+  const empty = document.getElementById("emptyState");
+  const countEl = document.getElementById("resultsCount");
+  const results = getFilteredResults();
+
+  countEl.innerHTML = `<strong>${results.length}</strong> tanı bulundu`;
+
+  if (results.length === 0) {
+    grid.innerHTML = "";
+    empty.style.display = "block";
+    return;
+  }
+  empty.style.display = "none";
+
+  grid.innerHTML = results.map((d, i) => {
+    const isExpanded = expandedCards.has(d.name);
+    const matchedFindings = new Set();
+    activeFindings.forEach(f => { if (d.findings.includes(f)) matchedFindings.add(f); });
+
+    const findingPills = d.findings.slice(0, 5).map(f =>
+      `<span class="card-finding-pill${matchedFindings.has(f) ? ' matched' : ''}">${f}</span>`
+    ).join("") + (d.findings.length > 5 ? `<span class="card-finding-pill">+${d.findings.length - 5}</span>` : "");
+
+    const detailFindings = d.findings.map(f =>
+      `<span class="detail-finding${matchedFindings.has(f) ? ' matched' : ''}">${f}</span>`
+    ).join("");
+
+    const modalityBadges = d.modality.map(m => `<span class="modality-badge">${m}</span>`).join("");
+
+    const scoreHtml = activeFindings.size > 0 && d.score > 0 ? `<span class="match-score">${d.score}/${activeFindings.size} eşleşme</span>` : "";
+
+    const tagLabel = d.tag === "critical" ? "Kritik" : d.tag === "important" ? "Önemli" : "Sık";
+
+    return `<div class="result-card${isExpanded ? ' expanded' : ''}" data-name="${d.name}">
+      <div class="card-header" onclick="toggleCard('${d.name.replace(/'/g, "\\'")}')">
+        <span class="card-tag ${d.tag}">${tagLabel}</span>
+        <div class="card-info">
+          <div class="card-name">${highlightMatch(d.name)}</div>
+          <div class="card-region">${d.region} ${scoreHtml}</div>
+          <div class="card-findings-preview">${findingPills}</div>
+        </div>
+        <span class="card-chevron">▼</span>
+      </div>
+      <div class="card-detail">
+        <div class="detail-section">
+          <div class="detail-label">Ayırt Edici Özellikler</div>
+          <div class="detail-text">${highlightMatch(d.keyFeatures)}</div>
+        </div>
+        <div class="detail-section">
+          <div class="detail-label">Tüm Bulgular</div>
+          <div class="detail-findings">${detailFindings}</div>
+        </div>
+        <div class="detail-section">
+          <div class="detail-label">Önerilen Modalite</div>
+          <div>${modalityBadges}</div>
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+function highlightMatch(text) {
+  if (!searchQuery) return text;
+  const regex = new RegExp(`(${searchQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, "gi");
+  return text.replace(regex, '<mark style="background:rgba(59,130,246,0.25);color:var(--accent);border-radius:2px;padding:0 1px;">$1</mark>');
+}
+
+function toggleCard(name) {
+  if (expandedCards.has(name)) expandedCards.delete(name); else expandedCards.add(name);
+  const card = document.querySelector(`.result-card[data-name="${name}"]`);
+  if (card) card.classList.toggle("expanded");
+}
+
+// ============================================================
+// KEYBOARD SHORTCUT
+// ============================================================
+document.addEventListener("keydown", e => {
+  if (e.key === "/" && document.activeElement.tagName !== "INPUT") {
+    e.preventDefault();
+    document.getElementById("searchInput").focus();
+  }
+  if (e.key === "Escape") {
+    document.getElementById("searchInput").blur();
+    clearSearch();
+  }
+});
+
+// Start
+document.addEventListener("DOMContentLoaded", init);
+</script>
+</body>
+</html>

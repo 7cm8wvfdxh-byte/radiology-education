@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rapor Şablonları — Radiology Education</title>
+<meta name="description" content="Radyoloji Rapor Şablonları — Yapılandırılmış raporlama rehberi">
+<meta name="theme-color" content="#0f172a">
+<link rel="manifest" href="manifest.json">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--bg:#0f172a;--bg2:#1e293b;--bg3:#334155;--text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;--accent:#3b82f6;--accent2:#06b6d4;--danger:#f43f5e;--success:#10b981;--warn:#f59e0b;--radius:16px;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background 0.3s,color 0.3s;}
+body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#64748b;--text3:#94a3b8;}
+.header{background:var(--bg2);border-bottom:1px solid var(--bg3);padding:16px 20px;position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);}
+.header-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;}.logo h1{font-family:Georgia,serif;font-size:22px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.header-actions{display:flex;gap:8px;}
+.header-btn{background:var(--bg);border:1px solid var(--bg3);border-radius:10px;padding:10px 14px;min-height:44px;color:var(--text2);font-size:13px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all 0.2s;text-decoration:none;}
+@media(hover:hover){.header-btn:hover{border-color:var(--accent);color:var(--accent);}}
+.main{max-width:900px;margin:0 auto;padding:20px;}
+.hero{text-align:center;padding:40px 20px;margin-bottom:32px;background:linear-gradient(135deg,rgba(59,130,246,0.08),rgba(6,182,212,0.08));border-radius:var(--radius);border:1px solid var(--bg3);}
+.hero-icon{font-size:56px;margin-bottom:12px;}.hero h2{font-family:Georgia,serif;font-size:26px;margin-bottom:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero p{color:var(--text2);font-size:14px;max-width:500px;margin:0 auto;line-height:1.6;}
+.nav-tabs{display:flex;gap:6px;margin-bottom:24px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px;scrollbar-width:none;}.nav-tabs::-webkit-scrollbar{display:none;}
+.nav-tab{background:var(--bg2);border:1px solid var(--bg3);border-radius:10px;padding:10px 18px;min-height:44px;font-size:13px;font-weight:600;color:var(--text2);cursor:pointer;white-space:nowrap;transition:all 0.2s;flex-shrink:0;}
+.nav-tab.active{background:var(--accent);border-color:var(--accent);color:white;}
+@media(hover:hover){.nav-tab:hover:not(.active){border-color:var(--accent);color:var(--accent);}}
+.section{display:none;animation:fadeUp 0.3s ease;}.section.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.tmpl-card{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--radius);margin-bottom:14px;overflow:hidden;transition:all 0.2s;}
+.tmpl-header{padding:16px 18px;cursor:pointer;display:flex;align-items:center;gap:12px;min-height:56px;}
+.tmpl-header:active{opacity:0.8;}
+.tmpl-icon{font-size:24px;flex-shrink:0;}.tmpl-info{flex:1;}.tmpl-name{font-size:15px;font-weight:700;}.tmpl-sub{font-size:11px;color:var(--text3);margin-top:2px;}
+.tmpl-arrow{color:var(--text3);font-size:12px;transition:transform 0.2s;}
+.tmpl-card.open .tmpl-arrow{transform:rotate(180deg);}
+.tmpl-card.open{border-color:rgba(59,130,246,0.3);box-shadow:0 4px 24px rgba(0,0,0,0.2);}
+.tmpl-content{display:none;padding:0 18px 18px;border-top:1px solid var(--bg3);}.tmpl-card.open .tmpl-content{display:block;}
+.tmpl-actions{display:flex;gap:8px;margin:12px 0;}
+.btn-copy{background:var(--accent);color:white;border:none;border-radius:8px;padding:10px 16px;min-height:44px;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all 0.2s;}
+.btn-copy:active{opacity:0.7;}
+.btn-copy.copied{background:var(--success);}
+.report-block{background:var(--bg);border-radius:10px;padding:14px;margin-top:10px;font-family:'Courier New',monospace;font-size:12px;color:var(--text2);line-height:1.8;white-space:pre-wrap;border-left:3px solid var(--accent2);}
+.report-section-title{color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;}
+.footer{text-align:center;padding:20px;color:var(--text3);font-size:12px;border-top:1px solid var(--bg3);margin-top:40px;}
+@media(max-width:600px){.header{padding:12px 16px;}.logo h1{font-size:18px;}.hero{padding:24px 16px;}.hero h2{font-size:22px;}.main{padding:16px;}.nav-tab{padding:8px 14px;font-size:12px;}.report-block{font-size:11px;padding:10px;}}
+</style>
+</head>
+<body>
+<header class="header"><div class="header-inner">
+<a href="index.html" class="logo"><span style="font-size:24px">🩻</span><h1>Rapor Şablonları</h1></a>
+<div class="header-actions"><a href="index.html" class="header-btn">🏠 Ana Sayfa</a><button class="header-btn" onclick="toggleTheme()">🌙 <span id="themeText">Koyu</span></button></div>
+</div></header>
+<main class="main">
+<div class="hero"><div class="hero-icon">📝</div><h2>Radyoloji Rapor Şablonları</h2><p>Yapılandırılmış raporlama rehberi — Teknik, bulgular ve izlenim bölümleriyle standart şablonlar</p></div>
+<nav class="nav-tabs" id="navTabs">
+<button class="nav-tab active" data-tab="noro">🧠 Nöroradyoloji</button>
+<button class="nav-tab" data-tab="toraks">🫁 Toraks</button>
+<button class="nav-tab" data-tab="abdomen">🏥 Abdomen</button>
+<button class="nav-tab" data-tab="msk">🦴 MSK</button>
+<button class="nav-tab" data-tab="vaskuler">🩸 Vasküler</button>
+</nav>
+<!-- NÖRORADYOLOJI -->
+<div class="section active" id="sec-noro">
+<div class="tmpl-card"><div class="tmpl-header" onclick="toggleCard(this)"><div class="tmpl-icon">🧠</div><div class="tmpl-info"><div class="tmpl-name">Beyin BT — Normal</div><div class="tmpl-sub">Kontrastsız kraniyal BT rapor şablonu</div></div><div class="tmpl-arrow">▼</div></div>
+<div class="tmpl-content"><div class="tmpl-actions"><button class="btn-copy" onclick="copyReport(this)">📋 Kopyala</button></div>
+<div class="report-block"><span class="report-section-title">TEKNİK:</span>
+Kontrastsız kraniyal BT inceleme yapılmıştır.
+
+<span class="report-section-title">BULGULAR:</span>
+Beyin parankimi normal dansitede izlenmektedir.
+Gri cevher-beyaz cevher ayrımı doğaldır.
+Ventriküler sistem normal boyut ve konfigürasyonda olup, orta hat yapıları santraldedir.
+Bazal sisternler açıktır.
+Sulkal yapılar yaşla uyumludur.
+Ekstra-aksiyel mesafeler normaldir.
+Sellar ve parasellar yapılar doğal görünümdedir.
+Mastoid hücreleri ve paranazal sinüsler havalanmaktadır.
+Orbita ve göz küreleri doğaldır.
+Kraniyum kemik yapılarında patolojik bulgu saptanmamıştır.
+
+<span class="report-section-title">SONUÇ:</span>
+Kontrastsız kraniyal BT incelemede patolojik bulgu saptanmamıştır.</div></div></div>
+
+<div class="tmpl-card"><div class="tmpl-header" onclick="toggleCard(this)"><div class="tmpl-icon">🧠</div><div class="tmpl-info"><div class="tmpl-name">Beyin MR — Normal</div><div class="tmpl-sub">Kontrastsız kraniyal MR rapor şablonu</div></div><div class="tmpl-arrow">▼</div></div>
+<div class="tmpl-content"><div class="tmpl-actions"><button class="btn-copy" onclick="copyReport(this)">📋 Kopyala</button></div>
+<div class="report-block"><span class="report-section-title">TEKNİK:</span>
+Kontrastsız kraniyal MR inceleme, aksiyel T1A, T2A, FLAIR, DWI, koronal T2A ve sagittal T1A sekanslarında yapılmıştır.
+
+<span class="report-section-title">BULGULAR:</span>
+Beyin parankiminde fokal sinyal anormalliği izlenmemektedir.
+Difüzyon ağırlıklı görüntülerde akut iskemiyi düşündürecek difüzyon kısıtlanması saptanmamıştır.
+FLAIR sekansında periventriküler ve subkortikal beyaz cevherde patolojik sinyal artışı yoktur.
+Ventriküler sistem normal boyut ve konfigürasyondadır. Orta hat yapıları santraldedir.
+Bazal sisternler ve sulkal yapılar doğaldır.
+Serebellum ve beyin sapı normal sinyal özelliklerindedir.
+Hipofiz bezi ve sella normal görünümdedir.
+Kraniyo-servikal bileşke doğaldır.
+Orbita, paranazal sinüsler ve mastoid hücreleri normaldir.
+
+<span class="report-section-title">SONUÇ:</span>
+Kontrastsız kraniyal MR incelemede patolojik bulgu saptanmamıştır.</div></div></div>
+
+<div class="tmpl-card"><div class="tmpl-header" onclick="toggleCard(this)"><div class="tmpl-icon">🧠</div><div class="tmpl-info"><div class="tmpl-name">Beyin MR — Akut İnme Protokolü</div><div class="tmpl-sub">DWI pozitif iskemik inme raporu</div></div><div class="tmpl-arrow">▼</div></div>
+<div class="tmpl-content"><div class="tmpl-actions"><button class="btn-copy" onclick="copyReport(this)">📋 Kopyala</button></div>
+<div class="report-block"><span class="report-section-title">TEKNİK:</span>
+Akut inme protokolü kapsamında kraniyal MR inceleme (DWI, FLAIR, T2*, MRA) yapılmıştır.
+
+<span class="report-section-title">BULGULAR:</span>
+DWI'da [sol/sağ] [MCA/ACA/PCA] sulama alanında, [frontal/parietal/temporal/oksipital] lobda difüzyon kısıtlanması izlenmektedir. ADC haritasında karşılık gelen alanda sinyal düşüklüğü mevcuttur.
+FLAIR sekansında ilgili alanda [henüz sinyal değişikliği gelişmemiştir / sinyal artışı izlenmektedir] (DWI-FLAIR mismatch: [var/yok]).
+T2* / SWI sekansında hemorajik transformasyon [izlenmemektedir / izlenmektedir].
+Orta hat şifti [yoktur / __ mm'dir].
+MRA'da [sol/sağ] [MCA M1/ICA/baziler] segmentinde [oklüzyon/ciddi darlık] izlenmektedir.
+Kontralateral vasküler yapılar açıktır.
+ASPECTS skoru: [__/10].
+
+<span class="report-section-title">SONUÇ:</span>
+[Sol/sağ] MCA sulama alanında akut iskemik infarkt ile uyumlu difüzyon kısıtlanması.
+DWI-FLAIR mismatch: [var/yok] → [penumbra lehine / established infarkt lehine].
+MRA'da [sol/sağ] [MCA/ICA] oklüzyonu.
+ASPECTS: [__/10].
+** ACİL NÖROLOJİ KONSÜLTASYONU ÖNERİLİR **</div></div></div>
+
+<div class="tmpl-card"><div class="tmpl-header" onclick="toggleCard(this)"><div class="tmpl-icon">🧠</div><div class="tmpl-info"><div class="tmpl-name">Lomber MR — Disk Hernisi</div><div class="tmpl-sub">Lomber disk patolojisi rapor şablonu</div></div><div class="tmpl-arrow">▼</div></div>
+<div class="tmpl-content"><div class="tmpl-actions"><button class="btn-copy" onclick="copyReport(this)">📋 Kopyala</button></div>
+<div class="report-block"><span class="report-section-title">TEKNİK:</span>
+Lomber vertebra MR inceleme, sagittal T1A, T2A, aksiyel T2A sekanslarında yapılmıştır.
+
+<span class="report-section-title">BULGULAR:</span>
+Lomber lordoz [korunmuştur / düzleşmiştir].
+Vertebra korpus yükseklikleri ve sinyal intensiteleri doğaldır.
+Konus medullaris L1-L2 seviyesinde sonlanmakta olup, normal sinyal özelliklerindedir.
+
+Disk değerlendirmesi:
+- L1-L2: Disk mesafesi ve sinyali doğaldır.
+- L2-L3: Disk mesafesi ve sinyali doğaldır.
+- L3-L4: [Disk desikatasyonu mevcut olup, diffüz disk bulging izlenmektedir / normaldir].
+- L4-L5: T2A'da disk sinyal kaybı mevcuttur. [Sol/sağ] paramedian/posterolateral [protrüzyon/ekstrüzyon] izlenmektedir. [Sol/sağ] L5 sinir kökü ile ilişkili olup, [deplase etmekte/temas halindedir]. Lateral reses [daralmış / açıktır]. Nöral foramenler [açıktır / daralmıştır].
+- L5-S1: [Disk desikatasyonu ve posterior annüler bulging izlenmektedir / normaldir].
+
+Spinal kanal çapı: [normal / __ mm seviyesinde dardır].
+Faset eklemler: [Doğaldır / __ seviyesinde dejeneratif değişiklikler mevcuttur].
+Paraspinal yumuşak dokular doğaldır.
+
+<span class="report-section-title">SONUÇ:</span>
+1. L4-L5 seviyesinde [sol/sağ] paramedian disk [protrüzyonu/ekstrüzyonu], [sol/sağ] L5 kök basısı.
+2. [Ek bulgular...]</div></div></div>
+</div>
+
+<!-- TORAKS -->
+<div class="section" id="sec-toraks">
+<div class="tmpl-card"><div class="tmpl-header" onclick="toggleCard(this)"><div class="tmpl-icon">🫁</div><div class="tmpl-info"><div class="tmpl-name">PA Akciğer Grafisi — Normal</div><div class="tmpl-sub">Standart PA grafi rapor şablonu</div></div><div class="tmpl-arrow">▼</div></div>
+<div class="tmpl-content"><div class="tmpl-actions"><button class="btn-copy" onclick="copyReport(this)">📋 Kopyala</button></div>
+<div class="report-block"><span class="report-section-title">TEKNİK:</span>
+PA akciğer grafisi değerlendirilmiştir.
+
+<span class="report-section-title">BULGULAR:</span>
+Akciğer alanları açık olup, aktif parankimal infiltrasyon izlenmemektedir.
+Hiler yapılar doğal boyut ve konfigürasyondadır.
+Mediasten normal genişliktedir.
+Kardiyotorasik oran normal sınırlardadır.
+Kostodiyafragmatik sinüsler açıktır.
+Diyafragma konturları düzgündür.
+Kemik yapılarda patolojik bulgu saptanmamıştır.
+Yumuşak dokular doğaldır.
+
+<span class="report-section-title">SONUÇ:</span>
+PA akciğer grafisinde patolojik bulgu saptanmamıştır.</div></div></div>
+
+<div class="tmpl-card"><div class="tmpl-header" onclick="toggleCard(this)"><div class="tmpl-icon">🫁</div><div class="tmpl-info"><div class="tmpl-name">Toraks BT — Normal</div><div class="tmpl-sub">Kontrastlı toraks BT rapor şablonu</div></div><div class="tmpl-arrow">▼</div></div>
+<div class="tmpl-content"><div class="tmpl-actions"><button class="btn-copy" onclick="copyReport(this)">📋 Kopyala</button></div>
+<div class="report-block"><span class="report-section-title">TEKNİK:</span>
+İntravenöz kontrast madde enjeksiyonu sonrası toraks BT inceleme yapılmıştır.
+
+<span class="report-section-title">BULGULAR:</span>
+Akciğer parankiminde fokal lezyon, infiltrasyon veya konsolidasyon izlenmemektedir.
+İnterlober fissürler ve bronşiyal yapılar doğaldır.
+Trakea ve ana bronşlar açıktır. Endobronşiyal lezyon yoktur.
+Mediastinal ve hiler lenf nodları patolojik boyutta değildir (kısa aks <10 mm).
+Mediastinal vasküler yapılar normal kalibrasyondadır. Aort çapı normaldir.
+Pulmoner arter ve dalları normal görünümdedir, dolum defekti izlenmemektedir.
+Kalp boşlukları normal boyuttadır. Perikardial effüzyon yoktur.
+Bilateral plevral alanlar temizdir. Plevral effüzyon yoktur.
+Kemik yapılarda patolojik bulgu izlenmemektedir.
+İnceleme alanına giren üst abdomen kesitlerinde belirgin patoloji saptanmamıştır.
+
+<span class="report-section-title">SONUÇ:</span>
+Kontrastlı toraks BT incelemede patolojik bulgu saptanmamıştır.</div></div></div>
+
+<div class="tmpl-card"><div class="tmpl-header" onclick="toggleCard(this)"><div class="tmpl-icon">🫁</div><div class="tmpl-info"><div class="tmpl-name">BT Pulmoner Anjiyografi — PE Şüphesi</div><div class="tmpl-sub">Pulmoner emboli değerlendirme şablonu</div></div><div class="tmpl-arrow">▼</div></div>
+<div class="tmpl-content"><div class="tmpl-actions"><button class="btn-copy" onclick="copyReport(this)">📋 Kopyala</button></div>
+<div class="report-block"><span class="report-section-title">TEKNİK:</span>
+Pulmoner emboli protokolü ile BT pulmoner anjiyografi yapılmıştır.
+
+<span class="report-section-title">BULGULAR:</span>
+Pulmoner arter ana gövde ve bilateral pulmoner arterler yeterli kontrastlanmaktadır.
+[Sol/sağ] [ana/lober/segmental/subsegmental] pulmoner arterde [santral/parsiyel/total] dolum defekti izlenmektedir.
+[Ek emboliler: ___ ]
+Sağ ventrikül / sol ventrikül oranı: [<1 normal / ≥1 → RV strain bulgusu].
+İnterventriküler septum [normal / sola deviye (paradoks hareket)].
+Pulmoner arter ana gövde çapı: [__ mm] [normal (<29mm) / dilate].
+Bilateral akciğer parankiminde [pulmoner infarkt ile uyumlu subplevral konsolidasyon var/yok].
+Plevral effüzyon: [yok / sağda/solda/bilateral __ mm].
+
+<span class="report-section-title">SONUÇ:</span>
+1. [Sol/sağ] [ana/lober/segmenter] pulmoner arterde akut pulmoner emboli.
+2. [Sağ ventrikül dilatasyonu → hemodinamik anlamlı PE lehine / RV normal].
+3. [Ek bulgular...]
+** ACİL KLİNİK DEĞERLENDİRME ÖNERİLİR **</div></div></div>
+</div>
+<!-- ABDOMEN -->
+<div class="section" id="sec-abdomen">
+<div class="tmpl-card"><div class="tmpl-header" onclick="toggleCard(this)"><div class="tmpl-icon">🏥</div><div class="tmpl-info"><div class="tmpl-name">Abdomen BT — Normal</div><div class="tmpl-sub">Kontrastlı batın BT rapor şablonu</div></div><div class="tmpl-arrow">▼</div></div>
+<div class="tmpl-content"><div class="tmpl-actions"><button class="btn-copy" onclick="copyReport(this)">📋 Kopyala</button></div>
+<div class="report-block"><span class="report-section-title">TEKNİK:</span>
+İV kontrast madde sonrası portal venöz fazda abdomen BT inceleme yapılmıştır.
+
+<span class="report-section-title">BULGULAR:</span>
+Karaciğer boyut ve konturu doğaldır, parankimde fokal lezyon izlenmemektedir.
+İntrahepatik ve ekstrahepatik safra yolları normal kalibrasyondadır.
+Safra kesesi normaldir, lümeninde taş/sludge izlenmemektedir.
+Pankreas boyut, kontur ve dansitesi doğaldır. Pankreatik kanal normal kalibrasyondadır.
+Dalak homojen parankimal yapıda olup boyutu normaldir.
+Bilateral böbrekler normal boyut ve parankim kalınlığındadır. Toplayıcı sistemlerde dilatasyon yoktur. Renal taş izlenmemektedir.
+Bilateral adrenal bezler doğaldır.
+Abdominal aorta ve dalları normal kalibrasyondadır.
+İntra ve retroperitoneal alanda patolojik boyutta lenf nodu veya serbest sıvı izlenmemektedir.
+Barsak ansları normal distribüsyon ve duvar kalınlığındadır.
+Kemik yapılarda patolojik bulgu saptanmamıştır.
+
+<span class="report-section-title">SONUÇ:</span>
+Kontrastlı abdomen BT incelemede patolojik bulgu saptanmamıştır.</div></div></div>
+
+<div class="tmpl-card"><div class="tmpl-header" onclick="toggleCard(this)"><div class="tmpl-icon">🏥</div><div class="tmpl-info"><div class="tmpl-name">Üst Abdomen MR — KC Lezyonu Değerlendirme</div><div class="tmpl-sub">Dinamik kontrastlı hepatik MR (Primovist/EOB)</div></div><div class="tmpl-arrow">▼</div></div>
+<div class="tmpl-content"><div class="tmpl-actions"><button class="btn-copy" onclick="copyReport(this)">📋 Kopyala</button></div>
+<div class="report-block"><span class="report-section-title">TEKNİK:</span>
+Üst abdomen MR inceleme; aksiyel T1A (IP/OP), T2A, DWI (b=50, b=800), dinamik kontrastlı seri (arteriyel, portal venöz, geç, hepatobilier faz — Gd-EOB-DTPA) sekanslarında yapılmıştır.
+
+<span class="report-section-title">BULGULAR:</span>
+Karaciğer:
+- Boyut ve kontur: [Normal / Hepatomegali / İrregüler kontur (siroz lehine)].
+- Parankimal sinyal: [Homojen / T1 IP-OP sinyal kaybı → steatoz].
+- Fokal lezyon: Segment [__]'de [__ x __ mm] boyutunda lezyon izlenmektedir.
+  T1A: [hipo/izo/hiperintens]. T2A: [hipo/izo/hiperintens].
+  DWI/ADC: [difüzyon kısıtlanması var/yok].
+  Dinamik kontrastlanma:
+  - Arteriyel faz: [hipervasküler/hipovasküler].
+  - Portal venöz faz: [washout var/yok].
+  - Hepatobilier faz (20. dk): [defekt (hipointens) / tutulum (hiperintens)].
+  LI-RADS skoru: [LR-__].
+
+Safra yolları: [Normal / dilate].
+Portal ven: [Açık / tromboz].
+Dalak: [Normal / splenomegali].
+Bilateral böbrekler: [Normal].
+Adrenal bezler: [Normal].
+
+<span class="report-section-title">SONUÇ:</span>
+1. KC segment [__]'de [__ mm] lezyon — [HCC/metastaz/hemanjiom/FNH] ile uyumlu, LI-RADS [__].
+2. [Ek bulgular...]</div></div></div>
+
+<div class="tmpl-card"><div class="tmpl-header" onclick="toggleCard(this)"><div class="tmpl-icon">🏥</div><div class="tmpl-info"><div class="tmpl-name">MRCP — Safra Yolları Değerlendirme</div><div class="tmpl-sub">Manyetik rezonans kolanjiopankreatografi</div></div><div class="tmpl-arrow">▼</div></div>
+<div class="tmpl-content"><div class="tmpl-actions"><button class="btn-copy" onclick="copyReport(this)">📋 Kopyala</button></div>
+<div class="report-block"><span class="report-section-title">TEKNİK:</span>
+MRCP inceleme; koronal ve aksiyel T2A, 3D MRCP, DWI sekanslarında yapılmıştır.
+
+<span class="report-section-title">BULGULAR:</span>
+İntrahepatik safra yolları: [Normal kalibrasyonda / sol/sağ lob ağırlıklı dilate].
+Sağ ve sol hepatik kanallar: [Normal / __ mm].
+Ortak hepatik kanal (CHD): [Normal (≤6 mm) / __ mm, dilate].
+Ortak safra kanalı (CBD): [Normal (≤8 mm, kolesistektomi sonrası ≤10 mm) / __ mm].
+CBD distalinde [obstrüksiyon gösteren dolum defekti / düzgün daralma / tümöral kitle] [izlenmemektedir / izlenmektedir].
+Safra kesesi: [Normal / distansiyon / duvar kalınlaşması / taş].
+Pankreatik kanal (Wirsung): [Normal (≤3 mm) / __ mm].
+Pankreas parankimi: [Normal sinyal / kitle].
+
+<span class="report-section-title">SONUÇ:</span>
+1. [Normal MRCP / Safra yolu dilatasyonu __ nedenli / Koledokolitiazis / Pankreas başı kitlesi].
+2. [Ek bulgular...]</div></div></div>
+</div>
+
+<!-- MSK -->
+<div class="section" id="sec-msk">
+<div class="tmpl-card"><div class="tmpl-header" onclick="toggleCard(this)"><div class="tmpl-icon">🦴</div><div class="tmpl-info"><div class="tmpl-name">Diz MR — Normal</div><div class="tmpl-sub">Diz MR rapor şablonu</div></div><div class="tmpl-arrow">▼</div></div>
+<div class="tmpl-content"><div class="tmpl-actions"><button class="btn-copy" onclick="copyReport(this)">📋 Kopyala</button></div>
+<div class="report-block"><span class="report-section-title">TEKNİK:</span>
+[Sol/sağ] diz MR inceleme; sagittal PDW, koronal PDW FS, aksiyel PDW FS sekanslarında yapılmıştır.
+
+<span class="report-section-title">BULGULAR:</span>
+Menisküsler:
+- Medial menisküs: Arka boynuz, gövde ve ön boynuz normal sinyal ve morfolojidedir.
+- Lateral menisküs: Arka boynuz, gövde ve ön boynuz normal sinyal ve morfolojidedir.
+
+Bağlar:
+- Ön çapraz bağ (ACL): Normal sinyal intensitesi ve seyirdedir.
+- Arka çapraz bağ (PCL): İntakt, normal sinyal.
+- Medial kollateral bağ (MCL): Doğaldır.
+- Lateral kollateral bağ (LCL): Doğaldır.
+
+Kemik yapılar:
+- Femur, tibia ve patellada kemik iliği ödemi veya kırık hattı izlenmemektedir.
+- Eklem yüzey kıkırdakları düzgündür.
+
+Eklem:
+- Eklem effüzyonu [yoktur / minimaldir].
+- Suprapatellar bursa normaldir.
+- Hoffa yağ yastığı doğaldır.
+- Popliteal fossa doğaldır. Baker kisti [yoktur / mevcuttur].
+- Patellar ve kuadriseps tendonları intakttır.
+
+<span class="report-section-title">SONUÇ:</span>
+[Sol/sağ] diz MR incelemede patolojik bulgu saptanmamıştır.</div></div></div>
+
+<div class="tmpl-card"><div class="tmpl-header" onclick="toggleCard(this)"><div class="tmpl-icon">🦴</div><div class="tmpl-info"><div class="tmpl-name">Omuz MR — Rotator Cuff</div><div class="tmpl-sub">Omuz MR rapor şablonu</div></div><div class="tmpl-arrow">▼</div></div>
+<div class="tmpl-content"><div class="tmpl-actions"><button class="btn-copy" onclick="copyReport(this)">📋 Kopyala</button></div>
+<div class="report-block"><span class="report-section-title">TEKNİK:</span>
+[Sol/sağ] omuz MR inceleme; koronal oblik T2A FS, sagittal oblik T2A, aksiyel PDW sekanslarında yapılmıştır.
+
+<span class="report-section-title">BULGULAR:</span>
+Rotator Manşet:
+- Supraspinatus tendonu: [İntakt, normal sinyal / Tendinopati (sinyal artışı, kalınlaşma) / Parsiyel yırtık (artiküler/bursal yüzey, __ mm) / Tam kat yırtık (__ mm retraksiyon)].
+- İnfraspinatus tendonu: [İntakt / patoloji belirtiniz].
+- Subskapularis tendonu: [İntakt / patoloji belirtiniz].
+- Teres minör: İntakt.
+
+Biseps tendonu:
+- Uzun başı biseps tendonu: [İntertüberküler olukta normal pozisyon ve sinyal / sublukse / tendinopati / yırtık].
+
+Labrum ve glenohumeral eklem:
+- Labrum: [Normal / anterior/posterior/superior labral yırtık].
+- Glenohumeral ligamentler: [Doğal].
+- Eklem effüzyonu: [Yok / minimal / belirgin].
+
+Kemik ve diğer:
+- Akromion tipi: [Tip I (düz) / Tip II (kurve) / Tip III (çengel)].
+- Akromioklaviküler eklem: [Normal / dejeneratif].
+- Subakromial-subdeltoid bursa: [Normal / sıvı / kalınlaşma].
+- Kemik iliği: Normal sinyal.
+
+<span class="report-section-title">SONUÇ:</span>
+1. Supraspinatus tendonunda [tendinopati / parsiyel / tam kat yırtık].
+2. [Ek bulgular...]</div></div></div>
+</div>
+
+<!-- VASKÜLER -->
+<div class="section" id="sec-vaskuler">
+<div class="tmpl-card"><div class="tmpl-header" onclick="toggleCard(this)"><div class="tmpl-icon">🩸</div><div class="tmpl-info"><div class="tmpl-name">Karotis Doppler USG</div><div class="tmpl-sub">Karotis arter Doppler değerlendirme</div></div><div class="tmpl-arrow">▼</div></div>
+<div class="tmpl-content"><div class="tmpl-actions"><button class="btn-copy" onclick="copyReport(this)">📋 Kopyala</button></div>
+<div class="report-block"><span class="report-section-title">TEKNİK:</span>
+Bilateral karotis ve vertebral arter renkli Doppler USG inceleme yapılmıştır.
+
+<span class="report-section-title">BULGULAR:</span>
+SAĞ:
+- CCA: Lümen açık, İMK: [__ mm] (normal <1.0 mm).
+- İCA: [Plak yok / __ mm plak, lümen daralması %__ (NASCET)].
+  PSV: [__ cm/s], EDV: [__ cm/s], ICA/CCA oranı: [__].
+- ECA: Açık, normal akım paterni.
+- Vertebral arter: Açık, antegrad akım, çap: [__ mm].
+
+SOL:
+- CCA: Lümen açık, İMK: [__ mm].
+- İCA: [Plak yok / __ mm plak, lümen daralması %__ (NASCET)].
+  PSV: [__ cm/s], EDV: [__ cm/s], ICA/CCA oranı: [__].
+- ECA: Açık, normal akım paterni.
+- Vertebral arter: Açık, antegrad akım, çap: [__ mm].
+
+Stenoz derecelendirmesi (NASCET / SRU konsensüs):
+Normal: PSV <125 cm/s
+<%50: PSV <125 cm/s
+%50-69: PSV 125-230 cm/s
+≥%70: PSV >230 cm/s
+Near oklüzyon: Yüksek grade, string sign
+Total oklüzyon: Akım yok
+
+<span class="report-section-title">SONUÇ:</span>
+1. [Bilateral karotis arterler açık, hemodinamik anlamlı darlık yok / Sağ/Sol İCA'da %__ darlık].
+2. Bilateral vertebral arterler açık, antegrad akımlı.</div></div></div>
+
+<div class="tmpl-card"><div class="tmpl-header" onclick="toggleCard(this)"><div class="tmpl-icon">🩸</div><div class="tmpl-info"><div class="tmpl-name">Alt Ekstremite Venöz Doppler</div><div class="tmpl-sub">DVT değerlendirme rapor şablonu</div></div><div class="tmpl-arrow">▼</div></div>
+<div class="tmpl-content"><div class="tmpl-actions"><button class="btn-copy" onclick="copyReport(this)">📋 Kopyala</button></div>
+<div class="report-block"><span class="report-section-title">TEKNİK:</span>
+[Sol/sağ/bilateral] alt ekstremite venöz sistem renkli Doppler USG inceleme yapılmıştır. Kompresyon USG ve spektral Doppler analiz uygulanmıştır.
+
+<span class="report-section-title">BULGULAR:</span>
+[SOL/SAĞ] ALT EKSTREMİTE:
+- Ana femoral ven (CFV): [Kompresibil, açık / komprese edilemiyor, tromboz].
+- Yüzeyel femoral ven (SFV): [Kompresibil, açık / tromboz].
+- Popliteal ven: [Kompresibil, açık / tromboz].
+- Posterior tibial venler: [Açık / tromboz].
+- Peroneal venler: [Açık / tromboz].
+- Büyük safen ven (GSV): [Açık, kompresibil / yetmezlik (reflü >0.5 sn)].
+- Küçük safen ven (SSV): [Açık / yetmezlik].
+
+Tüm kompresibil segmentlerde normal spontan ve fazik akım izlenmektedir.
+[Augmentasyon manevrası ile normal yanıt alınmıştır / azalmış yanıt → proksimal obstrüksiyon?].
+
+<span class="report-section-title">SONUÇ:</span>
+[Sol/sağ] alt ekstremite derin venöz sistemde [tromboz saptanmamıştır / ___ seviyesinde akut/kronik DVT izlenmektedir].</div></div></div>
+</div>
+</main>
+<footer class="footer"><p>Radiology Education Platform — Rapor Şablonları</p></footer>
+<script>
+function toggleTheme(){var b=document.body;b.classList.toggle('light');var l=b.classList.contains('light');localStorage.setItem('radiology-theme',l?'light':'dark');document.getElementById('themeText').textContent=l?'Açık':'Koyu';}
+(function(){var t=localStorage.getItem('radiology-theme');if(t==='light'){document.body.classList.add('light');document.getElementById('themeText').textContent='Açık';}})();
+
+var currentTab='noro';
+document.getElementById('navTabs').addEventListener('click',function(e){if(e.target.classList.contains('nav-tab')){document.querySelectorAll('.nav-tab').forEach(function(t){t.classList.remove('active');});e.target.classList.add('active');currentTab=e.target.dataset.tab;document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});var sec=document.getElementById('sec-'+currentTab);if(sec)sec.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}});
+(function(){var p=new URLSearchParams(window.location.search);var pg=p.get('page');if(pg){var t=document.querySelector('.nav-tab[data-tab="'+pg+'"]');if(t)t.click();}})();
+
+function toggleCard(h){h.parentElement.classList.toggle('open');}
+
+function copyReport(btn){
+var block=btn.closest('.tmpl-content').querySelector('.report-block');
+var text=block.textContent;
+navigator.clipboard.writeText(text).then(function(){
+btn.textContent='✅ Kopyalandı!';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋 Kopyala';btn.classList.remove('copied');},2000);
+}).catch(function(){
+var range=document.createRange();range.selectNode(block);window.getSelection().removeAllRanges();window.getSelection().addRange(range);
+document.execCommand('copy');window.getSelection().removeAllRanges();
+btn.textContent='✅ Kopyalandı!';btn.classList.add('copied');
+setTimeout(function(){btn.textContent='📋 Kopyala';btn.classList.remove('copied');},2000);
+});
+}
+</script>
+</body></html>
