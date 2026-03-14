@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Kesitsel Anatomi Atlası</title>
+<meta name="description" content="İnteraktif Kesitsel Anatomi Atlası — Beyin, Baş-Boyun, Toraks, Abdomen, Pelvis ve Vertebra anatomisi">
+<meta name="theme-color" content="#0f172a">
+<meta property="og:title" content="Kesitsel Anatomi Atlası">
+<meta property="og:description" content="Radyoloji eğitimi için interaktif kesitsel anatomi atlası">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<link rel="manifest" href="manifest.json">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+:root{--bg:#0f172a;--bg2:#1e293b;--bg3:#334155;--text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;--accent:#3b82f6;--accent2:#06b6d4;--danger:#f43f5e;--success:#10b981;--warn:#f59e0b;--radius:16px;}
+html{scroll-behavior:smooth;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6;transition:background 0.3s,color 0.3s;}
+body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#64748b;--text3:#94a3b8;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--bg3);border-radius:4px;}
+
+/* Header */
+.header{background:var(--bg2);border-bottom:1px solid var(--bg3);padding:14px 20px;position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);}
+.header-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo h1{font-size:20px;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.logo span{font-size:11px;color:var(--text3);font-weight:500;}
+.header-actions{display:flex;gap:8px;}
+.hbtn{background:var(--bg);border:1px solid var(--bg3);border-radius:10px;padding:8px 12px;min-height:40px;color:var(--text2);font-size:13px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all 0.2s;}
+.hbtn:hover{border-color:var(--accent);color:var(--accent);}
+
+/* Main */
+.main{max-width:900px;margin:0 auto;padding:20px;}
+
+/* Search */
+.search-wrap{position:relative;margin-bottom:20px;}
+.search-wrap input{width:100%;background:var(--bg2);border:1px solid var(--bg3);border-radius:12px;padding:12px 16px 12px 42px;color:var(--text);font-size:15px;outline:none;transition:border-color 0.2s;}
+.search-wrap input:focus{border-color:var(--accent);}
+.search-wrap .si{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text3);pointer-events:none;}
+.search-results{position:absolute;top:100%;left:0;right:0;background:var(--bg2);border:1px solid var(--bg3);border-radius:0 0 12px 12px;max-height:360px;overflow-y:auto;display:none;z-index:50;}
+.search-results.active{display:block;}
+.sr-item{padding:10px 16px;border-bottom:1px solid var(--bg3);cursor:pointer;transition:background 0.15s;}
+.sr-item:hover{background:var(--bg);}
+.sr-item:last-child{border-bottom:none;}
+.sr-name{font-size:14px;font-weight:600;}
+.sr-meta{font-size:11px;color:var(--text3);margin-top:2px;}
+.sr-meta mark{background:rgba(59,130,246,0.2);color:var(--accent);border-radius:2px;padding:0 2px;}
+
+/* Tabs */
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:20px;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{background:var(--bg2);border:1px solid var(--bg3);border-radius:10px;padding:10px 16px;font-size:13px;font-weight:600;color:var(--text2);cursor:pointer;white-space:nowrap;transition:all 0.2s;flex-shrink:0;}
+.tab:hover{border-color:var(--accent);color:var(--accent);}
+.tab.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+
+/* Mode Toggle */
+.mode-bar{display:flex;gap:8px;margin-bottom:20px;}
+.mode-btn{flex:1;background:var(--bg2);border:1px solid var(--bg3);border-radius:10px;padding:10px;text-align:center;font-size:13px;font-weight:600;color:var(--text2);cursor:pointer;transition:all 0.2s;}
+.mode-btn:hover{border-color:var(--accent);}
+.mode-btn.active{background:linear-gradient(135deg,var(--accent),var(--accent2));border-color:transparent;color:#fff;}
+
+/* Level Cards */
+.level-card{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--radius);padding:20px;margin-bottom:16px;transition:border-color 0.2s;}
+.level-card:hover{border-color:var(--accent);}
+.level-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;cursor:pointer;}
+.level-num{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;}
+.level-title{font-size:16px;font-weight:700;}
+.level-subtitle{font-size:12px;color:var(--text3);margin-top:1px;}
+.level-toggle{margin-left:auto;color:var(--text3);transition:transform 0.3s;font-size:18px;}
+.level-toggle.open{transform:rotate(180deg);}
+.level-body{display:none;}
+.level-body.open{display:block;}
+
+/* SVG Diagram */
+.svg-wrap{background:var(--bg);border:1px solid var(--bg3);border-radius:12px;padding:10px;margin-bottom:14px;overflow-x:auto;text-align:center;}
+.svg-wrap svg{max-width:100%;height:auto;}
+
+/* Structure List */
+.struct-list{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px;}
+@media(max-width:600px){.struct-list{grid-template-columns:1fr;}}
+.struct-item{background:var(--bg);border:1px solid var(--bg3);border-radius:8px;padding:8px 12px;font-size:13px;display:flex;align-items:center;gap:8px;}
+.struct-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+
+/* Clinical Box */
+.clinical-box{background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);border-radius:10px;padding:12px 14px;margin-bottom:10px;}
+.clinical-box h4{font-size:12px;color:var(--accent);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;}
+.clinical-box p,.clinical-box li{font-size:13px;color:var(--text2);line-height:1.5;}
+.clinical-box ul{padding-left:16px;margin-top:4px;}
+
+.pathology-box{background:rgba(244,63,94,0.08);border:1px solid rgba(244,63,94,0.2);border-radius:10px;padding:12px 14px;}
+.pathology-box h4{font-size:12px;color:var(--danger);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;}
+.pathology-box p,.pathology-box li{font-size:13px;color:var(--text2);line-height:1.5;}
+.pathology-box ul{padding-left:16px;margin-top:4px;}
+
+/* Text description cards (for non-SVG regions) */
+.anatomy-desc{background:var(--bg);border:1px solid var(--bg3);border-radius:12px;padding:14px;margin-bottom:14px;}
+.anatomy-desc h4{font-size:13px;color:var(--accent2);margin-bottom:8px;}
+.anatomy-desc ul{padding-left:16px;}
+.anatomy-desc li{font-size:13px;color:var(--text2);margin-bottom:4px;line-height:1.5;}
+.anatomy-desc .landmark{color:var(--warn);font-weight:600;}
+
+/* Quiz */
+.quiz-container{display:none;}
+.quiz-container.active{display:block;}
+.quiz-progress{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+.quiz-bar{flex:1;height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;}
+.quiz-bar-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:3px;transition:width 0.3s;}
+.quiz-score{font-size:13px;color:var(--text2);font-weight:600;}
+.quiz-card{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--radius);padding:24px;text-align:center;}
+.quiz-q{font-size:17px;font-weight:700;margin-bottom:20px;line-height:1.4;}
+.quiz-hint{font-size:12px;color:var(--text3);margin-bottom:16px;}
+.quiz-opts{display:grid;gap:8px;margin-bottom:16px;}
+.quiz-opt{background:var(--bg);border:2px solid var(--bg3);border-radius:10px;padding:12px 16px;font-size:14px;color:var(--text);cursor:pointer;transition:all 0.2s;text-align:left;}
+.quiz-opt:hover{border-color:var(--accent);}
+.quiz-opt.correct{border-color:var(--success);background:rgba(16,185,129,0.1);color:var(--success);}
+.quiz-opt.wrong{border-color:var(--danger);background:rgba(244,63,94,0.1);color:var(--danger);}
+.quiz-opt.disabled{pointer-events:none;opacity:0.6;}
+.quiz-opt.disabled.correct{opacity:1;}
+.quiz-explanation{background:var(--bg);border:1px solid var(--bg3);border-radius:10px;padding:14px;font-size:13px;color:var(--text2);margin-bottom:14px;display:none;text-align:left;line-height:1.5;}
+.quiz-explanation.show{display:block;}
+.quiz-next{background:var(--accent);border:none;border-radius:10px;padding:12px 24px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;display:none;margin:0 auto;}
+.quiz-next.show{display:inline-block;}
+.quiz-result{text-align:center;padding:30px;}
+.quiz-result h3{font-size:22px;margin-bottom:8px;}
+.quiz-result p{color:var(--text2);margin-bottom:16px;}
+.quiz-restart{background:var(--accent);border:none;border-radius:10px;padding:12px 24px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;}
+
+/* Stats strip */
+.stats-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px;}
+.stat-card{background:var(--bg2);border:1px solid var(--bg3);border-radius:12px;padding:14px;text-align:center;}
+.stat-num{font-size:22px;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.stat-label{font-size:11px;color:var(--text3);margin-top:2px;}
+
+/* Empty state */
+.empty-state{text-align:center;padding:40px;color:var(--text3);}
+.empty-state p{font-size:14px;}
+
+/* Footer */
+.footer{text-align:center;padding:30px 20px;color:var(--text3);font-size:12px;border-top:1px solid var(--bg3);margin-top:30px;}
+
+@media(max-width:600px){
+  .header-inner{flex-wrap:wrap;gap:8px;}
+  .logo h1{font-size:17px;}
+  .stats-strip{grid-template-columns:1fr 1fr 1fr;}
+  .stat-num{font-size:18px;}
+  .level-card{padding:14px;}
+  .quiz-card{padding:16px;}
+}
+</style>
+</head>
+<body>
+<!-- Header -->
+<header class="header">
+<div class="header-inner">
+  <a href="index.html" class="logo">
+    <h1>Anatomi Atlasi</h1>
+    <span>Kesitsel Anatomi</span>
+  </a>
+  <div class="header-actions">
+    <button class="hbtn" onclick="toggleTheme()" id="themeBtn" title="Tema Degistir">&#9788; Tema</button>
+  </div>
+</div>
+</header>
+
+<div class="main">
+
+<!-- Search -->
+<div class="search-wrap">
+  <span class="si">&#128269;</span>
+  <input type="text" id="searchInput" placeholder="Anatomik yapi ara... (orn: hipokampus, aort)" autocomplete="off">
+  <div class="search-results" id="searchResults"></div>
+</div>
+
+<!-- Stats -->
+<div class="stats-strip">
+  <div class="stat-card"><div class="stat-num">6</div><div class="stat-label">Bolge</div></div>
+  <div class="stat-card"><div class="stat-num">38</div><div class="stat-label">Seviye</div></div>
+  <div class="stat-card"><div class="stat-num">25</div><div class="stat-label">Quiz Sorusu</div></div>
+</div>
+
+<!-- Mode Toggle -->
+<div class="mode-bar">
+  <div class="mode-btn active" onclick="setMode('atlas')">&#128214; Atlas</div>
+  <div class="mode-btn" onclick="setMode('quiz')">&#9889; Quiz</div>
+</div>
+
+<!-- Tabs -->
+<div class="tabs" id="regionTabs">
+  <div class="tab active" data-region="beyin">Beyin</div>
+  <div class="tab" data-region="basboyin">Bas-Boyun</div>
+  <div class="tab" data-region="toraks">Toraks</div>
+  <div class="tab" data-region="abdomen">Abdomen</div>
+  <div class="tab" data-region="pelvis">Pelvis</div>
+  <div class="tab" data-region="vertebra">Vertebra</div>
+</div>
+
+<!-- Atlas Content -->
+<div id="atlasContent"></div>
+
+<!-- Quiz Content -->
+<div class="quiz-container" id="quizContainer">
+  <div class="quiz-progress">
+    <div class="quiz-bar"><div class="quiz-bar-fill" id="quizBar"></div></div>
+    <div class="quiz-score" id="quizScore">0/25</div>
+  </div>
+  <div class="quiz-card" id="quizCard"></div>
+</div>
+
+</div>
+
+<footer class="footer">Kesitsel Anatomi Atlasi &mdash; Radyoloji Egitim Platformu</footer>
+
+<script>
+// ===== THEME =====
+function toggleTheme(){
+  document.body.classList.toggle('light');
+  const isLight=document.body.classList.contains('light');
+  localStorage.setItem('anatomy-theme',isLight?'light':'dark');
+  document.getElementById('themeBtn').innerHTML=isLight?'&#9790; Tema':'&#9788; Tema';
+}
+(function(){
+  if(localStorage.getItem('anatomy-theme')==='light'){document.body.classList.add('light');document.getElementById('themeBtn').innerHTML='&#9790; Tema';}
+})();
+
+// ===== DATA =====
+const anatomyData={
+beyin:[
+{id:'b1',level:1,title:'Vertex Seviyesi',subtitle:'Superior sagittal sinus, falx cerebri',
+ svg:`<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="200" cy="150" rx="170" ry="130" fill="#1a1a2e" stroke="#3b82f6" stroke-width="2"/>
+  <line x1="200" y1="20" x2="200" y2="280" stroke="#f43f5e" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="210" y="50" fill="#f43f5e" font-size="11">Falx cerebri</text>
+  <ellipse cx="200" cy="150" rx="150" ry="110" fill="none" stroke="#64748b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="80" y="100" fill="#10b981" font-size="11">Frontal lob</text>
+  <text x="260" y="100" fill="#10b981" font-size="11">Frontal lob</text>
+  <text x="80" y="200" fill="#06b6d4" font-size="11">Parietal lob</text>
+  <text x="260" y="200" fill="#06b6d4" font-size="11">Parietal lob</text>
+  <rect x="170" y="10" width="60" height="12" rx="3" fill="#3b82f6" opacity="0.3"/>
+  <text x="175" y="19" fill="#3b82f6" font-size="9">Sup. sagittal sinus</text>
+  <circle cx="130" cy="140" r="4" fill="#f59e0b"/>
+  <text x="90" y="155" fill="#f59e0b" font-size="10">Sulkus</text>
+  <circle cx="270" cy="140" r="4" fill="#f59e0b"/>
+  <text x="278" y="145" fill="#f59e0b" font-size="10">Girus</text>
+</svg>`,
+ structures:['Superior sagittal sinus','Falx cerebri','Frontal lob (superior kisim)','Parietal lob (superior kisim)','Kortikal sulkuslar ve giruslar','Subaraknoid mesafe'],
+ clinical:'Vertex seviyesi parasagittal meningiomlar, superior sagittal sinus trombozu ve konveksite subdural hematomlarinin degerlendirilmesinde onemlidir.',
+ pathologies:['Parasagittal meningiom','Superior sagittal sinus trombozu','Konveksite subdural hematom','Subaraknoid kanama','Kortikal venoz infarkt']
+},
+{id:'b2',level:2,title:'Sentrum Semiovale Seviyesi',subtitle:'Corona radiata, beyaz cevher',
+ svg:`<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="200" cy="150" rx="170" ry="130" fill="#1a1a2e" stroke="#3b82f6" stroke-width="2"/>
+  <line x1="200" y1="25" x2="200" y2="275" stroke="#f43f5e" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="210" y="45" fill="#f43f5e" font-size="10">Falx</text>
+  <ellipse cx="200" cy="150" rx="130" ry="95" fill="#1e293b" stroke="#64748b" stroke-width="1"/>
+  <text x="115" y="145" fill="#e2e8f0" font-size="12" font-weight="bold">Sentrum</text>
+  <text x="110" y="162" fill="#e2e8f0" font-size="12" font-weight="bold">Semiovale</text>
+  <text x="245" y="145" fill="#e2e8f0" font-size="12" font-weight="bold">Sentrum</text>
+  <text x="240" y="162" fill="#e2e8f0" font-size="12" font-weight="bold">Semiovale</text>
+  <path d="M 150 120 Q 200 80 250 120" fill="none" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="165" y="95" fill="#f59e0b" font-size="10">Corona radiata</text>
+  <text x="60" y="110" fill="#10b981" font-size="11">Frontal</text>
+  <text x="300" y="110" fill="#10b981" font-size="11">Frontal</text>
+  <text x="65" y="220" fill="#06b6d4" font-size="11">Parietal</text>
+  <text x="290" y="220" fill="#06b6d4" font-size="11">Parietal</text>
+</svg>`,
+ structures:['Sentrum semiovale (beyaz cevher)','Corona radiata','Frontal lob','Parietal lob','Falx cerebri','Kortikal-subkortikal sinir'],
+ clinical:'Sentrum semiovale lakuner infarktlarin, multipl skleroz plaklarinin ve metastazlarin sik goruldugu bir bolgedir. Beyaz cevher hastaliklari burada degerlendirilir.',
+ pathologies:['Lakuner infarkt','MS plaklari (perivaskuler)','Beyaz cevher hastaligi (lokoaraiozis)','Metastaz','Radyasyon nekrozu']
+},
+{id:'b3',level:3,title:'Lateral Ventrikul Govde Seviyesi',subtitle:'Lateral ventrikuller, corpus callosum',
+ svg:`<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="200" cy="150" rx="170" ry="130" fill="#1a1a2e" stroke="#3b82f6" stroke-width="2"/>
+  <line x1="200" y1="30" x2="200" y2="270" stroke="#f43f5e" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <rect x="120" y="100" width="60" height="20" rx="8" fill="#0ea5e9" opacity="0.4" stroke="#0ea5e9" stroke-width="1"/>
+  <text x="125" y="114" fill="#0ea5e9" font-size="9">Lat.vent (L)</text>
+  <rect x="220" y="100" width="60" height="20" rx="8" fill="#0ea5e9" opacity="0.4" stroke="#0ea5e9" stroke-width="1"/>
+  <text x="224" y="114" fill="#0ea5e9" font-size="9">Lat.vent (R)</text>
+  <rect x="145" y="80" width="110" height="10" rx="3" fill="#f59e0b" opacity="0.4" stroke="#f59e0b" stroke-width="1"/>
+  <text x="155" y="77" fill="#f59e0b" font-size="10">Corpus callosum</text>
+  <rect x="185" y="100" width="30" height="20" rx="2" fill="#f43f5e" opacity="0.3" stroke="#f43f5e" stroke-width="1"/>
+  <text x="165" y="135" fill="#f43f5e" font-size="9">Septum pellucidum</text>
+  <ellipse cx="130" cy="170" rx="40" ry="35" fill="none" stroke="#10b981" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="105" y="175" fill="#10b981" font-size="10">Caudat N.</text>
+  <ellipse cx="270" cy="170" rx="40" ry="35" fill="none" stroke="#10b981" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="248" y="175" fill="#10b981" font-size="10">Caudat N.</text>
+  <text x="50" y="90" fill="#94a3b8" font-size="11">Frontal</text>
+  <text x="310" y="90" fill="#94a3b8" font-size="11">Frontal</text>
+  <text x="50" y="230" fill="#94a3b8" font-size="11">Oksipital</text>
+  <text x="300" y="230" fill="#94a3b8" font-size="11">Oksipital</text>
+</svg>`,
+ structures:['Lateral ventrikuller (govde)','Corpus callosum','Septum pellucidum','Caudat nukleus (basi)','Frontal lob beyaz cevheri','Oksipital lob beyaz cevheri','Cingulat girus'],
+ clinical:'Ventrikul boyutu, Evans indeksi (ventrikul/kafatasi orani) bu seviyede olculur. Hidrosefali degerlendirilmesinde temel seviyedir.',
+ pathologies:['Hidrosefali','Subependimal dev hucreli astrositom','Koroid pleksus papillomu','Ependimom','Corpus callosum agenezisi']
+},
+{id:'b4',level:4,title:'Bazal Ganglion Seviyesi',subtitle:'Talamus, putamen, capsula interna',
+ svg:`<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="200" cy="150" rx="170" ry="130" fill="#1a1a2e" stroke="#3b82f6" stroke-width="2"/>
+  <rect x="105" y="85" width="80" height="16" rx="6" fill="#0ea5e9" opacity="0.35" stroke="#0ea5e9" stroke-width="1"/>
+  <rect x="215" y="85" width="80" height="16" rx="6" fill="#0ea5e9" opacity="0.35" stroke="#0ea5e9" stroke-width="1"/>
+  <text x="115" y="80" fill="#0ea5e9" font-size="9">Lat. ventrikul</text>
+  <ellipse cx="140" cy="140" rx="22" ry="18" fill="#8b5cf6" opacity="0.35" stroke="#8b5cf6" stroke-width="1.5"/>
+  <text x="125" y="144" fill="#8b5cf6" font-size="9">Caudat</text>
+  <ellipse cx="260" cy="140" rx="22" ry="18" fill="#8b5cf6" opacity="0.35" stroke="#8b5cf6" stroke-width="1.5"/>
+  <text x="245" y="144" fill="#8b5cf6" font-size="9">Caudat</text>
+  <ellipse cx="155" cy="170" rx="28" ry="20" fill="#10b981" opacity="0.3" stroke="#10b981" stroke-width="1.5"/>
+  <text x="137" y="174" fill="#10b981" font-size="9">Putamen</text>
+  <ellipse cx="245" cy="170" rx="28" ry="20" fill="#10b981" opacity="0.3" stroke="#10b981" stroke-width="1.5"/>
+  <text x="227" y="174" fill="#10b981" font-size="9">Putamen</text>
+  <ellipse cx="190" cy="175" rx="15" ry="18" fill="#f59e0b" opacity="0.3" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="180" y="205" fill="#f59e0b" font-size="9">Globus</text>
+  <text x="178" y="215" fill="#f59e0b" font-size="9">pallidus</text>
+  <ellipse cx="210" cy="175" rx="15" ry="18" fill="#f59e0b" opacity="0.3" stroke="#f59e0b" stroke-width="1.5"/>
+  <ellipse cx="195" cy="155" rx="8" ry="20" fill="none" stroke="#f43f5e" stroke-width="2"/>
+  <text x="130" y="220" fill="#f43f5e" font-size="9">Capsula interna</text>
+  <ellipse cx="205" cy="155" rx="8" ry="20" fill="none" stroke="#f43f5e" stroke-width="2"/>
+  <ellipse cx="200" cy="190" rx="30" ry="20" fill="#06b6d4" opacity="0.25" stroke="#06b6d4" stroke-width="1.5"/>
+  <text x="183" y="194" fill="#06b6d4" font-size="10">Talamus</text>
+  <rect x="185" y="100" width="30" height="40" rx="2" fill="#334155" opacity="0.3" stroke="#64748b" stroke-width="1"/>
+  <text x="186" y="126" fill="#64748b" font-size="8">3.vent</text>
+  <text x="55" y="90" fill="#94a3b8" font-size="10">Frontal</text>
+  <text x="45" y="230" fill="#94a3b8" font-size="10">Oksipital</text>
+  <text x="310" y="140" fill="#94a3b8" font-size="10">Insular</text>
+  <text x="310" y="152" fill="#94a3b8" font-size="10">korteks</text>
+</svg>`,
+ structures:['Caudat nukleus','Putamen','Globus pallidus','Talamus','Capsula interna (on bacak, genu, arka bacak)','3. ventrikul','Insular korteks','Sylvian fissur','Lateral ventrikuller (frontal horn)'],
+ clinical:'Bazal ganglion seviyesi inme degerlendirilmesinde kritiktir. Capsula interna arka bacagi motor lifleri tasir. Lakuner infarktlar sik gorulur.',
+ pathologies:['Lakuner infarkt (capsula interna, putamen)','Hipertansif intraserebral kanama','Wilson hastaligi (T2 sinyal degisikligi)','Huntington hastaligi (caudat atrofisi)','Derin ven trombozu']
+},
+{id:'b5',level:5,title:'Suprasellar Sisterna Seviyesi',subtitle:'Circulus Willisi, optik kiazma',
+ svg:`<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="200" cy="150" rx="170" ry="130" fill="#1a1a2e" stroke="#3b82f6" stroke-width="2"/>
+  <ellipse cx="145" cy="120" rx="50" ry="30" fill="#1e293b" stroke="#64748b" stroke-width="1"/>
+  <text x="115" y="115" fill="#94a3b8" font-size="9">Temporal lob</text>
+  <ellipse cx="255" cy="120" rx="50" ry="30" fill="#1e293b" stroke="#64748b" stroke-width="1"/>
+  <text x="225" y="115" fill="#94a3b8" font-size="9">Temporal lob</text>
+  <circle cx="200" cy="135" r="20" fill="#334155" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="185" y="139" fill="#f59e0b" font-size="9">Suprasellar</text>
+  <text x="188" y="149" fill="#f59e0b" font-size="9">sisterna</text>
+  <rect x="185" y="100" width="30" height="15" rx="5" fill="#f43f5e" opacity="0.3" stroke="#f43f5e" stroke-width="1"/>
+  <text x="175" y="96" fill="#f43f5e" font-size="9">Optik kiazma</text>
+  <circle cx="200" cy="165" r="10" fill="#8b5cf6" opacity="0.4" stroke="#8b5cf6" stroke-width="1.5"/>
+  <text x="215" y="170" fill="#8b5cf6" font-size="9">Hipofiz sapi</text>
+  <path d="M 160 155 Q 200 175 240 155" fill="none" stroke="#10b981" stroke-width="1.5"/>
+  <path d="M 160 155 Q 200 135 240 155" fill="none" stroke="#10b981" stroke-width="1.5"/>
+  <text x="140" y="175" fill="#10b981" font-size="9">Willis poligonu</text>
+  <ellipse cx="130" cy="170" rx="30" ry="22" fill="none" stroke="#06b6d4" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="113" y="172" fill="#06b6d4" font-size="9">Hipokampus</text>
+  <ellipse cx="270" cy="170" rx="30" ry="22" fill="none" stroke="#06b6d4" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="253" y="172" fill="#06b6d4" font-size="9">Hipokampus</text>
+  <text x="170" y="240" fill="#94a3b8" font-size="10">Serebellum</text>
+  <ellipse cx="200" cy="230" rx="60" ry="30" fill="none" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,2"/>
+</svg>`,
+ structures:['Suprasellar sisterna','Circulus Willisi (Willis poligonu)','Optik kiazma','Hipofiz sapi','Temporal loblar','Hipokampus','Serebellum (superior)','3. ventrikul (inferior)','A. cerebri anterior/media/posterior'],
+ clinical:'Suprasellar bolgede hipofiz adenomlari, kraniofaringiom ve meningiom sik gorulur. Optik kiazma kompresyonu bitemporal hemianopsi yapar.',
+ pathologies:['Hipofiz makroadenomu','Kraniofaringiom','Suprasellar meninjiyom','Rathke kleft kisti','Subaraknoid kanama (Willis poligonu anevrizmalari)']
+},
+{id:'b6',level:6,title:'Mezensefalon Seviyesi',subtitle:'Serebral pedunkuller, aquadukt',
+ svg:`<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="200" cy="150" rx="170" ry="130" fill="#1a1a2e" stroke="#3b82f6" stroke-width="2"/>
+  <ellipse cx="145" cy="115" rx="55" ry="35" fill="#1e293b" stroke="#64748b" stroke-width="1"/>
+  <text x="110" y="105" fill="#94a3b8" font-size="9">Temporal lob</text>
+  <ellipse cx="255" cy="115" rx="55" ry="35" fill="#1e293b" stroke="#64748b" stroke-width="1"/>
+  <text x="220" y="105" fill="#94a3b8" font-size="9">Temporal lob</text>
+  <ellipse cx="200" cy="140" rx="30" ry="22" fill="#334155" stroke="#8b5cf6" stroke-width="2"/>
+  <text x="178" y="137" fill="#8b5cf6" font-size="10" font-weight="bold">Mezensefalon</text>
+  <circle cx="200" cy="130" r="4" fill="#0ea5e9" stroke="#0ea5e9" stroke-width="1"/>
+  <text x="210" y="127" fill="#0ea5e9" font-size="9">Aquadukt</text>
+  <ellipse cx="185" cy="148" rx="12" ry="8" fill="#f43f5e" opacity="0.3" stroke="#f43f5e" stroke-width="1"/>
+  <ellipse cx="215" cy="148" rx="12" ry="8" fill="#f43f5e" opacity="0.3" stroke="#f43f5e" stroke-width="1"/>
+  <text x="155" y="165" fill="#f43f5e" font-size="9">Serebral pedonkuller</text>
+  <circle cx="200" cy="135" r="6" fill="none" stroke="#10b981" stroke-width="1.5"/>
+  <text x="175" y="120" fill="#10b981" font-size="8">Substantia nigra</text>
+  <ellipse cx="200" cy="225" rx="65" ry="40" fill="none" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="170" y="230" fill="#f59e0b" font-size="10">Serebellum</text>
+  <rect x="170" y="180" width="60" height="20" rx="5" fill="#06b6d4" opacity="0.2" stroke="#06b6d4" stroke-width="1"/>
+  <text x="175" y="194" fill="#06b6d4" font-size="9">Prepontin sist.</text>
+</svg>`,
+ structures:['Mezensefalon (beyin sapi)','Serebral pedonkuller','Aquaductus cerebri (Sylvius)','Substantia nigra','Tektum (colliculi)','Prepontin sisterna','Serebellum','Temporal loblar','Tentorium cerebelli'],
+ clinical:'Mezensefalon seviyesi Parkinson hastaliginda substantia nigra degerlendirilmesi ve aquadukt stenozuna bagli hidrosefalide onemlidir.',
+ pathologies:['Parkinson hastaligi (substantia nigra dejenerasyonu)','Aquadukt stenozu','Beyin sapi gliomu','Tentorial herniasyon','Weber sendromu (pedunkul infarkt)']
+},
+{id:'b7',level:7,title:'Pons Seviyesi',subtitle:'4. ventrikul, pons, orta serebellar pedonkul',
+ svg:`<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="200" cy="150" rx="170" ry="130" fill="#1a1a2e" stroke="#3b82f6" stroke-width="2"/>
+  <ellipse cx="200" cy="120" rx="40" ry="28" fill="#334155" stroke="#8b5cf6" stroke-width="2"/>
+  <text x="185" y="118" fill="#8b5cf6" font-size="11" font-weight="bold">Pons</text>
+  <rect x="185" y="90" width="30" height="15" rx="5" fill="#0ea5e9" opacity="0.4" stroke="#0ea5e9" stroke-width="1"/>
+  <text x="180" y="86" fill="#0ea5e9" font-size="9">4. ventrikul</text>
+  <ellipse cx="140" cy="130" rx="25" ry="15" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="100" y="135" fill="#f59e0b" font-size="8">MCP (L)</text>
+  <ellipse cx="260" cy="130" rx="25" ry="15" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="270" y="135" fill="#f59e0b" font-size="8">MCP (R)</text>
+  <ellipse cx="200" cy="200" rx="80" ry="50" fill="none" stroke="#10b981" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="165" y="200" fill="#10b981" font-size="11">Serebellum</text>
+  <ellipse cx="140" cy="80" rx="45" ry="25" fill="#1e293b" stroke="#64748b" stroke-width="1"/>
+  <text x="110" y="75" fill="#94a3b8" font-size="9">Temporal lob</text>
+  <ellipse cx="260" cy="80" rx="45" ry="25" fill="#1e293b" stroke="#64748b" stroke-width="1"/>
+  <text x="230" y="75" fill="#94a3b8" font-size="9">Temporal lob</text>
+  <circle cx="170" cy="110" r="6" fill="#f43f5e" opacity="0.3" stroke="#f43f5e" stroke-width="1"/>
+  <text x="140" y="105" fill="#f43f5e" font-size="8">CN VII-VIII</text>
+</svg>`,
+ structures:['Pons','4. ventrikul','Orta serebellar pedonkul (MCP)','Serebellum hemisfer ve vermis','Temporal loblar','Baziler arter','CN V (trigeminal)','CN VII-VIII (fasiyal-vestibulokoklear)','Mastoid hava hucreleri'],
+ clinical:'Pons seviyesi MSA-C ve diger pontoserebellar atrofilerde onemlidir. 4. ventrikul tumoru (ependimom, medulloblastom) degerlendirilir.',
+ pathologies:['Pontin infarkt (lakuner)','MSA-C (pontoserebellar atrofi)','Santral pontin miyelinoliz','Beyin sapi gliomu','Akustik norinom (CN VIII)']
+},
+{id:'b8',level:8,title:'Bulbus (Medulla Oblongata) Seviyesi',subtitle:'Medulla, serebellar tonsiller',
+ svg:`<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="200" cy="150" rx="160" ry="120" fill="#1a1a2e" stroke="#3b82f6" stroke-width="2"/>
+  <ellipse cx="200" cy="120" rx="20" ry="25" fill="#334155" stroke="#8b5cf6" stroke-width="2"/>
+  <text x="178" y="120" fill="#8b5cf6" font-size="10" font-weight="bold">Medulla</text>
+  <rect x="188" y="88" width="24" height="12" rx="4" fill="#0ea5e9" opacity="0.4" stroke="#0ea5e9" stroke-width="1"/>
+  <text x="175" y="84" fill="#0ea5e9" font-size="9">4. vent (inferior)</text>
+  <ellipse cx="155" cy="170" rx="40" ry="35" fill="none" stroke="#10b981" stroke-width="1.5"/>
+  <text x="125" y="160" fill="#10b981" font-size="9">Serebellar</text>
+  <text x="130" y="172" fill="#10b981" font-size="9">tonsil (L)</text>
+  <ellipse cx="245" cy="170" rx="40" ry="35" fill="none" stroke="#10b981" stroke-width="1.5"/>
+  <text x="215" y="160" fill="#10b981" font-size="9">Serebellar</text>
+  <text x="220" y="172" fill="#10b981" font-size="9">tonsil (R)</text>
+  <line x1="200" y1="145" x2="200" y2="210" stroke="#f43f5e" stroke-width="1.5"/>
+  <text x="207" y="200" fill="#f43f5e" font-size="9">Spinal kord</text>
+  <ellipse cx="200" cy="230" rx="30" ry="12" fill="none" stroke="#f59e0b" stroke-width="1"/>
+  <text x="175" y="255" fill="#f59e0b" font-size="9">Foramen magnum</text>
+</svg>`,
+ structures:['Medulla oblongata','4. ventrikul (inferior kisim)','Serebellar tonsiller','Foramen magnum','Vertebral arterler','Spinal kord (servikomedullary bilesim)','CN IX, X, XI, XII'],
+ clinical:'Serebellar tonsillerin foramen magnum altina 5 mm uzanmasi Chiari I malformasyonu olarak degerlendirilir. Bulber fonksiyonlar burada yer alir.',
+ pathologies:['Chiari I malformasyonu','Wallenberg sendromu (lateral medullary infarkt)','Foramen magnum meninjiyomu','Medulloblastom (serebellar vermis)','Siringomiyeli (eslik eden)']
+},
+{id:'b9',level:9,title:'Serebellum Seviyesi',subtitle:'Vermis, hemisferler, dantate nukleus',
+ structures:['Serebellar vermis','Serebellar hemisferler','Dantate nukleus','4. ventrikul','Serebellar pedonkuller (superior, orta, inferior)','Tentorium cerebelli'],
+ clinical:'Serebellar lezyonlar ataksi, dismetri ve tremor yapar. Cocuklarda en sik posterior fossa tumoru medulloblastomdur.',
+ pathologies:['Medulloblastom (cocukluk cagi)','Pilositik astrositom','Serebellar hemanjioblastom','Serebellar infarkt','Serebellar hematom']
+},
+{id:'b10',level:10,title:'Orbita ve Anterior Kafa Tabani',subtitle:'Orbita, frontal lob inferior',
+ structures:['Orbita (glob, ekstraokuler kaslar)','Optik sinir (CN II)','Frontal lob (inferior yuzey)','Olfaktor sulkus','Etmoid sinusler','Anterior kafa tabani (cribriform plate)'],
+ clinical:'Orbita patolojileri (retinoblastom, optik gliom, psodotumor) ve anterior kafa tabani kiriklari bu seviyede degerlendirilir.',
+ pathologies:['Optik sinir gliomu','Retinoblastom','Olfaktor oluk meninjiyomu','Anterior kafa tabani kirigi','Orbital sellulit/apse']
+}
+],

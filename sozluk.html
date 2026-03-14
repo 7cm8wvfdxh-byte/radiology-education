@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radyoloji Sözlüğü — Radiology Education</title>
+<meta name="description" content="Kapsamlı Radyoloji Sözlüğü — Türkçe-İngilizce radyoloji terimleri, fizik, anatomi, patoloji, teknik ve kısaltmalar">
+<meta name="theme-color" content="#0f172a">
+<link rel="manifest" href="manifest.json">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--bg:#0f172a;--bg2:#1e293b;--bg3:#334155;--text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;--accent:#3b82f6;--accent2:#06b6d4;--danger:#f43f5e;--success:#10b981;--warn:#f59e0b;--radius:16px;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:0;transition:background 0.3s,color 0.3s;}
+body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#64748b;--text3:#94a3b8;}
+
+/* Header */
+.header{background:var(--bg2);border-bottom:1px solid var(--bg3);padding:16px 20px;position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);}
+.header-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo h1{font-size:20px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.header-actions{display:flex;gap:8px;}
+.header-btn{background:var(--bg);border:1px solid var(--bg3);border-radius:10px;padding:10px 14px;min-height:44px;color:var(--text2);font-size:13px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all 0.2s;-webkit-tap-highlight-color:transparent;}
+.header-btn:active{opacity:0.7;}
+@media(hover:hover){.header-btn:hover{border-color:var(--accent);color:var(--accent);}}
+
+/* Main */
+.main{max-width:900px;margin:0 auto;padding:20px;}
+
+/* Page Title */
+.page-title{text-align:center;margin-bottom:24px;}
+.page-title h2{font-size:28px;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px;}
+.page-title p{color:var(--text2);font-size:14px;}
+
+/* Stats Bar */
+.dict-stats{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:20px;}
+.dict-stat{background:var(--bg2);border:1px solid var(--bg3);border-radius:10px;padding:8px 16px;text-align:center;}
+.dict-stat-val{font-size:18px;font-weight:700;color:var(--accent2);}
+.dict-stat-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px;}
+
+/* Search */
+.search-wrapper{margin-bottom:16px;position:relative;}
+.search-input{width:100%;background:var(--bg2);border:1px solid var(--bg3);border-radius:12px;padding:14px 16px 14px 44px;color:var(--text);font-size:16px;outline:none;transition:border-color 0.2s;}
+.search-input:focus{border-color:var(--accent);}
+.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:18px;pointer-events:none;}
+.search-clear{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:var(--bg3);border:none;color:var(--text2);width:24px;height:24px;border-radius:50%;cursor:pointer;font-size:14px;display:none;align-items:center;justify-content:center;}
+.search-clear.visible{display:flex;}
+
+/* Category Filters */
+.cat-filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
+.cat-btn{background:var(--bg2);border:1px solid var(--bg3);border-radius:8px;padding:8px 14px;min-height:36px;font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;transition:all 0.15s;white-space:nowrap;-webkit-tap-highlight-color:transparent;}
+.cat-btn:active{opacity:0.7;}
+@media(hover:hover){.cat-btn:hover{border-color:var(--accent);color:var(--accent);}}
+.cat-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+.cat-btn .cat-count{font-size:10px;opacity:0.7;margin-left:4px;}
+
+/* Alphabet Nav */
+.alpha-nav{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:20px;justify-content:center;}
+.alpha-btn{background:var(--bg2);border:1px solid var(--bg3);border-radius:6px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--text2);cursor:pointer;transition:all 0.15s;-webkit-tap-highlight-color:transparent;}
+.alpha-btn:active{opacity:0.7;}
+@media(hover:hover){.alpha-btn:hover{border-color:var(--accent);color:var(--accent);}}
+.alpha-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+.alpha-btn.disabled{opacity:0.3;pointer-events:none;}
+
+/* Letter Section */
+.letter-section{margin-bottom:24px;}
+.letter-header{position:sticky;top:73px;z-index:10;background:var(--bg);padding:8px 0;margin-bottom:10px;border-bottom:2px solid var(--accent);display:flex;align-items:center;gap:8px;}
+.letter-char{font-size:24px;font-weight:800;color:var(--accent);width:40px;text-align:center;}
+.letter-count{font-size:11px;color:var(--text3);background:var(--bg2);padding:2px 8px;border-radius:6px;}
+
+/* Term Card */
+.term-card{background:var(--bg2);border:1px solid var(--bg3);border-radius:12px;margin-bottom:8px;overflow:hidden;transition:all 0.2s;}
+@media(hover:hover){.term-card:hover{border-color:var(--accent);box-shadow:0 4px 20px rgba(0,0,0,0.2);}}
+.term-header{padding:14px 16px;cursor:pointer;display:flex;align-items:center;gap:12px;-webkit-tap-highlight-color:transparent;min-height:44px;}
+.term-header:active{opacity:0.8;}
+.term-info{flex:1;min-width:0;}
+.term-tr{font-size:15px;font-weight:700;color:var(--text);}
+.term-en{font-size:12px;color:var(--text2);margin-top:2px;}
+.term-cat{flex-shrink:0;padding:4px 10px;border-radius:6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.3px;}
+.term-cat.genel{background:rgba(59,130,246,0.15);color:var(--accent);border:1px solid rgba(59,130,246,0.3);}
+.term-cat.fizik{background:rgba(6,182,212,0.15);color:var(--accent2);border:1px solid rgba(6,182,212,0.3);}
+.term-cat.anatomi{background:rgba(16,185,129,0.15);color:var(--success);border:1px solid rgba(16,185,129,0.3);}
+.term-cat.patoloji{background:rgba(244,63,94,0.15);color:var(--danger);border:1px solid rgba(244,63,94,0.3);}
+.term-cat.teknik{background:rgba(245,158,11,0.15);color:var(--warn);border:1px solid rgba(245,158,11,0.3);}
+.term-cat.kisaltma{background:rgba(139,92,246,0.15);color:#8b5cf6;border:1px solid rgba(139,92,246,0.3);}
+.term-expand{color:var(--text3);font-size:18px;transition:transform 0.2s;flex-shrink:0;}
+.term-card.open .term-expand{transform:rotate(180deg);}
+.term-body{display:none;padding:0 16px 14px;border-top:1px solid var(--bg3);}
+.term-card.open .term-body{display:block;padding-top:12px;}
+.term-def{font-size:13px;color:var(--text2);line-height:1.6;}
+.term-related{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
+.term-related-label{font-size:11px;color:var(--text3);font-weight:600;}
+.term-related-tag{background:var(--bg);border:1px solid var(--bg3);border-radius:6px;padding:3px 8px;font-size:11px;color:var(--accent2);cursor:pointer;transition:all 0.15s;}
+@media(hover:hover){.term-related-tag:hover{border-color:var(--accent2);}}
+
+/* No Results */
+.no-results{text-align:center;padding:40px 20px;color:var(--text3);}
+.no-results-icon{font-size:48px;margin-bottom:12px;}
+.no-results-text{font-size:16px;font-weight:600;margin-bottom:4px;color:var(--text2);}
+.no-results-sub{font-size:13px;}
+
+/* Back to top */
+.back-top{position:fixed;bottom:24px;right:24px;background:var(--accent);color:#fff;border:none;border-radius:50%;width:48px;height:48px;font-size:20px;cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(59,130,246,0.4);transition:all 0.2s;z-index:50;-webkit-tap-highlight-color:transparent;}
+.back-top.visible{display:flex;}
+@media(hover:hover){.back-top:hover{transform:scale(1.1);}}
+
+/* Responsive */
+@media(max-width:640px){
+.page-title h2{font-size:22px;}
+.alpha-btn{width:28px;height:28px;font-size:10px;}
+.letter-header{top:65px;}
+.term-header{padding:12px 14px;}
+.cat-filters{gap:4px;}
+.cat-btn{padding:6px 10px;font-size:11px;}
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+<div class="header-inner">
+<a href="index.html" class="logo"><h1>RadEdu</h1></a>
+<div class="header-actions">
+<button class="header-btn" onclick="toggleTheme()" id="themeBtn" aria-label="Tema Degistir">🌙</button>
+<a href="index.html" class="header-btn">🏠 Ana Sayfa</a>
+</div>
+</div>
+</header>
+
+<!-- Main Content -->
+<div class="main">
+
+<!-- Title -->
+<div class="page-title">
+<h2>Radyoloji Sozlugu</h2>
+<p>Kapsamli Turkce-Ingilizce radyoloji terimleri sozlugu</p>
+</div>
+
+<!-- Stats -->
+<div class="dict-stats" id="dictStats"></div>
+
+<!-- Search -->
+<div class="search-wrapper">
+<span class="search-icon">🔍</span>
+<input type="text" class="search-input" id="searchInput" placeholder="Terim ara... (Turkce veya Ingilizce)">
+<button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
+</div>
+
+<!-- Category Filters -->
+<div class="cat-filters" id="catFilters"></div>
+
+<!-- Alphabet Navigation -->
+<div class="alpha-nav" id="alphaNav"></div>
+
+<!-- Dictionary Content -->
+<div id="dictContent"></div>
+
+</div>
+
+<!-- Back to top -->
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// ===== DICTIONARY DATA =====
+const dictionary = [
+// ===== FIZIK (Physics) =====
+{tr:"Atenüasyon",en:"Attenuation",cat:"fizik",def:"X-ışınlarının doku içinden geçerken şiddetinin azalması. Dokunun yoğunluğu ve kalınlığına bağlıdır. BT görüntülemede temel fizik prensibidir.",related:["Hounsfield Ünitesi","Absorpsiyon"]},
+{tr:"Sinyal-Gürültü Oranı (SGO)",en:"Signal-to-Noise Ratio (SNR)",cat:"fizik",def:"Görüntüdeki anlamlı sinyalin arka plan gürültüsüne oranı. Yüksek SNR daha kaliteli görüntü anlamına gelir. Voksel boyutu, alan gücü ve ortalama sayısı SNR'yi etkiler.",related:["NEX","Voksel","Alan Gücü"]},
+{tr:"T1 Relaksasyon",en:"T1 Relaxation",cat:"fizik",def:"Spin-kafes (longitudinal) relaksasyon süresi. RF pulsu sonrası protonların longitudinal manyetizasyonlarını yeniden kazanma hızını ifade eder. Yağ kısa T1, su uzun T1 değerine sahiptir.",related:["T2 Relaksasyon","TR","Spin-Kafes"]},
+{tr:"T2 Relaksasyon",en:"T2 Relaxation",cat:"fizik",def:"Spin-spin (transversal) relaksasyon süresi. Protonların faz uyumunu kaybetme hızını gösterir. Sıvılar uzun T2 değerine sahip olup T2A görüntülerde parlak görünür.",related:["T1 Relaksasyon","TE","T2*"]},
+{tr:"Hounsfield Ünitesi",en:"Hounsfield Unit (HU)",cat:"fizik",def:"BT'de doku dansitesini gösteren ölçü birimi. Su 0 HU, hava -1000 HU, kemik +1000 HU değerindedir. Sir Godfrey Hounsfield'ın adını taşır.",related:["Atenüasyon","BT","Dansite"]},
+{tr:"Piezoelektrik Etki",en:"Piezoelectric Effect",cat:"fizik",def:"Elektrik enerjisinin mekanik enerjiye (ve tersi) dönüşümü. Ultrason transdüserlerinde kristallerin ses dalgası üretmesinin temel mekanizmasıdır.",related:["Transdüser","Ultrason","Frekans"]},
+{tr:"Larmor Frekansı",en:"Larmor Frequency",cat:"fizik",def:"Protonların manyetik alan içinde presesyon (dönme) frekansı. Manyetik alan gücü ile doğru orantılıdır. 1.5T'de yaklaşık 63.87 MHz'dir.",related:["Presesyon","Rezonans","Manyetik Alan"]},
+{tr:"k-Uzayı",en:"k-Space",cat:"fizik",def:"MR görüntülerinin ham frekans verilerinin depolandığı matematiksel uzay. Merkezi kontrast bilgisini, periferisi detay bilgisini içerir. Fourier dönüşümü ile görüntüye çevrilir.",related:["Fourier Dönüşümü","Faz Kodlama","Frekans Kodlama"]},
+{tr:"Eko Zamanı",en:"Echo Time (TE)",cat:"fizik",def:"RF pulsu ile ekonun alınması arasındaki süre. Kısa TE T1 ağırlıklı, uzun TE T2 ağırlıklı görüntü oluşturur.",related:["TR","T2 Relaksasyon","Spin Eko"]},
+{tr:"Tekrarlama Zamanı",en:"Repetition Time (TR)",cat:"fizik",def:"Ardışık RF pulsları arasındaki süre. Kısa TR T1 ağırlıklı, uzun TR T2 veya proton dansite ağırlıklı görüntü verir.",related:["TE","T1 Relaksasyon","Sekans"]},
+{tr:"Çevirme Açısı",en:"Flip Angle",cat:"fizik",def:"RF pulsu ile protonların longitudinal eksenden sapma açısı. Gradient eko sekanslarında genellikle 90 dereceden küçük açılar kullanılır.",related:["RF Pulsu","Gradient Eko","Ernst Açısı"]},
+{tr:"Bant Genişliği",en:"Bandwidth",cat:"fizik",def:"Alıcı tarafından toplanan frekans aralığı. Geniş bant genişliği kimyasal kayma artefaktını azaltır ancak SNR'yi düşürür.",related:["SNR","Kimyasal Kayma","Artefakt"]},
+{tr:"Voksel",en:"Voxel",cat:"fizik",def:"Üç boyutlu hacim elemanı. Piksel boyutu ile kesit kalınlığının çarpımıdır. Küçük voksel daha iyi uzaysal çözünürlük sağlar ancak SNR azalır.",related:["Piksel","Matriks","Uzaysal Çözünürlük"]},
+{tr:"Piksel",en:"Pixel",cat:"fizik",def:"İki boyutlu görüntü elemanı (picture element). Görüntünün en küçük birimi olup FOV'un matriks boyutuna bölünmesiyle hesaplanır.",related:["Voksel","Matriks","FOV"]},
+{tr:"Görüntüleme Alanı",en:"Field of View (FOV)",cat:"fizik",def:"Görüntülenen anatomik bölgenin boyutları (cm). Küçük FOV daha yüksek uzaysal çözünürlük sağlar. Dikdörtgen FOV kullanılarak süre kısaltılabilir.",related:["Piksel","Matriks","Uzaysal Çözünürlük"]},
+{tr:"Matriks",en:"Matrix",cat:"fizik",def:"Görüntüyü oluşturan satır ve sütun sayısı (örn. 256x256, 512x512). Yüksek matriks daha iyi çözünürlük sağlar ancak süreyi artırır.",related:["Piksel","FOV","Uzaysal Çözünürlük"]},
+{tr:"Ortalama Sayısı",en:"Number of Excitations (NEX/NSA)",cat:"fizik",def:"Aynı k-uzayı satırının kaç kez tekrarlandığı. NEX artışı SNR'yi kök(NEX) oranında artırır ancak çekim süresini uzatır.",related:["SNR","k-Uzayı","Çekim Süresi"]},
+{tr:"Spesifik Absorpsiyon Oranı",en:"Specific Absorption Rate (SAR)",cat:"fizik",def:"Vücudun birim kütle başına absorbe ettiği RF enerjisi (W/kg). Hasta güvenliği açısından üst sınırları belirlenmiştir. 3T'de 1.5T'ye göre daha yüksektir.",related:["RF Pulsu","Güvenlik","Alan Gücü"]},
+{tr:"Rezonans",en:"Resonance",cat:"fizik",def:"Protonların dışarıdan uygulanan RF pulsunun frekansı Larmor frekansına eşit olduğunda enerji absorbe etmesi olayı. MR görüntülemenin temel prensibidir.",related:["Larmor Frekansı","RF Pulsu","Presesyon"]},
+{tr:"Presesyon",en:"Precession",cat:"fizik",def:"Protonların manyetik alan içinde topaç gibi kendi eksenleri etrafında dönme hareketi. Dönme frekansı Larmor frekansıdır.",related:["Larmor Frekansı","Manyetik Alan","Proton"]},
+{tr:"Fourier Dönüşümü",en:"Fourier Transform",cat:"fizik",def:"k-uzayındaki ham veriyi (frekans bilgisi) görüntüye dönüştüren matematiksel işlem. Ters Fourier dönüşümü ile sinyal uzaysal bilgiye çevrilir.",related:["k-Uzayı","Frekans Kodlama","Görüntü Rekonstrüksiyonu"]},
+{tr:"Gradyan Manyetik Alan",en:"Gradient Magnetic Field",cat:"fizik",def:"Ana manyetik alana eklenen, konuma bağlı değişen manyetik alan. Kesit seçimi, faz kodlama ve frekans kodlama için kullanılır.",related:["Kesit Seçimi","Faz Kodlama","Frekans Kodlama"]},
+{tr:"RF Pulsu",en:"Radiofrequency Pulse",cat:"fizik",def:"Larmor frekansında yayılan elektromanyetik dalga. Protonları uyararak manyetizasyon vektörünü değiştirir.",related:["Larmor Frekansı","Çevirme Açısı","SAR"]},
+{tr:"Faz Kodlama",en:"Phase Encoding",cat:"fizik",def:"MR'da uzaysal bilgi kodlamanın bir yöntemi. Faz gradyanı uygulanarak protonlara farklı faz değerleri atanır. Hareket artefaktları genellikle faz yönündedir.",related:["Frekans Kodlama","Gradyan","k-Uzayı"]},
+{tr:"Frekans Kodlama",en:"Frequency Encoding",cat:"fizik",def:"MR'da uzaysal bilgi kodlamanın bir yöntemi. Okuma gradyanı uygulanarak farklı konumlardaki protonlara farklı frekanslar atanır.",related:["Faz Kodlama","Gradyan","k-Uzayı"]},
+{tr:"Kesit Kalınlığı",en:"Slice Thickness",cat:"fizik",def:"Görüntülenen kesit düzleminin kalınlığı (mm). İnce kesitler daha iyi uzaysal çözünürlük sağlar ancak SNR azalır. Kısmi hacim etkisini azaltır.",related:["Voksel","Kısmi Hacim Etkisi","SNR"]},
+{tr:"Kontrast Çözünürlük",en:"Contrast Resolution",cat:"fizik",def:"Farklı dokuları birbirinden ayırt edebilme yeteneği. MR'ın en güçlü özelliklerinden biridir. Yumuşak doku kontrastı BT'den çok üstündür.",related:["Uzaysal Çözünürlük","Temporal Çözünürlük"]},
+{tr:"Uzaysal Çözünürlük",en:"Spatial Resolution",cat:"fizik",def:"Birbirine yakın iki yapıyı ayrı ayrı gösterebilme yeteneği. Matriks, FOV ve kesit kalınlığına bağlıdır.",related:["Kontrast Çözünürlük","Piksel","Voksel"]},
+{tr:"T2* Relaksasyon",en:"T2* Relaxation",cat:"fizik",def:"Manyetik alan inhomogenitesinden kaynaklanan ek faz kaybını içeren efektif T2. T2*<T2 olup gradient eko sekanslarda belirleyicidir. Hemosiderin tespitinde önemlidir.",related:["T2 Relaksasyon","SWI","Gradient Eko"]},
+{tr:"Alan Gücü",en:"Field Strength",cat:"fizik",def:"MR cihazının ana manyetik alan şiddeti, Tesla (T) birimi ile ölçülür. Klinik pratikte 1.5T ve 3T en yaygındır. Yüksek alan gücü SNR'yi artırır.",related:["Tesla","SNR","Larmor Frekansı"]},
+{tr:"Paralel Görüntüleme",en:"Parallel Imaging",cat:"fizik",def:"Çoklu koil elemanları kullanarak k-uzayının daha az satırla doldurulması. GRAPPA ve SENSE en bilinen teknikledir. Çekim süresini kısaltır.",related:["k-Uzayı","GRAPPA","SENSE"]},
+{tr:"Kimyasal Kayma",en:"Chemical Shift",cat:"fizik",def:"Yağ ve su protonlarının farklı rezonans frekanslarından kaynaklanan artefakt. In-phase ve out-of-phase görüntülemede tanısal öneme sahiptir.",related:["Artefakt","Bant Genişliği","Dixon"]},
+{tr:"Spin Eko",en:"Spin Echo",cat:"fizik",def:"90 derece uyarma ve ardından 180 derece refokus pulsu içeren temel MR sekansı. T2 ağırlıklı görüntüleme için kullanılır. Manyetik alan inhomogenitesini düzeltir.",related:["Gradient Eko","TE","TR"]},
+{tr:"Gradient Eko",en:"Gradient Echo",cat:"fizik",def:"Refokus için 180 derece puls yerine gradyan dönüşü kullanan hızlı sekans. Küçük çevirme açıları kullanılır. T2* ağırlıklıdır ve manyetik duyarlılık artefaktlarına hassastır.",related:["Spin Eko","T2*","Çevirme Açısı"]},
+{tr:"Doppler Etkisi",en:"Doppler Effect",cat:"fizik",def:"Hareket eden kaynaktan yayılan dalganın frekansındaki değişim. Ultrason Doppler'de kan akımının hızı ve yönü değerlendirilir.",related:["Ultrason","Renkli Doppler","Spektral Doppler"]},
+{tr:"Akustik Empedans",en:"Acoustic Impedance",cat:"fizik",def:"Ses dalgasının doku içinde ilerlemesine karşı gösterilen direnç. İki doku arasındaki empedans farkı yansımayı belirler. US görüntülemenin temel prensibidir.",related:["Ultrason","Yansıma","Transdüser"]},
+{tr:"Compton Saçılması",en:"Compton Scattering",cat:"fizik",def:"X-ışını fotonunun dış yörünge elektronuyla etkileşerek yön değiştirmesi ve enerji kaybetmesi. Tanısal radyolojide en önemli etkileşim türüdür. Saçılan radyasyon görüntü kalitesini bozar.",related:["Fotoelektrik Etki","Saçılma","X-Işını"]},
+{tr:"Fotoelektrik Etki",en:"Photoelectric Effect",cat:"fizik",def:"X-ışını fotonunun atomun iç yörünge elektronunu koparması ve tamamen absorbe olması. Yüksek Z materyallerde baskındır. BT'de kontrast oluşumunda önemlidir.",related:["Compton Saçılması","Absorpsiyon","Atenüasyon"]},
+{tr:"Yarı Değer Kalınlığı",en:"Half-Value Layer (HVL)",cat:"fizik",def:"X-ışını demetinin şiddetini yarıya düşürmek için gereken materyal kalınlığı. Demet kalitesinin bir ölçüsüdür.",related:["Atenüasyon","Filtrasyon","kVp"]},
+
+// ===== ANATOMI (Anatomy) =====
+{tr:"Sulkus",en:"Sulcus",cat:"anatomi",def:"Beyin yüzeyindeki oluklar. Girusları birbirinden ayırır. Örneğin santral sulkus frontal ve parietal lobları ayırır.",related:["Girus","Fissür","Kortikal"]},
+{tr:"Girus",en:"Gyrus",cat:"anatomi",def:"Beyin yüzeyindeki kıvrımlar. Sulkuslar arasında kalan çıkıntılardır. Her girus belirli işlevlerle ilişkilidir.",related:["Sulkus","Korteks","Fissür"]},
+{tr:"Ventrikül",en:"Ventricle",cat:"anatomi",def:"Beyindeki BOS ile dolu boşluklar. İki lateral ventrikül, üçüncü ve dördüncü ventrikül bulunur. BOS sirkülasyonunda merkezi rol oynar.",related:["BOS","Koroid Pleksus","Hidrosefali"]},
+{tr:"Bazal Ganglionlar",en:"Basal Ganglia",cat:"anatomi",def:"Serebral hemisferlerin derininde yer alan gri cevher çekirdekleri. Kaudat nükleus, putamen ve globus pallidusu içerir. Motor fonksiyonların düzenlenmesinde rol oynar.",related:["Kaudat","Putamen","Globus Pallidus"]},
+{tr:"Sella Tursika",en:"Sella Turcica",cat:"anatomi",def:"Sfenoid kemikte hipofiz bezini barındıran Türk eyeri şeklindeki çukurluk. Hipofiz adenomları en sık patolojisidir.",related:["Hipofiz","Sfenoid","Suprasellar"]},
+{tr:"İç Akustik Kanal (İAK)",en:"Internal Auditory Canal (IAC)",cat:"anatomi",def:"Temporal kemikte VII. (fasial) ve VIII. (vestibulokoklear) kraniyal sinirlerin geçtiği kemik kanal. Vestibüler schwannomlar bu bölgede en sık görülen kitledir.",related:["Serebellopontin Açı","Vestibüler Schwannom","Temporal Kemik"]},
+{tr:"Peritoneal Kavite",en:"Peritoneal Cavity",cat:"anatomi",def:"Parietal ve viseral periton arasındaki potansiyel boşluk. İntraperitoneal organları çevreler. Asit bu boşlukta birikir.",related:["Retroperiton","Periton","Asit"]},
+{tr:"Retroperiton",en:"Retroperitoneum",cat:"anatomi",def:"Peritonun arkasında kalan alan. Böbrekler, adrenal bezler, aorta, IVC, pankreas (gövde ve kuyruk hariç) ve üreterler burada bulunur.",related:["Peritoneal Kavite","Böbrek","Aorta"]},
+{tr:"Mediastin",en:"Mediastinum",cat:"anatomi",def:"Toraks boşluğunda her iki akciğer arasında kalan bölge. Kalp, büyük damarlar, trakea, özofagus ve timus gibi yapıları içerir. Anterior, orta ve posterior bölümlere ayrılır.",related:["Toraks","Hilus","Timus"]},
+{tr:"Hilus (Hilum)",en:"Hilum",cat:"anatomi",def:"Bir organın damar, sinir ve kanallarının giriş-çıkış yaptığı çukurluk. Akciğer hilumunda ana bronş, pulmoner arter ve ven bulunur.",related:["Mediastin","Lenfadenopati","Pulmoner"]},
+{tr:"Plevra",en:"Pleura",cat:"anatomi",def:"Akciğerleri ve göğüs duvarının iç yüzeyini örten seröz zar. Viseral ve parietal yaprakları vardır. Plevral efüzyon bu iki yaprak arasında sıvı birikmesidir.",related:["Plevral Efüzyon","Pnömotoraks","Toraks"]},
+{tr:"Talamus",en:"Thalamus",cat:"anatomi",def:"Diensefalonun en büyük yapısı. Duyusal bilgilerin kortekse iletilmesinde röle istasyonu görevi görür. Üçüncü ventrikülün lateralinde yer alır.",related:["Bazal Ganglionlar","Diensefalon","Ventrikül"]},
+{tr:"Hipokampus",en:"Hippocampus",cat:"anatomi",def:"Temporal lob medialinde yer alan ve bellek oluşumunda kritik rol oynayan yapı. Alzheimer hastalığında erken dönemde etkilenir. Koronal kesitlerde en iyi değerlendirilir.",related:["Temporal Lob","Limbik Sistem","Atrofi"]},
+{tr:"Serebellum",en:"Cerebellum",cat:"anatomi",def:"Posterior fossada yer alan, denge ve koordinasyondan sorumlu beyin bölümü. Vermis ve iki hemisferden oluşur. Beyin sapının arkasında bulunur.",related:["Posterior Fossa","Vermis","Beyin Sapı"]},
+{tr:"Korpus Kallozum",en:"Corpus Callosum",cat:"anatomi",def:"İki serebral hemisferi birbirine bağlayan en büyük beyaz cevher komisürü. Rostrum, genu, gövde ve splenium bölümlerinden oluşur.",related:["Beyaz Cevher","Komisür","Hemisfer"]},
+{tr:"Willis Poligonu",en:"Circle of Willis",cat:"anatomi",def:"Beyin tabanında internal karotid ve vertebrobaziler sistemleri birbirine bağlayan arteriyel halka. Anterior ve posterior komünikan arterler bu yapıda yer alır.",related:["ACA","MCA","PCA","Anevrizma"]},
+{tr:"Parankima",en:"Parenchyma",cat:"anatomi",def:"Bir organın işlevsel dokusu. Örneğin beyin parankiması nöronal doku, karaciğer parankiması hepatositleri ifade eder.",related:["Stroma","Organ","Doku"]},
+{tr:"Korteks",en:"Cortex",cat:"anatomi",def:"Bir organın dış tabakası. Serebral korteks beynin dış gri cevher tabakasıdır. Renal korteks böbreğin dış tabakasıdır.",related:["Medulla","Gri Cevher","Parankima"]},
+{tr:"Medulla",en:"Medulla",cat:"anatomi",def:"Bir organın iç tabakası. Renal medulla böbreğin piramitlerini içerir. Medulla oblongata beyin sapının en alt bölümüdür.",related:["Korteks","Böbrek","Beyin Sapı"]},
+{tr:"Foramen Magnum",en:"Foramen Magnum",cat:"anatomi",def:"Oksipital kemikte bulunan en büyük kafatası açıklığı. Medulla oblongata ve spinal kord bu açıklıktan geçer. Chiari malformasyonunda tonsillar herniasyon buradan olur.",related:["Oksipital","Medulla","Chiari Malformasyonu"]},
+{tr:"Dura Mater",en:"Dura Mater",cat:"anatomi",def:"Beyin ve omuriliği saran en dış, en kalın ve en dayanıklı meninks tabakası. Epidural ve subdural hematomlar dura ile ilişkili olarak tanımlanır.",related:["Araknoid","Pia Mater","Meninksler"]},
+{tr:"Diafragma",en:"Diaphragm",cat:"anatomi",def:"Toraks ve abdomen boşluklarını ayıran kubbe şeklindeki kas. Solunumun ana kasıdır. Aort, özofagus ve IVC için hiatus içerir.",related:["Toraks","Abdomen","Hiatus"]},
+{tr:"Hepatik Venler",en:"Hepatic Veins",cat:"anatomi",def:"Karaciğerden venöz kanı inferior vena kavaya drene eden üç ana ven (sağ, orta, sol). Karaciğer segmentasyonunda sınır oluşturur.",related:["Karaciğer","IVC","Portal Ven"]},
+{tr:"Portal Ven",en:"Portal Vein",cat:"anatomi",def:"Süperior mezenterik ven ve splenik venin birleşmesiyle oluşan, venöz kanı karaciğere taşıyan damar. Normal çapı 13 mm'yi geçmez.",related:["Karaciğer","Hepatik Venler","Portal Hipertansiyon"]},
+{tr:"Böbrek",en:"Kidney",cat:"anatomi",def:"Retroperitonda yer alan, idrar üretimi ve filtrasyon görevini üstlenen çift organ. Korteks, medulla ve toplayıcı sistemden oluşur. Sağ böbrek karaciğer nedeniyle soldan biraz daha aşağıdadır.",related:["Retroperiton","Renal Arter","Üreter"]},
+{tr:"Pankreas",en:"Pancreas",cat:"anatomi",def:"Baş, boyun, gövde ve kuyruk bölümlerinden oluşan retroperitoneal organ. Hem ekzokrin (sindirim enzimleri) hem endokrin (insülin) fonksiyona sahiptir.",related:["Retroperiton","Duktus Pankreatikus","Duodenum"]},
+{tr:"Aort",en:"Aorta",cat:"anatomi",def:"Vücudun en büyük arteri. Sol ventrikülden çıkar. Asendan aort, arkus aorta, desendan torasik ve abdominal aort bölümlerinden oluşur.",related:["Anevrizma","Diseksiyon","IVC"]},
+
+// ===== PATOLOJİ (Pathology) =====
+{tr:"Apse",en:"Abscess",cat:"patoloji",def:"İnfeksiyon sonucu oluşan, pü içeren sınırlı koleksiyon. Genellikle rim tarzında kontrast tutulumu gösterir. DWI'da difüzyon kısıtlaması tipiktir.",related:["İnfeksiyon","Difüzyon Kısıtlaması","Rim"]},
+{tr:"Hematom",en:"Hematoma",cat:"patoloji",def:"Damar dışına çıkan kanın doku içinde birikmesi. MR'da evrelerine göre farklı sinyal özellikleri gösterir (hiperakut, akut, erken subakut, geç subakut, kronik).",related:["Hemoraji","Hemosiderin","T1","T2"]},
+{tr:"Ödem",en:"Edema",cat:"patoloji",def:"Dokularda aşırı sıvı birikimi. Vazojenik ödem beyaz cevherde, sitotoksik ödem gri cevherde baskındır. T2A ve FLAIR'da hiperintens görünür.",related:["Vazojenik","Sitotoksik","FLAIR"]},
+{tr:"Fibrozis",en:"Fibrosis",cat:"patoloji",def:"Dokularda bağ dokusu (fibröz doku) artışı. Kronik inflamasyon veya hasar sonucu gelişir. MR'da T2A'da tipik olarak hipointens izlenir.",related:["Siroz","Kronik","İnflamasyon"]},
+{tr:"Nekroz",en:"Necrosis",cat:"patoloji",def:"Hücre veya doku ölümü. Tümörlerde santral nekroz sık görülür. Kontrast tutulumu göstermez, DWI'da kısıtlanma gösterebilir.",related:["İnfarkt","Tümör","Apoptozis"]},
+{tr:"Kalsifikasyon",en:"Calcification",cat:"patoloji",def:"Dokularda kalsiyum birikmesi. BT'de hiperdens görünür. Distrofik (hasarlı dokuda) ve metastatik (yüksek kalsiyum) tipleri vardır.",related:["Hiperdens","BT","Distrofik"]},
+{tr:"Metastaz",en:"Metastasis",cat:"patoloji",def:"Malign tümörün primer odağından uzak organlara yayılması. En sık hematojen ve lenfatik yolla yayılır. Beyin, karaciğer, akciğer ve kemik en sık metastaz bölgeleridir.",related:["Malign","Primer Tümör","Lenfadenopati"]},
+{tr:"İnfiltrasyon",en:"Infiltration",cat:"patoloji",def:"Hücrelerin veya maddelerin normal olarak bulunmadıkları dokuya yayılması. Tümör infiltrasyonu cerrahi sınırları belirlemede önemlidir.",related:["İnvazyon","Tümör","Difüz"]},
+{tr:"İnvazyon",en:"Invasion",cat:"patoloji",def:"Malign hücrelerin çevre doku veya yapılara doğrudan yayılması. Vasküler invazyon ve perinöral invazyon prognostik öneme sahiptir.",related:["İnfiltrasyon","Malign","Evreleme"]},
+{tr:"Stenoz",en:"Stenosis",cat:"patoloji",def:"Bir kanal veya lümenin daralması. Vasküler stenoz, spinal stenoz ve trakeal stenoz en sık karşılaşılan örneklerdir.",related:["Oklüzyon","Darlık","Lümen"]},
+{tr:"Oklüzyon",en:"Occlusion",cat:"patoloji",def:"Bir damarın tam tıkanması. Arteriyel oklüzyon iskemi ve infarkta neden olabilir. Akut inmede MCA oklüzyonu en sık görülür.",related:["Stenoz","İnfarkt","İskemi","Tromboz"]},
+{tr:"Anevrizma",en:"Aneurysm",cat:"patoloji",def:"Arter duvarının fokal genişlemesi. Sakküler (kesemsi) ve fusiform (iğsi) tipleri vardır. Willis poligonunda intrakraniyal anevrizmalara sık rastlanır.",related:["Diseksiyon","Willis Poligonu","Subaraknoid Kanama"]},
+{tr:"Diseksiyon",en:"Dissection",cat:"patoloji",def:"Arter duvar tabakalarının ayrılması ve intramural hematom oluşumu. Karotid ve vertebral arter diseksiyonları genç hastalarda inme nedenidir.",related:["Anevrizma","İntimal Flep","Hematom"]},
+{tr:"Tromboz",en:"Thrombosis",cat:"patoloji",def:"Damar içinde pıhtı oluşumu. Arteriyel veya venöz olabilir. Serebral venöz sinüs trombozu MR venografide saptanır.",related:["Emboli","Oklüzyon","Antikoagülasyon"]},
+{tr:"Emboli",en:"Embolism",cat:"patoloji",def:"Kan dolaşımı ile taşınan maddenin (pıhtı, yağ, hava) uzak bir damarı tıkaması. Pulmoner emboli en sık klinik tablosudur.",related:["Tromboz","Pulmoner Emboli","İnfarkt"]},
+{tr:"İnfarkt",en:"Infarction",cat:"patoloji",def:"Kan akımının kesilmesi sonucu doku ölümü. Akut infarkt DWI'da difüzyon kısıtlaması gösterir. Vasküler dağılım paterninde izlenir.",related:["İskemi","Oklüzyon","DWI"]},
+{tr:"İskemi",en:"Ischemia",cat:"patoloji",def:"Dokuya yeterli kan akımı sağlanamaması. Geri dönüşümlü olabilir (penumbra). İnfarkta ilerlemeden önce tedavi edilmesi kritiktir.",related:["İnfarkt","Penumbra","Perfüzyon"]},
+{tr:"Hiperplazi",en:"Hyperplasia",cat:"patoloji",def:"Hücre sayısının artması sonucu doku veya organın büyümesi. Benign prostat hiperplazisi (BPH) en sık örneğidir.",related:["Hipertrofi","Benign","Büyüme"]},
+{tr:"Atrofi",en:"Atrophy",cat:"patoloji",def:"Doku veya organın küçülmesi. Serebral atrofi nörodejeneratif hastalıklarda görülür. Sulkuslarda genişleme ve ventriküler dilatasyon ile karakterizedir.",related:["Dejenerasyon","Hidrosefali","Nörodejeneratif"]},
+{tr:"Hidrosefali",en:"Hydrocephalus",cat:"patoloji",def:"Ventrikül sisteminde BOS birikmesi ve genişleme. Obstrüktif (non-komünikan) ve komünikan tipleri vardır. Evans indeksi tanıda kullanılır.",related:["Ventrikül","BOS","Atrofi"]},
+{tr:"Pnömotoraks",en:"Pneumothorax",cat:"patoloji",def:"Plevral boşlukta hava birikmesi. Ayakta çekilen PA grafide en iyi değerlendirilir. Tansiyon pnömotoraks acil müdahale gerektirir.",related:["Plevra","Toraks","Acil"]},
+{tr:"Plevral Efüzyon",en:"Pleural Effusion",cat:"patoloji",def:"Plevral boşlukta sıvı birikmesi. Transüda veya eksüda olabilir. BT'de serbest sıvı en önce posterior kostodiyafragmatik reseste birikir.",related:["Plevra","Asit","Eksüda"]},
+{tr:"Asit",en:"Ascites",cat:"patoloji",def:"Peritoneal kavitede serbest sıvı birikmesi. Hepatorenal aralık (Morrison poşu) az miktarda asitin ilk biriktiği yerdir.",related:["Peritoneal Kavite","Siroz","Portal Hipertansiyon"]},
+{tr:"Lenfadenopati",en:"Lymphadenopathy",cat:"patoloji",def:"Lenf nodlarının büyümesi. Reaktif, infeksiyöz veya malign olabilir. Kısa aks çapı 10 mm üzeri patolojik kabul edilir (lokasyona göre değişir).",related:["Lenf Nodu","Metastaz","Malign"]},
+{tr:"Hepatomegali",en:"Hepatomegaly",cat:"patoloji",def:"Karaciğerin normalden büyük olması. Midklaviküler hatta 15.5 cm üzeri kraniokaudal boyut hepatomegali olarak kabul edilir.",related:["Karaciğer","Splenomegali","Siroz"]},
+{tr:"Splenomegali",en:"Splenomegaly",cat:"patoloji",def:"Dalağın normalden büyük olması. 12 cm üzeri kraniokaudal boyut splenomegali olarak kabul edilir. Portal hipertansiyonda sık görülür.",related:["Dalak","Hepatomegali","Portal Hipertansiyon"]},
+{tr:"Siroz",en:"Cirrhosis",cat:"patoloji",def:"Kronik karaciğer hasarı sonucu gelişen diffüz fibrozis ve nodüler rejenerasyon. Karaciğer kontur düzensizliği, kaudat lob hipertrofisi ve portal hipertansiyon bulguları izlenir.",related:["Fibrozis","Portal Hipertansiyon","Hepatomegali"]},
+{tr:"Pnömoni",en:"Pneumonia",cat:"patoloji",def:"Akciğer parankiminin infeksiyöz inflamasyonu. Konsolidasyon, buzlu cam dansitesi ve hava bronkogramı karakteristik bulgulardır.",related:["Konsolidasyon","Buzlu Cam","Hava Bronkogramı"]},
+{tr:"Konsolidasyon",en:"Consolidation",cat:"patoloji",def:"Alveollerin hava yerine sıvı, pü veya hücreyle dolması. Hava bronkogramı eşlik edebilir. Pnömoni, hemoraji ve organize pnömoni nedenler arasındadır.",related:["Pnömoni","Hava Bronkogramı","Alveoler"]},
+
+// ===== TEKNİK (Technique) =====
+{tr:"Kontrastlı İnceleme",en:"Contrast-Enhanced Study",cat:"teknik",def:"İntravenöz kontrast madde verilerek yapılan görüntüleme. Vasküler yapıları ve patolojik kontrast tutulumunu gösterir. Gadolinyum (MR) ve iyotlu kontrast (BT) kullanılır.",related:["Kontrast Madde","Gadolinyum","İyotlu Kontrast"]},
+{tr:"Kontrastsız İnceleme",en:"Non-Contrast Study",cat:"teknik",def:"Kontrast madde verilmeden yapılan temel görüntüleme. Akut kanama, kalsifikasyon ve kemik patolojilerinin değerlendirilmesinde tercih edilir.",related:["Kontrastlı İnceleme","Nativ","BT"]},
+{tr:"Aksiyel Kesit",en:"Axial Plane",cat:"teknik",def:"Vücudu üst ve alt kısımlara ayıran yatay düzlem. Transversal düzlem olarak da bilinir. En sık kullanılan görüntüleme düzlemidir.",related:["Koronal Kesit","Sagittal Kesit","Oblik"]},
+{tr:"Koronal Kesit",en:"Coronal Plane",cat:"teknik",def:"Vücudu ön ve arka kısımlara ayıran dikey düzlem. Frontal düzlem olarak da bilinir. Abdominal patolojilerin değerlendirilmesinde aksiyelle birlikte kullanılır.",related:["Aksiyel Kesit","Sagittal Kesit","MPR"]},
+{tr:"Sagittal Kesit",en:"Sagittal Plane",cat:"teknik",def:"Vücudu sağ ve sol kısımlara ayıran dikey düzlem. Orta hat yapıların (hipofiz, spinal kord) değerlendirilmesinde idealdir.",related:["Aksiyel Kesit","Koronal Kesit","MPR"]},
+{tr:"FLAIR",en:"Fluid-Attenuated Inversion Recovery",cat:"teknik",def:"BOS sinyalini baskılayan T2 ağırlıklı MR sekansı. Periventriküler ve kortikal lezyonların tespitinde çok değerlidir. Subaraknoid kanama ve menenjit tanısında da kullanılır.",related:["T2","BOS","İnversiyon Recovery"]},
+{tr:"DWI (Difüzyon Ağırlıklı Görüntüleme)",en:"Diffusion-Weighted Imaging",cat:"teknik",def:"Su moleküllerinin Brownian hareketini (difüzyon) gösteren MR sekansı. Akut iskemik inmede erken tanıda altın standarttır. Apse ve epidermoid tümörde de kısıtlanma gösterir.",related:["ADC","b-Değeri","İnfarkt"]},
+{tr:"ADC (Görünür Difüzyon Katsayısı)",en:"Apparent Diffusion Coefficient",cat:"teknik",def:"DWI'dan hesaplanan kantitatif difüzyon haritası. Gerçek difüzyon kısıtlamasını T2 shine-through etkisinden ayırt eder. Düşük ADC gerçek kısıtlanmayı gösterir.",related:["DWI","b-Değeri","Difüzyon Kısıtlaması"]},
+{tr:"SWI (Duyarlılık Ağırlıklı Görüntüleme)",en:"Susceptibility-Weighted Imaging",cat:"teknik",def:"Manyetik duyarlılık farklarını kullanan yüksek çözünürlüklü MR tekniği. Mikro kanama, kalsifikasyon ve venöz yapıların tespitinde üstündür.",related:["T2*","Hemosiderin","Mikro Kanama"]},
+{tr:"MR Anjiyografi (MRA)",en:"Magnetic Resonance Angiography",cat:"teknik",def:"MR ile vasküler yapıların görüntülenmesi. TOF (time-of-flight) ve kontrastlı MRA en yaygın teknikleridir. İntrakraniyal anevrizma taramada kullanılır.",related:["TOF","Kontrastlı MRA","Anevrizma"]},
+{tr:"BT Anjiyografi (BTA)",en:"CT Angiography (CTA)",cat:"teknik",def:"İntravenöz iyotlu kontrast ile BT'de vasküler yapıların görüntülenmesi. Pulmoner emboli, aort diseksiyonu ve karotis stenozunda ilk tercih görüntüleme yöntemidir.",related:["BT","Kontrast","Anjiyografi"]},
+{tr:"Yüksek Çözünürlüklü BT (YÇBT)",en:"High-Resolution CT (HRCT)",cat:"teknik",def:"İnce kesitler (1-1.25 mm) ile akciğer parankiminin ayrıntılı değerlendirilmesi. İnterstisyel akciğer hastalıklarının tanısında altın standarttır.",related:["BT","İnterstisyel","Akciğer"]},
+{tr:"Maksimum İntensity Projeksiyon (MIP)",en:"Maximum Intensity Projection",cat:"teknik",def:"Her ışın yolu boyunca en yüksek yoğunluktaki pikseli gösteren rekonstrüksiyon tekniği. Vasküler yapıların ve pulmoner nodüllerin görüntülenmesinde kullanılır.",related:["MPR","VR","MinIP"]},
+{tr:"Multiplanar Rekonstrüksiyon (MPR)",en:"Multiplanar Reconstruction",cat:"teknik",def:"Aksiyel BT verilerinden koronal, sagittal ve oblik düzlemlerde görüntü oluşturma. İzotropik voksel boyutu ile en iyi sonuçlar elde edilir.",related:["Aksiyel","Koronal","Sagittal","Rekonstrüksiyon"]},
+{tr:"Volüm Rendering (VR)",en:"Volume Rendering",cat:"teknik",def:"Üç boyutlu görüntü rekonstrüksiyon tekniği. Cerrahi planlama ve vasküler anatominin gösterimi için kullanılır.",related:["MIP","MPR","3D Rekonstrüksiyon"]},
+{tr:"Perfüzyon Görüntüleme",en:"Perfusion Imaging",cat:"teknik",def:"Doku düzeyinde kan akımını değerlendiren görüntüleme tekniği. Akut inmede penumbra tespiti ve tümör gradlemesinde kullanılır. CBV, CBF ve MTT parametreleri hesaplanır.",related:["CBV","CBF","MTT","İskemi"]},
+{tr:"Spektroskopi (MRS)",en:"MR Spectroscopy",cat:"teknik",def:"Dokuların kimyasal bileşimini gösteren MR tekniği. NAA, kolin, kreatin ve laktat pikleri değerlendirilir. Tümör, demyelinizasyon ve metabolik hastalıklarda yardımcıdır.",related:["NAA","Kolin","Kreatin","Tümör"]},
+{tr:"Dinamik Kontrastlı İnceleme",en:"Dynamic Contrast-Enhanced (DCE)",cat:"teknik",def:"Kontrast madde enjeksiyonu sonrası zamana bağlı sinyal değişimini gösteren teknik. Meme MR ve prostat MR'da tümör karakterizasyonunda kullanılır. Wash-in ve wash-out paternleri değerlendirilir.",related:["Kontrast","Kinetik Eğri","Meme MR"]},
+{tr:"Dixon Tekniği",en:"Dixon Technique",cat:"teknik",def:"Yağ ve su protonlarının faz farklarını kullanarak yağ-su ayrımı yapan MR tekniği. In-phase, out-of-phase, sadece yağ ve sadece su görüntüleri elde edilir.",related:["Kimyasal Kayma","Yağ Baskılama","In-Phase"]},
+{tr:"Yağ Baskılama",en:"Fat Suppression/Saturation",cat:"teknik",def:"Yağ sinyalini baskılayan MR tekniği. STIR, Dixon ve frekans-selektif yağ baskılama yöntemleri vardır. Kontrast tutulumunun değerlendirilmesinde önemlidir.",related:["STIR","Dixon","Kimyasal Kayma"]},
+{tr:"STIR",en:"Short Tau Inversion Recovery",cat:"teknik",def:"İnversiyon recovery tekniği ile yağ sinyalini baskılayan MR sekansı. Kemik iliği ödemi ve yumuşak doku lezyonlarının tespitinde çok duyarlıdır.",related:["Yağ Baskılama","İnversiyon Recovery","Ödem"]},
+{tr:"TOF (Uçuş Zamanı)",en:"Time-of-Flight",cat:"teknik",def:"Kontrastsız MR anjiyografi tekniği. Akan kanın sinyal artışını kullanır. İntrakraniyal arterlerin değerlendirilmesinde standart yöntemdir.",related:["MRA","Flow","Anevrizma"]},
+{tr:"Elastografi",en:"Elastography",cat:"teknik",def:"Doku sertliğini (elastikiyetini) ölçen görüntüleme tekniği. Ultrason ve MR elastografi olarak uygulanır. Karaciğer fibrozisinin evrelemesinde biyopsiye alternatiftir.",related:["Fibrozis","Ultrason","MR"]},
+{tr:"Dual Enerji BT",en:"Dual-Energy CT",cat:"teknik",def:"İki farklı enerji seviyesinde eşzamanlı görüntüleme yapan BT tekniği. Materyal ayrımı (ürik asit, kalsiyum, iyot) yapabilir. Gut, böbrek taşı ve sanal kontrastsız görüntüler elde edilebilir.",related:["BT","Materyal Dekompozisyon","Sanal Kontrastsız"]},
+{tr:"Floroskopi",en:"Fluoroscopy",cat:"teknik",def:"Gerçek zamanlı X-ışını görüntüleme yöntemi. GİS pasaj grafisi, anjiyografi ve girişimsel işlemlerde kullanılır. Sürekli radyasyon maruziyeti dezavantajıdır.",related:["X-Işını","Girişimsel","Baryum"]},
+{tr:"Mamografi",en:"Mammography",cat:"teknik",def:"Meme dokusunun düşük doz X-ışını ile görüntülenmesi. Meme kanseri taramasında altın standart yöntemdir. CC ve MLO projeksiyonları standart olarak alınır.",related:["BI-RADS","Mikrokalsifikasyon","Meme"]},
+{tr:"Pozitron Emisyon Tomografisi (PET)",en:"Positron Emission Tomography",cat:"teknik",def:"Radyofarmasötik (genellikle FDG) kullanarak metabolik aktiviteyi gösteren nükleer tıp görüntüleme yöntemi. Onkolojide evreleme, tedavi yanıtı ve nükslerin tespitinde kullanılır.",related:["FDG","SUV","PET-BT"]},
+
+// ===== KISALTMALAR (Abbreviations) =====
+{tr:"ALARA",en:"As Low As Reasonably Achievable",cat:"kisaltma",def:"Radyasyon korumasının temel ilkesi. Radyasyon dozunun makul ölçüde ulaşılabilecek en düşük düzeyde tutulmasını öngörür.",related:["Radyasyon","Doz","Koruma"]},
+{tr:"PACS",en:"Picture Archiving and Communication System",cat:"kisaltma",def:"Medikal görüntülerin dijital olarak saklanması, iletilmesi ve görüntülenmesi için kullanılan sistem. Radyoloji departmanlarının temel altyapısıdır.",related:["DICOM","RIS","Dijital"]},
+{tr:"DICOM",en:"Digital Imaging and Communications in Medicine",cat:"kisaltma",def:"Tıbbi görüntüleme için uluslararası standart dosya formatı ve iletişim protokolü. Tüm radyoloji cihazları DICOM formatında veri üretir.",related:["PACS","Dosya Formatı","Standart"]},
+{tr:"BI-RADS",en:"Breast Imaging Reporting and Data System",cat:"kisaltma",def:"Meme görüntülemede standart raporlama sistemi. 0-6 arası kategorilere sahiptir. ACR tarafından geliştirilmiştir. Kategori 4-5 biyopsi gerektirir.",related:["Mamografi","ACR","Meme"]},
+{tr:"LI-RADS",en:"Liver Imaging Reporting and Data System",cat:"kisaltma",def:"Kronik karaciğer hastalığı olan hastalarda hepatoselüler karsinom riskini değerlendiren standart raporlama sistemi. LR-1 (kesin benign) ile LR-5 (kesin HCC) arasında kategorize eder.",related:["HCC","Karaciğer","Siroz"]},
+{tr:"TI-RADS",en:"Thyroid Imaging Reporting and Data System",cat:"kisaltma",def:"Tiroid nodüllerinin ultrasonografik özelliklerine göre malignite riskini sınıflandıran sistem. Nodülün ekojenitesi, kompozisyonu, şekli ve ekojen odakları değerlendirilir.",related:["Tiroid","Ultrason","Nodül"]},
+{tr:"PI-RADS",en:"Prostate Imaging Reporting and Data System",cat:"kisaltma",def:"Multiparametrik prostat MR'da klinik anlamlı prostat kanseri olasılığını değerlendiren standart raporlama sistemi. 1-5 arası puanlama yapılır.",related:["Prostat","MR","Multiparametrik"]},
+{tr:"HU",en:"Hounsfield Unit",cat:"kisaltma",def:"BT'de doku dansitesinin sayısal ifadesi. Su=0, hava=-1000, kompakt kemik=+1000 HU değerindedir.",related:["Hounsfield Ünitesi","BT","Dansite"]},
+{tr:"ROI",en:"Region of Interest",cat:"kisaltma",def:"Görüntü üzerinde seçilen ilgi alanı. Bu bölgedeki ortalama sinyal/dansite değeri ve standart sapma ölçülür. Kantitatif analiz için kullanılır.",related:["Ölçüm","Dansite","Sinyal"]},
+{tr:"SUV",en:"Standardized Uptake Value",cat:"kisaltma",def:"PET görüntülemede FDG tutulumunun yarı-kantitatif ölçüsü. SUVmax tümör metabolik aktivitesinin göstergesidir. Tedavi yanıtı değerlendirmesinde kullanılır.",related:["PET","FDG","Metabolik"]},
+{tr:"GFR",en:"Glomerular Filtration Rate",cat:"kisaltma",def:"Böbrek fonksiyonunun göstergesi olan glomerüler filtrasyon hızı. Kontrast madde verilmeden önce mutlaka kontrol edilmelidir. 30 mL/dk altı kontrendikasyon oluşturabilir.",related:["Böbrek","Kontrast","Nefrotoksisite"]},
+{tr:"CBV",en:"Cerebral Blood Volume",cat:"kisaltma",def:"Birim beyin dokusundaki kan hacmi. Perfüzyon görüntülemede hesaplanır. Yüksek gradeli tümörlerde CBV artışı beklenir.",related:["CBF","MTT","Perfüzyon"]},
+{tr:"CBF",en:"Cerebral Blood Flow",cat:"kisaltma",def:"Birim zamanda birim beyin dokusundan geçen kan miktarı. Akut inmede iskemik bölgede azalmıştır.",related:["CBV","MTT","Perfüzyon"]},
+{tr:"MTT",en:"Mean Transit Time",cat:"kisaltma",def:"Kanın arteriyel giriş ile venöz çıkış arasında geçirdiği ortalama süre. İskemik bölgede uzamıştır. MTT = CBV/CBF formülü ile hesaplanır.",related:["CBV","CBF","Perfüzyon"]},
+{tr:"NAA",en:"N-Acetyl Aspartate",cat:"kisaltma",def:"MR spektroskopide nöronal belirteç. Normal beyin dokusunda en yüksek pik olarak görülür. Nöronal hasarda ve tümörlerde azalır.",related:["Spektroskopi","Kolin","Kreatin"]},
+{tr:"ACR",en:"American College of Radiology",cat:"kisaltma",def:"Amerikan Radyoloji Koleji. Radyoloji pratiğinde kılavuzlar ve standartlar oluşturan uluslararası kuruluş. BI-RADS, LI-RADS gibi raporlama sistemlerini geliştirmiştir.",related:["BI-RADS","LI-RADS","Kılavuz"]},
+{tr:"DSA",en:"Digital Subtraction Angiography",cat:"kisaltma",def:"Dijital subtraksiyon anjiyografi. Kontrast öncesi ve sonrası görüntüler arasındaki farkı gösteren girişimsel anjiyografi tekniği. Vasküler patolojilerin tanı ve tedavisinde altın standarttır.",related:["Anjiyografi","Girişimsel","Vasküler"]},
+{tr:"IVC",en:"Inferior Vena Cava",cat:"kisaltma",def:"Alt vena kava. Alt ekstremite ve abdominal organlardan venöz kanı sağ atriuma taşıyan en büyük ven.",related:["Hepatik Venler","Tromboz","Venöz"]},
+{tr:"ACA",en:"Anterior Cerebral Artery",cat:"kisaltma",def:"Anterior serebral arter. Frontal lob medial yüzeyi ve parasagittal kortikal alanları besler. Willis poligonunun ön bölümünü oluşturur.",related:["MCA","PCA","Willis Poligonu"]},
+{tr:"MCA",en:"Middle Cerebral Artery",cat:"kisaltma",def:"Orta serebral arter. İnternal karotid arterin en büyük dalıdır ve beyin hemisferinin lateralini besler. En sık akut iskemik inmede tıkanan arterdir.",related:["ACA","PCA","İnfarkt"]},
+{tr:"PCA",en:"Posterior Cerebral Artery",cat:"kisaltma",def:"Posterior serebral arter. Oksipital lob ve temporal lobun alt yüzeyini besler. Baziler arterin terminal dalıdır.",related:["ACA","MCA","Baziler Arter"]},
+{tr:"RIS",en:"Radiology Information System",cat:"kisaltma",def:"Radyoloji bilgi sistemi. Hasta ve tetkik bilgilerinin yönetimi, randevu planlaması ve raporlama süreçlerinin takibi için kullanılır.",related:["PACS","DICOM","HIS"]},
+{tr:"FDG",en:"Fluorodeoxyglucose",cat:"kisaltma",def:"Florodeoksiglukoz. PET görüntülemede en sık kullanılan radyofarmasötik. Glukoz metabolizması yüksek dokularda (tümör, infeksiyon, inflamasyon) tutulur.",related:["PET","SUV","Onkoloji"]},
+{tr:"MRCP",en:"Magnetic Resonance Cholangiopancreatography",cat:"kisaltma",def:"MR kolanjiyopankreatografi. Safra yolları ve pankreas kanalının kontrastsız görüntülenmesi. Ağır T2 ağırlıklı sekanslarda statik sıvı parlak görünür.",related:["Safra Yolları","Pankreas","T2"]},
+{tr:"ERCP",en:"Endoscopic Retrograde Cholangiopancreatography",cat:"kisaltma",def:"Endoskopik retrograd kolanjiyopankreatografi. Hem tanısal hem tedavi amaçlı girişimsel işlem. Safra taşı çıkarma ve stent yerleştirme yapılabilir.",related:["MRCP","Safra Yolları","Girişimsel"]},
+
+// ===== GENEL (General) =====
+{tr:"Artefakt",en:"Artifact",cat:"genel",def:"Görüntüdeki gerçek anatomiye ait olmayan yapay oluşum. Hareket, metal, kimyasal kayma ve aliasing en sık artefakt nedenleridir.",related:["Hareket Artefaktı","Metal Artefakt","Aliasing"]},
+{tr:"Kontrast Madde",en:"Contrast Agent",cat:"genel",def:"Görüntü kontrastını artırmak için verilen farmakolojik ajan. MR'da gadolinyum bazlı, BT'de iyot bazlı kontrast madde kullanılır. Alerjik reaksiyon ve nefrotoksisite riskleri vardır.",related:["Gadolinyum","İyotlu Kontrast","Anafilaksi"]},
+{tr:"Gadolinyum",en:"Gadolinium",cat:"genel",def:"MR görüntülemede kullanılan paramanyetik kontrast maddenin ana elementi. T1 kısaltıcı etkisi ile kontrast tutulumu olan alanları parlaklaştırır. Nefrojenik sistemik fibrozis riski nedeniyle böbrek fonksiyonu kontrol edilmelidir.",related:["Kontrast Madde","T1","NSF"]},
+{tr:"Radyasyon Dozu",en:"Radiation Dose",cat:"genel",def:"Vücudun absorbe ettiği radyasyon miktarı. Gray (Gy) absorbe dozu, Sievert (Sv) efektif dozu ifade eder. BT, konvansiyonel grafiye göre çok daha yüksek doz verir.",related:["ALARA","Efektif Doz","Gray","Sievert"]},
+{tr:"Endikasyon",en:"Indication",cat:"genel",def:"Bir görüntüleme yönteminin uygulanması için geçerli tıbbi neden. Doğru endikasyon gereksiz radyasyon maruziyetini önler.",related:["Kontrendikasyon","Protokol","İstek"]},
+{tr:"Kontrendikasyon",en:"Contraindication",cat:"genel",def:"Bir görüntüleme yönteminin uygulanmaması gereken durumlar. MR'da kalp pili, BT kontrastında ağır böbrek yetmezliği örnektir. Mutlak ve göreceli kontrendikasyonlar ayrılır.",related:["Endikasyon","Güvenlik","Kontrast"]},
+{tr:"Protokol",en:"Protocol",cat:"genel",def:"Belirli bir klinik endikasyon için standartlaştırılmış görüntüleme parametreleri ve sekansları. Doğru protokol seçimi tanısal kaliteyi belirler.",related:["Endikasyon","Sekans","Parametre"]},
+{tr:"Raporlama",en:"Reporting",cat:"genel",def:"Radyolojik bulguların yapılandırılmış bir şekilde yazılı olarak sunulması. Bulgular, tanı ve öneriler raporun temel bileşenleridir.",related:["Bulgu","Tanı","RADS"]},
+{tr:"Bulgu",en:"Finding",cat:"genel",def:"Görüntüleme çalışmasında tespit edilen anormallik veya normal varyant. Her bulgunun lokalizasyonu, boyutu ve karakteristikleri tanımlanmalıdır.",related:["Raporlama","Tanı","Lezyon"]},
+{tr:"Lezyon",en:"Lesion",cat:"genel",def:"Doku veya organdaki anormal alan. Benign veya malign olabilir. Solid, kistik veya mikst karakter gösterebilir.",related:["Kitle","Nodül","Kist"]},
+{tr:"Kitle",en:"Mass",cat:"genel",def:"Yer kaplayan lezyon. Genellikle 3 cm üzeri boyuttaki lezyonlar kitle olarak tanımlanır. Solid, kistik veya mikst olabilir.",related:["Nodül","Lezyon","Tümör"]},
+{tr:"Nodül",en:"Nodule",cat:"genel",def:"Genellikle 3 cm altı boyuttaki küçük lezyon. Akciğer nodülleri soliter veya multipl olabilir. Fleischner kriterleri takip algoritmalarını belirler.",related:["Kitle","Lezyon","Fleischner"]},
+{tr:"Kist",en:"Cyst",cat:"genel",def:"Sıvı içerikli, duvarla çevrili lezyon. Basit kistler ince düzgün duvarlı olup iç yapı göstermez. Komplike kistlerde septasyon, duvar kalınlaşması veya solid komponent bulunur.",related:["Lezyon","Bosniak","Basit Kist"]},
+{tr:"Hiperintens",en:"Hyperintense",cat:"genel",def:"MR görüntülerde çevre dokuya göre daha parlak (yüksek sinyalli) alan. T2A'da sıvı hiperintens görünür.",related:["Hipointens","İzointens","Sinyal"]},
+{tr:"Hipointens",en:"Hypointense",cat:"genel",def:"MR görüntülerde çevre dokuya göre daha koyu (düşük sinyalli) alan. T1A ve T2A'da kalsifikasyon, hemosiderin ve hava hipointens görünür.",related:["Hiperintens","İzointens","Sinyal"]},
+{tr:"İzointens",en:"Isointense",cat:"genel",def:"MR görüntülerde çevre doku ile aynı sinyal yoğunluğunda olan alan.",related:["Hiperintens","Hipointens","Sinyal"]},
+{tr:"Hiperdens",en:"Hyperdense",cat:"genel",def:"BT'de çevre dokuya göre daha yüksek yoğunlukta (daha beyaz) alan. Akut kanama, kalsifikasyon ve metal hiperdens görünür.",related:["Hipodens","İzodens","HU"]},
+{tr:"Hipodens",en:"Hypodense",cat:"genel",def:"BT'de çevre dokuya göre daha düşük yoğunlukta (daha koyu) alan. Yağ, sıvı ve ödem hipodens görünür.",related:["Hiperdens","İzodens","HU"]},
+{tr:"İzodens",en:"Isodense",cat:"genel",def:"BT'de çevre doku ile aynı yoğunlukta olan alan. Subakut hematom izodense dönebilir ve gözden kaçabilir.",related:["Hiperdens","Hipodens","HU"]},
+{tr:"Ekojen",en:"Echogenic",cat:"genel",def:"Ultrasonda ses dalgalarını yansıtan, parlak görünen yapı. Hiperekojen (çok parlak), hipoekojen (az parlak) ve anekojen (sinyalsiz/koyu) terimleri kullanılır.",related:["Hiperekojen","Hipoekojen","Anekojen"]},
+{tr:"Hiperekojen",en:"Hyperechoic",cat:"genel",def:"Ultrasonda çevre dokuya göre daha parlak görünen yapı. Yağ, kalsifikasyon ve gaz hiperekojen görünür.",related:["Hipoekojen","Anekojen","Ekojen"]},
+{tr:"Hipoekojen",en:"Hypoechoic",cat:"genel",def:"Ultrasonda çevre dokuya göre daha koyu görünen yapı. Birçok solid lezyon hipoekojen karakterdedir.",related:["Hiperekojen","Anekojen","Ekojen"]},
+{tr:"Anekojen",en:"Anechoic",cat:"genel",def:"Ultrasonda hiç eko üretmeyen, tamamen siyah görünen yapı. Basit kist ve serbest sıvı anekojen görünür.",related:["Hipoekojen","Hiperekojen","Kist"]},
+{tr:"Sekans",en:"Sequence",cat:"genel",def:"MR görüntülemede belirli RF pulsları ve gradyan uygulamalarının sıralı kombinasyonu. T1A, T2A, FLAIR, DWI gibi farklı sekanslar farklı doku kontrastları sağlar.",related:["T1","T2","FLAIR","DWI"]},
+{tr:"Rekonstrüksiyon",en:"Reconstruction",cat:"genel",def:"Ham veriden görüntü oluşturma işlemi. Filtrelenmiş geri projeksiyon (FBP) ve iteratif rekonstrüksiyon yöntemleri kullanılır.",related:["MPR","MIP","VR","Ham Veri"]},
+{tr:"Pencere Ayarı",en:"Window Setting",cat:"genel",def:"BT görüntülerde parlaklık (seviye/level) ve kontrast (genişlik/width) ayarı. Kemik, akciğer, yumuşak doku ve beyin pencereleri farklı parametrelere sahiptir.",related:["HU","BT","Seviye","Genişlik"]},
+{tr:"Evreleme",en:"Staging",cat:"genel",def:"Malign tümörlerin yayılım derecesinin belirlenmesi. TNM sistemi (tümör, nod, metastaz) en yaygın kullanılan evreleme sistemidir. Tedavi planlamasını doğrudan etkiler.",related:["TNM","Metastaz","Malign"]},
+{tr:"İnsidental Bulgu",en:"Incidental Finding",cat:"genel",def:"Başka bir nedenle yapılan görüntülemede tesadüfen saptanan bulgu. İnsidentaloma olarak da bilinir. Yönetim kılavuzları izlem süreçlerini belirler.",related:["Bulgu","İnsidentaloma","İzlem"]},
+{tr:"Takip/İzlem",en:"Follow-up",cat:"genel",def:"Tespit edilen bulgunun zaman içindeki değişimini değerlendirmek için yapılan kontrol görüntüleme. Büyüme hızı benign-malign ayrımında önemli bir kriterdir.",related:["İzlem","Bulgu","Stabil"]},
+{tr:"Girişimsel Radyoloji",en:"Interventional Radiology",cat:"genel",def:"Görüntüleme kılavuzluğunda minimal invaziv tanısal ve tedavi edici işlemlerin yapıldığı radyoloji dalı. Biyopsi, drenaj, embolizasyon ve stentleme başlıca işlemlerdir.",related:["Biyopsi","Drenaj","Embolizasyon"]},
+{tr:"Biyopsi",en:"Biopsy",cat:"genel",def:"Histopatolojik inceleme için doku örneği alınması. Ultrason, BT veya MR kılavuzluğunda perkütan olarak yapılabilir.",related:["Girişimsel","Histopatoloji","Perkütan"]},
+{tr:"Dansite",en:"Density",cat:"genel",def:"BT görüntülerde dokunun X-ışını absorpsiyon yoğunluğu. Hounsfield ünitesi ile ifade edilir. Yoğun dokular (kemik) yüksek, düşük dansiteli dokular (yağ, hava) düşük HU değerine sahiptir.",related:["HU","Atenüasyon","BT"]},
+{tr:"BOS (Beyin Omurilik Sıvısı)",en:"Cerebrospinal Fluid (CSF)",cat:"genel",def:"Beyin ve omuriliği çevreleyen berrak sıvı. Ventrikül sisteminde koroid pleksuslar tarafından üretilir. T1A'da hipointens, T2A'da hiperintens görünür.",related:["Ventrikül","Hidrosefali","FLAIR"]},
+{tr:"Benign",en:"Benign",cat:"genel",def:"İyi huylu, kanserleşme potansiyeli düşük veya olmayan lezyon. Düzgün sınırlı, homojen yapıda ve yavaş büyüme gösterir.",related:["Malign","Lezyon","Kist"]},
+{tr:"Malign",en:"Malignant",cat:"genel",def:"Kötü huylu, kanser niteliğinde lezyon. İrregüler sınır, invazyon, heterojen yapı ve hızlı büyüme karakteristiktir.",related:["Benign","Metastaz","İnvazyon"]},
+{tr:"Kontrast Tutulumu",en:"Contrast Enhancement",cat:"genel",def:"Kontrast madde verilmesi sonrası lezyonun veya dokunun kontrast maddeyi tutarak parlaklaşması. Tutulum paterni (homojen, halkasal, heterojen) tanıda yol göstericidir.",related:["Kontrast Madde","Ring Enhancement","Homojen"]},
+{tr:"Radyoopak",en:"Radiopaque",cat:"genel",def:"X-ışınlarını geçirmeyen, görüntüde beyaz görünen materyal. Metal ve baryum radyoopaktır.",related:["Radyolüsen","X-Işını","Atenüasyon"]},
+{tr:"Radyolüsen",en:"Radiolucent",cat:"genel",def:"X-ışınlarını geçiren, görüntüde koyu görünen materyal. Hava ve yağ radyolüsendir.",related:["Radyoopak","X-Işını","Atenüasyon"]},
+{tr:"Homojen",en:"Homogeneous",cat:"genel",def:"Yapı veya lezyonun tüm alanlarında benzer sinyal/dansite göstermesi. Basit kistler ve bazı benign lezyonlar homojen yapıdadır.",related:["Heterojen","Sinyal","Dansite"]},
+{tr:"Heterojen",en:"Heterogeneous",cat:"genel",def:"Yapı veya lezyonun farklı alanlarında farklı sinyal/dansite göstermesi. Nekroz, kanama veya kalsifikasyon içeren lezyonlar heterojen olabilir.",related:["Homojen","Nekroz","Kalsifikasyon"]},
+{tr:"Lateral",en:"Lateral",cat:"genel",def:"Orta hattan uzak, yan tarafa doğru olan. Görüntülemede sağ veya sol tarafı ifade eder.",related:["Medial","Bilateral","Unilateral"]},
+{tr:"Medial",en:"Medial",cat:"genel",def:"Orta hatta yakın olan. Vücudun ortasına doğru olan yöndür.",related:["Lateral","Bilateral","Orta Hat"]},
+{tr:"Proksimal",en:"Proximal",cat:"genel",def:"Gövdeye veya başlangıç noktasına yakın olan. Damarların proksimal kısmı kalbe yakın bölümdür.",related:["Distal","Gövde","Vasküler"]},
+{tr:"Distal",en:"Distal",cat:"genel",def:"Gövdeden veya başlangıç noktasından uzak olan. Ekstremitelerin uç kısımları distaldir.",related:["Proksimal","Periferik","Ekstremite"]},
+{tr:"Anterior",en:"Anterior",cat:"genel",def:"Öne doğru olan, ventral. Aksiyel kesitlerde yukarıda gösterilen kısımdır.",related:["Posterior","Ventral","Aksiyel"]},
+{tr:"Posterior",en:"Posterior",cat:"genel",def:"Arkaya doğru olan, dorsal. Aksiyel kesitlerde aşağıda gösterilen kısımdır.",related:["Anterior","Dorsal","Aksiyel"]},
+{tr:"Süperior",en:"Superior",cat:"genel",def:"Üst tarafa doğru olan, kranial. Kafaya doğru olan yöndür.",related:["İnferior","Kranial","Sefalik"]},
+{tr:"İnferior",en:"Inferior",cat:"genel",def:"Alt tarafa doğru olan, kaudal. Ayaklara doğru olan yöndür.",related:["Süperior","Kaudal","Pelvik"]},
+{tr:"Difüz",en:"Diffuse",cat:"genel",def:"Yaygın, sınırları belirsiz olan yayılım paterni. Difüz karaciğer hastalığı (siroz, steatoz) tüm parankimi etkiler.",related:["Fokal","Multifokal","Yaygın"]},
+{tr:"Fokal",en:"Focal",cat:"genel",def:"Sınırlı bir bölgeye lokalize olan. Fokal lezyon tek bir alanda yer kaplayan yapıdır.",related:["Difüz","Multifokal","Lokalize"]},
+{tr:"Multifokal",en:"Multifocal",cat:"genel",def:"Birden fazla odakta görülen ancak yaygın olmayan. Multifokal lezyonlar birden fazla ayrı lokalizasyondadır.",related:["Fokal","Difüz","Multipl"]},
+{tr:"Bilateral",en:"Bilateral",cat:"genel",def:"Her iki tarafta da bulunan. Bilateral plevral efüzyon her iki hemitoraksta sıvı bulunmasıdır.",related:["Unilateral","Lateral","Simetrik"]},
+{tr:"Unilateral",en:"Unilateral",cat:"genel",def:"Tek taraflı. Unilateral lezyon yalnızca bir tarafta bulunur.",related:["Bilateral","Lateral","Asimetrik"]},
+{tr:"Steatoz",en:"Steatosis",cat:"genel",def:"Karaciğer yağlanması. BT'de karaciğer dansitesinin dalaktan düşük olması ile tanınır. MR'da out-of-phase görüntülerde sinyal kaybı karakteristiktir.",related:["Karaciğer","Dixon","Yağlanma"]},
+{tr:"Buzlu Cam Dansitesi",en:"Ground-Glass Opacity (GGO)",cat:"genel",def:"Akciğer BT'de altta kalan vasküler yapıları silmeyen hafif dansite artışı. İnterstisyel hastalık, infeksiyon, hemoraji ve erken fibroziste görülür.",related:["HRCT","Konsolidasyon","İnterstisyel"]},
+{tr:"Hava Bronkogramı",en:"Air Bronchogram",cat:"genel",def:"Konsolide veya atelektatik akciğer parankimi içinde hava ile dolu bronşların görülmesi. Pnömonide sık görülür.",related:["Konsolidasyon","Pnömoni","Atelektazi"]},
+{tr:"Atelektazi",en:"Atelectasis",cat:"genel",def:"Akciğer parankiminin kollapsı (sönmesi). Obstrüktif, kompresif, pasif ve adeziv tipleri vardır. Volüm kaybı ile karakterizedir.",related:["Kollaps","Akciğer","Volüm Kaybı"]},
+{tr:"Bosniak Sınıflaması",en:"Bosniak Classification",cat:"genel",def:"Böbrek kistlerinin BT özelliklerine göre malignite riskini değerlendiren sınıflama. Kategori I (basit kist) ile kategori IV (malign kistik kitle) arasında derecelendirilir.",related:["Kist","Böbrek","Renal"]},
+{tr:"Fleischner Kriterleri",en:"Fleischner Criteria",cat:"genel",def:"İnsidental akciğer nodüllerinin BT takip önerileri. Nodül boyutu, sayısı ve hastanın risk faktörlerine göre izlem stratejisi belirler.",related:["Nodül","Akciğer","Takip"]},
+{tr:"b-Değeri",en:"b-Value",cat:"genel",def:"DWI'da difüzyon hassasiyetini belirleyen parametre. Yüksek b-değeri (800-1000 s/mm2) güçlü difüzyon ağırlıklandırma sağlar. b=0 T2 ağırlıklı görüntüdür.",related:["DWI","ADC","Difüzyon"]},
+{tr:"Aliasing",en:"Aliasing",cat:"genel",def:"FOV dışındaki yapıların görüntünün karşı tarafına süperpoze olarak yansıması artefaktı. Faz yönünde oluşur ve FOV artırılarak veya oversampling ile düzeltilir.",related:["Artefakt","FOV","Faz Kodlama"]},
+{tr:"Hareket Artefaktı",en:"Motion Artifact",cat:"genel",def:"Hasta hareketi, solunum veya kalp atımından kaynaklanan görüntü bozulması. Faz yönünde gölgelenme şeklinde izlenir. Solunum ve kardiyak tetikleme ile azaltılır.",related:["Artefakt","Tetikleme","Faz Kodlama"]},
+{tr:"Metal Artefakt",en:"Metal Artifact",cat:"genel",def:"Metalik implant veya yabancı cisimlerden kaynaklanan görüntü bozulması. BT'de çizgilenme, MR'da sinyal kaybı şeklinde görülür.",related:["Artefakt","Duyarlılık","Protez"]},
+{tr:"Kontrastsız BT (Nativ BT)",en:"Non-Contrast CT",cat:"genel",def:"Kontrast madde uygulanmadan yapılan BT incelemesi. Akut kanama, böbrek taşı ve kalsifikasyon değerlendirmesinde ilk tercih edilen yöntemdir.",related:["BT","Kontrastsız","Kanama"]},
+{tr:"İnversiyon Recovery",en:"Inversion Recovery",cat:"genel",def:"180 derece inversiyon pulsu ile başlayan MR sekans tipi. STIR (yağ baskılama) ve FLAIR (BOS baskılama) bu tekniğin varyantlarıdır. TI (inversiyon zamanı) parametresi ile baskılanacak doku seçilir.",related:["STIR","FLAIR","TI"]},
+{tr:"Vasküler",en:"Vascular",cat:"genel",def:"Damarlara ait olan, damarlarla ilgili. Vasküler görüntüleme arter ve venlerin değerlendirilmesini kapsar.",related:["Arter","Ven","Anjiyografi"]},
+{tr:"Parenkimal",en:"Parenchymal",cat:"genel",def:"Organın fonksiyonel dokusuna ait olan. Parenkimal lezyon organ dokusunun kendisinde gelişen lezyondur.",related:["Parankima","Organ","Doku"]},
+];
+
+// ===== CATEGORY CONFIG =====
+const categories = [
+{id:'all',label:'Tümü',color:'var(--accent)'},
+{id:'genel',label:'Genel',color:'var(--accent)'},
+{id:'fizik',label:'Fizik',color:'var(--accent2)'},
+{id:'anatomi',label:'Anatomi',color:'var(--success)'},
+{id:'patoloji',label:'Patoloji',color:'var(--danger)'},
+{id:'teknik',label:'Teknik',color:'var(--warn)'},
+{id:'kisaltma',label:'Kısaltmalar',color:'#8b5cf6'}
+];
+
+const catLabels = {genel:'Genel',fizik:'Fizik',anatomi:'Anatomi',patoloji:'Patoloji',teknik:'Teknik',kisaltma:'Kısaltma'};
+
+// ===== STATE =====
+let activeCat = 'all';
+let searchQuery = '';
+let activeLetter = null;
+
+// ===== THEME =====
+function toggleTheme(){
+document.body.classList.toggle('light');
+const isLight = document.body.classList.contains('light');
+localStorage.setItem('theme', isLight ? 'light' : 'dark');
+document.getElementById('themeBtn').textContent = isLight ? '☀️' : '🌙';
+}
+(function(){
+const t = localStorage.getItem('theme');
+if(t === 'light'){document.body.classList.add('light');document.getElementById('themeBtn').textContent='☀️';}
+})();
+
+// ===== INIT =====
+function init(){
+renderStats();
+renderCatFilters();
+renderAlphaNav();
+renderDictionary();
+setupSearch();
+setupScroll();
+}
+
+function renderStats(){
+const el = document.getElementById('dictStats');
+const counts = {};
+dictionary.forEach(t => {counts[t.cat] = (counts[t.cat]||0)+1;});
+el.innerHTML = `
+<div class="dict-stat"><div class="dict-stat-val">${dictionary.length}</div><div class="dict-stat-label">Toplam Terim</div></div>
+<div class="dict-stat"><div class="dict-stat-val">${counts.fizik||0}</div><div class="dict-stat-label">Fizik</div></div>
+<div class="dict-stat"><div class="dict-stat-val">${counts.anatomi||0}</div><div class="dict-stat-label">Anatomi</div></div>
+<div class="dict-stat"><div class="dict-stat-val">${counts.patoloji||0}</div><div class="dict-stat-label">Patoloji</div></div>
+<div class="dict-stat"><div class="dict-stat-val">${counts.teknik||0}</div><div class="dict-stat-label">Teknik</div></div>
+<div class="dict-stat"><div class="dict-stat-val">${counts.kisaltma||0}</div><div class="dict-stat-label">Kısaltma</div></div>
+`;
+}
+
+function renderCatFilters(){
+const el = document.getElementById('catFilters');
+const counts = {all: dictionary.length};
+dictionary.forEach(t => {counts[t.cat] = (counts[t.cat]||0)+1;});
+el.innerHTML = categories.map(c =>
+`<button class="cat-btn${activeCat===c.id?' active':''}" data-cat="${c.id}" onclick="setCat('${c.id}')">${c.label}<span class="cat-count">${counts[c.id]||0}</span></button>`
+).join('');
+}
+
+function setCat(cat){
+activeCat = cat;
+activeLetter = null;
+renderCatFilters();
+renderAlphaNav();
+renderDictionary();
+}
+
+function getFilteredTerms(){
+let terms = dictionary;
+if(activeCat !== 'all') terms = terms.filter(t => t.cat === activeCat);
+if(searchQuery){
+const q = searchQuery.toLowerCase();
+terms = terms.filter(t =>
+t.tr.toLowerCase().includes(q) ||
+t.en.toLowerCase().includes(q) ||
+t.def.toLowerCase().includes(q) ||
+(t.related && t.related.some(r => r.toLowerCase().includes(q)))
+);
+}
+return terms.sort((a,b) => {
+const aKey = a.tr.replace(/[^a-zA-ZçÇğĞıİöÖşŞüÜ]/g,'').toLowerCase();
+const bKey = b.tr.replace(/[^a-zA-ZçÇğĞıİöÖşŞüÜ]/g,'').toLowerCase();
+return aKey.localeCompare(bKey,'tr');
+});
+}
+
+function getLetterForTerm(t){
+const first = t.tr.replace(/[^a-zA-ZçÇğĞıİöÖşŞüÜ]/g,'').charAt(0).toUpperCase();
+const turkishMap = {'Ç':'C','Ğ':'G','İ':'I','Ö':'O','Ş':'S','Ü':'U'};
+return turkishMap[first] || first;
+}
+
+function renderAlphaNav(){
+const el = document.getElementById('alphaNav');
+const terms = getFilteredTerms();
+const availableLetters = new Set(terms.map(t => getLetterForTerm(t)));
+const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+el.innerHTML = alphabet.map(l =>
+`<button class="alpha-btn${activeLetter===l?' active':''}${!availableLetters.has(l)?' disabled':''}" onclick="setLetter('${l}')">${l}</button>`
+).join('');
+}
+
+function setLetter(l){
+if(activeLetter === l){
+activeLetter = null;
+renderAlphaNav();
+renderDictionary();
+return;
+}
+activeLetter = l;
+renderAlphaNav();
+const section = document.getElementById('letter-'+l);
+if(section){
+section.scrollIntoView({behavior:'smooth',block:'start'});
+}
+}
+
+function renderDictionary(){
+const el = document.getElementById('dictContent');
+const terms = getFilteredTerms();
+
+if(terms.length === 0){
+el.innerHTML = `<div class="no-results"><div class="no-results-icon">🔍</div><div class="no-results-text">Sonuç bulunamadı</div><div class="no-results-sub">Farklı bir arama terimi veya kategori deneyin</div></div>`;
+return;
+}
+
+// Group by letter
+const groups = {};
+terms.forEach(t => {
+const letter = getLetterForTerm(t);
+if(!groups[letter]) groups[letter] = [];
+groups[letter].push(t);
+});
+
+const sortedLetters = Object.keys(groups).sort((a,b) => a.localeCompare(b,'tr'));
+let html = '';
+sortedLetters.forEach(letter => {
+html += `<div class="letter-section" id="letter-${letter}">`;
+html += `<div class="letter-header"><span class="letter-char">${letter}</span><span class="letter-count">${groups[letter].length} terim</span></div>`;
+groups[letter].forEach((t,i) => {
+const relatedHtml = t.related && t.related.length > 0
+? `<div class="term-related"><span class="term-related-label">İlişkili:</span>${t.related.map(r=>`<span class="term-related-tag" onclick="searchRelated('${r.replace(/'/g,"\\'")}')">${r}</span>`).join('')}</div>`
+: '';
+const highlightTr = searchQuery ? highlightText(t.tr, searchQuery) : t.tr;
+const highlightEn = searchQuery ? highlightText(t.en, searchQuery) : t.en;
+const highlightDef = searchQuery ? highlightText(t.def, searchQuery) : t.def;
+html += `<div class="term-card" id="term-${letter}-${i}">
+<div class="term-header" onclick="toggleCard(this)">
+<div class="term-info">
+<div class="term-tr">${highlightTr}</div>
+<div class="term-en">${highlightEn}</div>
+</div>
+<span class="term-cat ${t.cat}">${catLabels[t.cat]}</span>
+<span class="term-expand">▼</span>
+</div>
+<div class="term-body">
+<div class="term-def">${highlightDef}</div>
+${relatedHtml}
+</div>
+</div>`;
+});
+html += '</div>';
+});
+el.innerHTML = html;
+}
+
+function highlightText(text, query){
+if(!query) return text;
+const re = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`,'gi');
+return text.replace(re,'<mark>$1</mark>');
+}
+
+function toggleCard(header){
+const card = header.parentElement;
+card.classList.toggle('open');
+}
+
+function searchRelated(term){
+const input = document.getElementById('searchInput');
+input.value = term;
+searchQuery = term.toLowerCase();
+document.getElementById('searchClear').classList.add('visible');
+activeLetter = null;
+renderAlphaNav();
+renderDictionary();
+input.focus();
+}
+
+function clearSearch(){
+const input = document.getElementById('searchInput');
+input.value = '';
+searchQuery = '';
+document.getElementById('searchClear').classList.remove('visible');
+activeLetter = null;
+renderAlphaNav();
+renderDictionary();
+}
+
+function setupSearch(){
+const input = document.getElementById('searchInput');
+let debounce;
+input.addEventListener('input', function(){
+clearTimeout(debounce);
+const val = this.value.trim();
+document.getElementById('searchClear').classList.toggle('visible', val.length > 0);
+debounce = setTimeout(() => {
+searchQuery = val.toLowerCase();
+activeLetter = null;
+renderAlphaNav();
+renderDictionary();
+}, 150);
+});
+// Keyboard shortcut
+document.addEventListener('keydown', function(e){
+if(e.key === '/' && !e.ctrlKey && !e.metaKey && document.activeElement !== input){
+e.preventDefault();
+input.focus();
+}
+if(e.key === 'Escape' && document.activeElement === input){
+clearSearch();
+input.blur();
+}
+});
+}
+
+function setupScroll(){
+const btn = document.getElementById('backTop');
+let ticking = false;
+window.addEventListener('scroll', function(){
+if(!ticking){
+window.requestAnimationFrame(function(){
+btn.classList.toggle('visible', window.scrollY > 400);
+ticking = false;
+});
+ticking = true;
+}
+});
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
