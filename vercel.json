@@ -6,7 +6,8 @@
   "rewrites": [
     { "source": "/neurorad", "destination": "/neurorad.html" },
     { "source": "/abdomenrad", "destination": "/abdomenrad.html" },
-    { "source": "/thoraxrad", "destination": "/thoraxrad.html" }
+    { "source": "/thoraxrad", "destination": "/thoraxrad.html" },
+    { "source": "/fizik", "destination": "/fizik.html" }
   ],
   "headers": [
     {
