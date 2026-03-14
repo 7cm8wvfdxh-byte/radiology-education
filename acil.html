@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acil Radyoloji — Radiology Education</title>
+<meta name="description" content="Acil Radyoloji Modülü — Kritik bulgular ve acil durumlar">
+<meta name="theme-color" content="#0f172a">
+<link rel="manifest" href="manifest.json">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--bg:#0f172a;--bg2:#1e293b;--bg3:#334155;--text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;--accent:#3b82f6;--accent2:#06b6d4;--danger:#f43f5e;--success:#10b981;--warn:#f59e0b;--radius:16px;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background 0.3s,color 0.3s;}
+body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#64748b;--text3:#94a3b8;}
+.header{background:var(--bg2);border-bottom:1px solid var(--bg3);padding:16px 20px;position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);}
+.header-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;}.logo h1{font-family:Georgia,serif;font-size:22px;background:linear-gradient(135deg,var(--danger),var(--warn));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.header-actions{display:flex;gap:8px;}
+.header-btn{background:var(--bg);border:1px solid var(--bg3);border-radius:10px;padding:10px 14px;min-height:44px;color:var(--text2);font-size:13px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all 0.2s;text-decoration:none;}
+@media(hover:hover){.header-btn:hover{border-color:var(--accent);color:var(--accent);}}
+.main{max-width:900px;margin:0 auto;padding:20px;}
+.hero{text-align:center;padding:40px 20px;margin-bottom:32px;background:linear-gradient(135deg,rgba(244,63,94,0.1),rgba(245,158,11,0.08));border-radius:var(--radius);border:1px solid rgba(244,63,94,0.3);}
+.hero-icon{font-size:56px;margin-bottom:12px;}.hero h2{font-family:Georgia,serif;font-size:26px;margin-bottom:8px;background:linear-gradient(135deg,var(--danger),var(--warn));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero p{color:var(--text2);font-size:14px;max-width:500px;margin:0 auto;line-height:1.6;}
+.nav-tabs{display:flex;gap:6px;margin-bottom:24px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px;scrollbar-width:none;}.nav-tabs::-webkit-scrollbar{display:none;}
+.nav-tab{background:var(--bg2);border:1px solid var(--bg3);border-radius:10px;padding:10px 18px;min-height:44px;font-size:13px;font-weight:600;color:var(--text2);cursor:pointer;white-space:nowrap;transition:all 0.2s;flex-shrink:0;}
+.nav-tab.active{background:var(--danger);border-color:var(--danger);color:white;}
+@media(hover:hover){.nav-tab:hover:not(.active){border-color:var(--danger);color:var(--danger);}}
+.section{display:none;animation:fadeUp 0.3s ease;}.section.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.emg-card{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--radius);margin-bottom:14px;overflow:hidden;transition:all 0.2s;}
+.emg-card.kritik{border-left:4px solid var(--danger);}
+.emg-card.acil{border-left:4px solid var(--warn);}
+.emg-card.onemli{border-left:4px solid var(--accent);}
+.emg-header{padding:16px 18px;cursor:pointer;display:flex;align-items:center;gap:12px;min-height:56px;}
+.emg-header:active{opacity:0.8;}
+.emg-icon{font-size:24px;flex-shrink:0;}.emg-info{flex:1;}.emg-name{font-size:15px;font-weight:700;}.emg-sub{font-size:11px;color:var(--text3);margin-top:2px;}
+.emg-tag{padding:3px 8px;border-radius:6px;font-size:10px;font-weight:700;text-transform:uppercase;flex-shrink:0;}
+.emg-tag.kritik{background:rgba(244,63,94,0.15);color:var(--danger);}
+.emg-tag.acil{background:rgba(245,158,11,0.15);color:var(--warn);}
+.emg-tag.onemli{background:rgba(59,130,246,0.15);color:var(--accent);}
+.emg-arrow{color:var(--text3);font-size:12px;transition:transform 0.2s;flex-shrink:0;}
+.emg-card.open .emg-arrow{transform:rotate(180deg);}
+.emg-card.open{box-shadow:0 4px 24px rgba(0,0,0,0.2);}
+.emg-content{display:none;padding:0 18px 18px;border-top:1px solid var(--bg3);}.emg-card.open .emg-content{display:block;}
+.emg-block{margin-top:14px;}.emg-block h4{font-size:13px;font-weight:700;color:var(--accent2);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.emg-block p,.emg-block li{font-size:13px;color:var(--text2);line-height:1.7;}.emg-block ul{padding-left:18px;margin-top:4px;}.emg-block li{margin-bottom:4px;}.emg-block li strong{color:var(--text);}
+.time-box{background:rgba(244,63,94,0.08);border:1px solid rgba(244,63,94,0.2);border-radius:10px;padding:12px;margin-top:10px;text-align:center;}
+.time-val{font-size:20px;font-weight:800;color:var(--danger);}.time-label{font-size:11px;color:var(--text3);margin-top:4px;}
+.info-box{background:var(--bg);border-radius:10px;padding:12px;margin-top:10px;border-left:3px solid var(--accent);font-size:12px;color:var(--text2);line-height:1.6;}
+.info-box.warn{border-left-color:var(--warn);}.info-box.danger{border-left-color:var(--danger);}
+.footer{text-align:center;padding:20px;color:var(--text3);font-size:12px;border-top:1px solid var(--bg3);margin-top:40px;}
+@media(max-width:600px){.header{padding:12px 16px;}.logo h1{font-size:18px;}.hero{padding:24px 16px;}.hero h2{font-size:22px;}.main{padding:16px;}.nav-tab{padding:8px 14px;font-size:12px;}}
+</style>
+</head>
+<body>
+<header class="header"><div class="header-inner">
+<a href="index.html" class="logo"><span style="font-size:24px">🚨</span><h1>Acil Radyoloji</h1></a>
+<div class="header-actions"><a href="index.html" class="header-btn">🏠 Ana Sayfa</a><button class="header-btn" onclick="toggleTheme()">🌙 <span id="themeText">Koyu</span></button></div>
+</div></header>
+<main class="main">
+<div class="hero"><div class="hero-icon">🚨</div><h2>Acil Radyoloji</h2><p>Kritik bulgular, zaman pencereleri ve acil raporlama — Kaçırılmaması gereken bulgular rehberi</p></div>
+<nav class="nav-tabs" id="navTabs">
+<button class="nav-tab active" data-tab="noro">🧠 Nöroacil</button>
+<button class="nav-tab" data-tab="toraks">🫁 Toraks</button>
+<button class="nav-tab" data-tab="abdomen">🏥 Abdomen</button>
+<button class="nav-tab" data-tab="travma">💥 Travma</button>
+<button class="nav-tab" data-tab="pediatrik">👶 Pediatrik</button>
+<button class="nav-tab" data-tab="vaskuler">🩸 Vasküler</button>
+</nav>
+<!-- NÖROACIL -->
+<div class="section active" id="sec-noro">
+
+<div class="emg-card kritik"><div class="emg-header" onclick="this.parentElement.classList.toggle('open')"><div class="emg-icon">🧠</div><div class="emg-info"><div class="emg-name">Akut İskemik İnme</div><div class="emg-sub">DWI kısıtlanması, büyük damar oklüzyonu, ASPECTS</div></div><span class="emg-tag kritik">Kritik</span><div class="emg-arrow">▼</div></div>
+<div class="emg-content">
+<div class="time-box"><div class="time-val">⏰ tPA: 4.5 saat | Trombektomi: 24 saat</div><div class="time-label">Son görülme zamanından itibaren tedavi penceresi</div></div>
+<div class="emg-block"><h4>🎯 Altın Standart Görüntüleme</h4><p><strong>BT + BT Anjiyografi + BT Perfüzyon</strong> (veya MR DWI + MRA). Non-kontrast BT ilk adım (kanama dışlama). BTA ile büyük damar oklüzyonu tespiti.</p></div>
+<div class="emg-block"><h4>🔍 Kritik Bulgular</h4><ul>
+<li><strong>Non-kontrast BT (erken):</strong> Hiperdense MCA sign (trombüs), sulkal silinme, insular ribbon sign, gri-beyaz cevher ayrımı kaybı</li>
+<li><strong>DWI:</strong> Parlak sinyal + ADC'de düşük sinyal = sitotoksik ödem (30 dk'da pozitif!)</li>
+<li><strong>DWI-FLAIR mismatch:</strong> DWI(+) FLAIR(-) → <4.5 saat → tPA adayı</li>
+<li><strong>BT Perfüzyon:</strong> Core (CBF düşük) vs Penumbra (Tmax>6sn). Mismatch oranı >1.8 → trombektomi adayı (DAWN/DEFUSE3)</li>
+<li><strong>ASPECTS skoru:</strong> 10 bölge, her bölge 1 puan. ≥6 → trombektomi adayı. <6 → kötü prognoz</li>
+</ul></div>
+<div class="emg-block"><h4>📞 Acil Rapor</h4>
+<div class="info-box danger">"[Sol/sağ] MCA alanında akut iskemik infarkt, ASPECTS [__/10]. BTA'da [MCA M1/ICA] oklüzyonu. Perfüzyon mismatch [var/yok]. ACİL NÖROLOJİ — trombektomi değerlendirmesi önerilir."</div></div>
+</div></div>
+
+<div class="emg-card kritik"><div class="emg-header" onclick="this.parentElement.classList.toggle('open')"><div class="emg-icon">🩸</div><div class="emg-info"><div class="emg-name">Subaraknoid Kanama (SAK)</div><div class="emg-sub">Bazal sisternlerde hiperdensite, Fisher grade, anevrizma</div></div><span class="emg-tag kritik">Kritik</span><div class="emg-arrow">▼</div></div>
+<div class="emg-content">
+<div class="time-box"><div class="time-val">⏰ İlk 24 saat kritik — yeniden kanama riski en yüksek</div><div class="time-label">Anevrizma güvenliğe alınana kadar re-ruptur riski %4/gün</div></div>
+<div class="emg-block"><h4>🔍 Kritik Bulgular</h4><ul>
+<li><strong>Non-kontrast BT:</strong> İlk 12 saatte %98 sensitivite. Bazal sisternler, Sylvian fissür, interhemisferik fissürde hiperdens kan</li>
+<li><strong>Fisher Grade:</strong> 1 (kan yok/BT negatif), 2 (diffüz ince <1mm), 3 (lokal pıhtı veya kalın >1mm), 4 (intraventriküler/intraparankimal)</li>
+<li><strong>Modified Fisher:</strong> Grade 3-4 → yüksek vazospazm riski</li>
+<li><strong>BT Anjiyografi:</strong> Anevrizma tespiti — yerleşim, boyut, morfoloji (multilobüle → yüksek ruptur riski)</li>
+<li><strong>Komplikasyonlar:</strong> Hidrosefali (akut), vazospazm (3-14. gün, pik 7-10. gün), re-kanama</li>
+</ul></div>
+<div class="emg-block"><h4>📞 Acil Rapor</h4>
+<div class="info-box danger">"Bazal sisternlerde akut SAK, modified Fisher grade [__]. BTA'da [__ mm, lokalizasyon] anevrizması. ACİL BEYİN CERRAHİSİ/NÖROGİRİŞİM konsültasyonu."</div></div>
+</div></div>
+
+<div class="emg-card kritik"><div class="emg-header" onclick="this.parentElement.classList.toggle('open')"><div class="emg-icon">🧠</div><div class="emg-info"><div class="emg-name">Epidural / Subdural Hematom</div><div class="emg-sub">Bikonveks vs hilal şekil, orta hat şifti, herniasyon</div></div><span class="emg-tag kritik">Kritik</span><div class="emg-arrow">▼</div></div>
+<div class="emg-content">
+<div class="emg-block"><h4>🔍 Kritik Bulgular</h4><ul>
+<li><strong>Epidural:</strong> Bikonveks (lens) şekil, sütür hatlarını geçmez, genellikle temporal (%85 MMA), arteriyel kaynaklı → hızlı genişleme. "Lucid interval" klasik.</li>
+<li><strong>Subdural:</strong> Hilal (crescent) şekil, sütürleri geçer, falx'ta durur. Akut: hiperdens (50-70 HU). Subakut: izodens. Kronik: hipodens.</li>
+<li><strong>Acil cerrahi kriterleri:</strong> Kalınlık >10 mm, orta hat şifti >5 mm, GKS düşüşü ≥2 puan, anizokori</li>
+<li><strong>Herniasyon bulguları:</strong> Subfalsin (singulat girus herniasyonu), unkal (temporal herniasyon → PCA infarkt), tonsillar</li>
+</ul></div>
+<div class="emg-block"><h4>📞 Acil Rapor</h4>
+<div class="info-box danger">"[Sol/sağ] frontoparietal akut [epidural/subdural] hematom, maks kalınlık [__ mm], orta hat [__ mm] şifti. [Unkal herniasyon bulgusu var/yok]. ACİL BEYİN CERRAHİSİ."</div></div>
+</div></div>
+
+<div class="emg-card acil"><div class="emg-header" onclick="this.parentElement.classList.toggle('open')"><div class="emg-icon">🧠</div><div class="emg-info"><div class="emg-name">Spinal Kord Kompresyonu</div><div class="emg-sub">Akut miyelopati, kauda equina sendromu</div></div><span class="emg-tag acil">Acil</span><div class="emg-arrow">▼</div></div>
+<div class="emg-content">
+<div class="time-box"><div class="time-val">⏰ 24-48 saat — dekompresyon penceresi</div><div class="time-label">48 saatten sonra nörolojik hasar kalıcı olabilir</div></div>
+<div class="emg-block"><h4>🔍 Kritik Bulgular</h4><ul>
+<li><strong>MR (altın standart):</strong> T2A'da kord içi sinyal artışı (miyelopati), epidural kitle (metastaz, apse, disk), kord kompresyonu derecesi</li>
+<li><strong>Kauda equina:</strong> L1-2 altında sinir kökü kompresyonu → mesane disfonksiyonu, perineal anestezi, bilateral siyatik ağrı</li>
+<li><strong>DWI:</strong> Akut miyelopatide difüzyon kısıtlanması → kötü prognoz göstergesi</li>
+</ul></div>
+<div class="emg-block"><h4>📞 Acil Rapor</h4>
+<div class="info-box danger">"[__ seviyesinde] epidural kitle/disk herniasyonu → spinal kord kompresyonu ve T2 miyelopati sinyali. ACİL ORTOPEDİ/BEYİN CERRAHİSİ — dekompresyon değerlendirmesi."</div></div>
+</div></div>
+</div>
+
+<!-- TORAKS ACİL -->
+<div class="section" id="sec-toraks">
+
+<div class="emg-card kritik"><div class="emg-header" onclick="this.parentElement.classList.toggle('open')"><div class="emg-icon">🫁</div><div class="emg-info"><div class="emg-name">Pulmoner Emboli</div><div class="emg-sub">BTPA dolum defekti, RV strain, Wells skoru</div></div><span class="emg-tag kritik">Kritik</span><div class="emg-arrow">▼</div></div>
+<div class="emg-content">
+<div class="emg-block"><h4>🔍 Kritik Bulgular</h4><ul>
+<li><strong>BTPA:</strong> Pulmoner arterlerde düşük dansiteli dolum defekti. Santral (ana PA, lober) → masif PE riski</li>
+<li><strong>RV strain bulguları:</strong> RV/LV >1, interventriküler septum düzleşmesi/sola deviyasyonu, IVC reflü, kontrast reflüsü</li>
+<li><strong>Pulmoner infarkt:</strong> Subplevral wedge-shaped konsolidasyon (Hampton hump)</li>
+<li><strong>Saddle embolus:</strong> Bifurkasyonda yerleşen trombüs → her iki PA'yı tıkar → hemodinamik instabilite</li>
+<li><strong>Kronik PE bulguları:</strong> Eksantrik mural trombüs, web/band, mozaik perfüzyon, bronşiyal arter genişlemesi</li>
+</ul></div>
+<div class="emg-block"><h4>📞 Acil Rapor</h4>
+<div class="info-box danger">"Bilateral lober ve segmenter pulmoner arterlerde akut PE. RV/LV oranı [>1 → RV strain]. ACİL ANTİKOAGÜLAN başlanması / masif ise trombolitik/embolektomi değerlendirmesi."</div></div>
+</div></div>
+
+<div class="emg-card kritik"><div class="emg-header" onclick="this.parentElement.classList.toggle('open')"><div class="emg-icon">🫀</div><div class="emg-info"><div class="emg-name">Aort Diseksiyonu</div><div class="emg-sub">İntimal flep, gerçek/yalancı lümen, Stanford sınıflaması</div></div><span class="emg-tag kritik">Kritik</span><div class="emg-arrow">▼</div></div>
+<div class="emg-content">
+<div class="time-box"><div class="time-val">⏰ Tip A: Acil cerrahi (saatler içinde) | Tip B: Medikal (komplike değilse)</div><div class="time-label">Tip A'da her saat mortalite %1-2 artar</div></div>
+<div class="emg-block"><h4>🔍 Kritik Bulgular</h4><ul>
+<li><strong>BT Anjiyografi:</strong> İntimal flep → gerçek ve yalancı lümen ayrımı</li>
+<li><strong>Stanford A:</strong> Asandan aortu tutar (cerrahi!). <strong>Stanford B:</strong> Sadece desandan (medikal, komplike ise TEVAR)</li>
+<li><strong>DeBakey:</strong> I (tümü), II (sadece asandan), III (sadece desandan)</li>
+<li><strong>Gerçek vs Yalancı lümen:</strong> Gerçek lümen genelde küçük, yalancı lümen büyük. "Beak sign" yalancı lümende.</li>
+<li><strong>Komplikasyonlar:</strong> Perikardial effüzyon (tamponad), dal vessel oklüzyonu (renal, mezenterik, iliak), aort regürjitasyonu</li>
+</ul></div>
+<div class="emg-block"><h4>📞 Acil Rapor</h4>
+<div class="info-box danger">"Stanford Tip [A/B] aort diseksiyonu, intimal flep [asandan/desandan aorttan __'a] uzanmakta. [Perikardial effüzyon var/yok]. [Dal damar tutulumu: __]. ACİL KALP-DAMAR CERRAHİSİ."</div></div>
+</div></div>
+
+<div class="emg-card kritik"><div class="emg-header" onclick="this.parentElement.classList.toggle('open')"><div class="emg-icon">💨</div><div class="emg-info"><div class="emg-name">Tansiyon Pnömotoraks</div><div class="emg-sub">Mediastinal şift, diyafragma inversiyonu</div></div><span class="emg-tag kritik">Kritik</span><div class="emg-arrow">▼</div></div>
+<div class="emg-content">
+<div class="emg-block"><h4>🔍 Kritik Bulgular</h4><ul>
+<li><strong>Grafi/BT:</strong> Büyük pnömotoraks + mediastinal şift karşı tarafa + diyafragma düzleşmesi/inversiyonu + IVC kollapsı</li>
+<li><strong>Klinik tanı:</strong> Radyoloji BEKLEMEZ — klinik tanı ile iğne dekompresyon yapılır (2. IKA midklaviküler hat)</li>
+<li><strong>BT ek bulgular:</strong> "Deep sulcus sign" (supine hastada anterior pnömotoraks — grafi ile kaçabilir)</li>
+</ul></div>
+<div class="emg-block"><h4>📞 Acil Rapor</h4>
+<div class="info-box danger">"[Sol/sağ] tansiyon pnömotoraks — mediastinal şift [karşı tarafa]. DERHAL İĞNE DEKOMPRESYON + TÜPTORAKOSTOMI."</div></div>
+</div></div>
+</div>
+<!-- ABDOMEN ACİL -->
+<div class="section" id="sec-abdomen">
+
+<div class="emg-card acil"><div class="emg-header" onclick="this.parentElement.classList.toggle('open')"><div class="emg-icon">🔥</div><div class="emg-info"><div class="emg-name">Akut Apandisit</div><div class="emg-sub">Appendiks çap >6mm, periappendiküler yağ infiltrasyonu</div></div><span class="emg-tag acil">Acil</span><div class="emg-arrow">▼</div></div>
+<div class="emg-content">
+<div class="emg-block"><h4>🔍 Kritik Bulgular</h4><ul>
+<li><strong>BT bulguları:</strong> Appendiks çapı >6 mm (dış duvardan dışa), duvar kalınlaşması ve kontrastlanma, periappendiküler yağ infiltrasyonu (dirty fat sign)</li>
+<li><strong>Komplike apandisit:</strong> Appendikolit (%25), periappendiküler sıvı, phlegmon/apse oluşumu, ekstravasasyon (perforasyon)</li>
+<li><strong>Perforasyon bulguları:</strong> Duvar defekti, periappendiküler hava, apse, lokal peritonit</li>
+<li><strong>USG (çocuk/gebe):</strong> Non-kompresible, aperistaltik, çapı >6 mm, hedef işareti (target sign), McBurney noktasında hassasiyet</li>
+<li><strong>Ayırıcı tanı:</strong> Mezenterik lenfadenit, Crohn ileit, ovaryan patoloji (kadın), epiploik apendasit, tiflitis</li>
+</ul></div>
+<div class="emg-block"><h4>📞 Acil Rapor</h4>
+<div class="info-box danger">"Appendiks çapı [__ mm], duvar kalınlaşması ve kontrastlanması, periappendiküler yağ doku artışı — akut [komplike/non-komplike] apandisit. [Appendikolit/apse var/yok]. GENEL CERRAHİ konsültasyonu."</div></div>
+</div></div>
+
+<div class="emg-card kritik"><div class="emg-header" onclick="this.parentElement.classList.toggle('open')"><div class="emg-icon">🚫</div><div class="emg-info"><div class="emg-name">İntestinal Obstrüksiyon</div><div class="emg-sub">Dilate anslar, geçiş noktası, strangülasyon</div></div><span class="emg-tag kritik">Kritik</span><div class="emg-arrow">▼</div></div>
+<div class="emg-content">
+<div class="emg-block"><h4>🔍 Kritik Bulgular</h4><ul>
+<li><strong>İnce barsak obstrüksiyonu (İBO):</strong> Proksimalde dilate anslar >3 cm, distalde dekomprese anslar, "small bowel feces sign" geçiş noktasında</li>
+<li><strong>Kolon obstrüksiyonu:</strong> Çekum >9 cm (perforasyon riski!), kolon >6 cm, "apple core" lezyon (malign obstrüksiyon)</li>
+<li><strong>Kapalı loop:</strong> U veya C şekilli dilate ansa, 2 ayrı geçiş noktası, mezenterik girdap → strangülasyon riski yüksek</li>
+<li><strong>Strangülasyon bulguları (ACİL!):</strong> Duvar kontrastlanma kaybı, pnömatozis intestinalis, portal venöz gaz, mezenterik ödem/sıvı</li>
+<li><strong>En sık nedenler:</strong> İBO → bridle/adezyon (%75); Kolon → malignite (%60), volvulus (%15)</li>
+</ul></div>
+<div class="emg-block"><h4>📞 Acil Rapor</h4>
+<div class="info-box danger">"[İnce barsak/kolon] obstrüksiyonu, geçiş noktası [lokalizasyon]. [Strangülasyon bulguları: duvar kontrastlanma kaybı/pnömatozis var/yok]. GENEL CERRAHİ — [strangülasyon varsa ACİL cerrahi]."</div></div>
+</div></div>
+
+<div class="emg-card kritik"><div class="emg-header" onclick="this.parentElement.classList.toggle('open')"><div class="emg-icon">🔴</div><div class="emg-info"><div class="emg-name">Mezenterik İskemi</div><div class="emg-sub">SMA oklüzyon, barsak duvarı kontrastlanma kaybı</div></div><span class="emg-tag kritik">Kritik</span><div class="emg-arrow">▼</div></div>
+<div class="emg-content">
+<div class="time-box"><div class="time-val">⏰ 6-12 saat — "Golden period"</div><div class="time-label">İrreversibl barsak nekrozu öncesi cerrahi/girişim penceresi</div></div>
+<div class="emg-block"><h4>🔍 Kritik Bulgular</h4><ul>
+<li><strong>BT Anjiyografi:</strong> SMA/SMV trombüs veya embolisi (en sık %50 SMA emboli — kardiyak kaynaklı)</li>
+<li><strong>Erken bulgular:</strong> Barsak duvarında incelme, azalmış kontrastlanma, mezenterik vasküler engorgement</li>
+<li><strong>Geç bulgular (transmural nekroz):</strong> Pnömatozis intestinalis, portal venöz gaz, serbest hava, asit</li>
+<li><strong>Non-oklüzif mezenterik iskemi (NOMI):</strong> Şok hastalarında, damar oklüzyonu yok ama yaygın barsak duvarı kalınlaşması/kontrastlanma kaybı</li>
+</ul></div>
+<div class="emg-block"><h4>📞 Acil Rapor</h4>
+<div class="info-box danger">"SMA'da [emboli/trombüs], [__ bölgesinde] barsak duvarında kontrastlanma kaybı ve [pnömatozis/portal venöz gaz]. Mezenterik iskemi — ACİL GENEL CERRAHİ/GİRİŞİMSEL RADYOLOJİ."</div></div>
+</div></div>
+
+<div class="emg-card acil"><div class="emg-header" onclick="this.parentElement.classList.toggle('open')"><div class="emg-icon">💨</div><div class="emg-info"><div class="emg-name">GİS Perforasyon</div><div class="emg-sub">Serbest hava, Rigler bulgusu, pnömoperitoneum</div></div><span class="emg-tag acil">Acil</span><div class="emg-arrow">▼</div></div>
+<div class="emg-content">
+<div class="emg-block"><h4>🔍 Kritik Bulgular</h4><ul>
+<li><strong>BT (altın standart):</strong> Serbest intraperitoneal hava — en iyi akciğer penceresinde görülür. Lokalizasyonuna göre kaynak tahmini</li>
+<li><strong>Perforasyon yeri ipuçları:</strong> Hava hepatik ligament çevresinde → gastroduodenal; pelvik → kolon/sigmoid; diffüz → herhangi bölge</li>
+<li><strong>Direkt grafi:</strong> Diyafragma altı serbest hava (ayakta), Rigler sign (barsak duvarı her iki tarafında hava), futbol sign (supine)</li>
+<li><strong>Ek bulgular:</strong> Peritoneal sıvı, mezotelyal kontrastlanma, dirty fat, duvar defekti (perforasyon noktası)</li>
+</ul></div>
+<div class="emg-block"><h4>📞 Acil Rapor</h4>
+<div class="info-box danger">"İntraperitoneal serbest hava — GİS perforasyonu ile uyumlu. [Olası perforasyon yeri: __]. ACİL GENEL CERRAHİ."</div></div>
+</div></div>
+
+<div class="emg-card kritik"><div class="emg-header" onclick="this.parentElement.classList.toggle('open')"><div class="emg-icon">🔴</div><div class="emg-info"><div class="emg-name">Rüptüre Abdominal Aort Anevrizması (AAA)</div><div class="emg-sub">Retroperitoneal hematom, aktif kanama</div></div><span class="emg-tag kritik">Kritik</span><div class="emg-arrow">▼</div></div>
+<div class="emg-content">
+<div class="time-box"><div class="time-val">⏰ Dakikalar! — Hemodinamik instabilite → cerrahi</div><div class="time-label">Rüptüre AAA mortalitesi %80-90 (tedavisiz)</div></div>
+<div class="emg-block"><h4>🔍 Kritik Bulgular</h4><ul>
+<li><strong>AAA tanı:</strong> Abdominal aort çapı >3 cm. Rüptür riski: >5.5 cm (erkek), >5 cm (kadın), >1 cm/yıl büyüme hızı</li>
+<li><strong>Rüptür bulguları:</strong> Retroperitoneal hematom (sol psoas çevresi en sık), periaortik sıvı, "draped aorta sign" (vertebra üzerine oturma), "crescent sign" (duvar içi hematom)</li>
+<li><strong>Aktif kanama:</strong> Kontrast ekstravazyasyonu (arteriyel fazda), sentinel clot (en yoğun pıhtı rüptür yerinde)</li>
+<li><strong>İmpending rüptür:</strong> Crescent sign (duvar içi hematom), "tangential calcium sign" (kalsifikasyonda fokal ayrılma)</li>
+</ul></div>
+<div class="emg-block"><h4>📞 Acil Rapor</h4>
+<div class="info-box danger">"İnfrarenal AAA (çap [__ cm]) rüptürü — retroperitoneal hematom ve [aktif kanama var/yok]. ACİL DAMAR CERRAHİSİ/GİRİŞİMSEL RADYOLOJİ (EVAR)."</div></div>
+</div></div>
+</div>
+
+<!-- TRAVMA -->
+<div class="section" id="sec-travma">
+
+<div class="emg-card kritik"><div class="emg-header" onclick="this.parentElement.classList.toggle('open')"><div class="emg-icon">📡</div><div class="emg-info"><div class="emg-name">FAST / E-FAST</div><div class="emg-sub">Morrison poşu, serbest sıvı, perikardial effüzyon</div></div><span class="emg-tag kritik">Kritik</span><div class="emg-arrow">▼</div></div>
+<div class="emg-content">
+<div class="time-box"><div class="time-val">⏰ 2 dakika — FAST sonucu</div><div class="time-label">Hemodinamik instabil + pozitif FAST → direkt ameliyathane</div></div>
+<div class="emg-block"><h4>🔍 FAST Pencereleri</h4><ul>
+<li><strong>Morrison poşu (RUQ):</strong> Hepatorenal aralık — en sık pozitif olan pencere. KC posterior alt tip ve sağ böbrek arasında anekoik sıvı</li>
+<li><strong>Splenorenal (LUQ):</strong> Dalak ve sol böbrek arasında serbest sıvı</li>
+<li><strong>Pelvik (suprapubik):</strong> Mesane çevresinde serbest sıvı — erkekte rektovezikal, kadında rektouterin (Douglas) poşu</li>
+<li><strong>Subksifoid:</strong> Perikardial effüzyon → tamponad değerlendirmesi. "Swinging heart" → büyük effüzyon</li>
+<li><strong>E-FAST:</strong> Bilateral hemitoraks — pnömotoraks (kayma işareti kaybı, "barcode sign") ve hemotoraks (diyafragma üzeri sıvı)</li>
+</ul></div>
+<div class="emg-block"><h4>📞 Acil Rapor</h4>
+<div class="info-box danger">"Pozitif FAST — [Morrison/splenorenal/pelvik/perikardial] bölgede serbest sıvı. [E-FAST: pnömotoraks/hemotoraks var/yok]. Hemodinamik değerlendirme ile ACİL CERRAHİ kararı."</div></div>
+</div></div>
+
+<div class="emg-card kritik"><div class="emg-header" onclick="this.parentElement.classList.toggle('open')"><div class="emg-icon">🫁</div><div class="emg-info"><div class="emg-name">Solid Organ Yaralanması</div><div class="emg-sub">KC, dalak, böbrek laserasyon grading (AAST)</div></div><span class="emg-tag kritik">Kritik</span><div class="emg-arrow">▼</div></div>
+<div class="emg-content">
+<div class="emg-block"><h4>🔍 Kritik Bulgular</h4><ul>
+<li><strong>Karaciğer yaralanması (AAST):</strong> Grade I (subkapsüler hematom <10%, laserasyon <1cm); Grade II (1-3cm); Grade III (>3cm); Grade IV (parankimal yıkım %25-75); Grade V (%75+ / hepatik ven yaralanması)</li>
+<li><strong>Dalak yaralanması:</strong> En sık yaralanan solid organ. Grade I-V benzer. "Sentinel clot" → aktif kanama yakınında en yoğun pıhtı</li>
+<li><strong>Böbrek yaralanması:</strong> Laserasyon derinliği, toplama sistemi tutulumu (kontrast sızıntısı geç fazda), vasküler pedikel yaralanması</li>
+<li><strong>Aktif kanama/psödoanevrizma:</strong> Arteriyel fazda kontrast ekstravazasyonu ("blush") → anjioembolizasyon endikasyonu</li>
+<li><strong>Yüksek grade yaralanmalar:</strong> Grade IV-V → aktif kanama, damarsal yaralanma → cerrahi veya anjioembolizasyon</li>
+</ul></div>
+<div class="emg-block"><h4>📞 Acil Rapor</h4>
+<div class="info-box danger">"[KC/dalak/böbrek] yaralanması, AAST grade [__]. [Aktif kanama/pseudoanevrizma var/yok]. [Serbest sıvı miktarı]. TRAVMA CERRAHİSİ / hemodinamik instabilite durumunda cerrahi/anjioembolizasyon."</div></div>
+</div></div>
+
+<div class="emg-card acil"><div class="emg-header" onclick="this.parentElement.classList.toggle('open')"><div class="emg-icon">🦴</div><div class="emg-info"><div class="emg-name">Pelvik Fraktür ve Vasküler Yaralanma</div><div class="emg-sub">Pelvik halka stabilitesi, retroperitoneal kanama</div></div><span class="emg-tag acil">Acil</span><div class="emg-arrow">▼</div></div>
+<div class="emg-content">
+<div class="emg-block"><h4>🔍 Kritik Bulgular</h4><ul>
+<li><strong>Stabil vs instabil fraktür:</strong> Young-Burgess sınıflaması — LC (lateral kompresyon), APC (anteroposterior), VS (vertikal shear), CM (kombine)</li>
+<li><strong>"Open book" pelvis:</strong> APC tip II-III → simfizis pubis >2.5 cm ayrılma, SI eklem yaralanması → instabil → masif kanama riski</li>
+<li><strong>Retroperitoneal kanama:</strong> Preskaral/perivesikal hematom. Venöz kaynak (en sık) vs arteriyel (aktif blush → anjioembolizasyon)</li>
+<li><strong>İlişkili yaralanmalar:</strong> Mesane rüptürü (BT sistografi ile değerlendirme), üretral yaralanma, vasküler yaralanma (iliak arter/ven)</li>
+</ul></div>
+<div class="emg-block"><h4>📞 Acil Rapor</h4>
+<div class="info-box danger">"[Lateral kompresyon/APC/vertikal shear] pelvik fraktür, [stabil/instabil]. Retroperitoneal hematom [var/boyut]. [Aktif kanama blush/mesane rüptürü var/yok]. TRAVMA CERRAHİSİ / GİRİŞİMSEL RADYOLOJİ."</div></div>
+</div></div>
+</div>
+
+<!-- PEDİATRİK ACİL -->
+<div class="section" id="sec-pediatrik">
+
+<div class="emg-card acil"><div class="emg-header" onclick="this.parentElement.classList.toggle('open')"><div class="emg-icon">👶</div><div class="emg-info"><div class="emg-name">İntussusepsiyon</div><div class="emg-sub">Hedef işareti, USG ile redüksiyon, 3-6 ay-3 yaş</div></div><span class="emg-tag acil">Acil</span><div class="emg-arrow">▼</div></div>
+<div class="emg-content">
+<div class="time-box"><div class="time-val">⏰ 24 saat — Pnömatik/hidrostatik redüksiyon penceresi</div><div class="time-label">Gecikme → iskemi, perforasyon, peritonit</div></div>
+<div class="emg-block"><h4>🔍 Kritik Bulgular</h4><ul>
+<li><strong>USG (ilk tercih):</strong> Transvers kesitte "target sign" / "donut sign" (iç içe barsak halkaları). Longitudinal kesitte "pseudokidney sign"</li>
+<li><strong>Doppler:</strong> Kan akımı varlığı → redüksiyon başarı şansı yüksek. Kan akımı yokluğu → iskemi riski</li>
+<li><strong>Kontraendikasyonlar (redüksiyona):</strong> Peritonit bulguları, serbest hava (perforasyon), şok, sepsis → direkt cerrahi</li>
+<li><strong>Lead point aranması:</strong> >3 yaş veya atipik lokalizasyon → Meckel divertikülü, polip, lenfoma, duplikasyon kisti</li>
+</ul></div>
+<div class="emg-block"><h4>📞 Acil Rapor</h4>
+<div class="info-box danger">"İleokolik intussusepsiyon, USG'de target sign (+), çap [__ mm]. [Doppler: kan akımı var/yok]. PEDİATRİK CERRAHİ — pnömatik/hidrostatik redüksiyon veya cerrahi."</div></div>
+</div></div>
+
+<div class="emg-card acil"><div class="emg-header" onclick="this.parentElement.classList.toggle('open')"><div class="emg-icon">👶</div><div class="emg-info"><div class="emg-name">Hipertrofik Pilor Stenozu</div><div class="emg-sub">Pilor kas kalınlığı >3mm, kanal uzunluğu >15mm</div></div><span class="emg-tag acil">Acil</span><div class="emg-arrow">▼</div></div>
+<div class="emg-content">
+<div class="emg-block"><h4>🔍 Kritik Bulgular</h4><ul>
+<li><strong>Klinik:</strong> 2-8 haftalık bebek, safrasız projektil kusma, "zeytin" palpe edilebilir, hipokloremik metabolik alkaloz</li>
+<li><strong>USG kriterleri (3-15-1 kuralı):</strong> Pilor kas kalınlığı >3 mm, kanal uzunluğu >15 mm, pilor çapı >1 cm</li>
+<li><strong>Ek USG bulguları:</strong> "Cervix sign" (pilor kasının antrum mukozasına protrüzyonu), "antral nipple sign", mide içeriğinin pylora geçişinin olmaması (gerçek zamanlı)</li>
+<li><strong>Grafi:</strong> "Caterpillar sign" (mide peristaltizm dalgaları), "string sign" (baryum geçişi)</li>
+</ul></div>
+<div class="emg-block"><h4>📞 Acil Rapor</h4>
+<div class="info-box danger">"USG'de pilor kas kalınlığı [__ mm], kanal uzunluğu [__ mm] — hipertrofik pilor stenozu ile uyumlu. PEDİATRİK CERRAHİ — Ramstedt piloromiyotomi."</div></div>
+</div></div>
+
+<div class="emg-card kritik"><div class="emg-header" onclick="this.parentElement.classList.toggle('open')"><div class="emg-icon">👶</div><div class="emg-info"><div class="emg-name">Nekrotizan Enterokolit (NEC)</div><div class="emg-sub">Pnömatozis intestinalis, portal venöz gaz, prematüre</div></div><span class="emg-tag kritik">Kritik</span><div class="emg-arrow">▼</div></div>
+<div class="emg-content">
+<div class="emg-block"><h4>🔍 Kritik Bulgular</h4><ul>
+<li><strong>Direkt grafi:</strong> Pnömatozis intestinalis (barsak duvarında hava — "tren rayı" veya "sabun köpüğü" görünümü) — NEC'in patognomonik bulgusu</li>
+<li><strong>Portal venöz gaz:</strong> KC periferinde dallanma patterninde hava → ileri evre, kötü prognoz</li>
+<li><strong>Pnömoperitoneum:</strong> "Football sign" (supine), Rigler sign → perforasyon → acil cerrahi endikasyonu</li>
+<li><strong>Bell evreleme:</strong> Stage I (şüpheli), Stage II (kesin — pnömatozis/portal gaz), Stage III (ilerlemiş — perforasyon/peritonit)</li>
+<li><strong>USG (ek):</strong> Barsak duvarı kalınlaşması, peristaltizm yokluğu, serbest sıvı, portal venöz gaz (grafiiden daha sensitif)</li>
+</ul></div>
+<div class="emg-block"><h4>📞 Acil Rapor</h4>
+<div class="info-box danger">"Pnömatozis intestinalis ve [portal venöz gaz/pnömoperitoneum], Bell stage [II/III] NEC. PEDİATRİK CERRAHİ — [perforasyon varsa ACİL cerrahi, yoksa medikal tedavi]."</div></div>
+</div></div>
+
+<div class="emg-card onemli"><div class="emg-header" onclick="this.parentElement.classList.toggle('open')"><div class="emg-icon">⚠️</div><div class="emg-info"><div class="emg-name">Non-Aksidental Travma (NAT)</div><div class="emg-sub">Çocuk istismarı bulguları, iskelet survey</div></div><span class="emg-tag onemli">Önemli</span><div class="emg-arrow">▼</div></div>
+<div class="emg-content">
+<div class="emg-block"><h4>🔍 Şüpheli Bulgular</h4><ul>
+<li><strong>Yüksek spesifiteli fraktürler:</strong> Klasik metafizeal lezyon (CML/bucket handle/corner fracture), posterior kot fraktürleri, skapula fraktürü, spinöz çıkıntı fraktürü</li>
+<li><strong>Orta spesifite:</strong> Farklı evrelerde multipl fraktürler, kompleks kafatası fraktürleri, vertebra fraktürleri, dijital fraktürler (<2 yaş)</li>
+<li><strong>Kafa içi:</strong> SDH (özellikle interhemisferik), retinal hemoraji, diffüz aksonal hasar → "Shaken baby syndrome"</li>
+<li><strong>İskelet survey (zorunlu <2 yaş):</strong> AP tüm uzun kemikler, AP göğüs, AP pelvis, lateral kafatası, lateral spinal</li>
+</ul></div>
+<div class="info-box warn">DİKKAT: NAT şüphesinde yasal bildirim zorunludur. Raporlama yapılırken objektif, tanımlayıcı dil kullanılmalıdır. "Hikaye ile uyumsuz bulgular" ifadesi önemlidir.</div>
+</div></div>
+</div>
+
+<!-- VASKÜLER ACİL -->
+<div class="section" id="sec-vaskuler">
+
+<div class="emg-card kritik"><div class="emg-header" onclick="this.parentElement.classList.toggle('open')"><div class="emg-icon">🩸</div><div class="emg-info"><div class="emg-name">Akut Arter Oklüzyonu</div><div class="emg-sub">Embolik vs trombotik, 6P bulguları, altın saat</div></div><span class="emg-tag kritik">Kritik</span><div class="emg-arrow">▼</div></div>
+<div class="emg-content">
+<div class="time-box"><div class="time-val">⏰ 6 saat — Ekstremite kurtarma penceresi</div><div class="time-label">6 saatten sonra irreversibl kas ve sinir nekrozu</div></div>
+<div class="emg-block"><h4>🔍 Kritik Bulgular</h4><ul>
+<li><strong>BT Anjiyografi:</strong> Tam veya parsiyel damar oklüzyonu. Oklüzyon seviyesi ve uzunluğu, kollateral gelişim</li>
+<li><strong>Embolik vs trombotik:</strong> Embolik: ani başlangıç, keskin cut-off, minimal ateroskleroz, AF hikayesi. Trombotik: gradüel, aterosklerotik plak üzerine, kollateral (+)</li>
+<li><strong>Klinik 6P:</strong> Pain (ağrı), Pallor (solukluk), Pulselessness (nabızsızlık), Paresthesia (uyuşma), Paralysis (felç), Poikilothermia (soğukluk)</li>
+<li><strong>Kompartman sendromu:</strong> Reperfüzyon sonrası kas ödemi → kompartman basıncı artışı → fasiyotomi gereksinimi</li>
+</ul></div>
+<div class="emg-block"><h4>📞 Acil Rapor</h4>
+<div class="info-box danger">"[Sol/sağ] [SFA/popliteal/iliak] arterde akut oklüzyon, [embolik/trombotik] paternde. Distalde [kollateral dolum var/yok]. ACİL DAMAR CERRAHİSİ / GİRİŞİMSEL RADYOLOJİ — embolektomi/trombektomi."</div></div>
+</div></div>
+
+<div class="emg-card acil"><div class="emg-header" onclick="this.parentElement.classList.toggle('open')"><div class="emg-icon">🦵</div><div class="emg-info"><div class="emg-name">Derin Ven Trombozu (DVT)</div><div class="emg-sub">Kompresyon USG, femoral/iliak ven trombozu</div></div><span class="emg-tag acil">Acil</span><div class="emg-arrow">▼</div></div>
+<div class="emg-content">
+<div class="emg-block"><h4>🔍 Kritik Bulgular</h4><ul>
+<li><strong>Kompresyon USG (altın standart):</strong> Non-kompresible ven lümeni → DVT. Normal ven tam komprese olur</li>
+<li><strong>B-mod:</strong> Lümen içi ekojen materyal (trombüs), ven çapında artış, perivenöz ödem</li>
+<li><strong>Doppler:</strong> Akım yokluğu veya azalması, augmentasyon kaybı (distalden sıkıştırma ile akım artışı yok)</li>
+<li><strong>Proksimal vs distal:</strong> Proksimal DVT (iliak, femoral, popliteal) → PE riski yüksek → antikoagülan. Distal (baldır) → seri izlem veya tedavi</li>
+<li><strong>Phlegmasia cerulea dolens:</strong> Masif iliofemoral DVT, tüm bacakta şişlik, siyanoz, kompartman sendromu → acil trombektomi</li>
+</ul></div>
+<div class="emg-block"><h4>📞 Acil Rapor</h4>
+<div class="info-box danger">"[Sol/sağ] [ana femoral/yüzeyel femoral/popliteal/iliak] vende akut DVT, non-kompresible lümen. [PE klinik şüphesi varsa BTPA önerilir]. ANTİKOAGÜLAN tedavi."</div></div>
+</div></div>
+</div>
+</main>
+<footer class="footer">Radiology Education — Acil Radyoloji Modülü © 2024 | Eğitim amaçlıdır, klinik karar yerine geçmez.</footer>
+<script>
+(function(){
+var currentTab='noro';
+function toggleTheme(){var b=document.body;b.classList.toggle('light');var t=document.getElementById('themeText');t.textContent=b.classList.contains('light')?'Açık':'Koyu';localStorage.setItem('radiology-theme',b.classList.contains('light')?'light':'dark');}
+window.toggleTheme=toggleTheme;
+var saved=localStorage.getItem('radiology-theme');if(saved==='light'){document.body.classList.add('light');document.getElementById('themeText').textContent='Açık';}
+document.getElementById('navTabs').addEventListener('click',function(e){
+if(e.target.classList.contains('nav-tab')){
+document.querySelectorAll('.nav-tab').forEach(function(t){t.classList.remove('active');});
+e.target.classList.add('active');currentTab=e.target.dataset.tab;
+document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});
+var sec=document.getElementById('sec-'+currentTab);if(sec)sec.classList.add('active');
+history.replaceState(null,'','?page='+currentTab);
+}
+});
+var params=new URLSearchParams(location.search);var page=params.get('page');
+if(page){var btn=document.querySelector('.nav-tab[data-tab="'+page+'"]');if(btn)btn.click();}
+})();
+</script>
+</body>
+</html>

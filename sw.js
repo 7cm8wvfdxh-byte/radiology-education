@@ -1,6 +1,6 @@
 // Cache versiyon yönetimi: CACHE_VERSION her deploy'da güncellenmeli.
 // Build script (scripts/bump-cache.js) bunu otomatik yapar.
-const CACHE_VERSION = 7;
+const CACHE_VERSION = 8;
 const CACHE_NAME = 'radiology-edu-v' + CACHE_VERSION;
 const ASSETS = [
   '/',
@@ -9,6 +9,12 @@ const ASSETS = [
   '/abdomenrad.html',
   '/thoraxrad.html',
   '/fizik.html',
+  '/acil.html',
+  '/girisimsel.html',
+  '/raporlar.html',
+  '/ayirici.html',
+  '/sozluk.html',
+  '/anatomi.html',
   '/search-data.js',
   '/manifest.json'
 ];
@@ -18,7 +24,13 @@ const CLEAN_URL_MAP = {
   '/neurorad': '/neurorad.html',
   '/abdomenrad': '/abdomenrad.html',
   '/thoraxrad': '/thoraxrad.html',
-  '/fizik': '/fizik.html'
+  '/fizik': '/fizik.html',
+  '/acil': '/acil.html',
+  '/girisimsel': '/girisimsel.html',
+  '/raporlar': '/raporlar.html',
+  '/ayirici': '/ayirici.html',
+  '/sozluk': '/sozluk.html',
+  '/anatomi': '/anatomi.html'
 };
 
 // Install — cache core assets
