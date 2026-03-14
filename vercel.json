@@ -7,7 +7,13 @@
     { "source": "/neurorad", "destination": "/neurorad.html" },
     { "source": "/abdomenrad", "destination": "/abdomenrad.html" },
     { "source": "/thoraxrad", "destination": "/thoraxrad.html" },
-    { "source": "/fizik", "destination": "/fizik.html" }
+    { "source": "/fizik", "destination": "/fizik.html" },
+    { "source": "/acil", "destination": "/acil.html" },
+    { "source": "/girisimsel", "destination": "/girisimsel.html" },
+    { "source": "/raporlar", "destination": "/raporlar.html" },
+    { "source": "/ayirici", "destination": "/ayirici.html" },
+    { "source": "/sozluk", "destination": "/sozluk.html" },
+    { "source": "/anatomi", "destination": "/anatomi.html" }
   ],
   "headers": [
     {

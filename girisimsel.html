@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Girişimsel Radyoloji — Radiology Education</title>
+<meta name="description" content="Girişimsel Radyoloji Modülü — Prosedürler, endikasyonlar ve komplikasyonlar">
+<meta name="theme-color" content="#0f172a">
+<link rel="manifest" href="manifest.json">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--bg:#0f172a;--bg2:#1e293b;--bg3:#334155;--text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;--accent:#3b82f6;--accent2:#06b6d4;--danger:#f43f5e;--success:#10b981;--warn:#f59e0b;--purple:#a855f7;--radius:16px;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background 0.3s,color 0.3s;}
+body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#64748b;--text3:#94a3b8;}
+.header{background:var(--bg2);border-bottom:1px solid var(--bg3);padding:16px 20px;position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);}
+.header-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;}.logo h1{font-family:Georgia,serif;font-size:22px;background:linear-gradient(135deg,var(--purple),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.header-actions{display:flex;gap:8px;}
+.header-btn{background:var(--bg);border:1px solid var(--bg3);border-radius:10px;padding:10px 14px;min-height:44px;color:var(--text2);font-size:13px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all 0.2s;text-decoration:none;}
+@media(hover:hover){.header-btn:hover{border-color:var(--accent);color:var(--accent);}}
+.main{max-width:900px;margin:0 auto;padding:20px;}
+.hero{text-align:center;padding:40px 20px;margin-bottom:32px;background:linear-gradient(135deg,rgba(168,85,247,0.1),rgba(6,182,212,0.08));border-radius:var(--radius);border:1px solid rgba(168,85,247,0.3);}
+.hero-icon{font-size:56px;margin-bottom:12px;}.hero h2{font-family:Georgia,serif;font-size:26px;margin-bottom:8px;background:linear-gradient(135deg,var(--purple),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero p{color:var(--text2);font-size:14px;max-width:500px;margin:0 auto;line-height:1.6;}
+.nav-tabs{display:flex;gap:6px;margin-bottom:24px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px;scrollbar-width:none;}.nav-tabs::-webkit-scrollbar{display:none;}
+.nav-tab{background:var(--bg2);border:1px solid var(--bg3);border-radius:10px;padding:10px 18px;min-height:44px;font-size:13px;font-weight:600;color:var(--text2);cursor:pointer;white-space:nowrap;transition:all 0.2s;flex-shrink:0;}
+.nav-tab.active{background:var(--purple);border-color:var(--purple);color:white;}
+@media(hover:hover){.nav-tab:hover:not(.active){border-color:var(--purple);color:var(--purple);}}
+.section{display:none;animation:fadeUp 0.3s ease;}.section.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.proc-card{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--radius);margin-bottom:14px;overflow:hidden;transition:all 0.2s;}
+.proc-card.vaskuler{border-left:4px solid var(--danger);}
+.proc-card.nonvaskuler{border-left:4px solid var(--accent2);}
+.proc-card.onkoloji{border-left:4px solid var(--warn);}
+.proc-card.noroloji{border-left:4px solid var(--accent);}
+.proc-header{padding:16px 18px;cursor:pointer;display:flex;align-items:center;gap:12px;min-height:56px;}
+.proc-header:active{opacity:0.8;}
+.proc-icon{font-size:24px;flex-shrink:0;}.proc-info{flex:1;}.proc-name{font-size:15px;font-weight:700;}.proc-sub{font-size:11px;color:var(--text3);margin-top:2px;}
+.proc-arrow{color:var(--text3);font-size:12px;transition:transform 0.2s;flex-shrink:0;}
+.proc-card.open .proc-arrow{transform:rotate(180deg);}
+.proc-card.open{box-shadow:0 4px 24px rgba(0,0,0,0.2);}
+.proc-content{display:none;padding:0 18px 18px;border-top:1px solid var(--bg3);}.proc-card.open .proc-content{display:block;}
+.proc-block{margin-top:14px;}.proc-block h4{font-size:13px;font-weight:700;color:var(--accent2);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.proc-block p,.proc-block li{font-size:13px;color:var(--text2);line-height:1.7;}.proc-block ul{padding-left:18px;margin-top:4px;}.proc-block li{margin-bottom:4px;}.proc-block li strong{color:var(--text);}
+.info-box{background:var(--bg);border-radius:10px;padding:12px;margin-top:10px;border-left:3px solid var(--accent);font-size:12px;color:var(--text2);line-height:1.6;}
+.info-box.warn{border-left-color:var(--warn);}.info-box.danger{border-left-color:var(--danger);}.info-box.purple{border-left-color:var(--purple);}
+.step-list{list-style:none;padding:0;counter-reset:step;margin-top:8px;}.step-list li{counter-increment:step;padding:8px 0 8px 36px;position:relative;font-size:13px;color:var(--text2);line-height:1.6;border-bottom:1px solid var(--bg3);}
+.step-list li:last-child{border:none;}.step-list li::before{content:counter(step);position:absolute;left:0;top:8px;width:24px;height:24px;border-radius:50%;background:var(--purple);color:white;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.footer{text-align:center;padding:20px;color:var(--text3);font-size:12px;border-top:1px solid var(--bg3);margin-top:40px;}
+@media(max-width:600px){.header{padding:12px 16px;}.logo h1{font-size:18px;}.hero{padding:24px 16px;}.hero h2{font-size:22px;}.main{padding:16px;}.nav-tab{padding:8px 14px;font-size:12px;}}
+</style>
+</head>
+<body>
+<header class="header"><div class="header-inner">
+<a href="index.html" class="logo"><span style="font-size:24px">🎯</span><h1>Girişimsel Radyoloji</h1></a>
+<div class="header-actions"><a href="index.html" class="header-btn">🏠 Ana Sayfa</a><button class="header-btn" onclick="toggleTheme()">🌙 <span id="themeText">Koyu</span></button></div>
+</div></header>
+<main class="main">
+<div class="hero"><div class="hero-icon">🎯</div><h2>Girişimsel Radyoloji</h2><p>Minimal invaziv prosedürler, endikasyonlar, teknik detaylar ve komplikasyon yönetimi</p></div>
+<nav class="nav-tabs" id="navTabs">
+<button class="nav-tab active" data-tab="vaskuler">🩸 Vasküler</button>
+<button class="nav-tab" data-tab="nonvaskuler">🎯 Non-vasküler</button>
+<button class="nav-tab" data-tab="onkoloji">🔬 Onkoloji</button>
+<button class="nav-tab" data-tab="noroloji">🧠 Nörogirişim</button>
+<button class="nav-tab" data-tab="genel">📋 Genel Bilgiler</button>
+</nav>
+<!-- VASKÜLER GİRİŞİMLER -->
+<div class="section active" id="sec-vaskuler">
+
+<div class="proc-card vaskuler"><div class="proc-header" onclick="this.parentElement.classList.toggle('open')"><div class="proc-icon">🩸</div><div class="proc-info"><div class="proc-name">Anjiografi ve Anjioplasti / Stentleme</div><div class="proc-sub">Periferik arter hastalığı, renal arter stenozu, karotis stentleme</div></div><div class="proc-arrow">▼</div></div>
+<div class="proc-content">
+<div class="proc-block"><h4>🎯 Endikasyonlar</h4><ul>
+<li><strong>Periferik arter hastalığı (PAH):</strong> Fontaine IIb-IV (istirahat ağrısı, ülser/gangren), hayat kısıtlayan kladikasyon (medikal tedaviye yanıtsız)</li>
+<li><strong>Renal arter stenozu:</strong> Dirençli hipertansiyon, ilerleyici renal yetmezlik, flash pulmoner ödem (bilateral stenoz)</li>
+<li><strong>Karotis stentleme:</strong> Semptomatik >50% stenoz, asemptomatik >70% stenoz, cerrahi yüksek riskli hastalar</li>
+</ul></div>
+<div class="proc-block"><h4>🔧 Teknik Adımlar</h4><ol class="step-list">
+<li>Femoral arter (veya radial) ponksiyon, Seldinger tekniği ile kılıf yerleştirme</li>
+<li>Tanısal anjiyografi — stenoz derecesi ve uzunluğu değerlendirmesi</li>
+<li>Lezyon geçişi kılavuz tel ile (0.035" veya 0.014" koroner)</li>
+<li>Balon anjioplasti (predilatasyon) — balon boyutu referans damar çapına göre</li>
+<li>Gerekirse stent implantasyonu (bare-metal veya drug-eluting)</li>
+<li>Kontrol anjiyografi — rezidüel stenoz, diseksiyon, akım değerlendirmesi</li>
+</ol></div>
+<div class="proc-block"><h4>⚠️ Komplikasyonlar</h4><ul>
+<li><strong>Giriş yeri:</strong> Hematom, psödoanevrizma, AV fistül, retroperitoneal kanama</li>
+<li><strong>Prosedürel:</strong> Diseksiyon, trombüs, distal embolizasyon, stent trombozu, perforasyon</li>
+<li><strong>Geç:</strong> Restenoz (neointimal hiperplazi), stent kırılması, in-stent tromboz</li>
+</ul></div>
+</div></div>
+
+<div class="proc-card vaskuler"><div class="proc-header" onclick="this.parentElement.classList.toggle('open')"><div class="proc-icon">🛑</div><div class="proc-info"><div class="proc-name">Embolizasyon</div><div class="proc-sub">Kanama kontrolü, AVM, uterin fibroid, varikosel</div></div><div class="proc-arrow">▼</div></div>
+<div class="proc-content">
+<div class="proc-block"><h4>🎯 Endikasyonlar</h4><ul>
+<li><strong>Acil kanama:</strong> GIS kanama, postpartum kanama, travma (solid organ, pelvis), hemoptizi (bronşiyal arter)</li>
+<li><strong>Elektif:</strong> Uterin fibroid embolizasyonu (UFE), varikosel, AVM/AVF, preoperatif tümör embolizasyonu</li>
+<li><strong>Portal ven embolizasyonu:</strong> Hepatektomi öncesi kontralateral lob hipertrofisi sağlama</li>
+</ul></div>
+<div class="proc-block"><h4>🔧 Embolizasyon Materyalleri</h4><ul>
+<li><strong>Coil (sarmal):</strong> Mekanik oklüzyon, proksimal arter embolizasyonu, anevrizma (detachable coil)</li>
+<li><strong>Partiküller (PVA, mikrosfer):</strong> Distal embolizasyon, UFE, tümör embolizasyonu. 100-900μm boyut seçimi</li>
+<li><strong>Gelfoam:</strong> Geçici oklüzyon (2-6 hafta), akut kanama kontrolü, preoperatif</li>
+<li><strong>Liquid embolik (NBCA, Onyx):</strong> AVM, yüksek akımlı lezyonlar, NBCA polimerizasyon hızı lipidol ile ayarlanır</li>
+<li><strong>Plug (Amplatzer):</strong> Büyük damar oklüzyonu, endoleak tedavisi, portal ven embolizasyonu</li>
+</ul></div>
+<div class="proc-block"><h4>⚠️ Komplikasyonlar</h4><ul>
+<li><strong>Post-embolizasyon sendromu:</strong> Ağrı, ateş, bulantı (özellikle UFE sonrası — %50-70)</li>
+<li><strong>Non-target embolizasyon:</strong> Yanlış damar oklüzyonu → iskemi (ciddi komplikasyon)</li>
+<li><strong>Apse:</strong> Özellikle nekrotik doku embolizasyonu sonrası</li>
+</ul></div>
+</div></div>
+
+<div class="proc-card vaskuler"><div class="proc-header" onclick="this.parentElement.classList.toggle('open')"><div class="proc-icon">🫀</div><div class="proc-info"><div class="proc-name">TIPS (Transjugüler İntrahepatik Portosistemik Şant)</div><div class="proc-sub">Portal hipertansiyon, refrakter asit, varis kanaması</div></div><div class="proc-arrow">▼</div></div>
+<div class="proc-content">
+<div class="proc-block"><h4>🎯 Endikasyonlar</h4><ul>
+<li><strong>Varis kanaması:</strong> Endoskopik ve medikal tedaviye yanıtsız, rekürren</li>
+<li><strong>Refrakter asit:</strong> Diüretik tedaviye yanıtsız (parasentez gereksinimi >3/ay)</li>
+<li><strong>Budd-Chiari sendromu:</strong> Hepatik ven oklüzyonu, medikal tedaviye yanıtsız</li>
+<li><strong>Hepatorenal sendrom tip 1:</strong> Transplant köprüleme amaçlı</li>
+</ul></div>
+<div class="proc-block"><h4>🔧 Teknik</h4><ol class="step-list">
+<li>İnternal jugüler ven ponksiyonu, hepatik vene kateter ilerletme</li>
+<li>CO₂ veya kontrast ile hepatik venografi ve wedged portografi</li>
+<li>Hepatik parankimden portal ven dalına ponksiyon (TIPS seti ile)</li>
+<li>Portal basınç ölçümü (hedef gradient: <12 mmHg)</li>
+<li>Balon dilatasyon ve stent-graft (PTFE kaplı, 8-10mm) yerleştirme</li>
+<li>Kontrol portografi ve basınç gradient ölçümü</li>
+</ol></div>
+<div class="proc-block"><h4>⚠️ Komplikasyonlar</h4><ul>
+<li><strong>Hepatik ensefalopati:</strong> En sık komplikasyon (%25-45), portosistemik şanttan amonyak bypass'ı</li>
+<li><strong>Şant disfonksiyonu:</strong> Stenoz/oklüzyon (eski bare-metal %50/yıl, yeni PTFE-kaplı <%15/yıl)</li>
+<li><strong>Akut:</strong> İntraperitoneal kanama, hepatik arter hasarı, kapsül perforasyonu</li>
+</ul></div>
+</div></div>
+
+<div class="proc-card vaskuler"><div class="proc-header" onclick="this.parentElement.classList.toggle('open')"><div class="proc-icon">🦵</div><div class="emg-info"><div class="proc-name">Venöz Girişimler</div><div class="proc-sub">DVT tromboliz, IVC filtre, venöz stentleme</div></div><div class="proc-arrow">▼</div></div>
+<div class="proc-content">
+<div class="proc-block"><h4>🎯 Prosedürler</h4><ul>
+<li><strong>Kateter-directed tromboliz (CDT):</strong> Akut iliofemoral DVT (<14 gün), tPA infüzyonu direkt trombüse. Pharmacomechanical: AngioJet, EKOS</li>
+<li><strong>IVC filtre:</strong> PE kontrendikasyonu olan DVT, rekürren PE (antikoagülan altında), masif PE + DVT. Retrievable filtre tercih</li>
+<li><strong>Venöz stentleme:</strong> May-Thurner sendromu (sol iliak ven kompresyonu), post-trombotik stenoz</li>
+<li><strong>Diyaliz erişimi:</strong> AV fistül/greft maturasyonu, stenoz anjioplasti, trombektomi, santral venöz stenoz tedavisi</li>
+</ul></div>
+<div class="proc-block"><h4>⚠️ Komplikasyonlar</h4><ul>
+<li><strong>CDT:</strong> Kanama (%5-10), intrakranial kanama (%1), PE (trombüs fragmentasyonu)</li>
+<li><strong>IVC filtre:</strong> Filtre migrasyonu, IVC penetrasyon, filtre trombozu, retrieval zorlukları</li>
+</ul></div>
+</div></div>
+</div>
+
+<!-- NON-VASKÜLER GİRİŞİMLER -->
+<div class="section" id="sec-nonvaskuler">
+
+<div class="proc-card nonvaskuler"><div class="proc-header" onclick="this.parentElement.classList.toggle('open')"><div class="proc-icon">💉</div><div class="proc-info"><div class="proc-name">Biyopsi Teknikleri</div><div class="proc-sub">USG/BT eşliğinde, ince iğne aspirasyonu, tru-cut</div></div><div class="proc-arrow">▼</div></div>
+<div class="proc-content">
+<div class="proc-block"><h4>🎯 Genel İlkeler</h4><ul>
+<li><strong>İnce iğne aspirasyonu (İİAB):</strong> 20-25G iğne, sitolojik değerlendirme. Tiroid, lenf nodu, yüzeyel lezyonlar</li>
+<li><strong>Core (tru-cut) biyopsi:</strong> 14-18G, histolojik değerlendirme. KC, böbrek, akciğer, kemik. Doku mimarisi korunur</li>
+<li><strong>Vakum-assisted biyopsi:</strong> Meme lezyonları (stereotaktik veya MR eşliğinde)</li>
+</ul></div>
+<div class="proc-block"><h4>🔧 Organ-Spesifik Teknik</h4><ul>
+<li><strong>Karaciğer:</strong> Sağ interkostal yaklaşım, nefes tutma, koagülopati düzeltilmesi (INR<1.5, PLT>50.000)</li>
+<li><strong>Akciğer:</strong> BT eşliğinde, en kısa yol seçimi, pnömotoraks riski (%15-25, tüp gereksinimi %5-7)</li>
+<li><strong>Böbrek:</strong> Prone pozisyon, alt pol tercih, diffüz hastalıkta 16G tru-cut</li>
+<li><strong>Kemik:</strong> Coaxial teknik, 11-13G kemik biyopsi iğnesi (Jamshidi), kortikal penetrasyon</li>
+</ul></div>
+<div class="proc-block"><h4>⚠️ Komplikasyonlar</h4><ul>
+<li><strong>Kanama:</strong> En sık, genellikle self-limited. Masif kanama → embolizasyon</li>
+<li><strong>Pnömotoraks:</strong> Akciğer biyopside, küçük → izlem, büyük → pigtail kateter</li>
+<li><strong>İğne yolu ekimi (seeding):</strong> Nadir ama HCC'de önemli → coaxial teknik ile azaltılır</li>
+</ul></div>
+</div></div>
+
+<div class="proc-card nonvaskuler"><div class="proc-header" onclick="this.parentElement.classList.toggle('open')"><div class="proc-icon">🔧</div><div class="proc-info"><div class="proc-name">Drenaj Prosedürleri</div><div class="proc-sub">Apse, biliyer, nefrostomi, plevral</div></div><div class="proc-arrow">▼</div></div>
+<div class="proc-content">
+<div class="proc-block"><h4>🎯 Endikasyonlar ve Teknik</h4><ul>
+<li><strong>Apse drenajı:</strong> >3-4 cm apse, semptomatik, septik hasta. Seldinger (trocar ile) veya tandem tekniği. 8-14F pigtail kateter</li>
+<li><strong>Perkütan biliyer drenaj (PBD):</strong> Obstrüktif sarılık (cerrahi/ERCP uygun değilse). Sol (segment 2-3, subksifoid) veya sağ (interkostal) yaklaşım. 8-10F dış drenaj, sonra internal-external</li>
+<li><strong>Perkütan nefrostomi:</strong> Obstrüktif üropati (üreter taşı, tümör). Posterior alt kaliks ponksiyonu (Brödel avasküler hat). 8-12F pigtail</li>
+<li><strong>Plevral drenaj:</strong> Plevral effüzyon/ampiyem. Mid-aksiler hat, 5-7 IKA üst kenar (interkostal damar koruması). 8-14F pigtail</li>
+<li><strong>Kolesistostomi:</strong> Akut kolesistit (cerrahi uygun değilse). Transhepatik yaklaşım tercih (safra kaçağı riski azalır)</li>
+</ul></div>
+<div class="proc-block"><h4>⚠️ Komplikasyonlar</h4><ul>
+<li><strong>Genel:</strong> Kanama, enfeksiyon, kateter migrasyonu/tıkanma, organ yaralanması</li>
+<li><strong>PBD-spesifik:</strong> Kolanjit (%2-10), safra kaçağı, hemobilia, plevral geçiş</li>
+<li><strong>Nefrostomi:</strong> Kanama (AV fistül/psödoanevrizma), sepsis, idrar kaçağı</li>
+</ul></div>
+</div></div>
+
+<div class="proc-card nonvaskuler"><div class="proc-header" onclick="this.parentElement.classList.toggle('open')"><div class="proc-icon">🦴</div><div class="proc-info"><div class="proc-name">Vertebroplasti / Kifoplasti</div><div class="proc-sub">Kompresyon fraktürü, osteoporoz, metastatik</div></div><div class="proc-arrow">▼</div></div>
+<div class="proc-content">
+<div class="proc-block"><h4>🎯 Endikasyonlar</h4><ul>
+<li><strong>Vertebroplasti:</strong> Osteoporotik kompresyon fraktürü (konservatif tedaviye 4-6 hafta yanıtsız), ağrılı metastatik fraktür</li>
+<li><strong>Kifoplasti:</strong> Aynı endikasyonlar + yükseklik kaybı düzeltme amacı (balon ile kavite oluşturma)</li>
+<li><strong>Kontraendikasyonlar:</strong> Asemptomatik fraktür, posterior duvar defekti (rölatif), koagülopati, aktif enfeksiyon</li>
+</ul></div>
+<div class="proc-block"><h4>🔧 Teknik</h4><ol class="step-list">
+<li>Prone pozisyon, BT/fluroskopi eşliğinde transpediküler (en sık) veya parapediküler yaklaşım</li>
+<li>11-13G trocar iğne ile vertebra korpusuna giriş</li>
+<li>Kifoplastide: Balon şişirme → kavite oluşturma → yükseklik kazanma</li>
+<li>PMMA (polimetilmetakrilat) çimento enjeksiyonu — yavaşça, fluroskopi altında</li>
+<li>Çimento sızıntısı kontrolü (en sık epidural veya paravertebral venöz)</li>
+</ol></div>
+<div class="proc-block"><h4>⚠️ Komplikasyonlar</h4><ul>
+<li><strong>Çimento sızıntısı:</strong> En sık komplikasyon (%20-70, çoğu asemptomatik). Epidural sızıntı → spinal kord basısı (nadir ama ciddi)</li>
+<li><strong>Pulmoner emboli:</strong> Çimento veya yağ embolisi (nadir), PMMA partikül embolizasyonu</li>
+<li><strong>Komşu seviye fraktürü:</strong> Sertlik değişimi → komşu vertebra stres artışı</li>
+</ul></div>
+</div></div>
+</div>
+<!-- ONKOLOJİK GİRİŞİMLER -->
+<div class="section" id="sec-onkoloji">
+
+<div class="proc-card onkoloji"><div class="proc-header" onclick="this.parentElement.classList.toggle('open')"><div class="proc-icon">🔥</div><div class="proc-info"><div class="proc-name">Termal Ablasyon</div><div class="proc-sub">RFA, MWA, kriyoablasyon — KC, böbrek, akciğer</div></div><div class="proc-arrow">▼</div></div>
+<div class="proc-content">
+<div class="proc-block"><h4>🎯 Yöntemler</h4><ul>
+<li><strong>Radyofrekans Ablasyon (RFA):</strong> 375-500 kHz alternatif akım → iyonik ajitasyon → friksiyon ısısı (60-100°C). Koagülatif nekroz. "Heat sink" etkisi (damar komşuluğunda yetersiz ablasyon)</li>
+<li><strong>Mikrodalga Ablasyon (MWA):</strong> 915 MHz / 2.45 GHz → dielektrik ısınma. RFA'dan avantajları: daha hızlı, daha büyük ablasyon zonu, heat sink etkisi az, karbonizasyon sorun değil</li>
+<li><strong>Kriyoablasyon:</strong> Argon gazı → Joule-Thomson etkisi → -40°C. "Ice ball" oluşumu. Avantaj: ablasyon zonu BT'de görünür, ağrı az. Dezavantaj: kriyoşok riski, daha uzun prosedür</li>
+</ul></div>
+<div class="proc-block"><h4>🎯 Endikasyonlar (Karaciğer)</h4><ul>
+<li><strong>HCC:</strong> BCLC 0-A (tek tümör ≤5 cm veya 3 tümör ≤3 cm), Child-Pugh A-B, cerrahi uygun değilse. Küratif amaçlı</li>
+<li><strong>KC metastaz (kolorektal):</strong> Cerrahi uygun değilse veya cerrahi ile kombine, ≤3 cm lezyonlar en iyi yanıt</li>
+<li><strong>Böbrek (RCC):</strong> T1a (≤4 cm), cerrahi uygun değilse, tek böbrek, bilateral tümör</li>
+<li><strong>Akciğer:</strong> Stage I NSCLC (cerrahi uygun değilse), oligometastatik hastalık</li>
+</ul></div>
+<div class="proc-block"><h4>⚠️ Komplikasyonlar</h4><ul>
+<li><strong>KC:</strong> Apse, biliyer hasar, hepatik yetmezlik (yaygın ablasyonda), tümör ekimi, termal hasar (barsak/diyafragma)</li>
+<li><strong>Böbrek:</strong> Kanama, üriner sistem hasarı, komşu organ hasarı</li>
+<li><strong>Post-ablasyon sendromu:</strong> Ateş, ağrı, malezi (1-2 hafta, self-limited)</li>
+</ul></div>
+</div></div>
+
+<div class="proc-card onkoloji"><div class="proc-header" onclick="this.parentElement.classList.toggle('open')"><div class="proc-icon">💊</div><div class="proc-info"><div class="proc-name">TACE / TARE</div><div class="proc-sub">Transarteriyel kemoembolizasyon, Y-90 radyoembolizasyon</div></div><div class="proc-arrow">▼</div></div>
+<div class="proc-content">
+<div class="proc-block"><h4>🎯 TACE (Transarteriyel Kemoembolizasyon)</h4><ul>
+<li><strong>Endikasyon:</strong> HCC — BCLC B (intermediate), multinodüler, Child-Pugh A-B. Ablasyona büyük tümörler, transplant köprüleme (downstaging)</li>
+<li><strong>Konvansiyonel TACE (cTACE):</strong> Lipiodol + kemoterapi (doxorubicin/cisplatin) emülsiyonu → selektif enjeksiyon → ardından embolizasyon (gelfoam/PVA)</li>
+<li><strong>Drug-eluting bead TACE (DEB-TACE):</strong> İlaç yüklü mikrosferler (DC Bead 100-300μm). Sürekli ilaç salınımı + embolizasyon. Daha az sistemik toksisite</li>
+<li><strong>Yanıt değerlendirmesi:</strong> mRECIST — arteriyel kontrastlanma kaybı = yanıt. Lipiodol tutulumu (konvansiyonel TACE'de yanıt göstergesi)</li>
+</ul></div>
+<div class="proc-block"><h4>🎯 TARE (Y-90 Radyoembolizasyon)</h4><ul>
+<li><strong>Endikasyon:</strong> HCC (özellikle portal ven trombozu varsa — TACE kontraendike iken TARE yapılabilir), KC metastazları (kolorektal)</li>
+<li><strong>Mekanizma:</strong> Y-90 yüklü mikrosferler (cam veya resin) → beta radyasyon → tümör nekrozu. 2.5 mm penetrasyon derinliği</li>
+<li><strong>Planlama (MAA scan):</strong> Tc-99m MAA enjeksiyonu → akciğer şantı hesaplama (>%20 kontraendike), ekstra-hepatik aktivite kontrolü</li>
+<li><strong>Radyasyon segmentektomi:</strong> Yüksek doz selektif TARE → küratif potansiyel (≤5 cm HCC)</li>
+</ul></div>
+<div class="proc-block"><h4>⚠️ Komplikasyonlar</h4><ul>
+<li><strong>TACE:</strong> Post-embolizasyon sendromu (%50-60), KC yetmezliği (%1-3), apse, safra yolu hasarı, non-target embolizasyon</li>
+<li><strong>TARE:</strong> Radyasyon pnömonisi (akciğer şantı yüksekse), GİS ülser (non-target), REILD (radyoembolizasyon-indüklü KC hastalığı)</li>
+</ul></div>
+</div></div>
+
+<div class="proc-card onkoloji"><div class="proc-header" onclick="this.parentElement.classList.toggle('open')"><div class="proc-icon">🎯</div><div class="proc-info"><div class="proc-name">Port Kateter / Santral Venöz Erişim</div><div class="proc-sub">Kemoterapi erişimi, Hickman, PICC, port-a-cath</div></div><div class="proc-arrow">▼</div></div>
+<div class="proc-content">
+<div class="proc-block"><h4>🎯 Tipleri ve Endikasyonlar</h4><ul>
+<li><strong>Port-a-Cath:</strong> Uzun süreli kemoterapi (>3 ay), subkutan implant, 1000+ ponksiyon kapasitesi. Huber iğne ile erişim</li>
+<li><strong>Tünelli kateter (Hickman):</strong> Uzun süreli TPN, diyaliz, KİT (kemik iliği transplantı). Dacron cuff → enfeksiyon bariyeri</li>
+<li><strong>PICC (Periferically Inserted Central Catheter):</strong> Orta süreli erişim (hafta-aylar), baziliik/sefalik ven → SVC. Yatakbaşı USG ile yerleştirme</li>
+</ul></div>
+<div class="proc-block"><h4>🔧 Teknik (Port)</h4><ol class="step-list">
+<li>İnternal jugüler ven veya subklavyen ven USG eşliğinde ponksiyon</li>
+<li>Kılavuz tel üzerinden peel-away kılıf yerleştirme</li>
+<li>Kateter ucu kavoatriyal bileşke seviyesinde</li>
+<li>Cep oluşturma (deltopektoral bölge) ve port implantasyonu</li>
+<li>Kontrol floroskopi veya grafi (kateter pozisyonu, pnömotoraks dışlama)</li>
+</ol></div>
+<div class="proc-block"><h4>⚠️ Komplikasyonlar</h4><ul>
+<li><strong>Erken:</strong> Pnömotoraks (%1-2), arteriyel ponksiyon, aritmi, hava embolisi</li>
+<li><strong>Geç:</strong> Kateter enfeksiyonu, tromboz (fibrin kılıf), pinch-off sendromu (subklavyen yaklaşım), kateter kırılması/migrasyonu</li>
+</ul></div>
+</div></div>
+</div>
+
+<!-- NÖROGİRİŞİM -->
+<div class="section" id="sec-noroloji">
+
+<div class="proc-card noroloji"><div class="proc-header" onclick="this.parentElement.classList.toggle('open')"><div class="proc-icon">🧠</div><div class="proc-info"><div class="proc-name">Mekanik Trombektomi</div><div class="proc-sub">Akut iskemik inme, stent retriever, aspirasyon</div></div><div class="proc-arrow">▼</div></div>
+<div class="proc-content">
+<div class="proc-block"><h4>🎯 Endikasyonlar (AHA/ASA 2019)</h4><ul>
+<li><strong>Zaman penceresi:</strong> 0-6 saat (tüm büyük damar oklüzyon), 6-24 saat (DAWN/DEFUSE-3 kriterleri ile seçilmiş hastalar)</li>
+<li><strong>Kriteler:</strong> Büyük damar oklüzyonu (ICA, MCA M1, ±M2, baziler), ASPECTS ≥6, NIHSS ≥6, pre-morbid mRS 0-1</li>
+<li><strong>Genişletilmiş pencere (6-24h):</strong> BT perfüzyon veya MR DWI-FLAIR mismatch ile seçim</li>
+</ul></div>
+<div class="proc-block"><h4>🔧 Teknik</h4><ol class="step-list">
+<li>Femoral arter ponksiyonu, 8F kılıf, guiding kateter intrakraniale yönlendirme</li>
+<li>Stent retriever tekniği: Mikrokateter ile trombüsü geçme → stent açma → 3-5 dk bekleme → geri çekme (aspire ederek)</li>
+<li>ADAPT tekniği: Büyük lümenli aspirasyon kateteri direkt trombüs üzerine → vakum aspire</li>
+<li>Kombine teknik: Stent retriever + proksimal aspirasyon ("Solumbra")</li>
+<li>Rekanalizasyon değerlendirmesi: mTICI 2b-3 hedef (≥%50 downstream perfüzyon)</li>
+</ol></div>
+<div class="proc-block"><h4>⚠️ Komplikasyonlar</h4><ul>
+<li><strong>İntrakranial kanama:</strong> Semptomatik ICH %5-7 (reperfüzyon hasarı)</li>
+<li><strong>Distal embolizasyon:</strong> Yeni vasküler alanda trombüs migrasyonu</li>
+<li><strong>Damar diseksiyonu/perforasyonu:</strong> %1-2, SAK riski</li>
+</ul></div>
+</div></div>
+
+<div class="proc-card noroloji"><div class="proc-header" onclick="this.parentElement.classList.toggle('open')"><div class="proc-icon">🔴</div><div class="proc-info"><div class="proc-name">Serebral Anevrizma Tedavisi</div><div class="proc-sub">Coiling, flow diverter, WEB device</div></div><div class="proc-arrow">▼</div></div>
+<div class="proc-content">
+<div class="proc-block"><h4>🎯 Endikasyonlar</h4><ul>
+<li><strong>Rüptüre anevrizma (SAK):</strong> Acil tedavi (24-72 saat içinde), yeniden kanama önleme</li>
+<li><strong>Unrüptüre anevrizma:</strong> ≥7 mm (ön dolaşım), ≥5 mm (arka dolaşım), semptomatik, büyüme gösteren, aile öyküsü</li>
+</ul></div>
+<div class="proc-block"><h4>🔧 Tedavi Yöntemleri</h4><ul>
+<li><strong>Endovasküler coiling:</strong> Mikrokateter ile anevrizma içine platinyum coil yerleştirme → trombüs oluşumu → oklüzyon. "Packing density" >%25 hedef</li>
+<li><strong>Stent-assisted coiling:</strong> Geniş boyunlu anevrizmalarda (boyun/dome oranı >0.5), stent → coil prolapsusu önleme</li>
+<li><strong>Flow diverter (Pipeline, FRED):</strong> Yoğun örgülü stent → anevrizma içi akım yavaşlatma → progressif trombüz. Büyük/giant/fusiform anevrizmalar</li>
+<li><strong>WEB device:</strong> İntrasakküler flow disruptor, geniş boyunlu bifurkasyon anevrizmaları. Antiplatelet tedavi gerektirmez</li>
+</ul></div>
+<div class="proc-block"><h4>⚠️ Komplikasyonlar</h4><ul>
+<li><strong>Tromboembolik:</strong> %5-10, intra-prosedürel trombüs → eptifibatide/abciximab</li>
+<li><strong>Anevrizma rüptürü:</strong> %1-2, coiling sırasında perforasyon → heparin reversal + acil müdahale</li>
+<li><strong>Rekanalizasyon:</strong> Coiling sonrası %20-30 (uzun dönem), kontrol anjiyografi gerekli</li>
+</ul></div>
+</div></div>
+
+<div class="proc-card noroloji"><div class="proc-header" onclick="this.parentElement.classList.toggle('open')"><div class="proc-icon">🔵</div><div class="proc-info"><div class="proc-name">Spinal Girişimler</div><div class="proc-sub">Epidural steroid, faset enjeksiyonu, sinir bloğu</div></div><div class="proc-arrow">▼</div></div>
+<div class="proc-content">
+<div class="proc-block"><h4>🎯 Prosedürler</h4><ul>
+<li><strong>Epidural steroid enjeksiyonu:</strong> Disk herniasyonuna bağlı radikülopati, spinal stenoz. Transforaminal (selektif, en etkili), interlaminar, kaudal yaklaşım</li>
+<li><strong>Faset eklem enjeksiyonu / medial branch bloğu:</strong> Faset artropatisine bağlı aksiyel ağrı. Tanısal blok → pozitif yanıt → RF ablasyon (medial branch nörotomi)</li>
+<li><strong>Sakroiliak eklem enjeksiyonu:</strong> SI eklem disfonksiyonu, sakroiliitis. Floroskopi/BT eşliğinde posterior yaklaşım</li>
+<li><strong>Diskografi:</strong> Diskojenik ağrı tanısı (konkordan ağrı reproduksiyonu). Tartışmalı, azalan kullanım</li>
+</ul></div>
+<div class="proc-block"><h4>⚠️ Komplikasyonlar</h4><ul>
+<li><strong>Enfeksiyon:</strong> Epidural apse (nadir ama ciddi), diskitis</li>
+<li><strong>Nörolojik:</strong> Sinir hasarı, epidural hematom, dural ponksiyon (baş ağrısı)</li>
+<li><strong>Steroid:</strong> Cushing sendromu (sık enjeksiyonlarda), adrenal supresyon, hiperglisemi</li>
+</ul></div>
+</div></div>
+</div>
+
+<!-- GENEL BİLGİLER -->
+<div class="section" id="sec-genel">
+
+<div class="proc-card nonvaskuler"><div class="proc-header" onclick="this.parentElement.classList.toggle('open')"><div class="proc-icon">🩸</div><div class="proc-info"><div class="proc-name">Koagülopati Yönetimi</div><div class="proc-sub">INR, PLT, antikoagülan bridge tedavi</div></div><div class="proc-arrow">▼</div></div>
+<div class="proc-content">
+<div class="proc-block"><h4>📋 Prosedür Öncesi Değerler (SIR Kılavuzu)</h4><ul>
+<li><strong>Düşük riskli prosedür:</strong> Parasentez, torasentez, santral venöz kateter. INR ≤2.0, PLT ≥20.000 yeterli</li>
+<li><strong>Orta riskli prosedür:</strong> Organ biyopsisi, drenaj, nefrostomi. INR <1.5, PLT ≥50.000</li>
+<li><strong>Yüksek riskli prosedür:</strong> Nörogirişim, RFA/embolizasyon. INR <1.2, PLT ≥50.000-70.000</li>
+</ul></div>
+<div class="proc-block"><h4>💊 Antikoagülan / Antiagregan Yönetimi</h4><ul>
+<li><strong>Warfarin:</strong> 5 gün önceden kes, INR kontrolü. Bridge gerekirse → DMAH (enoksaparin)</li>
+<li><strong>DOAC (Rivaroxaban, Apixaban):</strong> 48 saat önceden kes (renal fonksiyona göre), bridge gerekmez</li>
+<li><strong>Aspirin:</strong> Düşük-orta riskli prosedürlerde devam. Yüksek riskli → 5-7 gün kes</li>
+<li><strong>Klopidogrel:</strong> 5 gün önceden kes. Kardiyak stent varsa kardiyoloji konsültasyonu zorunlu</li>
+</ul></div>
+</div></div>
+
+<div class="proc-card nonvaskuler"><div class="proc-header" onclick="this.parentElement.classList.toggle('open')"><div class="proc-icon">💉</div><div class="proc-info"><div class="proc-name">Kontrast Madde ve Reaksiyonlar</div><div class="proc-sub">İyotlu kontrast, gadolinyum, nefropati, alerji</div></div><div class="proc-arrow">▼</div></div>
+<div class="proc-content">
+<div class="proc-block"><h4>🔍 İyotlu Kontrast Reaksiyonları</h4><ul>
+<li><strong>Hafif:</strong> Ürtiker, kaşıntı, bulantı, kusma → gözlem, antihistaminik</li>
+<li><strong>Orta:</strong> Yaygın ürtiker, bronkospazm, hipotansiyon → epinefrin (IM 0.3 mg), IV sıvı, oksijen</li>
+<li><strong>Ağır (anafilaksi):</strong> Laringospazm, kardiyak arrest, şok → epinefrin, KPR, acil müdahale. Oran: 1/170.000</li>
+<li><strong>Profilaksi (önceki reaksiyon):</strong> Prednizolon 50mg (13h, 7h, 1h önce) + difenhidramin 50mg (1h önce)</li>
+</ul></div>
+<div class="proc-block"><h4>🔍 Kontrast Nefropatisi (PC-AKI)</h4><ul>
+<li><strong>Tanım:</strong> Kontrast sonrası 48-72 saatte Cr >%25 veya >0.5 mg/dL artış</li>
+<li><strong>Risk faktörleri:</strong> eGFR <30 (yüksek risk), eGFR 30-44 (orta risk), diyabet, dehidratasyon, nefrotoksik ilaçlar</li>
+<li><strong>Önleme:</strong> İV hidrasyon (1 mL/kg/saat, 6-12h önce ve sonra), kontrast hacmini minimize etme, iso-ozmolar tercih</li>
+</ul></div>
+<div class="proc-block"><h4>🔍 Gadolinyum ve NSF</h4><ul>
+<li><strong>Nefrojenik Sistemik Fibrozis (NSF):</strong> eGFR <30'da lineer gadolinyum ajanları (gadodiamide, gadopentate) → cilt/organ fibrozisi</li>
+<li><strong>Makrosiklik ajanlar (gadobutrol, gadoterate):</strong> NSF riski yok/çok düşük → eGFR <30'da bile güvenle kullanılabilir</li>
+<li><strong>Gadolinyum birikimi:</strong> Tekrarlayan dozlarda beyin (dentate nükleus, globus pallidus) birikimi — klinik önemi belirsiz</li>
+</ul></div>
+</div></div>
+
+<div class="proc-card nonvaskuler"><div class="proc-header" onclick="this.parentElement.classList.toggle('open')"><div class="proc-icon">☢️</div><div class="proc-info"><div class="proc-name">Radyasyon Güvenliği</div><div class="proc-sub">ALARA, koruyucu ekipman, doz limitleri</div></div><div class="proc-arrow">▼</div></div>
+<div class="proc-content">
+<div class="proc-block"><h4>📋 Temel İlkeler — ALARA</h4><ul>
+<li><strong>As Low As Reasonably Achievable:</strong> Zaman (kısa tut), Mesafe (uzak dur — ters kare yasası), Zırhlama (kurşun önlük/tiroid)</li>
+<li><strong>Mesafe etkisi:</strong> Mesafe 2 katına çıkınca doz 4'e düşer (1/r²). Masadan 1 adım uzaklaşmak dozu %4 azaltır</li>
+</ul></div>
+<div class="proc-block"><h4>📊 Yıllık Doz Limitleri (ICRP)</h4><ul>
+<li><strong>Tüm vücut (çalışan):</strong> 20 mSv/yıl (5 yıl ortalama), tek yılda max 50 mSv</li>
+<li><strong>Göz lensi:</strong> 20 mSv/yıl (yeni limit, eski 150 mSv)</li>
+<li><strong>Ekstremite/cilt:</strong> 500 mSv/yıl</li>
+<li><strong>Halk:</strong> 1 mSv/yıl</li>
+<li><strong>Gebe çalışan:</strong> Fetusa 1 mSv (tüm gebelik boyunca)</li>
+</ul></div>
+<div class="proc-block"><h4>🛡️ Koruyucu Önlemler</h4><ul>
+<li><strong>Kurşun önlük:</strong> 0.5mm Pb (ön), 0.25mm (arka) → %90+ saçılan radyasyondan koruma</li>
+<li><strong>Tiroid koruyucu:</strong> Zorunlu (tiroid kanseri riski en yüksek organ)</li>
+<li><strong>Kurşun gözlük:</strong> 0.75mm Pb, göz lensi dozu %80+ azaltır</li>
+<li><strong>Tavan asılan cam shield:</strong> Saçılan radyasyondan en etkili koruma</li>
+<li><strong>Dozimetre:</strong> Önlük altı (tüm vücut efektif doz) + önlük üstü yaka (göz/tiroid dozu). Çift dozimetre önerilir</li>
+</ul></div>
+</div></div>
+</div>
+</main>
+<footer class="footer">Radiology Education — Girişimsel Radyoloji Modülü © 2024 | Eğitim amaçlıdır, klinik karar yerine geçmez.</footer>
+<script>
+(function(){
+var currentTab='vaskuler';
+function toggleTheme(){var b=document.body;b.classList.toggle('light');var t=document.getElementById('themeText');t.textContent=b.classList.contains('light')?'Açık':'Koyu';localStorage.setItem('radiology-theme',b.classList.contains('light')?'light':'dark');}
+window.toggleTheme=toggleTheme;
+var saved=localStorage.getItem('radiology-theme');if(saved==='light'){document.body.classList.add('light');document.getElementById('themeText').textContent='Açık';}
+document.getElementById('navTabs').addEventListener('click',function(e){
+if(e.target.classList.contains('nav-tab')){
+document.querySelectorAll('.nav-tab').forEach(function(t){t.classList.remove('active');});
+e.target.classList.add('active');currentTab=e.target.dataset.tab;
+document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});
+var sec=document.getElementById('sec-'+currentTab);if(sec)sec.classList.add('active');
+history.replaceState(null,'','?page='+currentTab);
+}
+});
+var params=new URLSearchParams(location.search);var page=params.get('page');
+if(page){var btn=document.querySelector('.nav-tab[data-tab="'+page+'"]');if(btn)btn.click();}
+})();
+</script>
+</body>
+</html>

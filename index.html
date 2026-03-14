@@ -91,12 +91,24 @@ body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#6474
 .module-card.abdomen{border-left:3px solid #f59e0b;}
 .module-card.thorax{border-left:3px solid #10b981;}
 .module-card.fizik{border-left:3px solid #06b6d4;}
+.module-card.sozluk{border-left:3px solid #a855f7;}
+.module-card.ayirici{border-left:3px solid #ec4899;}
+.module-card.anatomi{border-left:3px solid #14b8a6;}
+.module-card.raporlar{border-left:3px solid #f97316;}
+.module-card.acil{border-left:3px solid #ef4444;}
+.module-card.girisimsel{border-left:3px solid #8b5cf6;}
 @media(hover:hover){
 .module-card:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,0.3);}
 .module-card.neuro:hover{border-color:#8b5cf6;box-shadow:0 12px 40px rgba(139,92,246,0.15);}
 .module-card.abdomen:hover{border-color:#f59e0b;box-shadow:0 12px 40px rgba(245,158,11,0.15);}
 .module-card.thorax:hover{border-color:#10b981;box-shadow:0 12px 40px rgba(16,185,129,0.15);}
 .module-card.fizik:hover{border-color:#06b6d4;box-shadow:0 12px 40px rgba(6,182,212,0.15);}
+.module-card.sozluk:hover{border-color:#a855f7;box-shadow:0 12px 40px rgba(168,85,247,0.15);}
+.module-card.ayirici:hover{border-color:#ec4899;box-shadow:0 12px 40px rgba(236,72,153,0.15);}
+.module-card.anatomi:hover{border-color:#14b8a6;box-shadow:0 12px 40px rgba(20,184,166,0.15);}
+.module-card.raporlar:hover{border-color:#f97316;box-shadow:0 12px 40px rgba(249,115,22,0.15);}
+.module-card.acil:hover{border-color:#ef4444;box-shadow:0 12px 40px rgba(239,68,68,0.15);}
+.module-card.girisimsel:hover{border-color:#8b5cf6;box-shadow:0 12px 40px rgba(139,92,246,0.15);}
 }
 .mc-icon{font-size:40px;margin-bottom:10px;}
 .mc-title{font-size:18px;font-weight:700;color:var(--text);margin-bottom:4px;}
@@ -294,6 +306,64 @@ body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#6474
         <div class="mc-progress-text"><span id="fizikProgressText">Başlamadın</span><span id="fizikProgressPct">0%</span></div>
       </div>
     </a>
+    <a class="module-card acil" href="acil.html">
+      <div class="mc-icon">🚨</div>
+      <div class="mc-title">Acil Radyoloji</div>
+      <div class="mc-desc">Kritik bulgular, zaman pencereleri ve acil raporlama rehberi</div>
+      <div class="mc-stats">
+        <span class="mc-stat">🧠 Nöroacil</span>
+        <span class="mc-stat">🫁 Toraks</span>
+        <span class="mc-stat">💥 Travma</span>
+      </div>
+    </a>
+    <a class="module-card girisimsel" href="girisimsel.html">
+      <div class="mc-icon">🎯</div>
+      <div class="mc-title">Girişimsel Radyoloji</div>
+      <div class="mc-desc">Minimal invaziv prosedürler, endikasyonlar ve komplikasyonlar</div>
+      <div class="mc-stats">
+        <span class="mc-stat">🩸 Vasküler</span>
+        <span class="mc-stat">🔬 Onkoloji</span>
+        <span class="mc-stat">🧠 Nörogirişim</span>
+      </div>
+    </a>
+    <a class="module-card raporlar" href="raporlar.html">
+      <div class="mc-icon">📝</div>
+      <div class="mc-title">Rapor Şablonları</div>
+      <div class="mc-desc">Hazır rapor şablonları — kopyala yapıştır ile kullanın</div>
+      <div class="mc-stats">
+        <span class="mc-stat">🧠 Nöro</span>
+        <span class="mc-stat">🫁 Toraks</span>
+        <span class="mc-stat">🦴 MSK</span>
+      </div>
+    </a>
+    <a class="module-card ayirici" href="ayirici.html">
+      <div class="mc-icon">🔍</div>
+      <div class="mc-title">Ayırıcı Tanı</div>
+      <div class="mc-desc">Bulgu ve bölge bazlı ayırıcı tanı motoru</div>
+      <div class="mc-stats">
+        <span class="mc-stat">109 tanı</span>
+        <span class="mc-stat">7 bölge</span>
+      </div>
+    </a>
+    <a class="module-card sozluk" href="sozluk.html">
+      <div class="mc-icon">📖</div>
+      <div class="mc-title">Radyoloji Sözlüğü</div>
+      <div class="mc-desc">214 terim — tanımlar, açıklamalar ve kategori filtresi</div>
+      <div class="mc-stats">
+        <span class="mc-stat">A-Z Sözlük</span>
+        <span class="mc-stat">6 Kategori</span>
+      </div>
+    </a>
+    <a class="module-card anatomi" href="anatomi.html">
+      <div class="mc-icon">🫀</div>
+      <div class="mc-title">Anatomi Atlası</div>
+      <div class="mc-desc">Kesitsel anatomi, SVG diyagramlar ve anatomi quizi</div>
+      <div class="mc-stats">
+        <span class="mc-stat">35 seviye</span>
+        <span class="mc-stat">6 bölge</span>
+        <span class="mc-stat">25 soru</span>
+      </div>
+    </a>
   </div>
 
   <!-- Profile Section -->
@@ -335,6 +405,10 @@ body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#6474
       <a class="quick-btn" href="thoraxrad.html?page=duel"><div class="qb-icon">⚔️</div><div class="qb-text">Thorax Duel</div></a>
       <a class="quick-btn" href="fizik.html?page=quiz"><div class="qb-icon">⚛️</div><div class="qb-text">Fizik Quiz</div></a>
       <a class="quick-btn" href="fizik.html?page=mr"><div class="qb-icon">🧲</div><div class="qb-text">MR Fiziği</div></a>
+      <a class="quick-btn" href="acil.html"><div class="qb-icon">🚨</div><div class="qb-text">Acil Radyoloji</div></a>
+      <a class="quick-btn" href="girisimsel.html"><div class="qb-icon">🎯</div><div class="qb-text">Girişimsel</div></a>
+      <a class="quick-btn" href="ayirici.html"><div class="qb-icon">🔍</div><div class="qb-text">Ayırıcı Tanı</div></a>
+      <a class="quick-btn" href="sozluk.html"><div class="qb-icon">📖</div><div class="qb-text">Sözlük</div></a>
     </div>
   </div>
 </main>
@@ -345,6 +419,9 @@ body.light{--bg:#f8fafc;--bg2:#ffffff;--bg3:#e2e8f0;--text:#1e293b;--text2:#6474
     <a href="neurorad.html">NeuroRad</a>
     <a href="abdomenrad.html">AbdomenRad</a>
     <a href="thoraxrad.html">ThoraxRad</a>
+    <a href="fizik.html">Fizik</a>
+    <a href="acil.html">Acil</a>
+    <a href="girisimsel.html">Girişimsel</a>
   </div>
   <p id="footerStats">Toplam: -- hastalık · -- duel · -- sinyal profili</p>
   <p style="margin-top:4px;">Radyoloji asistanları için tasarlandı</p>
