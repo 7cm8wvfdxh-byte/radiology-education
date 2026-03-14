@@ -349,3 +349,306 @@ const DATABASE = [
 {name:"Takayasu Arteriti",region:"Vasküler",findings:["aortic wall thickening","stenosis","aneurysm","concentric thickening","branch vessel involvement"],modality:["BT Anjio","MR Anjio","PET-BT"],keyFeatures:"Aort ve ana dallarında konsantrik duvar kalınlaşması, stenoz/oklüzyon/anevrizma. Genç kadın, nabızsız hastalık.",tag:"important"},
 ];
 
+
+// ============================================================
+// REGIONS
+// ============================================================
+const REGIONS = ["Beyin","Baş-boyun","Toraks","Abdomen","Pelvis","MSK","Vasküler"];
+
+// ============================================================
+// APP STATE
+// ============================================================
+let activeRegion = null;
+let activeFindings = new Set();
+let searchQuery = "";
+let expandedCards = new Set();
+
+// ============================================================
+// INIT
+// ============================================================
+function init() {
+  // Theme
+  const savedTheme = localStorage.getItem("ayirici-theme");
+  if (savedTheme === "light") document.body.classList.add("light");
+  updateThemeIcon();
+
+  // Render
+  renderStats();
+  renderRegionButtons();
+  renderFindingTags();
+  renderResults();
+
+  // Events
+  document.getElementById("themeToggle").addEventListener("click", toggleTheme);
+  document.getElementById("searchInput").addEventListener("input", onSearch);
+  document.getElementById("clearSearch").addEventListener("click", clearSearch);
+  document.getElementById("clearAllFilters").addEventListener("click", clearAllFilters);
+}
+
+// ============================================================
+// THEME
+// ============================================================
+function toggleTheme() {
+  document.body.classList.toggle("light");
+  localStorage.setItem("ayirici-theme", document.body.classList.contains("light") ? "light" : "dark");
+  updateThemeIcon();
+}
+function updateThemeIcon() {
+  document.getElementById("themeIcon").textContent = document.body.classList.contains("light") ? "☀️" : "🌙";
+}
+
+// ============================================================
+// STATS
+// ============================================================
+function renderStats() {
+  document.getElementById("totalCount").textContent = DATABASE.length;
+  const allFindings = new Set();
+  DATABASE.forEach(d => d.findings.forEach(f => allFindings.add(f)));
+  document.getElementById("findingCount").textContent = allFindings.size;
+}
+
+// ============================================================
+// REGION BUTTONS
+// ============================================================
+function renderRegionButtons() {
+  const container = document.getElementById("regionBtns");
+  // "Tümü" button
+  const allBtn = document.createElement("button");
+  allBtn.className = "region-btn" + (activeRegion === null ? " active" : "");
+  allBtn.innerHTML = `Tümü <span class="count">${DATABASE.length}</span>`;
+  allBtn.addEventListener("click", () => { activeRegion = null; renderRegionButtons(); renderFindingTags(); renderResults(); updateActiveFilters(); });
+  container.innerHTML = "";
+  container.appendChild(allBtn);
+
+  REGIONS.forEach(r => {
+    const count = DATABASE.filter(d => d.region === r).length;
+    const btn = document.createElement("button");
+    btn.className = "region-btn" + (activeRegion === r ? " active" : "");
+    btn.innerHTML = `${r} <span class="count">${count}</span>`;
+    btn.addEventListener("click", () => { activeRegion = (activeRegion === r ? null : r); renderRegionButtons(); renderFindingTags(); renderResults(); updateActiveFilters(); });
+    container.appendChild(btn);
+  });
+}
+
+// ============================================================
+// FINDING TAGS
+// ============================================================
+function getAllFindings() {
+  const pool = activeRegion ? DATABASE.filter(d => d.region === activeRegion) : DATABASE;
+  const countMap = {};
+  pool.forEach(d => d.findings.forEach(f => { countMap[f] = (countMap[f] || 0) + 1; }));
+  return Object.entries(countMap).sort((a, b) => b[1] - a[1]);
+}
+
+function renderFindingTags() {
+  const container = document.getElementById("findingTags");
+  container.innerHTML = "";
+  const findings = getAllFindings();
+  findings.forEach(([f, count]) => {
+    const tag = document.createElement("button");
+    tag.className = "finding-tag" + (activeFindings.has(f) ? " active" : "");
+    tag.innerHTML = `${f} <span class="tag-count">${count}</span>`;
+    tag.addEventListener("click", () => {
+      if (activeFindings.has(f)) activeFindings.delete(f); else activeFindings.add(f);
+      renderFindingTags();
+      renderResults();
+      updateActiveFilters();
+    });
+    container.appendChild(tag);
+  });
+}
+
+// ============================================================
+// SEARCH
+// ============================================================
+function onSearch(e) {
+  searchQuery = e.target.value.trim().toLowerCase();
+  document.getElementById("clearSearch").classList.toggle("visible", searchQuery.length > 0);
+  renderResults();
+}
+function clearSearch() {
+  document.getElementById("searchInput").value = "";
+  searchQuery = "";
+  document.getElementById("clearSearch").classList.remove("visible");
+  renderResults();
+}
+
+// ============================================================
+// ACTIVE FILTERS
+// ============================================================
+function updateActiveFilters() {
+  const bar = document.getElementById("activeFilters");
+  const chips = document.getElementById("activeFilterChips");
+  chips.innerHTML = "";
+  let hasFilters = false;
+
+  if (activeRegion) {
+    hasFilters = true;
+    const chip = document.createElement("button");
+    chip.className = "active-filter-chip";
+    chip.innerHTML = `${activeRegion} ✕`;
+    chip.addEventListener("click", () => { activeRegion = null; renderRegionButtons(); renderFindingTags(); renderResults(); updateActiveFilters(); });
+    chips.appendChild(chip);
+  }
+
+  activeFindings.forEach(f => {
+    hasFilters = true;
+    const chip = document.createElement("button");
+    chip.className = "active-filter-chip finding-chip";
+    chip.innerHTML = `${f} ✕`;
+    chip.addEventListener("click", () => { activeFindings.delete(f); renderFindingTags(); renderResults(); updateActiveFilters(); });
+    chips.appendChild(chip);
+  });
+
+  bar.classList.toggle("visible", hasFilters);
+}
+
+function clearAllFilters() {
+  activeRegion = null;
+  activeFindings.clear();
+  searchQuery = "";
+  document.getElementById("searchInput").value = "";
+  document.getElementById("clearSearch").classList.remove("visible");
+  renderRegionButtons();
+  renderFindingTags();
+  renderResults();
+  updateActiveFilters();
+}
+
+// ============================================================
+// FILTERING & SCORING
+// ============================================================
+function getFilteredResults() {
+  let results = DATABASE.map(d => ({ ...d, score: 0 }));
+
+  // Region filter
+  if (activeRegion) {
+    results = results.filter(d => d.region === activeRegion);
+  }
+
+  // Finding filter — must match ALL selected findings, score by count
+  if (activeFindings.size > 0) {
+    results = results.filter(d => {
+      let matchCount = 0;
+      activeFindings.forEach(f => { if (d.findings.includes(f)) matchCount++; });
+      d.score = matchCount;
+      return matchCount > 0;
+    });
+    // Sort: more matches = higher rank
+    results.sort((a, b) => b.score - a.score);
+  }
+
+  // Search filter
+  if (searchQuery) {
+    const q = searchQuery;
+    results = results.filter(d => {
+      const haystack = (d.name + " " + d.findings.join(" ") + " " + d.keyFeatures + " " + d.region + " " + d.modality.join(" ")).toLowerCase();
+      return haystack.includes(q);
+    });
+  }
+
+  // Tag priority if no finding filters
+  if (activeFindings.size === 0 && !searchQuery) {
+    const tagOrder = { critical: 0, important: 1, common: 2 };
+    results.sort((a, b) => (tagOrder[a.tag] ?? 3) - (tagOrder[b.tag] ?? 3));
+  }
+
+  return results;
+}
+
+// ============================================================
+// RENDER RESULTS
+// ============================================================
+function renderResults() {
+  const grid = document.getElementById("resultsGrid");
+  const empty = document.getElementById("emptyState");
+  const countEl = document.getElementById("resultsCount");
+  const results = getFilteredResults();
+
+  countEl.innerHTML = `<strong>${results.length}</strong> tanı bulundu`;
+
+  if (results.length === 0) {
+    grid.innerHTML = "";
+    empty.style.display = "block";
+    return;
+  }
+  empty.style.display = "none";
+
+  grid.innerHTML = results.map((d, i) => {
+    const isExpanded = expandedCards.has(d.name);
+    const matchedFindings = new Set();
+    activeFindings.forEach(f => { if (d.findings.includes(f)) matchedFindings.add(f); });
+
+    const findingPills = d.findings.slice(0, 5).map(f =>
+      `<span class="card-finding-pill${matchedFindings.has(f) ? ' matched' : ''}">${f}</span>`
+    ).join("") + (d.findings.length > 5 ? `<span class="card-finding-pill">+${d.findings.length - 5}</span>` : "");
+
+    const detailFindings = d.findings.map(f =>
+      `<span class="detail-finding${matchedFindings.has(f) ? ' matched' : ''}">${f}</span>`
+    ).join("");
+
+    const modalityBadges = d.modality.map(m => `<span class="modality-badge">${m}</span>`).join("");
+
+    const scoreHtml = activeFindings.size > 0 && d.score > 0 ? `<span class="match-score">${d.score}/${activeFindings.size} eşleşme</span>` : "";
+
+    const tagLabel = d.tag === "critical" ? "Kritik" : d.tag === "important" ? "Önemli" : "Sık";
+
+    return `<div class="result-card${isExpanded ? ' expanded' : ''}" data-name="${d.name}">
+      <div class="card-header" onclick="toggleCard('${d.name.replace(/'/g, "\\'")}')">
+        <span class="card-tag ${d.tag}">${tagLabel}</span>
+        <div class="card-info">
+          <div class="card-name">${highlightMatch(d.name)}</div>
+          <div class="card-region">${d.region} ${scoreHtml}</div>
+          <div class="card-findings-preview">${findingPills}</div>
+        </div>
+        <span class="card-chevron">▼</span>
+      </div>
+      <div class="card-detail">
+        <div class="detail-section">
+          <div class="detail-label">Ayırt Edici Özellikler</div>
+          <div class="detail-text">${highlightMatch(d.keyFeatures)}</div>
+        </div>
+        <div class="detail-section">
+          <div class="detail-label">Tüm Bulgular</div>
+          <div class="detail-findings">${detailFindings}</div>
+        </div>
+        <div class="detail-section">
+          <div class="detail-label">Önerilen Modalite</div>
+          <div>${modalityBadges}</div>
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+function highlightMatch(text) {
+  if (!searchQuery) return text;
+  const regex = new RegExp(`(${searchQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, "gi");
+  return text.replace(regex, '<mark style="background:rgba(59,130,246,0.25);color:var(--accent);border-radius:2px;padding:0 1px;">$1</mark>');
+}
+
+function toggleCard(name) {
+  if (expandedCards.has(name)) expandedCards.delete(name); else expandedCards.add(name);
+  const card = document.querySelector(`.result-card[data-name="${name}"]`);
+  if (card) card.classList.toggle("expanded");
+}
+
+// ============================================================
+// KEYBOARD SHORTCUT
+// ============================================================
+document.addEventListener("keydown", e => {
+  if (e.key === "/" && document.activeElement.tagName !== "INPUT") {
+    e.preventDefault();
+    document.getElementById("searchInput").focus();
+  }
+  if (e.key === "Escape") {
+    document.getElementById("searchInput").blur();
+    clearSearch();
+  }
+});
+
+// Start
+document.addEventListener("DOMContentLoaded", init);
+</script>
+</body>
+</html>

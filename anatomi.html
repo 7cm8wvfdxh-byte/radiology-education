@@ -438,3 +438,186 @@ beyin:[
  pathologies:['Optik sinir gliomu','Retinoblastom','Olfaktor oluk meninjiyomu','Anterior kafa tabani kirigi','Orbital sellulit/apse']
 }
 ],
+basboyin:[
+{id:'bb1',level:1,title:'Orbita Seviyesi',subtitle:'Glob, ekstraokuler kaslar, optik sinir',
+ structures:['Glob (vitreus, lens, retina)','Ekstraokuler kaslar (6 adet)','Optik sinir','Lakrimal gland','Orbita yaglari','Orbital apeks'],
+ clinical:'Ekstraokuler kaslarin kalinlik artisi Graves oftalmopatisinde karakteristiktir. Optik sinir kalinligi artisi papil odem veya optik norit gosterir.',
+ pathologies:['Graves oftalmopati','Orbital sellulite/apse','Optik sinir gliomu','Retinoblastom (cocuk)','Orbital lenfoma','Kavernoz hemanjiom']
+},
+{id:'bb2',level:2,title:'Paranazal Sinusler',subtitle:'Maksiller, etmoid, frontal, sfenoid sinusler',
+ structures:['Maksiller sinusler','Etmoid sinusler (anterior ve posterior)','Frontal sinusler','Sfenoid sinus','Osteomeatal kompleks','Nazal konka ve septum','Nazal kavite'],
+ clinical:'Osteomeatal kompleks tikaniklarinda sinuzit gelisir. Unilateral opak sinus malignitenin ekarte edilmesini gerektirir.',
+ pathologies:['Akut/kronik sinuzit','Mukoseller','Nazal polipozis','Maksiller sinus karsinomu','Inverted papillom','Juvenil nazofaringeal anjiofibrom']
+},
+{id:'bb3',level:3,title:'Temporal Kemik',subtitle:'Orta kulak, ic kulak, mastoid',
+ structures:['Dis kulak yolu (EAC)','Orta kulak kavitesi','Ossikuller (malleus, inkus, stapes)','Koklea','Semisirkuler kanallar','Vestibul','Internal akustik kanal (IAC)','Mastoid hava hucreleri','Tegmen timpani','Fasiyal sinir kanali (CN VII)'],
+ clinical:'Temporal kemik BT orta kulak patolojileri ve kemik erozyonu icin, MR ise IAC ve serebellopontin angle kitlelerinin degerlendirilmesinde kullanilir.',
+ pathologies:['Kolesteatom','Otoskleroz','Akustik norinom (vestibuler schwannom)','Temporal kemik kirigi','Glomus timpanicum/jugulare']
+},
+{id:'bb4',level:4,title:'Nazofarenks ve Kafa Tabani',subtitle:'Nazofarenks, foramen ovale, jugular foramen',
+ structures:['Nazofarenks','Adenoid doku','Torus tubarius','Ostaki tup orifisi','Parafaringeal alan','Foramen ovale','Foramen spinosum','Jugular foramen','Karotis kanali','Klivus'],
+ clinical:'Nazofarenks karsinomu Guneydogu Asyada endemiktir. Kafa tabani foramenlerine erozyon ve invazyon malignite isareti olabilir.',
+ pathologies:['Nazofarenks karsinomu','Kafa tabani kordoma','Juvenil nazofaringeal anjiofibrom','Tornwaldt kisti','Kafa tabani metastazi']
+},
+{id:'bb5',level:5,title:'Oral Kavite ve Orofarenks',subtitle:'Dil, tonsil, sert ve yumusak damak',
+ structures:['Dil (intrinsik ve ekstrinsik kaslar)','Palatin tonsiller','Yumusak damak','Sert damak','Dil kogu','Mandibula','Sublingual alan','Submandibular alan'],
+ clinical:'Orofarenks skuamoz hucreli karsinomu HPV iliskili olabilir. Dil kogu lezyonlarinda yerlesim ve yayilim onemlidir.',
+ pathologies:['Dil karsinomu','Tonsillar karsinom','Ranula','Dermoid/epidermoid kist','Ludwig anjini (sublingual apse)']
+},
+{id:'bb6',level:6,title:'Boyun Kompartmanlari',subtitle:'Karotis, jugular, posterior ucgen',
+ structures:['Karotis kilifi (CCA, ICA, IJV, CN X)','Anterior ucgen','Posterior ucgen','Visseral alan (tiroid, ozofagus, trakea)','Posterior servikal alan','Prevertebral alan','Supraklavikuler fossa','Servikal lenf nodu istasyonlari (Level I-VI)'],
+ clinical:'Boyun kitleleri sistematik olarak kompartman bazli degerlendirilmelidir. Lenf nodu evrelemeleri klinik oneme sahiptir (Level I-VI).',
+ pathologies:['Reaktif lenfadenopati','Metastatik lenf nodu','Lenfoma','Brankial kleft kisti','Karotis body tumor (paraganglioma)','Tiroglossal duktus kisti']
+}
+],
+toraks:[
+{id:'t1',level:1,title:'Torasik Giris (Inlet) Seviyesi',subtitle:'T1-T2 vertebra, trakea, ozofagus',
+ svg:`<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="200" cy="155" rx="160" ry="120" fill="#1a1a2e" stroke="#3b82f6" stroke-width="2"/>
+  <circle cx="200" cy="100" r="18" fill="#334155" stroke="#0ea5e9" stroke-width="2"/>
+  <text x="190" y="104" fill="#0ea5e9" font-size="10">Trakea</text>
+  <ellipse cx="200" cy="130" rx="12" ry="8" fill="#334155" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="218" y="134" fill="#f59e0b" font-size="9">Ozofagus</text>
+  <circle cx="160" cy="105" r="10" fill="#f43f5e" opacity="0.3" stroke="#f43f5e" stroke-width="1.5"/>
+  <text x="130" y="95" fill="#f43f5e" font-size="8">CCA (L)</text>
+  <circle cx="240" cy="105" r="10" fill="#f43f5e" opacity="0.3" stroke="#f43f5e" stroke-width="1.5"/>
+  <text x="252" y="100" fill="#f43f5e" font-size="8">CCA (R)</text>
+  <circle cx="145" cy="105" r="7" fill="#3b82f6" opacity="0.3" stroke="#3b82f6" stroke-width="1"/>
+  <text x="115" y="115" fill="#3b82f6" font-size="8">IJV</text>
+  <circle cx="255" cy="105" r="7" fill="#3b82f6" opacity="0.3" stroke="#3b82f6" stroke-width="1"/>
+  <text x="264" y="110" fill="#3b82f6" font-size="8">IJV</text>
+  <ellipse cx="175" cy="85" rx="18" ry="10" fill="#10b981" opacity="0.3" stroke="#10b981" stroke-width="1"/>
+  <text x="155" y="76" fill="#10b981" font-size="8">Tiroid (L)</text>
+  <ellipse cx="225" cy="85" rx="18" ry="10" fill="#10b981" opacity="0.3" stroke="#10b981" stroke-width="1"/>
+  <text x="215" y="76" fill="#10b981" font-size="8">Tiroid (R)</text>
+  <rect x="180" y="160" width="40" height="30" rx="3" fill="#64748b" opacity="0.3" stroke="#64748b" stroke-width="1"/>
+  <text x="184" y="180" fill="#64748b" font-size="9">Vertebra</text>
+  <text x="85" y="170" fill="#94a3b8" font-size="9">Akciger</text>
+  <text x="85" y="182" fill="#94a3b8" font-size="9">apeksi (L)</text>
+  <text x="275" y="170" fill="#94a3b8" font-size="9">Akciger</text>
+  <text x="275" y="182" fill="#94a3b8" font-size="9">apeksi (R)</text>
+</svg>`,
+ structures:['Trakea','Ozofagus','Common karotid arterler','Internal juguler venler','Tiroid gland','Vertebral arterler','Akciger apeksleri','Sternokleidomastoid kas','Skalen kaslar','T1-T2 vertebral govde'],
+ clinical:'Torasik giris Pancoast tumoru, tiroid patolojileri ve vaskuler anomalilerin degerlendirilmesinde onemlidir.',
+ pathologies:['Pancoast tumoru (superior sulkus)','Tiroid nodulu/karsinom','Retrosternal guatr','Servikal kosta','Subklavian steal sendromu']
+},
+{id:'t2',level:2,title:'Aortik Ark Seviyesi',subtitle:'Arkus aorta, SVC, buyuk damarlar',
+ svg:`<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="200" cy="155" rx="165" ry="120" fill="#1a1a2e" stroke="#3b82f6" stroke-width="2"/>
+  <path d="M 160 100 Q 160 70 200 70 Q 240 70 240 100" fill="none" stroke="#f43f5e" stroke-width="3"/>
+  <text x="170" y="60" fill="#f43f5e" font-size="11" font-weight="bold">Aortik Ark</text>
+  <circle cx="250" cy="90" r="14" fill="#3b82f6" opacity="0.3" stroke="#3b82f6" stroke-width="2"/>
+  <text x="268" y="90" fill="#3b82f6" font-size="9">SVC</text>
+  <circle cx="200" cy="120" r="14" fill="#334155" stroke="#0ea5e9" stroke-width="1.5"/>
+  <text x="190" y="124" fill="#0ea5e9" font-size="9">Trakea</text>
+  <ellipse cx="200" cy="150" rx="10" ry="7" fill="#334155" stroke="#f59e0b" stroke-width="1"/>
+  <text x="214" y="154" fill="#f59e0b" font-size="9">Ozofagus</text>
+  <line x1="175" y1="68" x2="175" y2="50" stroke="#f43f5e" stroke-width="1.5"/>
+  <text x="145" y="48" fill="#f43f5e" font-size="8">Brakiosefalik</text>
+  <line x1="200" y1="68" x2="200" y2="48" stroke="#f43f5e" stroke-width="1.5"/>
+  <text x="193" y="45" fill="#f43f5e" font-size="8">L CCA</text>
+  <line x1="220" y1="68" x2="225" y2="48" stroke="#f43f5e" stroke-width="1.5"/>
+  <text x="225" y="45" fill="#f43f5e" font-size="8">L subkl.</text>
+  <rect x="180" y="180" width="40" height="30" rx="3" fill="#64748b" opacity="0.3" stroke="#64748b" stroke-width="1"/>
+  <text x="184" y="200" fill="#64748b" font-size="9">Vertebra</text>
+  <text x="60" y="155" fill="#94a3b8" font-size="10">Sol akciger</text>
+  <text x="280" y="155" fill="#94a3b8" font-size="10">Sag akciger</text>
+  <rect x="130" y="90" width="20" height="30" rx="3" fill="#10b981" opacity="0.2" stroke="#10b981" stroke-width="1"/>
+  <text x="100" y="100" fill="#10b981" font-size="8">Asend.</text>
+  <text x="100" y="110" fill="#10b981" font-size="8">aorta</text>
+  <rect x="250" y="120" width="20" height="30" rx="3" fill="#8b5cf6" opacity="0.2" stroke="#8b5cf6" stroke-width="1"/>
+  <text x="272" y="140" fill="#8b5cf6" font-size="8">Desend.</text>
+  <text x="272" y="150" fill="#8b5cf6" font-size="8">aorta</text>
+</svg>`,
+ structures:['Arkus aorta','Asendan aorta','Desendan aorta','Brakiosefalik arter (trunkus)','Sol common karotid arter','Sol subklavian arter','Superior vena kava (SVC)','Trakea','Ozofagus','Anterior mediastinal yag dokusu'],
+ clinical:'Aortik ark anomalileri (aberrant sag subklavian arter, cift aortik ark) disfonaji ve stridora neden olabilir. Aort diseksiyonu bu seviyede klasifiye edilir (Stanford A/B).',
+ pathologies:['Aort diseksiyonu','Aort anevrizması','Mediastinal lenfadenopati','Timoma (anterior mediasten)','Vaskuler ring anomalileri']
+},
+{id:'t3',level:3,title:'Aortopulmoner Pencere Seviyesi',subtitle:'AP window, pulmoner arter bifurkasyonu',
+ svg:`<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="200" cy="155" rx="165" ry="120" fill="#1a1a2e" stroke="#3b82f6" stroke-width="2"/>
+  <circle cx="165" cy="100" r="18" fill="#f43f5e" opacity="0.25" stroke="#f43f5e" stroke-width="2"/>
+  <text x="145" y="80" fill="#f43f5e" font-size="9">Asendan Ao</text>
+  <circle cx="240" cy="120" r="14" fill="#8b5cf6" opacity="0.25" stroke="#8b5cf6" stroke-width="2"/>
+  <text x="258" y="118" fill="#8b5cf6" font-size="9">Desend. Ao</text>
+  <path d="M 170 120 Q 200 130 230 115" fill="#f59e0b" opacity="0.2" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="178" y="140" fill="#f59e0b" font-size="9">AP pencere</text>
+  <circle cx="195" cy="108" r="12" fill="#10b981" opacity="0.25" stroke="#10b981" stroke-width="2"/>
+  <text x="175" y="96" fill="#10b981" font-size="9">Pulmoner arter</text>
+  <circle cx="255" cy="90" r="10" fill="#3b82f6" opacity="0.3" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="268" y="88" fill="#3b82f6" font-size="8">SVC</text>
+  <text x="195" y="165" fill="#0ea5e9" font-size="9">Trakea bifurkasyonu</text>
+  <circle cx="200" cy="155" r="10" fill="#334155" stroke="#0ea5e9" stroke-width="1.5"/>
+  <text x="60" y="160" fill="#94a3b8" font-size="10">Sol akciger</text>
+  <text x="280" y="160" fill="#94a3b8" font-size="10">Sag akciger</text>
+  <rect x="180" y="190" width="40" height="25" rx="3" fill="#64748b" opacity="0.3" stroke="#64748b" stroke-width="1"/>
+</svg>`,
+ structures:['Aortopulmoner pencere','Asendan aorta','Desendan aorta','Ana pulmoner arter','SVC','Trakea bifurkasyonu (karina yakin)','AP pencere lenf nodlari','Sol rekurren laringeal sinir','Ozofagus'],
+ clinical:'AP pencere lenf nodlari akciger kanserinde evrelemede onemlidir (N2 istasyonu). 10 mm ustu patolojik kabul edilir.',
+ pathologies:['Lenf nodu metastazi (akciger Ca)','Lenfoma','Duktus arteriosus anevrizması','Pulmoner arter hipertansiyonu','Sol rekurren laringeal sinir paralizisi']
+},
+{id:'t4',level:4,title:'Karina Seviyesi',subtitle:'Trakea bifurkasyonu, ana bronkuslar',
+ svg:`<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="200" cy="155" rx="165" ry="120" fill="#1a1a2e" stroke="#3b82f6" stroke-width="2"/>
+  <path d="M 200 80 L 160 120 M 200 80 L 240 120" stroke="#0ea5e9" stroke-width="3" fill="none"/>
+  <circle cx="200" cy="80" r="12" fill="#334155" stroke="#0ea5e9" stroke-width="2"/>
+  <text x="215" y="75" fill="#0ea5e9" font-size="10" font-weight="bold">Karina</text>
+  <text x="110" y="125" fill="#0ea5e9" font-size="9">Sol ana</text>
+  <text x="110" y="135" fill="#0ea5e9" font-size="9">bronkus</text>
+  <text x="250" y="125" fill="#0ea5e9" font-size="9">Sag ana</text>
+  <text x="250" y="135" fill="#0ea5e9" font-size="9">bronkus</text>
+  <circle cx="155" cy="95" r="18" fill="#f43f5e" opacity="0.25" stroke="#f43f5e" stroke-width="2"/>
+  <text x="130" y="80" fill="#f43f5e" font-size="9">Asendan Ao</text>
+  <circle cx="240" cy="130" r="14" fill="#8b5cf6" opacity="0.25" stroke="#8b5cf6" stroke-width="1.5"/>
+  <text x="260" y="135" fill="#8b5cf6" font-size="8">Desc. Ao</text>
+  <circle cx="185" cy="105" r="10" fill="#10b981" opacity="0.3" stroke="#10b981" stroke-width="1.5"/>
+  <text x="175" y="106" fill="#10b981" font-size="7">RPA</text>
+  <circle cx="210" cy="105" r="10" fill="#10b981" opacity="0.3" stroke="#10b981" stroke-width="1.5"/>
+  <text x="200" y="106" fill="#10b981" font-size="7">LPA</text>
+  <circle cx="260" cy="85" r="10" fill="#3b82f6" opacity="0.3" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="272" y="82" fill="#3b82f6" font-size="8">SVC</text>
+  <ellipse cx="200" cy="135" rx="10" ry="7" fill="#334155" stroke="#f59e0b" stroke-width="1"/>
+  <text x="212" y="145" fill="#f59e0b" font-size="8">Ozofagus</text>
+  <text x="55" y="180" fill="#94a3b8" font-size="10">Sol akciger</text>
+  <text x="280" y="180" fill="#94a3b8" font-size="10">Sag akciger</text>
+  <rect x="180" y="190" width="40" height="25" rx="3" fill="#64748b" opacity="0.3" stroke="#64748b" stroke-width="1"/>
+  <text x="150" y="115" fill="#f59e0b" font-size="8">Subkarinal LN</text>
+</svg>`,
+ structures:['Karina (trakea bifurkasyonu)','Sag ana bronkus','Sol ana bronkus','Subkarinal lenf nodlari','Asendan aorta','Desendan aorta','Sag ve sol pulmoner arterler','SVC','Ozofagus','Azigos ven'],
+ clinical:'Karina acisi normalde 60-70 derecedir. Subkarinal lenfadenopati karina acisini acarak basi etkisi yaratir. Karina seviyesi endobronsiyal lezyonlarin degerlendirilmesinde referans noktasidir.',
+ pathologies:['Subkarinal lenfadenopati','Bronkojenik karsinom','Ozofagus karsinomu','Bronkojenik kist','Sarkoidoz (bilateral hiler LAP)']
+},
+{id:'t5',level:5,title:'Kalp Seviyesi (4 Odacik)',subtitle:'Atriyumlar, ventrikuller, koroner sinusler',
+ svg:`<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="200" cy="155" rx="165" ry="120" fill="#1a1a2e" stroke="#3b82f6" stroke-width="2"/>
+  <rect x="130" y="80" width="65" height="55" rx="8" fill="#f43f5e" opacity="0.2" stroke="#f43f5e" stroke-width="2"/>
+  <text x="138" y="110" fill="#f43f5e" font-size="10" font-weight="bold">RV</text>
+  <rect x="200" y="80" width="65" height="55" rx="8" fill="#10b981" opacity="0.2" stroke="#10b981" stroke-width="2"/>
+  <text x="220" y="110" fill="#10b981" font-size="10" font-weight="bold">LV</text>
+  <rect x="130" y="140" width="65" height="40" rx="8" fill="#f59e0b" opacity="0.2" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="148" y="165" fill="#f59e0b" font-size="10">RA</text>
+  <rect x="200" y="140" width="65" height="40" rx="8" fill="#8b5cf6" opacity="0.2" stroke="#8b5cf6" stroke-width="1.5"/>
+  <text x="218" y="165" fill="#8b5cf6" font-size="10">LA</text>
+  <line x1="197" y1="80" x2="197" y2="180" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="175" y="75" fill="#e2e8f0" font-size="8">IVS</text>
+  <line x1="130" y1="137" x2="265" y2="137" stroke="#e2e8f0" stroke-width="1.5"/>
+  <circle cx="285" cy="145" r="12" fill="#8b5cf6" opacity="0.2" stroke="#8b5cf6" stroke-width="1"/>
+  <text x="300" y="145" fill="#8b5cf6" font-size="8">Desc Ao</text>
+  <text x="55" y="130" fill="#94a3b8" font-size="10">Sag akciger</text>
+  <text x="280" y="100" fill="#94a3b8" font-size="9">Sol</text>
+  <text x="280" y="112" fill="#94a3b8" font-size="9">akciger</text>
+  <text x="140" y="200" fill="#06b6d4" font-size="8">Koroner sinus</text>
+  <path d="M 160 185 Q 200 195 240 185" fill="none" stroke="#06b6d4" stroke-width="1.5"/>
+  <rect x="180" y="215" width="40" height="25" rx="3" fill="#64748b" opacity="0.3" stroke="#64748b" stroke-width="1"/>
+  <text x="185" y="232" fill="#64748b" font-size="8">Vertebra</text>
+</svg>`,
+ structures:['Sag ventrikul (RV)','Sol ventrikul (LV)','Sag atriyum (RA)','Sol atriyum (LA)','Interventrikuler septum (IVS)','Desendan aorta','Koroner sinus','Perikard','Pulmoner venler','Akciger alt loblari'],
+ clinical:'Kalp odacik boyutlari, perikardial effuzyon, miyokardiyal kalinlik bu seviyede degerlendirilir. Sol ventrikul duvar kalinligi normalde 10-12 mm.',
+ pathologies:['Perikardial effuzyon','Miyokard hipertrofisi','Dilate kardiyomiyopati','Kardiyak kitle (miksoma, trombus)','Koroner arter kalsifikasyonu']
+},
+{id:'t6',level:6,title:'Diyafragma Seviyesi',subtitle:'Hiatuslar, diyafragma kruslari',
+ structures:['Diyafragma','Ozofageal hiatus','Aortik hiatus','Kaval hiatus (IVC)','Diyafragma kruslari','Kosta-frenik sinusler','Akciger bazal segmentleri','Karaciger kubbesi','Dalak ust kolu'],
+ clinical:'Diyafragma hiatuslari herni icin risk olusturur. Hiatuslardan gecen yapilar: Aortik hiatus (T12) - aort, torasik duktus; Ozofageal hiatus (T10) - ozofagus, vagus; Kaval hiatus (T8) - IVC.',
+ pathologies:['Hiatal herni','Diyafragma eventrasyonu','Diyafragma rupturu (travma)','Bochdalek hernisi','Morgagni hernisi']
+}
+],
